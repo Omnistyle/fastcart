@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7754D8F04085DF232D25DE55ABFB8F0B"
+               BlueprintIdentifier = "4C87C6AD3FABDBA71334DCC6739EEE79"
                BuildableName = "Pods_FastCart.framework"
                BlueprintName = "Pods-FastCart"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7754D8F04085DF232D25DE55ABFB8F0B"
+            BlueprintIdentifier = "4C87C6AD3FABDBA71334DCC6739EEE79"
             BuildableName = "Pods_FastCart.framework"
             BlueprintName = "Pods-FastCart"
             ReferencedContainer = "container:Pods.xcodeproj">

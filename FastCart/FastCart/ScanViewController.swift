@@ -76,8 +76,8 @@ class ScanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("loaded")
         // Do any additional setup after loading the view, typically from a nib.
+        print("loaded")
         
         
     }
@@ -85,7 +85,6 @@ class ScanViewController: UIViewController {
     
     @IBAction func onScanButtonPress(_ sender: Any) {
         // check to see if camera usage is authorized
-        print("scanning")
         if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) ==  AVAuthorizationStatus.authorized
         {
             // Already Authorized
