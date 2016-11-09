@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */; };
-		7F28EEFF1DD10EDE0084410B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EEFE1DD10EDE0084410B /* ViewController.swift */; };
 		7F28EF021DD10EDE0084410B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF001DD10EDE0084410B /* Main.storyboard */; };
 		7F28EF041DD10EDE0084410B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF031DD10EDE0084410B /* Assets.xcassets */; };
 		7F28EF071DD10EDE0084410B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF051DD10EDE0084410B /* LaunchScreen.storyboard */; };
@@ -16,6 +15,7 @@
 		7F28EF131DD11E8C0084410B /* MBTBarcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EF121DD11E8C0084410B /* MBTBarcodeScanner.swift */; };
 		7FF055F61DD126BD00434F2A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F51DD126BD00434F2A /* Product.swift */; };
 		7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */; };
+		7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F91DD13A4F00434F2A /* ScanViewController.swift */; };
 		ACC6C9429712F28ADED566B4 /* Pods_FastCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833877CC0F35B9D2BDECA1A2 /* Pods_FastCart.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +23,6 @@
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
 		7F28EEF91DD10EDE0084410B /* FastCart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastCart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7F28EEFE1DD10EDE0084410B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7F28EF011DD10EDE0084410B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F28EF031DD10EDE0084410B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F28EF061DD10EDE0084410B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +31,7 @@
 		7F28EF121DD11E8C0084410B /* MBTBarcodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTBarcodeScanner.swift; sourceTree = "<group>"; };
 		7FF055F51DD126BD00434F2A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		7FF055F91DD13A4F00434F2A /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		833877CC0F35B9D2BDECA1A2 /* Pods_FastCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEE2BE5F8F8264E6EAC8AD4F /* Pods-FastCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,10 +78,10 @@
 		7F28EEFB1DD10EDE0084410B /* FastCart */ = {
 			isa = PBXGroup;
 			children = (
+				7FF055F91DD13A4F00434F2A /* ScanViewController.swift */,
 				7FF055F41DD1268000434F2A /* Models */,
 				7F28EF0F1DD114E70084410B /* Api */,
 				7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */,
-				7F28EEFE1DD10EDE0084410B /* ViewController.swift */,
 				7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */,
 				7F28EF121DD11E8C0084410B /* MBTBarcodeScanner.swift */,
 				7F28EF001DD10EDE0084410B /* Main.storyboard */,
@@ -240,12 +240,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F28EEFF1DD10EDE0084410B /* ViewController.swift in Sources */,
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
 				7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */,
 				7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */,
 				7F28EF131DD11E8C0084410B /* MBTBarcodeScanner.swift in Sources */,
+				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +370,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEE2BE5F8F8264E6EAC8AD4F /* Pods-FastCart.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
@@ -384,6 +385,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;

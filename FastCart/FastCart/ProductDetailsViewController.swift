@@ -10,10 +10,12 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
 
+   
     var product: Product?
     @IBOutlet weak var nameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(product?.productName)
         if product != nil {
             nameLabel.text = product?.productName as String?
         }
@@ -25,7 +27,13 @@ class ProductDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func onCancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func onAddButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
