@@ -1,0 +1,15 @@
+PODS:
+  - BarcodeScanner (2.0.0)
+  - MTBBarcodeScanner (3.1.0)
+
+DEPENDENCIES:
+  - BarcodeScanner
+  - MTBBarcodeScanner
+
+SPEC CHECKSUMS:
+  BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
+  MTBBarcodeScanner: 6d397077f1a4a886050df8e66584a59a1dc429e7
+
+PODFILE CHECKSUM: d1c6d7cea641be3aa84b99c69496f77772e2f4d5
+
+COCOAPODS: 1.1.1
