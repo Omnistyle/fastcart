@@ -36,8 +36,8 @@ class Review:
 class Product
   - upc: Int
   - name: String
-  - description: String
-  - image: Image
+  - overview: String
+  - image: URL
   - store: Store
   - salePrice: Double
   - brandName: String
