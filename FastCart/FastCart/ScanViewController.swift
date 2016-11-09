@@ -14,26 +14,16 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
     func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
         print(code)
         // perform network request
-        print("getting here")
         WalmartClient.sharedInstance.getProductWithUPC(upc: code, success: { (products: [Product]) in
             // save product and present correct view
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            // this works
-//            let productDetailsNavigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
-//            let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
-//            productDetailsViewController.product = products[0]
-//            print("product\(products)")
-//            self.present(productDetailsViewController, animated: true, completion: nil)
-//            
             // try this
             let productDetailsNavigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
             let productDetailsViewController = productDetailsNavigationController.topViewController as! ProductDetailsViewController
             productDetailsViewController.product = products[0]
             print("product\(products)")
             self.present(productDetailsNavigationController, animated: true, completion: nil)
-            
-//            self.present(productDetailsViewController, animated: true, completion: nil)
             
         }, failure: {(error: Error) -> () in
             print(error.localizedDescription)
@@ -62,7 +52,26 @@ extension ScanViewController: BarcodeScannerDismissalDelegate {
 
 class ScanViewController: UIViewController {
     var product: Product?
-
+    
+    
+    @IBAction func onFakeScanButtonPress(_ sender: Any) {
+        let code = "787651241531"
+        WalmartClient.sharedInstance.getProductWithUPC(upc: code, success: { (products: [Product]) in
+            // save product and present correct view
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // try this
+            let productDetailsNavigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
+            let productDetailsViewController = productDetailsNavigationController.topViewController as! ProductDetailsViewController
+            productDetailsViewController.product = products[0]
+            print("product\(products)")
+            self.present(productDetailsNavigationController, animated: true, completion: nil)
+            
+        }, failure: {(error: Error) -> () in
+            print(error.localizedDescription)
+        })
+    
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
