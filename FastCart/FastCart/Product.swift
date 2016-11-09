@@ -22,17 +22,6 @@ class Product: NSObject {
     var recommended: [Product]?
     var freeShipToStore: Bool?
     var addToCartUrl: URL?
-    
-//        var timestamp: NSDate?
-//        var retweetCount: Int = 0
-//        var favoritesCount: Int = 0
-//        var user: User?
-//        var userImage: UIImage?
-//        var name: NSString?
-//        var id: NSString?
-//        var dateStr: String?
-    
-        // var personallyRetweeted: Bool?
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -70,14 +59,9 @@ class Product: NSObject {
             self.image = URL(string: imageString)
         }
         store = Store(id: "Walmart")
-//        salePrice = Double(dictionary[""])
-//        var brandName: String?
-//        var averageRating: Double?
-//        var color: String?
-//        var size: String?
-//        var recommended: [Product]?
-//        var freeShipToStore: Bool?
-        
+        if let salePriceString = dictionary[""] as? String {
+            salePrice = Double(salePriceString)
+        }
     }
     
     class func productsWithArray(dictionaries: [NSDictionary]) -> [Product]{
