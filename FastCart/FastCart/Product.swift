@@ -10,16 +10,6 @@ import UIKit
 
 class Product: NSObject {
     var productName: NSString?
-//        var timestamp: NSDate?
-//        var retweetCount: Int = 0
-//        var favoritesCount: Int = 0
-//        var user: User?
-//        var userImage: UIImage?
-//        var name: NSString?
-//        var id: NSString?
-//        var dateStr: String?
-    
-        // var personallyRetweeted: Bool?
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
