@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MTBBarcodeScanner
 import AVFoundation
 import BarcodeScanner
 
