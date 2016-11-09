@@ -1,12 +1,29 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - BarcodeScanner (2.0.0)
 
 DEPENDENCIES:
+  - AFNetworking
   - BarcodeScanner
 
 SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
 
-PODFILE CHECKSUM: f66ca2c0d9ef6010c4dd78c826225d1a453cab70
+PODFILE CHECKSUM: 71a68a183b69fddc656a9a7dfe63a7317be489ed
 
 COCOAPODS: 1.1.1

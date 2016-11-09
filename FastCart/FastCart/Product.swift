@@ -16,12 +16,13 @@ class Product: NSObject {
     var store: Store?
     var salePrice: Double?
     var brandName: String?
-    var averageRating: Double?
+    var averageRating: String?
     var color: String?
     var size: String?
     var recommended: [Product]?
     var freeShipToStore: Bool?
     var addToCartUrl: URL?
+    var category: String?
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -59,9 +60,16 @@ class Product: NSObject {
             self.image = URL(string: imageString)
         }
         store = Store(id: "Walmart")
-        if let salePriceString = dictionary[""] as? String {
-            salePrice = Double(salePriceString)
+        // round to two decimals
+        if let salePriceDouble = dictionary["salePrice"] as? Double {
+            salePrice = round(salePriceDouble * 100)/100
         }
+        brandName = dictionary["brandName"] as? String
+        averageRating = dictionary["customerRating"] as? String
+        color = dictionary["color"] as? String
+        category = dictionary["categoryPath"] as? String
+        size = dictionary["size"] as? String
+        freeShipToStore =  dictionary["freeShipToStore"] as? Bool
     }
     
     class func productsWithArray(dictionaries: [NSDictionary]) -> [Product]{

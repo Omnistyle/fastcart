@@ -7,17 +7,26 @@
 //
 
 import UIKit
+import AFNetworking
 
 class ProductDetailsViewController: UIViewController {
-
    
     var product: Product?
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var descriptionContainerView: UIView!
+    @IBOutlet weak var productImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(product?.name)
-        if product != nil {
-            nameLabel.text = product?.name as String?
+        nameLabel.text = product?.name ?? ""
+        descriptionLabel.text = product?.overview ?? ""
+        if let salePrice = product?.salePrice {
+            priceLabel.text = "$" + String(describing: salePrice)
+        }
+        if let imageUrl = product?.image {
+            productImageView.setImageWith(imageUrl)
         }
         // Do any additional setup after loading the view.
     }

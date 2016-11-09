@@ -5,7 +5,8 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,7 +74,7 @@
             </objects>
             <point key="canvasLocation" x="2116" y="26.53673163418291"/>
         </scene>
-        <!--Product Name-->
+        <!--Product-->
         <scene sceneID="kVX-HV-au5">
             <objects>
                 <viewController storyboardIdentifier="ProductDetailsViewController" id="pOY-h3-HVx" customClass="ProductDetailsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
@@ -85,38 +86,110 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tav-WP-ezF">
-                                <rect key="frame" x="28" y="72" width="112" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J3J-ne-pll">
+                                <rect key="frame" x="0.0" y="64" width="375" height="431"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J3J-ne-pll" secondAttribute="height" multiplier="375:431" id="xkP-B8-9iV"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfU-T0-oge">
+                                <rect key="frame" x="0.0" y="466" width="375" height="201"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Daystarter Dress Shirt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3e-ub-gEa">
+                                        <rect key="frame" x="20" y="20" width="206" height="25"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="$95" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEW-jh-ek9">
+                                        <rect key="frame" x="319" y="20" width="36" height="25"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMa-E6-B9j">
+                                        <rect key="frame" x="20" y="57" width="335" height="64.5"/>
+                                        <string key="text">From marathon meetings to running actual marathons (it’s been done), the Daystarter is as classic as it is high performance. Formerly known as Archive.</string>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="C3e-ub-gEa" firstAttribute="leading" secondItem="kfU-T0-oge" secondAttribute="leading" constant="20" id="FA4-k9-CI3"/>
+                                    <constraint firstItem="RMa-E6-B9j" firstAttribute="leading" secondItem="C3e-ub-gEa" secondAttribute="leading" id="QQy-rd-MZG"/>
+                                    <constraint firstItem="hEW-jh-ek9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C3e-ub-gEa" secondAttribute="trailing" constant="20" id="RNo-79-myU"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-E6-B9j" secondAttribute="bottom" constant="8" id="gI8-lU-joW"/>
+                                    <constraint firstAttribute="height" constant="201" id="io8-4r-fkh"/>
+                                    <constraint firstAttribute="trailing" secondItem="RMa-E6-B9j" secondAttribute="trailing" constant="20" id="jF9-Tn-xDK"/>
+                                    <constraint firstItem="hEW-jh-ek9" firstAttribute="top" secondItem="C3e-ub-gEa" secondAttribute="top" id="otW-Ib-U9Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="hEW-jh-ek9" secondAttribute="trailing" constant="20" id="qJo-eL-5Iz"/>
+                                    <constraint firstItem="C3e-ub-gEa" firstAttribute="top" secondItem="kfU-T0-oge" secondAttribute="top" constant="20" id="ubA-Ee-d3x"/>
+                                    <constraint firstItem="RMa-E6-B9j" firstAttribute="top" secondItem="C3e-ub-gEa" secondAttribute="bottom" constant="12" id="vVq-Ec-QDY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tav-WP-ezF" firstAttribute="top" secondItem="XpA-nu-pI3" secondAttribute="bottom" constant="8" id="g7n-6o-hOs"/>
-                            <constraint firstItem="tav-WP-ezF" firstAttribute="leading" secondItem="P5f-ph-51V" secondAttribute="leadingMargin" constant="12" id="kr9-kv-9a0"/>
+                            <constraint firstItem="kfU-T0-oge" firstAttribute="leading" secondItem="P5f-ph-51V" secondAttribute="leading" id="1dd-r4-x7b"/>
+                            <constraint firstItem="J3J-ne-pll" firstAttribute="top" secondItem="XpA-nu-pI3" secondAttribute="bottom" id="6lg-d4-vYU"/>
+                            <constraint firstItem="J3J-ne-pll" firstAttribute="top" secondItem="XpA-nu-pI3" secondAttribute="bottom" id="GBg-p7-9bu"/>
+                            <constraint firstAttribute="trailing" secondItem="kfU-T0-oge" secondAttribute="trailing" id="Gia-8B-kGp"/>
+                            <constraint firstAttribute="trailing" secondItem="J3J-ne-pll" secondAttribute="trailing" id="J57-Xu-T6m"/>
+                            <constraint firstAttribute="bottom" secondItem="kfU-T0-oge" secondAttribute="bottom" id="RGi-re-trw"/>
+                            <constraint firstAttribute="trailing" secondItem="J3J-ne-pll" secondAttribute="trailing" id="Wpe-zb-xmz"/>
+                            <constraint firstItem="J3J-ne-pll" firstAttribute="leading" secondItem="P5f-ph-51V" secondAttribute="leading" id="qpU-Cr-DUU"/>
+                            <constraint firstItem="J3J-ne-pll" firstAttribute="leading" secondItem="P5f-ph-51V" secondAttribute="leading" id="u1X-xq-kMw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Product Name" id="zSK-Lv-Nyx">
+                    <navigationItem key="navigationItem" title="Product" id="zSK-Lv-Nyx">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="Wns-As-xBf">
                             <connections>
                                 <action selector="onCancelButton:" destination="pOY-h3-HVx" id="n0w-Hd-h8L"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add to Cart" id="guB-CI-vem">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="guB-CI-vem">
                             <connections>
                                 <action selector="onAddButton:" destination="pOY-h3-HVx" id="Ybo-kd-Mld"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="nameLabel" destination="tav-WP-ezF" id="TEz-GW-KvB"/>
+                        <outlet property="descriptionContainerView" destination="kfU-T0-oge" id="fyQ-ya-0OW"/>
+                        <outlet property="descriptionLabel" destination="RMa-E6-B9j" id="FR0-AL-vjd"/>
+                        <outlet property="nameLabel" destination="C3e-ub-gEa" id="NY1-IY-ytt"/>
+                        <outlet property="priceLabel" destination="hEW-jh-ek9" id="m0T-h2-zNm"/>
+                        <outlet property="productImageView" destination="J3J-ne-pll" id="EPr-CX-cSX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ADp-ad-vFi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3633" y="27"/>
+            <point key="canvasLocation" x="3632.8000000000002" y="26.53673163418291"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qdW-Fy-xtI">
+            <objects>
+                <viewController id="Yvu-PX-BYL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I6d-5r-gMs"/>
+                        <viewControllerLayoutGuide type="bottom" id="c8f-Za-09j"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S9D-sw-pg2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Details page" translatesAutoresizingMaskIntoConstraints="NO" id="U6N-Aj-Hn8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="659"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLw-h2-8iS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4344.8000000000002" y="26.53673163418291"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="lr9-NT-ORd">
@@ -376,4 +449,7 @@
             <point key="canvasLocation" x="2876" y="27"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Details page" width="636" height="1131"/>
+    </resources>
 </document>
