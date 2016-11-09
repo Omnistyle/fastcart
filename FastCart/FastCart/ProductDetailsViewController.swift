@@ -15,9 +15,9 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(product?.productName)
+        print(product?.name)
         if product != nil {
-            nameLabel.text = product?.productName as String?
+            nameLabel.text = product?.name as String?
         }
         // Do any additional setup after loading the view.
     }

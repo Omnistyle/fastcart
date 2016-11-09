@@ -16,6 +16,7 @@
 		7FF055F61DD126BD00434F2A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F51DD126BD00434F2A /* Product.swift */; };
 		7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */; };
 		7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F91DD13A4F00434F2A /* ScanViewController.swift */; };
+		7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055FB1DD2DD1200434F2A /* Store.swift */; };
 		ACC6C9429712F28ADED566B4 /* Pods_FastCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833877CC0F35B9D2BDECA1A2 /* Pods_FastCart.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		7FF055F51DD126BD00434F2A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		7FF055F91DD13A4F00434F2A /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		7FF055FB1DD2DD1200434F2A /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		833877CC0F35B9D2BDECA1A2 /* Pods_FastCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEE2BE5F8F8264E6EAC8AD4F /* Pods-FastCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF055F51DD126BD00434F2A /* Product.swift */,
+				7FF055FB1DD2DD1200434F2A /* Store.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */,
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
 				7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */,
