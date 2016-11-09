@@ -80,9 +80,9 @@ class Receipt
   1. walmart API
   2. scan the product 
   3. returns a fake product even if cancel was clicked
-- Product Details
-  1. 
- - Current/History
-  1. 
+- Product Details (Luis)
+  1. Display the current cart in list form with fake products (ability to add)
+  2. Implement rudimentary history functionality (display)
+  3. Integrate history with Parse
 
 
