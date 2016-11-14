@@ -39,21 +39,18 @@ PODS:
   - Braintree/UI (4.7.1):
     - Braintree/Card
     - Braintree/Core
-  - MTBBarcodeScanner (3.1.0)
 
 DEPENDENCIES:
   - AFNetworking
   - BarcodeScanner
   - Braintree
   - Braintree/Apple-Pay
-  - MTBBarcodeScanner
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Braintree: c57bcb7983412530ea6d71cee4b99a4ba316c4ef
-  MTBBarcodeScanner: 6d397077f1a4a886050df8e66584a59a1dc429e7
 
-PODFILE CHECKSUM: 518094096e0a4000145341fb542d9a69dc6863b4
+PODFILE CHECKSUM: f2f453d1939844218ababf44fadff82f932313f0
 
 COCOAPODS: 1.1.1

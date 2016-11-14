@@ -23,7 +23,7 @@ class Receipt: NSObject {
     var total: Double = 0.0
     
     // If nil, the receipt has no store.
-    // var store: Store?
+    var store: Store?
 
     // The amount of tax charged for this receipt.
     var tax: Double = 0.0
@@ -32,7 +32,7 @@ class Receipt: NSObject {
     var subTotal: Double = 0.0
     
     // The payment method used to pay for this receipt, if paid.
-    // var payment: Payment?
+    var payment: Payment?
     
     // Whether or not the receipt has been paid for.
     var paid: Bool = false

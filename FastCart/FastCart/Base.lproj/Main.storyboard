@@ -232,15 +232,86 @@
             </objects>
             <point key="canvasLocation" x="1177" y="-639"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="6li-Nr-zGE">
+            <objects>
+                <viewController id="m8k-b0-9Yo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ec6-At-tjd"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wez-ZN-OBZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MFW-Qb-z1h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hai-93-Rvi" userLabel="TabBar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GW9-Sh-oLB">
+                                        <rect key="frame" x="67" y="22" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="History"/>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTF-bR-RDb">
+                                        <rect key="frame" x="270" y="22" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cart"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="xQw-gC-kLb"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyu-8w-7Zy" userLabel="ContentView">
+                                <rect key="frame" x="0.0" y="139" width="375" height="479"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wyu-8w-7Zy" firstAttribute="leading" secondItem="MFW-Qb-z1h" secondAttribute="leading" id="AUm-ba-lWb"/>
+                            <constraint firstItem="Hai-93-Rvi" firstAttribute="top" secondItem="ec6-At-tjd" secondAttribute="bottom" id="KXm-Z7-flZ"/>
+                            <constraint firstAttribute="trailing" secondItem="wyu-8w-7Zy" secondAttribute="trailing" id="ObV-xp-rk5"/>
+                            <constraint firstItem="Wez-ZN-OBZ" firstAttribute="top" secondItem="wyu-8w-7Zy" secondAttribute="bottom" id="ToL-ny-ClH"/>
+                            <constraint firstAttribute="trailing" secondItem="Hai-93-Rvi" secondAttribute="trailing" id="f2S-yO-Noe"/>
+                            <constraint firstItem="Hai-93-Rvi" firstAttribute="leading" secondItem="MFW-Qb-z1h" secondAttribute="leading" id="reS-6c-12g"/>
+                            <constraint firstItem="wyu-8w-7Zy" firstAttribute="top" secondItem="Hai-93-Rvi" secondAttribute="bottom" id="vWa-3N-Z0M"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="BSx-R7-3EP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ax-oR-o37" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2876" y="715"/>
+        </scene>
         <!--Lists-->
         <scene sceneID="DoC-gq-gwk">
             <objects>
-                <viewController id="nY3-wk-DzT" customClass="ListsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" id="nY3-wk-DzT" customClass="ListsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Lists" id="oUP-r2-Hd4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3g-ZI-WTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1943" y="715"/>
+            <point key="canvasLocation" x="4329" y="504"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="uPL-se-Wh4">
+            <objects>
+                <viewController storyboardIdentifier="HistoryViewController" id="JG1-yS-6WI" customClass="HistoryViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tSj-y1-Q2O"/>
+                        <viewControllerLayoutGuide type="bottom" id="lEi-MS-bSy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aNT-7d-YIF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pC-Bn-682" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4329" y="1229"/>
         </scene>
         <!--Payments-->
         <scene sceneID="wea-9g-6bV">
@@ -295,7 +366,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="nY3-wk-DzT" kind="relationship" relationship="rootViewController" id="Dsq-P2-5QQ"/>
+                        <segue destination="m8k-b0-9Yo" kind="relationship" relationship="rootViewController" id="i7F-E6-bQJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dH-sZ-LN0" userLabel="First Responder" sceneMemberID="firstResponder"/>

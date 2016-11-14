@@ -87,11 +87,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BarcodeScanner/BarcodeScanner.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Braintree/Braintree.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MTBBarcodeScanner/MTBBarcodeScanner.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BarcodeScanner/BarcodeScanner.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Braintree/Braintree.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MTBBarcodeScanner/MTBBarcodeScanner.framework"
 fi

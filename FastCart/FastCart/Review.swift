@@ -12,8 +12,8 @@ class Review: NSObject {
     
     var title: String?
     var comment: String?
-    // var rating: Int [0,5]
+    var rating: Int?
     var username: String?
     var date: Date?
-    // var userImage: Image
+    var userImageURL: String?
 }
