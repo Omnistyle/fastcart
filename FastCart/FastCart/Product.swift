@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class Product: NSObject {
     var upc: String?
@@ -71,6 +72,71 @@ class Product: NSObject {
         size = dictionary["size"] as? String
         freeShipToStore =  dictionary["freeShipToStore"] as? Bool
     }
+    
+    /**
+     Updates an imageview to reflect the product.
+     
+     - Author: 
+     Luis Perez
+     
+     - parameters:
+        - image: The UIImageView to be updated to reflect this products image.
+    */
+    func setProductImage(view: UIImageView) -> Void {
+        guard let smallImageURL = image else { return }
+        guard let largeImageURL = image else { return }
+        updateImageView(preview: URLRequest(url: smallImageURL), asset: URLRequest(url: largeImageURL), view: view)
+    }
+    
+    private func updateImageView(preview: URLRequest, asset: URLRequest, view: UIImageView) -> Void {
+        let placeholder: UIImage? = nil // UIImage(named: "placeholder")
+        view.image = nil
+        view.setImageWith(preview, placeholderImage: placeholder, success: { (smallImageRequest, smallImageResponse, smallImage) -> Void in
+            
+            // smallImageResponse will be nil if the smallImage is already available
+            // in cache (might want to do something smarter in that case).
+            view.alpha = 0.0
+            view.image = smallImage;
+            
+            let duration = smallImageResponse == nil ? 0 : 0.5
+            
+            UIView.animate(withDuration: duration, animations: { () -> Void in
+                
+                view.alpha = 1.0
+                
+            }, completion: { (sucess) -> Void in
+                
+                // The AFNetworking ImageView Category only allows one request to be sent at a time
+                // per ImageView. This code must be in the completion block.
+                view.setImageWith(
+                    asset,
+                    placeholderImage: smallImage,
+                    success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                        view.image = largeImage
+                },
+                    failure: { (request, response, error) -> Void in
+                        print("Error loading large image \(error)")
+                        // Set small image!
+                        view.image = smallImage
+                })
+            })
+        }, failure: { (request, response, error) -> Void in
+            // Try to get the large image
+            view.setImageWith(
+                asset,
+                placeholderImage: placeholder,
+                success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                    view.image = largeImage
+            },
+                // Failed at large and small
+                failure: { (request, response, error) -> Void in
+                    print("Error loading both images \(error)")
+                    // Set placeholder image!
+                    view.image = placeholder
+            })
+        })
+    }
+
     
     class func productsWithArray(dictionaries: [NSDictionary]) -> [Product]{
         var products = [Product]()

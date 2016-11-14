@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
-		103215891DD2D8AD00186704 /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListsViewController.swift */; };
+		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
 		1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158A1DD2D8C100186704 /* PaymentsViewController.swift */; };
 		1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158C1DD2D99200186704 /* ProfileViewController.swift */; };
 		1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */; };
@@ -18,6 +18,7 @@
 		103215971DD2E0FA00186704 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215961DD2E0FA00186704 /* Review.swift */; };
 		103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215981DD2F2DE00186704 /* HistoryViewController.swift */; };
 		1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032159A1DD2F7B200186704 /* TabViewController.swift */; };
+		1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057DECA1DD91510001203D2 /* ProductCell.swift */; };
 		7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */; };
 		7F28EF021DD10EDE0084410B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF001DD10EDE0084410B /* Main.storyboard */; };
 		7F28EF041DD10EDE0084410B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF031DD10EDE0084410B /* Assets.xcassets */; };
@@ -32,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
-		103215881DD2D8AD00186704 /* ListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
+		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1032158A1DD2D8C100186704 /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		1032158C1DD2D99200186704 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		103215961DD2E0FA00186704 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		103215981DD2F2DE00186704 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		1032159A1DD2F7B200186704 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		1057DECA1DD91510001203D2 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
 		7F28EEF91DD10EDE0084410B /* FastCart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastCart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 				7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */,
 				7FF055F91DD13A4F00434F2A /* ScanViewController.swift */,
 				103215861DD2D6D100186704 /* StoresViewController.swift */,
-				103215881DD2D8AD00186704 /* ListsViewController.swift */,
+				103215881DD2D8AD00186704 /* ListViewController.swift */,
 				1032158A1DD2D8C100186704 /* PaymentsViewController.swift */,
 				1032158C1DD2D99200186704 /* ProfileViewController.swift */,
 				1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */,
@@ -84,6 +86,14 @@
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1057DEC91DD914ED001203D2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1057DECA1DD91510001203D2 /* ProductCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		3A92C2690D7B7CC3A6AA979D /* Pods */ = {
@@ -116,6 +126,7 @@
 		7F28EEFB1DD10EDE0084410B /* FastCart */ = {
 			isa = PBXGroup;
 			children = (
+				1057DEC91DD914ED001203D2 /* Views */,
 				103215851DD2D6A400186704 /* ViewControllers */,
 				7FF055F41DD1268000434F2A /* Models */,
 				7F28EF0F1DD114E70084410B /* API */,
@@ -281,7 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103215891DD2D8AD00186704 /* ListsViewController.swift in Sources */,
+				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				103215871DD2D6D100186704 /* StoresViewController.swift in Sources */,
 				7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */,
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
@@ -296,6 +307,7 @@
 				1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */,
 				103215931DD2DBDA00186704 /* User.swift in Sources */,
 				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,
+				1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */,
 				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
 				1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */,
 			);

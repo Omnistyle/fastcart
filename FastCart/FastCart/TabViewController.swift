@@ -10,9 +10,27 @@ import UIKit
 
 class TabViewController: UIViewController {
 
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet var buttons: [UIButton]!
+    
+    var listViewController: UIViewController!
+    var historyViewController: UIViewController!
+    
+    var viewControllers: [UIViewController]!
+    var selectedIndex: Int = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        listViewController = storyboard.instantiateViewController(withIdentifier: "ListViewController")
+        historyViewController = storyboard.instantiateViewController(withIdentifier: "HistoryViewController")
+        
+        viewControllers = [historyViewController, listViewController]
+        
+        buttons[selectedIndex].isSelected = true
+        onTabButtonTap(buttons[selectedIndex])
+        
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +39,24 @@ class TabViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onTabButtonTap(_ sender: UIButton) {
+        let previousIndex = selectedIndex
+        selectedIndex = sender.tag
+        
+        buttons[previousIndex].isSelected = false
+        let previousVC = viewControllers[previousIndex]
+        
+        previousVC.willMove(toParentViewController: nil)
+        previousVC.view.removeFromSuperview()
+        previousVC.removeFromParentViewController()
+        
+        sender.isSelected = true
+        let vc = viewControllers[selectedIndex]
+        addChildViewController(vc)
+        vc.view.frame = contentView.bounds
+        contentView.addSubview(vc.view)
+        vc.didMove(toParentViewController: self)
+    }
 
     /*
     // MARK: - Navigation
