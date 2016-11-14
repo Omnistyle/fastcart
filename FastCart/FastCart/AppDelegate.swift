@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // clientKey is not used on Parse open source unless explicitly configured
         Parse.initialize(
             with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "fastcartfc241237"
+                configuration.applicationId = "f0a1s2t3c4a5r6t728"
                 configuration.clientKey = nil  // set to nil assuming you have not set clientKey
-                configuration.server = "http://fastcart.herokuapp.com/parse"
+                configuration.server = "http://fastcart2.herokuapp.com/parse"
             })
         )
         
