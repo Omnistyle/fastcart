@@ -18,6 +18,7 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var descriptionContainerView: UIView!
     @IBOutlet weak var productImageView: UIImageView!
     
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         nameLabel.text = product?.name ?? ""
@@ -29,6 +30,7 @@ class ProductDetailsViewController: UIViewController {
             productImageView.setImageWith(imageUrl)
         }
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,6 +42,7 @@ class ProductDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func onAddButton(_ sender: Any) {
+        User.currentUser?.current
         self.dismiss(animated: true, completion: nil)
     }
     

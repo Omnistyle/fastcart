@@ -16,7 +16,7 @@ class User: NSObject {
     var history: [Receipt] = []
     
     // The current list of items the user is shopping.
-    var current: Receipt?
+    var current = Receipt()
     
     // The favorite stores.
     var favoriteStores: [Store] = []
