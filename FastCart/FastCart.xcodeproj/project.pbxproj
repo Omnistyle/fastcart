@@ -19,6 +19,7 @@
 		103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215981DD2F2DE00186704 /* HistoryViewController.swift */; };
 		1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032159A1DD2F7B200186704 /* TabViewController.swift */; };
 		1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057DECA1DD91510001203D2 /* ProductCell.swift */; };
+		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
 		7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */; };
 		7F28EF021DD10EDE0084410B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF001DD10EDE0084410B /* Main.storyboard */; };
 		7F28EF041DD10EDE0084410B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF031DD10EDE0084410B /* Assets.xcassets */; };
@@ -45,6 +46,8 @@
 		1032159A1DD2F7B200186704 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		1057DECA1DD91510001203D2 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
+		223A663C1DDA6C330075DBB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		223A663E1DDA6D010075DBB5 /* FastCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastCart.entitlements; sourceTree = "<group>"; };
 		7F28EEF91DD10EDE0084410B /* FastCart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastCart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F28EF011DD10EDE0084410B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 				1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */,
 				103215981DD2F2DE00186704 /* HistoryViewController.swift */,
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
+				223A663C1DDA6C330075DBB5 /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -126,6 +130,7 @@
 		7F28EEFB1DD10EDE0084410B /* FastCart */ = {
 			isa = PBXGroup;
 			children = (
+				223A663E1DDA6D010075DBB5 /* FastCart.entitlements */,
 				1057DEC91DD914ED001203D2 /* Views */,
 				103215851DD2D6A400186704 /* ViewControllers */,
 				7FF055F41DD1268000434F2A /* Models */,
@@ -205,6 +210,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 6AQU6Q6WHZ;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -296,6 +306,7 @@
 				103215871DD2D6D100186704 /* StoresViewController.swift in Sources */,
 				7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */,
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
+				223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
 				7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */,
 				7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */,
@@ -436,6 +447,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -451,6 +463,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

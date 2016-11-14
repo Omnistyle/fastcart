@@ -9,6 +9,9 @@ target 'FastCart' do
   # Pods for FastCart
     pod 'Braintree'
     pod 'Braintree/Apple-Pay'
-  
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
+    pod 'Parse'
 
 end
