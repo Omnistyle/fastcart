@@ -8,5 +8,8 @@ target 'FastCart' do
     pod 'BarcodeScanner'
     pod 'AFNetworking'
   # Pods for FastCart
+    pod 'Braintree'
+    pod 'Braintree/Apple-Pay'
+  
 
 end
