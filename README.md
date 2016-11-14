@@ -86,3 +86,4 @@ class Receipt
   3. Integrate history with Parse
 
 
+<img src='http://i.imgur.com/cLMjm41.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
