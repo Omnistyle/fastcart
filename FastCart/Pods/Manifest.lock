@@ -15,42 +15,65 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - BarcodeScanner (2.0.0)
-  - Braintree (4.7.1):
-    - Braintree/Card (= 4.7.1)
-    - Braintree/Core (= 4.7.1)
-    - Braintree/PayPal (= 4.7.1)
-    - Braintree/UI (= 4.7.1)
-  - Braintree/Apple-Pay (4.7.1):
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - Braintree (4.7.2):
+    - Braintree/Card (= 4.7.2)
+    - Braintree/Core (= 4.7.2)
+    - Braintree/PayPal (= 4.7.2)
+    - Braintree/UI (= 4.7.2)
+  - Braintree/Apple-Pay (4.7.2):
     - Braintree/Core
-  - Braintree/Card (4.7.1):
+  - Braintree/Card (4.7.2):
     - Braintree/Core
-  - Braintree/Core (4.7.1)
-  - Braintree/PayPal (4.7.1):
+  - Braintree/Core (4.7.2)
+  - Braintree/PayPal (4.7.2):
     - Braintree/Core
     - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.7.1):
+  - Braintree/PayPalDataCollector (4.7.2):
     - Braintree/Core
     - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.7.1):
+  - Braintree/PayPalOneTouch (4.7.2):
     - Braintree/Core
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.7.1)
-  - Braintree/UI (4.7.1):
+  - Braintree/PayPalUtils (4.7.2)
+  - Braintree/UI (4.7.2):
     - Braintree/Card
     - Braintree/Core
+  - FBSDKCoreKit (4.17.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.17.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.17.0):
+    - FBSDKCoreKit
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
 
 DEPENDENCIES:
   - AFNetworking
   - BarcodeScanner
   - Braintree
   - Braintree/Apple-Pay
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - Parse
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
-  Braintree: c57bcb7983412530ea6d71cee4b99a4ba316c4ef
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Braintree: 2de65628b1cb31df053ac808f2acd7a485569ecd
+  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
+  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
+  FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
 
-PODFILE CHECKSUM: f2f453d1939844218ababf44fadff82f932313f0
+PODFILE CHECKSUM: 02bf1ce2189bca33d6f4173527e1a97783133166
 
 COCOAPODS: 1.1.1
