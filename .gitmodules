@@ -1,0 +1,3 @@
+[submodule "braintree"]
+	path = braintree
+	url = git@github.com:Omnistyle/braintree.git
