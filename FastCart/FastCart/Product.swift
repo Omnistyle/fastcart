@@ -12,6 +12,7 @@ import AFNetworking
 enum apiType {
     case walmart
     case upc
+    case manual
 }
 
 class Product: NSObject {
@@ -80,6 +81,9 @@ class Product: NSObject {
         }
         else if api == apiType.upc {
             // often multiple objects in array though
+        }
+        else if api == apiType.manual {
+            name = dictionary["name"] as? String
         }
     }
     

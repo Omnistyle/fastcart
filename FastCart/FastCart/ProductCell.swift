@@ -21,6 +21,12 @@ class ProductCell: UITableViewCell {
     
     var product: Product! {
         didSet {
+            if product.upc == nil {
+                manual = true
+                productName.text = product.name
+                priceLabel.text = "NA"
+                return
+            }
             productName.text = product.name
             if let salePrice = product?.salePrice {
                 priceLabel.text = "$" + String(describing: salePrice)
@@ -29,9 +35,7 @@ class ProductCell: UITableViewCell {
                 productImage.setImageWith(image)
             }
             
-            if product.upc == nil {
-                manual = true
-            }
+            
             
         }
     }

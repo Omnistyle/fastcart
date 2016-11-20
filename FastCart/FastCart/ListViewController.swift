@@ -8,10 +8,13 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var subtotalLabel: UILabel!
+    
+    @IBOutlet weak var checkoutButton: UIButton!
+    
     @IBOutlet weak var addItemTextView: UITextView!
     
     var products = [Product]()
@@ -28,6 +31,32 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // for the scrollbar
         tableView.estimatedRowHeight = 120
         
+        addItemTextView.delegate = self
+        
+        // format checkout button
+        checkoutButton.layer.cornerRadius = 5
+        
+    }
+    
+    func addProduct() {
+        let product = Product(dictionary: ["name": addItemTextView.text], api: apiType.manual)
+        User.currentUser?.current.products.append(product)
+        products.append(product)
+        tableView.reloadData()
+        addItemTextView.text = ""
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            addProduct()
+            return false
+        }
+        return true
     }
     
     override func viewWillAppear(_ animated: Bool) {

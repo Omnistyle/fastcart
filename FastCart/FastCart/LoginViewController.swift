@@ -24,6 +24,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["email", "public_profile"]
         
         // Do any additional setup after loading the view.
+        // only to speed development
+        self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
 
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
