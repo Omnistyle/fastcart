@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class ProductCell: UITableViewCell {
 
@@ -15,10 +17,22 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var priceImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     
+    var manual = false
+    
     var product: Product! {
         didSet {
-            productName.text = product.brandName
-            priceLabel.text = "$\(product.salePrice)"
+            productName.text = product.name
+            if let salePrice = product?.salePrice {
+                priceLabel.text = "$" + String(describing: salePrice)
+            }
+            if let image = product.image {
+                productImage.setImageWith(image)
+            }
+            
+            if product.upc == nil {
+                manual = true
+            }
+            
         }
     }
     

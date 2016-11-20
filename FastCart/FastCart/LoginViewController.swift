@@ -15,7 +15,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         

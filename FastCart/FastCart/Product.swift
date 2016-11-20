@@ -9,6 +9,11 @@
 import UIKit
 import AFNetworking
 
+enum apiType {
+    case walmart
+    case upc
+}
+
 class Product: NSObject {
     var upc: String?
     var name: String?
@@ -52,25 +57,30 @@ class Product: NSObject {
         }
     }
     
-    init(dictionary: NSDictionary) {
+    init(dictionary: NSDictionary, api: apiType) {
         super.init()
-        upc = dictionary["upc"] as? String
-        name = dictionary["name"] as? String
-        overview = dictionary["shortDescription"] as? String
-        if let imageString = dictionary["largeImage"] as? String{
-            self.image = URL(string: imageString)
+        if api == apiType.walmart {
+            upc = dictionary["upc"] as? String
+            name = dictionary["name"] as? String
+            overview = dictionary["shortDescription"] as? String
+            if let imageString = dictionary["largeImage"] as? String{
+                self.image = URL(string: imageString)
+            }
+            store = Store(id: "Walmart")
+            // round to two decimals
+            if let salePriceDouble = dictionary["salePrice"] as? Double {
+                salePrice = round(salePriceDouble * 100)/100
+            }
+            brandName = dictionary["brandName"] as? String
+            averageRating = dictionary["customerRating"] as? String
+            color = dictionary["color"] as? String
+            category = dictionary["categoryPath"] as? String
+            size = dictionary["size"] as? String
+            freeShipToStore =  dictionary["freeShipToStore"] as? Bool
         }
-        store = Store(id: "Walmart")
-        // round to two decimals
-        if let salePriceDouble = dictionary["salePrice"] as? Double {
-            salePrice = round(salePriceDouble * 100)/100
+        else if api == apiType.upc {
+            // often multiple objects in array though
         }
-        brandName = dictionary["brandName"] as? String
-        averageRating = dictionary["customerRating"] as? String
-        color = dictionary["color"] as? String
-        category = dictionary["categoryPath"] as? String
-        size = dictionary["size"] as? String
-        freeShipToStore =  dictionary["freeShipToStore"] as? Bool
     }
     
     /**
@@ -138,11 +148,11 @@ class Product: NSObject {
     }
 
     
-    class func productsWithArray(dictionaries: [NSDictionary]) -> [Product]{
+    class func productsWithArray(dictionaries: [NSDictionary], api: apiType) -> [Product]{
         var products = [Product]()
         for dictionary in dictionaries {
             let product =
-                Product.init(dictionary: dictionary)
+                Product.init(dictionary: dictionary, api: api)
             products.append(product)
         }
         return products

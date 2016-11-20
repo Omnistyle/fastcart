@@ -83,7 +83,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     func postNonceToServer(paymentMethodNonce: String) {
         let fakePaymentMethodNonce = "fake-valid-nonce"
         print("posting to server")
-        let paymentURL = URL(string: "https://your-server.example.com/payment-methods")!
+        let paymentURL = URL(string: "https://fastcart-braintree.herokuapp.com/payment-methods")!
         var request = NSMutableURLRequest(url: paymentURL)
         request.httpBody = "payment_method_nonce=\(fakePaymentMethodNonce)".data(using: String.Encoding.utf8)
         request.httpMethod = "POST"

@@ -9,6 +9,8 @@
 import UIKit
 import AFNetworking
 
+
+
 class ProductDetailsViewController: UIViewController {
    
     var product: Product?
@@ -17,6 +19,10 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var descriptionContainerView: UIView!
     @IBOutlet weak var productImageView: UIImageView!
+    
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -30,6 +36,23 @@ class ProductDetailsViewController: UIViewController {
             productImageView.setImageWith(imageUrl)
         }
         // Do any additional setup after loading the view.
+    
+        let contentWidth = scrollView.bounds.width
+        let contentHeight = scrollView.bounds.height * 3
+        
+        // add additional sections
+        let frame = CGRect(x: CGFloat(0), y: CGFloat(20) + contentView.bounds.height, width: view.bounds.width, height: CGFloat(200))
+        let reviewView = ProductReviews(frame: frame)
+        
+        contentView.frame = CGRect(x: CGFloat(0), y: CGFloat(20) + contentView.bounds.height, width: view.bounds.width, height: view.bounds.height + reviewView.bounds.height)
+            
+        scrollView.addSubview(contentView)
+        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height)
+        
+        
+        
+        contentView.addSubview(reviewView)
+        
         
     }
 
@@ -42,7 +65,9 @@ class ProductDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func onAddButton(_ sender: Any) {
-        User.currentUser?.current
+        if self.product != nil {
+            User.currentUser?.current.products.append(self.product!)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -42,6 +42,8 @@ class TabViewController: UIViewController {
     @IBAction func onTabButtonTap(_ sender: UIButton) {
         let previousIndex = selectedIndex
         selectedIndex = sender.tag
+        // add polish for changing text color and animating the UIView
+        
         
         buttons[previousIndex].isSelected = false
         let previousVC = viewControllers[previousIndex]

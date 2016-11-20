@@ -24,8 +24,7 @@ class User: NSObject {
     // The Payment methods associated with the user.
     var payments: [Payment] = []
     
-    convenience override init() {
-        self.init()
+    override init() {
         id = 0
         history = []
         favoriteStores = []
@@ -37,9 +36,10 @@ class User: NSObject {
 
     class var currentUser: User? {
         get {
+            let defaults = UserDefaults.standard
             if self._currentUser == nil {
                 // TODO: Load the user model
-                self._currentUser = nil
+                self._currentUser = User()
             }
             return self._currentUser
         }
@@ -49,6 +49,7 @@ class User: NSObject {
             let defaults = UserDefaults.standard
             if let user = user {
                 // TODO: Store the current user.
+                
             }
             else {
                 // TODO: Clear out the current user from storage

@@ -19,7 +19,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         // Do any additional setup after loading the view.
+        // so it resizes
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // for the scrollbar
+        tableView.estimatedRowHeight = 120
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let currentProducts = User.currentUser?.current.products {
+            products = currentProducts
+        }
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +59,21 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell") as! ProductCell
         cell.product = products[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // deselect the cell and get relevant product
+        tableView.deselectRow(at: indexPath, animated: true)
+        let product = products[indexPath.row]
+        
+        // prepare for segue
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
+       productDetailsViewController.product = product
+    
+        // segue to the details view
+        self.show(productDetailsViewController, sender: self)
+        
     }
  
     /*
