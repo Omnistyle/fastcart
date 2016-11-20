@@ -8,12 +8,26 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var receipts = [Receipt]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        // set receipts
+        if let history = User.currentUser?.history
+        {
+            receipts = history
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +35,15 @@ class HistoryViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return receipts.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiptCell") as! ReceiptCell
+        cell.receipt = receipts[indexPath.row]
+        return cell
+        
+    }
 
     /*
     // MARK: - Navigation

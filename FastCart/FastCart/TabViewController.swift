@@ -13,12 +13,17 @@ class TabViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet var buttons: [UIButton]!
     
+    
     var listViewController: UIViewController!
     var historyViewController: UIViewController!
     
     var viewControllers: [UIViewController]!
     var selectedIndex: Int = 1
     
+    @IBOutlet weak var underline: UIView!
+    var underlineOriginalCenter: CGPoint?
+    
+    @IBOutlet weak var tabBar: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +37,13 @@ class TabViewController: UIViewController {
         onTabButtonTap(buttons[selectedIndex])
         
         // Do any additional setup after loading the view.
+        underlineOriginalCenter = underline.center
+        for button in buttons {
+            button.setTitleColor(UIColor.lightGray, for: .normal)
+            button.setTitleColor(UIColor.darkGray, for: .selected)
+            button.adjustsImageWhenHighlighted = false
+        }
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +54,44 @@ class TabViewController: UIViewController {
     @IBAction func onTabButtonTap(_ sender: UIButton) {
         let previousIndex = selectedIndex
         selectedIndex = sender.tag
+        // add polish for changing text color and animating the UIView
+        // selected current
+        
         
         buttons[previousIndex].isSelected = false
+        
+        if selectedIndex == 1 {
+//            buttons[selectedIndex].setTitleColor(UIColor.darkGray, for: .normal)
+//            buttons[0].setTitleColor(UIColor.lightGray, for: .normal)
+////            UIView.animate(withDuration: 1, animations: {
+////                underline.trans
+////            })
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                if let center = self.underlineOriginalCenter {
+                self.underline.center = center
+                }
+                
+            }, completion: nil)
+            
+        }
+            // selected history
+        else {
+//            buttons[selectedIndex].setTitleColor(UIColor.darkGray, for: .normal)
+//            buttons[1].setTitleColor(UIColor.lightGray, for: .normal)
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                if let center = self.underlineOriginalCenter {
+                    
+                    let width = self.view.frame.size.width
+                    self.underline.center.x = width / 4.0
+                    
+                }
+                
+            }, completion: nil)
+            
+        }
+        
+        
         let previousVC = viewControllers[previousIndex]
         
         previousVC.willMove(toParentViewController: nil)

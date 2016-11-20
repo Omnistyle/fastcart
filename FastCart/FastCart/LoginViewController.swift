@@ -19,7 +19,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         
@@ -28,6 +28,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["email", "public_profile"]
         
         // Do any additional setup after loading the view.
+        // only to speed development
+        self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
 
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {

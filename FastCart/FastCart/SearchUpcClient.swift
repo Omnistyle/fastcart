@@ -1,30 +1,31 @@
 //
-//  WalmartClient.swift
+//  SearchUpcClient.swift
 //  FastCart
 //
-//  Created by Belinda Zeng on 11/7/16.
+//  Created by Belinda Zeng on 11/15/16.
 //  Copyright © 2016 LemonBunny. All rights reserved.
 //
 
 import UIKit
 
-class WalmartClient {
-    let apiKey = "69sak8n5jctvbapcs8wp88tt"
-    let EAN_LENGTH = 13
+class SearchUpcClient: UIView {
+
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
+    */
+    let accessToken = "858423AF-7D15-4F94-B08E-148D9326BD22"
     static let sharedInstance : WalmartClient = WalmartClient.init()
     func getProductWithUPC(upc: String, success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()) {
         // http://api.walmartlabs.com/v1/items?apiKey=69sak8n5jctvbapcs8wp88tt&upc=035000521019
         
-        var upc = upc
-        // need to handle barcode types to categorize
-        // for barcode type : Barcode (EAN-13) with 0 in front, convert to UPC by getting rid of the zero
-        if upc.characters.count == EAN_LENGTH {
-            // take out the country code (the first character)
-            upc.remove(at: upc.startIndex)
-        }
+
         
         // request
-        guard let url = URL(string:"http://api.walmartlabs.com/v1/items?apiKey=\(self.apiKey)&upc=\(upc)") else {return}
+        guard let url = URL(string: "http://www.searchupc.com/handlers/upcsearch.ashx?request_type=3&access_token=\(self.accessToken)&upc=\(upc)") else {return}
         let request = URLRequest(url: url)
         print(url)
         
@@ -40,7 +41,7 @@ class WalmartClient {
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     guard let productsDictionary = responseDictionary["items"] as? [NSDictionary] else {return}
-                    let products = Product.productsWithArray(dictionaries: productsDictionary, api: apiType.walmart)
+                    let products = Product.productsWithArray(dictionaries: productsDictionary, api: apiType.upc)
                     success(products)
                 }
             }
@@ -50,4 +51,6 @@ class WalmartClient {
         });
         task.resume()
     }
+
+
 }

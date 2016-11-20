@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class ProductCell: UITableViewCell {
 
@@ -15,12 +17,36 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var priceImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     
+    var manual = false
+    
     var product: Product! {
         didSet {
-            productName.text = product.brandName
-            priceLabel.text = "$\(product.salePrice)"
+            if let image = product.image {
+                productImage.setImageWith(image)
+            } else {
+                productImage.image = #imageLiteral(resourceName: "noimagefound")
+            }
+            
+            productImage.layer.cornerRadius = productImage.frame.size.width / 2
+            productImage.layer.masksToBounds = true
+            productImage.layer.borderColor = UIColor.lightGray.cgColor
+            productImage.layer.borderWidth = 1
+            
+            if product.upc == nil {
+                manual = true
+                productName.text = product.name
+                priceLabel.text = "NA"
+                priceImage.image = #imageLiteral(resourceName: "camera_outline")
+                return
+            }
+            productName.text = product.name
+            if let salePrice = product?.salePrice {
+                priceLabel.text = "$" + String(describing: salePrice)
+            }
+            
         }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

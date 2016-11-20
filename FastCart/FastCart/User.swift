@@ -29,17 +29,6 @@ class User: NSObject {
     // The favorite stores.
     var favoriteStores: [Store] = []
     
-    // The Payment methods associated with the user.
-    var payments: [Payment] = []
-    
-//    convenience override init() {
-//        self.init()
-//        id = 0
-//        history = []
-//        favoriteStores = []
-//        payments = []
-//    }
-    
     var dictionary: NSDictionary?
     
     init(dictionary: NSDictionary){
