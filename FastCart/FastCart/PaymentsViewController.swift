@@ -19,7 +19,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     @IBOutlet weak var storeLocationLabel: UILabel!
     @IBOutlet weak var storeImage: UIImageView!
     
-    @IBOutlet var actionButtons: [UIButton]!
+    @IBOutlet weak var paymentView: UIView!
     
     private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
     private var activityIndicator: UIActivityIndicatorView!
@@ -32,6 +32,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         
         self.setUpView()
         self.setPaymentInformation()
+        self.setUpBraintree()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,16 +43,6 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func onPay(_ sender: UIButton) {
-        self.activityIndicator.startAnimating()
-        self.setUpPayments()
-    }
-
-    @IBAction func onAddPayment(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "pushAddPayment", sender: self)
-    }
-    
     
     /* MARK - BTDropInViewControllerDelegate Methods */
     public func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
@@ -68,22 +59,18 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     /* END MARK - BTDropInViewControllerDelegate Methods */
     
-    private func userActionStarted() {
-        for button in self.actionButtons {
-            button.isUserInteractionEnabled = false
-        }
-    }
-    private func userActionEnded() {
-        for button in self.actionButtons {
-            button.isUserInteractionEnabled = true
-        }
+    private func setUpBraintree() {
+        self.activityIndicator.startAnimating()
+        self.setUpPayments()
     }
     
     private func setUpView() {
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         self.activityIndicator.center = self.view.center;
+        self.view.autoresizesSubviews = true
         self.view.addSubview(self.activityIndicator)
     }
+    
     private func setUpPayments() {
         let userId = User.currentUser!.id;
         let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token/\(userId)")!
@@ -115,11 +102,14 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     private func paymentStarted(_ client: BTAPIClient) {
         // Create a BTDropInViewController
         let dropInViewController = BTDropInViewController(apiClient: client)
-        
         dropInViewController.delegate = self
-        
-        self.activityIndicator.stopAnimating()
-        self.navigationController?.pushViewController(dropInViewController, animated: true)
+        dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        dropInViewController.fetchPaymentMethods(onCompletion: {
+            self.addChildViewController(dropInViewController)
+            self.paymentView.addSubview(dropInViewController.view)
+            dropInViewController.didMove(toParentViewController: self)
+            self.activityIndicator.stopAnimating()
+        })
     }
 
     private func postNonceToServer(paymentMethodNonce: String) {

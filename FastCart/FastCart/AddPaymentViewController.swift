@@ -10,13 +10,11 @@ import UIKit
 import Braintree
 
 class AddPaymentViewController: UIViewController {
-
-    @IBOutlet var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.contentView = BTUICardFormView()
+        self.view.addSubview(BTUICardFormView())
 
         // Do any additional setup after loading the view.
     }

@@ -571,7 +571,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="50h-Jc-Kb8">
-                                <rect key="frame" x="16" y="91" width="343" height="195"/>
+                                <rect key="frame" x="16" y="91" width="343" height="179"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-wz-ESw">
@@ -644,62 +644,28 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulk-Xw-Urp">
-                                <rect key="frame" x="172" y="360" width="30" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qxz-ex-h9N" userLabel="PaymentsView">
+                                <rect key="frame" x="0.0" y="278" width="375" height="340"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pay"/>
-                                <connections>
-                                    <action selector="onPay:" destination="gVO-e0-TW2" eventType="touchUpInside" id="vWq-hL-SZx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdH-6J-z8z">
-                                <rect key="frame" x="145" y="397" width="85" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Method"/>
-                                <connections>
-                                    <action selector="onAddPayment:" destination="gVO-e0-TW2" eventType="touchUpInside" id="NQ6-av-edU"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Payments" id="cCB-cw-fSD"/>
                     <connections>
+                        <outlet property="paymentView" destination="Qxz-ex-h9N" id="6GV-5k-eHj"/>
                         <outlet property="storeImage" destination="UYL-4H-gAi" id="yNe-Ea-a15"/>
                         <outlet property="storeLabel" destination="sa5-Us-mQ7" id="HLq-bY-IOR"/>
                         <outlet property="storeLocationLabel" destination="d6F-a6-3Tu" id="gVo-As-KIz"/>
                         <outlet property="subTotalLabel" destination="sDv-7t-7xa" id="FMF-KL-UZR"/>
                         <outlet property="taxesLabel" destination="8pR-Am-Ew7" id="6qR-1p-SNQ"/>
                         <outlet property="totalLabel" destination="fQC-wQ-HKh" id="IXt-Zz-G9m"/>
-                        <outletCollection property="actionButtons" destination="ulk-Xw-Urp" collectionClass="NSMutableArray" id="iaw-In-s4d"/>
-                        <outletCollection property="actionButtons" destination="RdH-6J-z8z" collectionClass="NSMutableArray" id="Jbd-jd-1XF"/>
-                        <segue destination="fFe-d0-Jzg" kind="show" identifier="pushAddPayment" id="Bak-bH-uvg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk6-WI-Vvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="1385"/>
-        </scene>
-        <!--Add Payment View Controller-->
-        <scene sceneID="JKJ-BV-Tm3">
-            <objects>
-                <viewController id="fFe-d0-Jzg" customClass="AddPaymentViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ezf-fM-vPT"/>
-                        <viewControllerLayoutGuide type="bottom" id="sgD-dl-QDG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="oIo-R3-GBo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="contentView" destination="oIo-R3-GBo" id="oHk-XO-VPC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q1B-Cv-Xpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2926" y="1385"/>
+            <point key="canvasLocation" x="2212" y="1384.8575712143929"/>
         </scene>
         <!--Profile-->
         <scene sceneID="hhl-Zg-eTQ">

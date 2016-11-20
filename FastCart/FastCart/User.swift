@@ -10,7 +10,7 @@ import UIKit
 
 class User: NSObject {
     // Necessary unique id for each user of our application.
-    var id: Int = 0
+    var id: Int = 1234
     
     // List of receipts (only keep the last 20)
     var history: [Receipt] = []
