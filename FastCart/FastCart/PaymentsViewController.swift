@@ -10,101 +10,126 @@ import UIKit
 import Braintree
 
 class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
-    /// Informs the delegate when the user has successfully provided payment info that has been
-    /// successfully tokenized.
-    ///
-    /// Upon receiving this message, you should dismiss Drop In.
-    ///
-    /// @param viewController The Drop In view controller informing its delegate of success
-    /// @param tokenization The selected (and possibly newly created) tokenized payment information.
-    var braintreeClient: BTAPIClient?
+    
+    @IBOutlet weak var subTotalLabel: UILabel!
+    @IBOutlet weak var taxesLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    @IBOutlet weak var storeLabel: UILabel!
+    @IBOutlet weak var storeLocationLabel: UILabel!
+    @IBOutlet weak var storeImage: UIImageView!
+    
+    private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
+    private var activityIndicator: UIActivityIndicatorView!
+    
+    
+    var braintreeClient: BTAPIClient!
     let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        setUpPayments()
+        self.setUpView()
+        self.setPaymentInformation()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-////        super.viewWillAppear(true)
-//        setUpPayments()
-//    }
-//    
-    func setUpPayments() {
-        let clientTokenURL = URL(string: "https://fastcart-braintree.herokuapp.com/client_token")!
-        var clientTokenRequest = URLRequest(url: clientTokenURL)
-        clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
-        
-        URLSession.shared.dataTask(with: clientTokenRequest as URLRequest) { (data, response, error) -> Void in
-            // TODO: Handle errors
-            let clientToken = String(data: data!, encoding: String.Encoding.utf8)
-            
-            self.braintreeClient = BTAPIClient(authorization: clientToken!)
-            // As an example, you may wish to present our Drop-in UI at this point.
-            // Continue to the next section to learn more...
-            }.resume()
-        
-        paymentStarted()
-    }
-
-    func paymentStarted() {
-        // Create a BTDropInViewController
-        let dropInViewController = BTDropInViewController(apiClient: braintreeClient!)
-        dropInViewController.delegate = self
-
-        // This is where you might want to customize your view controller (see below)
-
-        // The way you present your BTDropInViewController instance is up to you.
-        // In this example, we wrap it in a new, modally-presented navigation controller:
-        dropInViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
-        barButtonSystemItem: UIBarButtonSystemItem.cancel,
-        target: self, action: #selector(self.userDidCancelPayment))
-        let navigationController = UINavigationController(rootViewController: dropInViewController)
-        present(navigationController, animated: true, completion: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func onPay(_ sender: UIButton) {
+        self.activityIndicator.startAnimating()
+        self.setUpPayments()
+    }
+
+    @IBAction func onAddPayment(_ sender: Any) {
+    }
+    
+    /* MARK - BTDropInViewControllerDelegate Methods */
     public func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
         // Send payment method nonce to your server for processing
-//        postNonceToServer(paymentMethodNonce: paymentMethodNonce.nonce)
-
-        self.tabBarController?.selectedIndex = 2
-        dismiss(animated: true, completion: nil)
+        postNonceToServer(paymentMethodNonce: paymentMethodNonce.nonce)
+        
+        dismiss(animated: true, completion: {[unowned self] in
+            self.tabBarController?.selectedIndex = 2
+        })
+    }
+    
+    public func drop(inViewControllerDidCancel viewController: BTDropInViewController) {
+        let _ = self.navigationController?.popViewController(animated: true)
+    }
+    /* END MARK - BTDropInViewControllerDelegate Methods */
+    
+    private func setUpView() {
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        self.activityIndicator.center = self.view.center;
+        self.view.addSubview(self.activityIndicator)
+    }
+    private func setUpPayments() {
+        let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token")!
+        var clientTokenRequest = URLRequest(url: clientTokenURL)
+        clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: clientTokenRequest, completionHandler: {[unowned self] (data, response, error) -> Void in
+            guard let data = data else { return }
+            guard let clientToken = String(data: data, encoding: String.Encoding.utf8) else { return }
+            self.braintreeClient = BTAPIClient(authorization: clientToken)
+            
+            self.paymentStarted(self.braintreeClient)
+        }).resume()
+    }
+    
+    private func setPaymentInformation() {
+        if let receipt = User.currentUser?.current {
+            subTotalLabel.text = receipt.subTotalAsString
+            totalLabel.text = receipt.totalAsString
+            taxesLabel.text = receipt.taxAsString
+        }
+        if let store = Store.currentStore {
+            storeLabel.text = store.name
+            storeLocationLabel.text = store.locationAsString
+            store.setStoreImage(view: storeImage)
+        }
+    }
+    
+    private func paymentStarted(_ client: BTAPIClient) {
+        // Create a BTDropInViewController
+        let dropInViewController = BTDropInViewController(apiClient: client)
+        
+        dropInViewController.delegate = self
+        
+        self.activityIndicator.stopAnimating()
+        self.navigationController?.pushViewController(dropInViewController, animated: true)
     }
 
-    func postNonceToServer(paymentMethodNonce: String) {
+    private func postNonceToServer(paymentMethodNonce: String) {
         let fakePaymentMethodNonce = "fake-valid-nonce"
+        guard let paymentAmount = User.currentUser?.current.total else { return }
+        print("$\(paymentAmount)")
         print("posting to server")
-        let paymentURL = URL(string: "fastcart-braintree.herokuapp.com/client_token/checkout")!
-        let request = NSMutableURLRequest(url: paymentURL)
-        request.httpBody = "payment_method_nonce=\(fakePaymentMethodNonce)".data(using: String.Encoding.utf8)
+        let paymentURL = URL(string: "\(self.paymentServerURL)/checkout")!
+        var request: URLRequest = URLRequest(url: paymentURL)
+        let data = "payment_method_nonce=\(fakePaymentMethodNonce)&amount=\(paymentAmount)"
+        request.httpBody = data.data(using: String.Encoding.utf8)
         request.httpMethod = "POST"
         
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) -> Void in
-            // TODO: Handle success or failure
-        }.resume()
+        URLSession.shared.dataTask(with: request, completionHandler: {[unowned self] (data, response, error) -> Void in
+            if (error != nil) {
+                if let user = User.currentUser {
+                    self.completePayment(user: user)
+                }
+            }
+        }).resume()
     }
     
-    func drop(inViewControllerDidCancel viewController: BTDropInViewController) {
-        dismiss(animated: true, completion: nil)
+    private func completePayment(user: User) {
+        user.current.paid = true
+        user.current.completed = Date()
+        user.history.append(user.current)
+        user.current = Receipt()
     }
-    
-    func userDidCancelPayment() {
-        dismiss(animated: true, completion: nil)
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

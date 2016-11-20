@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102D9C111DE147BF00E8232A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D9C101DE147BF00E8232A /* Utilities.swift */; };
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
 		1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158A1DD2D8C100186704 /* PaymentsViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		102D9C101DE147BF00E8232A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1032158A1DD2D8C100186704 /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		102D9C0F1DE147A300E8232A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				102D9C101DE147BF00E8232A /* Utilities.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		103215851DD2D6A400186704 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		7F28EEFB1DD10EDE0084410B /* FastCart */ = {
 			isa = PBXGroup;
 			children = (
+				102D9C0F1DE147A300E8232A /* Utilities */,
 				223A663E1DDA6D010075DBB5 /* FastCart.entitlements */,
 				1057DEC91DD914ED001203D2 /* Views */,
 				103215851DD2D6A400186704 /* ViewControllers */,
@@ -322,6 +333,7 @@
 			files = (
 				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */,
+				102D9C111DE147BF00E8232A /* Utilities.swift in Sources */,
 				103215871DD2D6D100186704 /* StoresViewController.swift in Sources */,
 				7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */,
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
