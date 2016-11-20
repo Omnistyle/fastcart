@@ -634,7 +634,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulk-Xw-Urp">
-                                <rect key="frame" x="172" y="359" width="30" height="30"/>
+                                <rect key="frame" x="172" y="360" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pay"/>
                                 <connections>
@@ -655,18 +655,22 @@
                     </view>
                     <navigationItem key="navigationItem" title="Payments" id="cCB-cw-fSD"/>
                     <connections>
+                        <outlet property="addMethodButton" destination="RdH-6J-z8z" id="ezs-o6-MHo"/>
+                        <outlet property="payButton" destination="ulk-Xw-Urp" id="8lY-AM-n3O"/>
                         <outlet property="storeImage" destination="UYL-4H-gAi" id="yNe-Ea-a15"/>
                         <outlet property="storeLabel" destination="sa5-Us-mQ7" id="HLq-bY-IOR"/>
                         <outlet property="storeLocationLabel" destination="d6F-a6-3Tu" id="gVo-As-KIz"/>
                         <outlet property="subTotalLabel" destination="sDv-7t-7xa" id="FMF-KL-UZR"/>
                         <outlet property="taxesLabel" destination="8pR-Am-Ew7" id="6qR-1p-SNQ"/>
                         <outlet property="totalLabel" destination="fQC-wQ-HKh" id="IXt-Zz-G9m"/>
-                        <segue destination="fFe-d0-Jzg" kind="show" id="FRp-WQ-gKl"/>
+                        <outletCollection property="actionButtons" destination="ulk-Xw-Urp" collectionClass="NSMutableArray" id="iaw-In-s4d"/>
+                        <outletCollection property="actionButtons" destination="RdH-6J-z8z" collectionClass="NSMutableArray" id="Jbd-jd-1XF"/>
+                        <segue destination="fFe-d0-Jzg" kind="show" identifier="pushAddPayment" id="Bak-bH-uvg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk6-WI-Vvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="1384.8575712143929"/>
+            <point key="canvasLocation" x="2212" y="1385"/>
         </scene>
         <!--Add Payment View Controller-->
         <scene sceneID="JKJ-BV-Tm3">

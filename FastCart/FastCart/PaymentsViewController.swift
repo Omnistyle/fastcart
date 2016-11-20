@@ -19,15 +19,17 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     @IBOutlet weak var storeLocationLabel: UILabel!
     @IBOutlet weak var storeImage: UIImageView!
     
+    @IBOutlet var actionButtons: [UIButton]!
+    
     private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
     private var activityIndicator: UIActivityIndicatorView!
-    
     
     var braintreeClient: BTAPIClient!
     let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setUpView()
         self.setPaymentInformation()
     }
@@ -47,6 +49,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
 
     @IBAction func onAddPayment(_ sender: Any) {
+        self.performSegue(withIdentifier: "pushAddPayment", sender: self)
     }
     
     /* MARK - BTDropInViewControllerDelegate Methods */
@@ -63,6 +66,17 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     /* END MARK - BTDropInViewControllerDelegate Methods */
+    
+    private func userActionStarted() {
+        for button in self.actionButtons {
+            button.isUserInteractionEnabled = false
+        }
+    }
+    private func userActionEnded() {
+        for button in self.actionButtons {
+            button.isUserInteractionEnabled = true
+        }
+    }
     
     private func setUpView() {
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
