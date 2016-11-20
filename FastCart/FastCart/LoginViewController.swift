@@ -8,9 +8,13 @@
 
 import UIKit
 import FBSDKLoginKit
+import Parse
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
+    var dict : NSDictionary!
+    //self.dict = result as NSDictionary
+    
     var currentUser : User!
     
     override func viewDidLoad() {
@@ -47,30 +51,84 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start { (connecion, result, error) in
             if error != nil {
                 print("failed to start graph")
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "undefined error")
                 return
             }
             
-            //            var facebookid = result.valueForKey("name") as NSString
-            //            var username = result.valueForKey("name") as? String
-            //            var userEmail = result.valueForKey("email") as? String
+            //print(result)
             
-            print(result)
-            
-            self.performSegue(withIdentifier: "successloginsegue", sender: nil)
-            
-            //successloginsegue
+            self.dict = result as! NSDictionary
+            DispatchQueue.main.async {
+                self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
+            }
         }
         
-        //        "id": "1008223822",
-        //        "first_name": "Dj\u00e9",
-        //        "gender": "male",
-        //        "last_name": "Destolicci",
-        //        "link": "https://www.facebook.com/dje.destolicci",
-        //        "locale": "fr_FR",
-        //        "name": "Dj\u00e9 Destolicci",
-        //        "username": "dje.destolicci"
+    }
+    
+    func onLogin(username: String, password: String){
+        PFUser.logInWithUsername(inBackground: username, password: password) { (currentUser:PFUser?, error:Error?) in
+            if currentUser != nil {
+                print("successfully logged in")
+                
+            } else {
+                print("failed to log in")
+                print(error?.localizedDescription)
+            }
+            
+        }
+    }
+    
+    func onSignUp(username: String, email: String, password: String, id: String) {
         
+        let query = PFQuery(className: "AppUsers")
+        query.whereKey("email", equalTo: email)
+        
+        _ = query.findObjectsInBackground{
+            (users: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if users != nil{
+                    if (users?.count)! > 0 {
+                        //sing in create app user
+                        //var storeUser = User.getParseUser(email: email)
+                      
+                        let rawUser = users?[0]
+                        
+                        let userDictionary = User.getUserDictionary(user: rawUser!)
+                        let storedUser = User(dictionary: userDictionary)
+                        User.currentUser = storedUser
+                        print("user login")
+                    
+                    }
+                    else {
+                        //sign up
+                        print("user signup")
+                        
+                        let user = PFObject(className: "AppUsers")
+                        user["unsername"] = username
+                        user["email"] = email
+                        user["facebookId"] = id
+                        user.saveInBackground { (succeeded:Bool, error:Error?) in
+                            if(succeeded){
+                                print("saved with id: \(user.objectId)")
+                                
+                                var userDic = User.getUserDictionary(user: user)
+                                let user = User(dictionary: userDic)
+                                User.currentUser = user
+                                
+                            } else {
+                                print("failed to send message")
+                                //print(error?.localizedDescription)
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+            
+            self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+        }
     }
 
     /*
