@@ -21,14 +21,10 @@ class User: NSObject {
     // The favorite stores.
     var favoriteStores: [Store] = []
     
-    // The Payment methods associated with the user.
-    var payments: [Payment] = []
-    
     override init() {
         id = 0
         history = []
         favoriteStores = []
-        payments = []
     }
     
     

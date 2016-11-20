@@ -23,8 +23,15 @@ class ReceiptCell: UITableViewCell {
         didSet {
             if let image = self.receipt?.store.image {
                 storeImage.setImageWith(image)
+                storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
+                storeImage.layer.masksToBounds = true
+//                storeImage.layer.borderColor = UIColor.lightGray.cgColor
+//                storeImage.layer.borderWidth = 1
+                
             }
-            priceLabel.text = "$" + String(describing: self.receipt?.totalAsString)
+            if let price = self.receipt?.totalAsString {
+                priceLabel.text = "$" + String(describing: price)
+            }
             storeLabel.text = self.receipt?.store.name
             dateLabel.text = self.receipt?.startedAsString
             locationLabel.text = self.receipt?.store.locationAsString
