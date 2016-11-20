@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="m3y-gp-9Uv">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="m3y-gp-9Uv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -649,7 +649,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pay"/>
                                 <connections>
-                                    <action selector="onPay:" destination="gVO-e0-TW2" eventType="touchUpInside" id="8XK-3J-gTh"/>
+                                    <action selector="onPay:" destination="gVO-e0-TW2" eventType="touchUpInside" id="vWq-hL-SZx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdH-6J-z8z">
@@ -657,8 +657,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Method"/>
                                 <connections>
-                                    <action selector="onAddPayment:" destination="gVO-e0-TW2" eventType="touchUpInside" id="xAh-q5-J6R"/>
-                                    <action selector="onAddPayment:forEvent:" destination="gVO-e0-TW2" eventType="touchUpInside" id="nkU-S5-Xbj"/>
+                                    <action selector="onAddPayment:" destination="gVO-e0-TW2" eventType="touchUpInside" id="NQ6-av-edU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -666,8 +665,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Payments" id="cCB-cw-fSD"/>
                     <connections>
-                        <outlet property="addMethodButton" destination="RdH-6J-z8z" id="ezs-o6-MHo"/>
-                        <outlet property="payButton" destination="ulk-Xw-Urp" id="8lY-AM-n3O"/>
                         <outlet property="storeImage" destination="UYL-4H-gAi" id="yNe-Ea-a15"/>
                         <outlet property="storeLabel" destination="sa5-Us-mQ7" id="HLq-bY-IOR"/>
                         <outlet property="storeLocationLabel" destination="d6F-a6-3Tu" id="gVo-As-KIz"/>
@@ -696,6 +693,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="oIo-R3-GBo" id="oHk-XO-VPC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1B-Cv-Xpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

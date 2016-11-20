@@ -48,9 +48,10 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         self.setUpPayments()
     }
 
-    @IBAction func onAddPayment(_ sender: Any) {
+    @IBAction func onAddPayment(_ sender: UIButton) {
         self.performSegue(withIdentifier: "pushAddPayment", sender: self)
     }
+    
     
     /* MARK - BTDropInViewControllerDelegate Methods */
     public func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
@@ -84,7 +85,8 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         self.view.addSubview(self.activityIndicator)
     }
     private func setUpPayments() {
-        let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token")!
+        let userId = User.currentUser!.id;
+        let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token/\(userId)")!
         var clientTokenRequest = URLRequest(url: clientTokenURL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
         
