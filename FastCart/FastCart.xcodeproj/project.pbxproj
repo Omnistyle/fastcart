@@ -29,6 +29,7 @@
 		7F28EF041DD10EDE0084410B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF031DD10EDE0084410B /* Assets.xcassets */; };
 		7F28EF071DD10EDE0084410B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF051DD10EDE0084410B /* LaunchScreen.storyboard */; };
 		7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EF101DD1155A0084410B /* WalmartClient.swift */; };
+		7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */; };
 		7FF055F61DD126BD00434F2A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F51DD126BD00434F2A /* Product.swift */; };
 		7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */; };
 		7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F91DD13A4F00434F2A /* ScanViewController.swift */; };
@@ -63,6 +64,7 @@
 		7F28EF061DD10EDE0084410B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F28EF081DD10EDE0084410B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F28EF101DD1155A0084410B /* WalmartClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalmartClient.swift; sourceTree = "<group>"; };
+		7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptCell.swift; sourceTree = "<group>"; };
 		7FF055F51DD126BD00434F2A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		7FF055F91DD13A4F00434F2A /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				1057DECA1DD91510001203D2 /* ProductCell.swift */,
+				7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */,
 				1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */,
 				7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */,
+				7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */,
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
 				103215951DD2E08000186704 /* Payment.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,

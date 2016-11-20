@@ -65,8 +65,6 @@ class Receipt: NSObject {
         return self.moneyToString(amount: self.subTotal)
     }
     
-    // The payment method used to pay for this receipt, if paid.
-    var payment: Payment?
     
     // Whether or not the receipt has been paid for.
     var paid: Bool = false

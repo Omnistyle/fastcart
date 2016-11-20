@@ -7,8 +7,16 @@
 //
 
 import UIKit
+import Parse
 
 class User: NSObject {
+    
+    var username: String?
+    
+    var email: String?
+    
+    var facebookId: String?
+    
     // Necessary unique id for each user of our application.
     var id: Int = 1234
     
@@ -21,25 +29,30 @@ class User: NSObject {
     // The favorite stores.
     var favoriteStores: [Store] = []
     
-    // The Payment methods associated with the user.
-    var payments: [Payment] = []
+    var dictionary: NSDictionary?
     
-    override init() {
-        id = 0
-        history = []
-        favoriteStores = []
-        payments = []
+    init(dictionary: NSDictionary){
+        
+        self.dictionary = dictionary
+        username = dictionary["username"] as? String
+        email = dictionary["email"] as? String
+        facebookId = dictionary["facebookId"] as? String
     }
     
+    static let userDidLogoutNotification = "UserDidLogout"
     
     private static var _currentUser: User?
 
     class var currentUser: User? {
         get {
-            let defaults = UserDefaults.standard
             if self._currentUser == nil {
-                // TODO: Load the user model
-                self._currentUser = User()
+                let defaults = UserDefaults.standard
+                let userData = defaults.object(forKey: "currentUserData") as? NSData
+                
+                if let userData = userData {
+                    let dictionary = try! JSONSerialization.jsonObject(with: userData as Data, options: []) as! NSDictionary
+                    _currentUser = User(dictionary: dictionary)
+                }
             }
             return self._currentUser
         }
@@ -48,14 +61,61 @@ class User: NSObject {
             self._currentUser = user
             let defaults = UserDefaults.standard
             if let user = user {
-                // TODO: Store the current user.
-                
+                let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options:[])
+                defaults.set(data, forKey: "currentUserData")
             }
             else {
-                // TODO: Clear out the current user from storage
+                defaults.set(nil, forKey: "currentUserData")
             }
+            
             defaults.synchronize()
         }
     }
+    
+    static func getParseUser(email: String, completion: @escaping (_ result: User) -> Void ) {
+        let query = PFQuery(className: "AppUsers")
+        query.whereKey("email", equalTo: email)
+        
+        _ = query.findObjectsInBackground{
+            (users: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if users != nil{
+                    let rawUser = users?[0]
+                    let userDic = User.getUserDictionary(user: rawUser!)
+                    let storedUser = User(dictionary: userDic)
+    
+                    completion(storedUser)
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+        }
+    }
+    
+    static func getUserDictionary(user: PFObject) -> NSDictionary {
+        let userDictionary : NSDictionary? = [
+            "unsername" : user["unsername"] as? String ?? "def username",
+            "email" : user["email"] as? String ?? "defaul@email",
+            "facebookId" : user["facebookId"] as? String ?? "0123456789",
+            ]
+        
+        return userDictionary!
+    }
 
+    func parseSave(){
+        let user = PFObject(className: "AppUsers")
+        user["unsername"] = self.username
+        user["email"] = self.email
+        user["facebookId"] = self.facebookId
+        user.saveInBackground { (succeeded:Bool, error:Error?) in
+            if(succeeded){
+                print("saved with id: \(user.objectId)")
+            } else {
+                print("failed to send message")
+                //print(error?.localizedDescription)
+            }
+        }
+    }
+    
 }

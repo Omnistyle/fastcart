@@ -124,11 +124,11 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         request.httpMethod = "POST"
         
         URLSession.shared.dataTask(with: request, completionHandler: {[unowned self] (data, response, error) -> Void in
-            if (error != nil) {
+            // if (error != nil) {
                 if let user = User.currentUser {
                     self.completePayment(user: user)
                 }
-            }
+            //}
         }).resume()
     }
     
