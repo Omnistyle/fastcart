@@ -10,7 +10,18 @@ import UIKit
 
 class Receipt: NSObject {
     // List of products purchased with this receipt.
-    var products: [Product] = []
+    var products: [Product] = [] {
+        didSet {
+            var subtotal = 0.0
+            // calculate and update subtotal
+            for product in products {
+                if let price = product.salePrice {
+                    subtotal = subtotal + price
+                }
+            }
+            self.subTotal = subtotal
+        }
+    }
     
     // The time at which the first product was added to the receipt.
     // If nil, the receipt has no products.
@@ -32,13 +43,24 @@ class Receipt: NSObject {
     var store: Store = Store(id: "1")
 
     // The amount of tax charged for this receipt.
-    var tax: Double = 0.0
+    var tax: Double = 0.0 {
+        didSet {
+            self.total = self.tax + self.subTotal
+        }
+    }
     var taxAsString: String {
         return self.moneyToString(amount: self.tax)
     }
     
     // The subtotal on the receipt.
-    var subTotal: Double = 0.0
+    var subTotal: Double = 0.0 {
+        didSet {
+            // update tax
+            let taxPct = 0.08
+            self.tax = taxPct * self.subTotal
+        }
+    }
+    
     var subTotalAsString: String {
         return self.moneyToString(amount: self.subTotal)
     }

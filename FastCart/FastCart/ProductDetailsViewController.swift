@@ -68,7 +68,13 @@ class ProductDetailsViewController: UIViewController {
         if self.product != nil {
             User.currentUser?.current.products.append(self.product!)
         }
-        self.dismiss(animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+        // select the list index
+        vc.selectedIndex = 2
+        present(vc, animated: true, completion: nil)
+        
+//        self.dismiss(animated: true, completion: nil)
     }
     
     /*

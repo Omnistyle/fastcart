@@ -21,24 +21,32 @@ class ProductCell: UITableViewCell {
     
     var product: Product! {
         didSet {
+            if let image = product.image {
+                productImage.setImageWith(image)
+            } else {
+                productImage.image = #imageLiteral(resourceName: "noimagefound")
+            }
+            
+            productImage.layer.cornerRadius = productImage.frame.size.width / 2
+            productImage.layer.masksToBounds = true
+            productImage.layer.borderColor = UIColor.lightGray.cgColor
+            productImage.layer.borderWidth = 1
+            
             if product.upc == nil {
                 manual = true
                 productName.text = product.name
                 priceLabel.text = "NA"
+                priceImage.image = #imageLiteral(resourceName: "camera_outline")
                 return
             }
             productName.text = product.name
             if let salePrice = product?.salePrice {
                 priceLabel.text = "$" + String(describing: salePrice)
             }
-            if let image = product.image {
-                productImage.setImageWith(image)
-            }
-            
-            
             
         }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

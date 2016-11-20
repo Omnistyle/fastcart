@@ -43,6 +43,7 @@ class TabViewController: UIViewController {
             button.setTitleColor(UIColor.darkGray, for: .selected)
             button.adjustsImageWhenHighlighted = false
         }
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
