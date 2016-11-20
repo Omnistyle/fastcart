@@ -19,15 +19,17 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     @IBOutlet weak var storeLocationLabel: UILabel!
     @IBOutlet weak var storeImage: UIImageView!
     
+    @IBOutlet var actionButtons: [UIButton]!
+    
     private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
     private var activityIndicator: UIActivityIndicatorView!
-    
     
     var braintreeClient: BTAPIClient!
     let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setUpView()
         self.setPaymentInformation()
     }
@@ -46,8 +48,10 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         self.setUpPayments()
     }
 
-    @IBAction func onAddPayment(_ sender: Any) {
+    @IBAction func onAddPayment(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "pushAddPayment", sender: self)
     }
+    
     
     /* MARK - BTDropInViewControllerDelegate Methods */
     public func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
@@ -64,13 +68,25 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     /* END MARK - BTDropInViewControllerDelegate Methods */
     
+    private func userActionStarted() {
+        for button in self.actionButtons {
+            button.isUserInteractionEnabled = false
+        }
+    }
+    private func userActionEnded() {
+        for button in self.actionButtons {
+            button.isUserInteractionEnabled = true
+        }
+    }
+    
     private func setUpView() {
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         self.activityIndicator.center = self.view.center;
         self.view.addSubview(self.activityIndicator)
     }
     private func setUpPayments() {
-        let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token")!
+        let userId = User.currentUser!.id;
+        let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token/\(userId)")!
         var clientTokenRequest = URLRequest(url: clientTokenURL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
         

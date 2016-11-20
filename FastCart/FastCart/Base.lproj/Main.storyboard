@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="m3y-gp-9Uv">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="m3y-gp-9Uv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -742,11 +742,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulk-Xw-Urp">
-                                <rect key="frame" x="172" y="359" width="30" height="30"/>
+                                <rect key="frame" x="172" y="360" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pay"/>
                                 <connections>
-                                    <action selector="onPay:" destination="gVO-e0-TW2" eventType="touchUpInside" id="8XK-3J-gTh"/>
+                                    <action selector="onPay:" destination="gVO-e0-TW2" eventType="touchUpInside" id="vWq-hL-SZx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdH-6J-z8z">
@@ -754,8 +754,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Method"/>
                                 <connections>
-                                    <action selector="onAddPayment:" destination="gVO-e0-TW2" eventType="touchUpInside" id="xAh-q5-J6R"/>
-                                    <action selector="onAddPayment:forEvent:" destination="gVO-e0-TW2" eventType="touchUpInside" id="nkU-S5-Xbj"/>
+                                    <action selector="onAddPayment:" destination="gVO-e0-TW2" eventType="touchUpInside" id="NQ6-av-edU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -769,12 +768,14 @@
                         <outlet property="subTotalLabel" destination="sDv-7t-7xa" id="FMF-KL-UZR"/>
                         <outlet property="taxesLabel" destination="8pR-Am-Ew7" id="6qR-1p-SNQ"/>
                         <outlet property="totalLabel" destination="fQC-wQ-HKh" id="IXt-Zz-G9m"/>
-                        <segue destination="fFe-d0-Jzg" kind="show" id="FRp-WQ-gKl"/>
+                        <outletCollection property="actionButtons" destination="ulk-Xw-Urp" collectionClass="NSMutableArray" id="iaw-In-s4d"/>
+                        <outletCollection property="actionButtons" destination="RdH-6J-z8z" collectionClass="NSMutableArray" id="Jbd-jd-1XF"/>
+                        <segue destination="fFe-d0-Jzg" kind="show" identifier="pushAddPayment" id="Bak-bH-uvg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk6-WI-Vvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="1384.8575712143929"/>
+            <point key="canvasLocation" x="2212" y="1385"/>
         </scene>
         <!--Add Payment View Controller-->
         <scene sceneID="JKJ-BV-Tm3">
@@ -789,6 +790,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="oIo-R3-GBo" id="oHk-XO-VPC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1B-Cv-Xpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
