@@ -72,7 +72,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     
     private func setUpPayments() {
-        let userId = User.currentUser!.id;
+        let userId: String = User.currentUser.id;
         let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token/\(userId)")!
         var clientTokenRequest = URLRequest(url: clientTokenURL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
@@ -104,6 +104,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         let dropInViewController = BTDropInViewController(apiClient: client)
         dropInViewController.delegate = self
         dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        dropInViewController.view.frame = self.paymentView.bounds
         dropInViewController.fetchPaymentMethods(onCompletion: {
             self.addChildViewController(dropInViewController)
             self.paymentView.addSubview(dropInViewController.view)
@@ -133,9 +134,10 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     
     private func completePayment(user: User) {
-        user.current.paid = true
-        user.current.completed = Date()
-        user.history.append(user.current)
-        user.current = Receipt()
+        // Complete the receipt.
+        let receipt = user.current
+        receipt.paid = true
+        receipt.completed = Date()
+        user.completeCheckout()
     }
 }

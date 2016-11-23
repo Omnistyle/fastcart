@@ -15,7 +15,6 @@
 		1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */; };
 		103215911DD2DB9600186704 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215901DD2DB9600186704 /* Receipt.swift */; };
 		103215931DD2DBDA00186704 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215921DD2DBDA00186704 /* User.swift */; };
-		103215951DD2E08000186704 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215941DD2E08000186704 /* Payment.swift */; };
 		103215971DD2E0FA00186704 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215961DD2E0FA00186704 /* Review.swift */; };
 		103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215981DD2F2DE00186704 /* HistoryViewController.swift */; };
 		1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032159A1DD2F7B200186704 /* TabViewController.swift */; };
@@ -46,7 +45,6 @@
 		1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
 		103215901DD2DB9600186704 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		103215921DD2DBDA00186704 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		103215941DD2E08000186704 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		103215961DD2E0FA00186704 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		103215981DD2F2DE00186704 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		1032159A1DD2F7B200186704 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				7FF055F51DD126BD00434F2A /* Product.swift */,
 				103215901DD2DB9600186704 /* Receipt.swift */,
 				103215921DD2DBDA00186704 /* User.swift */,
-				103215941DD2E08000186704 /* Payment.swift */,
 				103215961DD2E0FA00186704 /* Review.swift */,
 				7FF055FB1DD2DD1200434F2A /* Store.swift */,
 			);
@@ -349,7 +346,6 @@
 				7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */,
 				7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */,
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
-				103215951DD2E08000186704 /* Payment.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,
 				1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */,
 				103215931DD2DBDA00186704 /* User.swift in Sources */,

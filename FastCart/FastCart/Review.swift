@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import EVReflection
 
-class Review: NSObject {
+class Review: EVObject {
     
     var title: String?
     var comment: String?
@@ -16,4 +17,8 @@ class Review: NSObject {
     var username: String?
     var date: Date?
     var userImageURL: String?
+    
+    func parseSave(){
+        print(self)
+    }
 }

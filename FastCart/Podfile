@@ -6,12 +6,11 @@ target 'FastCart' do
   use_frameworks!
     pod "BarcodeScanner"
     pod 'AFNetworking'
-  # Pods for FastCart
     pod 'Braintree'
     pod 'Braintree/Apple-Pay'
     pod 'FBSDKCoreKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
+    pod 'EVReflection'
     pod 'Parse'
-
 end

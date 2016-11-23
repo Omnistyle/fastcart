@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import EVReflection
 
-class Receipt: NSObject {
+
+class Receipt: EVObject {
     // List of products purchased with this receipt.
     var products: [Product] = [] {
         didSet {
@@ -68,6 +70,10 @@ class Receipt: NSObject {
     
     // Whether or not the receipt has been paid for.
     var paid: Bool = false
+    
+    func parseSave(){
+        print(self)
+    }
     
     // Converts a double to the correct string representation.
     private func moneyToString(amount: Double) -> String {

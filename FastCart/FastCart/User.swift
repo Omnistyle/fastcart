@@ -8,42 +8,57 @@
 
 import UIKit
 import Parse
+import EVReflection
 
-class User: NSObject {
-    
-    var username: String?
-    
-    var email: String?
-    
-    var facebookId: String?
-    
+class User: EVObject {
+    private enum Pesistece: String {
+        case receipt = "currentReceipt"
+    }
     // Necessary unique id for each user of our application.
-    var id: Int = 1234
+    var id: String!
     
-    // List of receipts (only keep the last 20)
+    var username: String!
+    
+    var email: String!
+    
+    var facebookId: String!
+    
+    // List of receipts (only keep the last 20).
     var history: [Receipt] = []
     
     // The current list of items the user is shopping.
-    var current = Receipt()
+    var current = Receipt() {
+        didSet {
+            Utilities.persist(object: self, withKey: Pesistece.receipt.rawValue)
+        }
+    }
     
     // The favorite stores.
     var favoriteStores: [Store] = []
     
-    var dictionary: NSDictionary?
+    var dictionary: NSDictionary!
     
     init(dictionary: NSDictionary){
         
         self.dictionary = dictionary
+        id = dictionary["id"] as? String
         username = dictionary["username"] as? String
         email = dictionary["email"] as? String
         facebookId = dictionary["facebookId"] as? String
+        
+        // Load current from local storage.
+        current = Utilities.load(fromKey: Pesistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
+    }
+    
+    required init() {
+        fatalError("init() has not been implemented")
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
     
     private static var _currentUser: User?
 
-    class var currentUser: User? {
+    class var currentUser: User! {
         get {
             if self._currentUser == nil {
                 let defaults = UserDefaults.standard
@@ -61,7 +76,7 @@ class User: NSObject {
             self._currentUser = user
             let defaults = UserDefaults.standard
             if let user = user {
-                let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options:[])
+                let data = try! JSONSerialization.data(withJSONObject: user.dictionary, options:[])
                 defaults.set(data, forKey: "currentUserData")
             }
             else {
@@ -70,6 +85,14 @@ class User: NSObject {
             
             defaults.synchronize()
         }
+    }
+    
+    func completeCheckout() {
+        self.history.insert(self.current, at: 0)
+        self.current.parseSave()
+        
+        // Reset to a new receipt.
+        self.current = Receipt()
     }
     
     static func getParseUser(email: String, completion: @escaping (_ result: User) -> Void ) {
@@ -94,13 +117,14 @@ class User: NSObject {
     }
     
     static func getUserDictionary(user: PFObject) -> NSDictionary {
-        let userDictionary : NSDictionary? = [
+        let userDictionary : NSDictionary = [
+            "id": user.objectId ?? "0123456789",
             "unsername" : user["unsername"] as? String ?? "def username",
             "email" : user["email"] as? String ?? "defaul@email",
             "facebookId" : user["facebookId"] as? String ?? "0123456789",
             ]
         
-        return userDictionary!
+        return userDictionary
     }
 
     func parseSave(){

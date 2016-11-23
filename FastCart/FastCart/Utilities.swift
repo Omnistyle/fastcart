@@ -7,9 +7,18 @@
 //
 
 import UIKit
+import EVReflection
 
-// A class containing commonly re-used code. Implemented with entirely static methods.
+/**
+ A container for re-usuable functions. We like to code in a `functional` way, so common functions that may typically be stored within an object are instead stored here, to avoid inheritence and Ctrl-C, Ctrl-V behaviour.
+ 
+ - Author:
+    Luis Perez
+ */
 class Utilities {
+    /**
+     
+     */
     static func updateImageView(_ view: UIImageView, withAsset asset: URLRequest, withPreview preview: URLRequest?, withPlaceholder placeholder: UIImage?) -> Void {
         view.image = nil
         let small = preview ?? asset
@@ -64,5 +73,41 @@ class Utilities {
                     view.image = placeholder
             })
         })
+    }
+    
+    /**
+     Persists `object` in local storage `withKey`.
+     
+     - author: 
+        Luis Perez
+     
+     - parameters:
+        - object: The object to be persisted.
+        - withKey: The key which can later be used for retrieval
+     */
+    static func persist(object: EVObject, withKey key: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(object.toDictionary(), forKey: key)
+    }
+    
+    /**
+     Loads an object from local storage as specified `fromKey`. 
+     
+     - author:
+        Luis Perez
+     
+     - parameters:
+        - fromKey: The key to be used to retrieve the object. If the key does not exists, retrieval will fail.
+        - into: The Class the object will be stored into.
+     
+     - returns:
+        Returns the retrieved object, or nil on failure.
+     */
+    static func load(fromKey key: String, into Object: EVObject.Type) -> EVObject? {
+        let defaults = UserDefaults.standard
+        if let dictionary = defaults.value(forKey: key) as? NSDictionary {
+            return Object.init(dictionary: dictionary)
+        }
+        return nil
     }
 }
