@@ -9,8 +9,8 @@
 import UIKit
 import EVReflection
 
+/** TODO: Document **/
 class Review: EVObject {
-    
     var title: String?
     var comment: String?
     var rating: Int?

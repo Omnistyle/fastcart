@@ -52,8 +52,14 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.17.0):
     - FBSDKCoreKit
+  - MisterFusion (2.0.1)
+  - MXParallaxHeader (0.6.0)
   - Parse (1.14.2):
     - Bolts/Tasks (~> 1.8)
+  - SABlurImageView (3.0.0)
+  - SAParallaxViewControllerSwift (2.0.0):
+    - MisterFusion
+    - SABlurImageView
 
 DEPENDENCIES:
   - AFNetworking
@@ -64,7 +70,9 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - MXParallaxHeader
   - Parse
+  - SAParallaxViewControllerSwift
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -75,8 +83,12 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
   FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
   FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
+  MisterFusion: d42cac7afe8318c282bcda93396eba0aef45d30e
+  MXParallaxHeader: 2997592b8349baf8557ae0e4346f6b17e141de39
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
+  SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
+  SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
 
-PODFILE CHECKSUM: ecf6d7eee6e81fbe9d999b18b3be2a2434c31ab6
+PODFILE CHECKSUM: 83833219790bb4f8cfdbff714c9a1ec8896ad551
 
 COCOAPODS: 1.1.1

@@ -23,7 +23,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if User.currentUser != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+            let tabBar = vc.tabBar as UITabBar
+            let tabBarItem1 = tabBar.items![0] as UITabBarItem
+            let tabBarItem2 = tabBar.items![1] as UITabBarItem
+            let tabBarItem3 = tabBar.items![2] as UITabBarItem
+            let tabBarItem4 = tabBar.items![3] as UITabBarItem
+            let tabBarItem5 = tabBar.items![4] as UITabBarItem
+            
+
+            tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
+            tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
+            tabBarItem3.selectedImage = #imageLiteral(resourceName: "list_filled")
+            tabBarItem4.selectedImage = #imageLiteral(resourceName: "creditcard_filled")
+            tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
+            
+            // nonselected color to black
+            for tabItem in tabBar.items! {
+                let item = tabItem as! UITabBarItem
+                item.image = item.image?.withRenderingMode(.alwaysOriginal)
+                item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
+            }
+            
+            // change tint color to black
+            UITabBar.appearance().tintColor = UIColor.black
             window?.rootViewController = vc
+            
         }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil, queue: OperationQueue.main) { (Notification) in
@@ -33,6 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = vc
             
         }
+        
+    // fix tab bar
+   
         
         
         return true

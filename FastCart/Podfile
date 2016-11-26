@@ -13,4 +13,6 @@ target 'FastCart' do
     pod 'FBSDKLoginKit'
     pod 'EVReflection'
     pod 'Parse'
+    pod "MXParallaxHeader"
+    pod "SAParallaxViewControllerSwift"
 end

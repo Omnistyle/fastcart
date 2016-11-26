@@ -9,6 +9,7 @@
 import UIKit
 import AFNetworking
 import EVReflection
+import Parse
 
 enum apiType {
     case walmart
@@ -17,6 +18,10 @@ enum apiType {
 }
 
 class Product: EVObject {
+    /** The unique product id based on Parse **/
+    var id : String?
+    /** The unique receipt id from Parse to which this product belongs */
+    var receiptId : String?
     /** The UPC-13 code for Product */
     var upc: String?
     /** The short name of the Product */
@@ -26,7 +31,7 @@ class Product: EVObject {
     /** The URL for the image for the Product */
     var image: URL?
     /** The store from which the Product information is pulled */
-    var store: Store?
+    // var store: Store?
     /** The current sale price of this specific product */
     var salePrice: Double?
     var salePriceAsString: String {
@@ -57,6 +62,7 @@ class Product: EVObject {
      
      - author:
         Belinda Zeng
+        Jose Villanueva 
      
      - parameters: 
         - dictionary: The input dictionary.
@@ -73,11 +79,8 @@ class Product: EVObject {
             if let imageString = dictionary["largeImage"] as? String{
                 self.image = URL(string: imageString)
             }
-            store = Store(id: "Walmart")
-            // round to two decimals
-            if let salePriceDouble = dictionary["salePrice"] as? Double {
-                salePrice = round(salePriceDouble * 100)/100
-            }
+            //store = Store(id: "Walmart")
+            salePrice = dictionary["salePrice"] as? Double {
             brandName = dictionary["brandName"] as? String
             averageRating = dictionary["customerRating"] as? String
             color = dictionary["color"] as? String
@@ -125,10 +128,6 @@ class Product: EVObject {
             })
         ]
     }
-
-    func parseSave(){
-        print(self)
-    }
     
     /**
      Updates an imageview to reflect the product.
@@ -167,6 +166,34 @@ class Product: EVObject {
         return products
     }
     
-    
-
+    /** 
+     Saves the current `Product` to our Parse Database.
+     
+     - Author:
+        Jose Villanueva 
+     */
+    func parseSave(){
+        let product = PFObject(className: "Product")
+        product["receipId"] = self.receiptId
+        product["upc"] = self.upc
+        product["name"] = self.name
+        product["imageUrl"] = self.image
+        product["salePrice"] = self.salePrice
+        product["brandName"] = self.brandName
+        product["averageRating"] = self.averageRating
+        product["color"] = self.color
+        product["size"] = self.size
+        product["freeShipToStore"] = self.freeShipToStore
+        product["addToCartUrl"] = self.addToCartUrl
+        product["category"] = self.category
+        
+        product.saveInBackground { (succeeded:Bool, error:Error?) in
+            if(succeeded){
+                self.id = product.objectId
+                print("saved with id: \(product.objectId)")
+            } else {
+                print(error?.localizedDescription ?? "default: error saving \(self.name) product to parse")
+            }
+        }
+    }
 }

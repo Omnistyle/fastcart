@@ -8,9 +8,19 @@
 
 import UIKit
 import FBSDKLoginKit
+import MXParallaxHeader
 
-class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
-
+class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITableViewDelegate, UITableViewDataSource  {
+    
+    var scrollView: MXScrollView!
+    
+    @IBOutlet weak var table1: UITableView!
+//    var table1: UITableView!
+    let titlesInSection1 = ["Recent orders", "My reviews", "Upgrade to Pro"]
+    let titlesInSection2 = ["How it works", "Contact us", "Rate the app", "Invite friends"]
+    
+    var table2: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,8 +31,111 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.delegate = self
         
         // Do any additional setup after loading the view.
+        // Parallax Header
+        scrollView = MXScrollView()
+        let header = Bundle.main.loadNibNamed("StarshipHeader", owner: self, options: nil)?.first as? CustomHeader
+        header?.backgroundImageUrl = URL(string: "http://img05.deviantart.net/fb0f/i/2011/197/8/8/gray_texture_by_gbyaln-d3xigul.jpg")
+        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
+        scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
+        scrollView.parallaxHeader.height = 300
+        scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        scrollView.parallaxHeader.minimumHeight = 20
+        view.addSubview(scrollView)
+        
+//        table1 = UITableView()
+        
+        // tableview 
+        
+        table1.dataSource = self;
+        table1.delegate = self
+        table1.backgroundColor = UIColor.white
+        scrollView.addSubview(table1)
+        // hide first section header
+        table1.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
+        // get rid of empty cells
+        
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        var frame = view.frame
+        
+        scrollView.frame = frame
+        scrollView.contentSize = frame.size
+        
+        frame.size.height = table1.contentSize.height
+        table1.frame = frame
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // set height to 1 for the first section header
+        if (section == 0) {
+            return 1.0
+        }
+        return 40
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.00001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        print(section)
+        print("get here")
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 50))
+        let lblHeader = UILabel.init(frame: CGRect(x: 15, y: 13, width: tableView.bounds.size.width - 10, height: 24))
+        if section == 1 {
+            lblHeader.text = "About Shoply"
+        }
+        lblHeader.font = UIFont (name: "Helvetica", size: 14)
+        lblHeader.textColor = UIColor(colorLiteralRed: 179.0/255.0, green: 179.0/255.0, blue: 179.0/255.0, alpha: 1.0)
 
+        headerView.addSubview(lblHeader)
+        headerView.backgroundColor = UIColor(colorLiteralRed: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
+        return headerView
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    // table functions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return titlesInSection1.count
+        }
+        return titlesInSection2.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell") as! OptionCell
+        
+//        if (cell == nil) {
+//            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "OptionCell") as! OptionCell
+//        }
+        if indexPath.section == 0 {
+            cell.optionLabel.text = titlesInSection1[indexPath.row]
+        } else if indexPath.section == 1 {
+            cell.optionLabel.text = titlesInSection2[indexPath.row]
+        }
+        
+        cell.backgroundColor = UIColor.white
+        
+        // separator insets
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        
+        return cell
+    }
+    
+    // scroll view delegate
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("progress %f", scrollView.parallaxHeader.progress)
+//    }
+    
+    //
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -10,8 +10,11 @@
 import UIKit
 import CoreLocation
 import EVReflection
+import Parse
 
 class Store: EVObject {
+    /** The unique id of the Store in our Parse databse */
+    var id: String?
     /** The store name */
     var name: String!
     /** The location of the store, in (lat, long) format. `nil` implies the location is undetermined */
@@ -27,8 +30,8 @@ class Store: EVObject {
     
     /** 
      Initializer the Store object specified by `id`.
-     
-     - Author: Luis Perez
+     - Author: 
+        Luis Perez
      
      - parameters:
         - id: The `id` for the store, in `String` format.
@@ -44,10 +47,12 @@ class Store: EVObject {
         name  = ""
     }
     
-    /** MARK - EVObject */
     /**
      Need to override since EVObject has issues with optionals.
-     */
+     
+     - Author:
+        Luis Perez
+    */
     override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", {
@@ -74,15 +79,6 @@ class Store: EVObject {
     }
     
     /**
-     Saves the object to Parse.
-     
-     - Author: Jose
-    */
-    func parseSave(){
-        print(self)
-    }
-    
-    /**
      Returns the current store selected by the current user.
      
      - Author: Luis Perez
@@ -95,4 +91,26 @@ class Store: EVObject {
         }
     }
     
+    /**
+     Saves the current `Store` to our Parse Database.
+     
+     - Author:
+        Jose Villanueva 
+     */
+    func parseSave(){
+        let store = PFObject(className: "Store")
+        store["name"] = self.name
+        store["location"] = self.location
+        store["locationAsString"] = self.locationAsString
+        store["imageUrl"] = self.image
+        
+        store.saveInBackground { (succeeded:Bool, error:Error?) in
+            if(succeeded){
+                self.id = store.objectId
+                print("saved with id: \(store.objectId)")
+            } else {
+                print(error?.localizedDescription ?? "default: error saving \(self.name) store to parse")
+            }
+        }
+    }
 }
