@@ -97,7 +97,7 @@ class Utilities {
         - object: The object to be persisted.
         - withKey: The key which can later be used for retrieval
      */
-    static func persist(object: EVObject, withKey key: String) {
+    static func persist(_ object: EVObject, withKey key: String) {
         let defaults = UserDefaults.standard
         defaults.set(object.toJsonString(), forKey: key)
     }
@@ -134,7 +134,7 @@ class Utilities {
      - returns:
         The string representation. This will eventually conform to other types.
      */
-    static func moneyToString(amount: Double) -> String {
+    static func moneyToString(_ amount: Double) -> String {
         return String(format: "$%.2f", amount)
     }
     
@@ -149,7 +149,7 @@ class Utilities {
      - returns:
      A pretty string for the date.
      */
-    static func formatTimeToString(date: Date) -> String {
+    static func formatTimeToString(_ date: Date) -> String {
         formatter.dateFormat = "M/d/yyyy"
         let elapsedTime = date.timeIntervalSinceNow
         let ti = -Int(elapsedTime)

@@ -15,9 +15,10 @@ class User: EVObject {
     static let userDidLogoutNotification = "UserDidLogout"
     
     private static var _currentUser: User?
-    /** Retrieve the currently logged in user 
+    /** 
+     Retrieve the currently logged in user.
      
-     Author:
+     - Author:
         Jose Villanueva
      */
     class var currentUser: User! {
@@ -48,6 +49,16 @@ class User: EVObject {
             defaults.synchronize()
         }
     }
+    
+    /** 
+     Fetches the corresponding `user` from the Parse database.
+     - author:
+        Jose Villanueva
+     
+     - parameters:
+        - email: The email for the User to be fetched.
+        - completion: Called when the user is successfully fetched. The user is given as input to the function.
+     */
     static func getParseUser(email: String, completion: @escaping (_ result: User) -> Void ) {
         let query = PFQuery(className: "AppUsers")
         query.whereKey("email", equalTo: email)
@@ -69,6 +80,17 @@ class User: EVObject {
         }
     }
     
+    /**
+     Extracts required user information from a `PFObject`.
+     
+     - author:
+        Jose Villanueva
+     
+     - parameters:
+        - user: The `PFObject` returned from a successful Parse request.
+     - returns:
+        An `NSDictionary` containing relevant User information extracted from Parse.
+     */
     static func getUserDictionary(user: PFObject) -> NSDictionary {
         let userDictionary : NSDictionary = [
             "id": user.objectId ?? "0123456789",
@@ -93,7 +115,7 @@ class User: EVObject {
     /** The current list of items the user is shopping for */
     var current = Receipt() {
         didSet {
-            Utilities.persist(object: self, withKey: Persistece.receipt.rawValue)
+            Utilities.persist(self, withKey: Persistece.receipt.rawValue)
         }
     }
     /** The user's favorite stores */
@@ -130,11 +152,20 @@ class User: EVObject {
 
     /**
      Persists the current user receipt.
+     
+     - author:
+        Luis Perez
      */
     func persistCurrent() -> Void {
-        Utilities.persist(object: self.current, withKey: Persistece.receipt.rawValue)
+        Utilities.persist(self.current, withKey: Persistece.receipt.rawValue)
     }
 
+    /**
+     Saves the current `Receipt` to Parse.
+     
+     - author:
+        Jose Villanueva
+     */
     func parseSave(){
         let user = PFObject(className: "AppUsers")
         user["unsername"] = self.username

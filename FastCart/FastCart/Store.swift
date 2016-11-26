@@ -13,6 +13,19 @@ import EVReflection
 import Parse
 
 class Store: EVObject {
+    /**
+     Returns the current store selected by the current user.
+     
+     - Author: Luis Perez
+     
+     - todo: Improve the implementation.
+     */
+    class var currentStore: Store? {
+        get {
+            return User.currentUser?.current.store
+        }
+    }
+    
     /** The unique id of the Store in our Parse databse */
     var id: String?
     /** The store name */
@@ -53,7 +66,7 @@ class Store: EVObject {
      - Author:
         Luis Perez
     */
-    override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", {
                 if let url = $0 as? String {
@@ -76,19 +89,6 @@ class Store: EVObject {
     func setStoreImage(view: UIImageView) -> Void {
         guard let imageURL = image else { return }
         Utilities.updateImageView(view, withAsset: URLRequest(url: imageURL), withPreview: nil, withPlaceholder: nil)
-    }
-    
-    /**
-     Returns the current store selected by the current user.
-     
-     - Author: Luis Perez
-     
-     - todo: Improve the implementation.
-    */
-    class var currentStore: Store? {
-        get {
-            return User.currentUser?.current.store
-        }
     }
     
     /**

@@ -11,6 +11,12 @@ import EVReflection
 import Parse
 
 class Receipt: EVObject {
+    /** The unique parse id for this receipt */
+    var id: String?
+    /** The unique parse store id corresponding to the store associated with this receipt. */
+    var storeId: String?
+    /** The unique parse id associating this receipt to a user */
+    var userId: String?
     /** List of products purchased with this receipt. */
     var products: [Product] = [] {
         didSet {
@@ -19,41 +25,37 @@ class Receipt: EVObject {
     }
     /** The time at which the first product was added to the receipt. If nil, the receipt has no products. */
     var started: Date?
-    /** The data as a string **/
-    var startedAsString: String? {
-        return started?.description
+    var startedAsString: String {
+        if let date = started {
+            return Utilities.formatTimeToString(date)
+        }
+        return "N/A"
     }
-    
-    // The timestamp when the user submitted the payment information for this receipt.
-    // If nil, the receipt has not been paid for.
+    /** The timestamp when the user submitted the payment information for this receipt. If nil, the receipt has not been paid for. */
     var completed: Date?
-    
+    var completedAsString: String {
+        if let date = completed {
+            return Utilities.formatTimeToString(date)
+        }
+        return "N/A"
+    }
+    /** The total amount for the items in the receipt */
     var total: Double = 0.0
     var totalAsString: String {
-        return Utilities.moneyToString(amount: self.total)
+        return Utilities.moneyToString(self.total)
     }
-    
-    var id: String?
-    
-    // Associate with a store.
-    var storeId: String?
-    
+    /** The store object associated with this receipt */
     var store: Store!
-    
-    //Associate with an User
-    var userId: String?
-
-    // The amount of tax charged for this receipt.
+    /** The amount of tax charged for this receipt. */
     var tax: Double = 0.0 {
         didSet {
             self.total = self.tax + self.subTotal
         }
     }
     var taxAsString: String {
-        return Utilities.moneyToString(amount: self.tax)
+        return Utilities.moneyToString(self.tax)
     }
-    
-    // The subtotal on the receipt.
+    /** The subtotal on the receipt. */
     var subTotal: Double = 0.0 {
         didSet {
             // update tax
@@ -61,20 +63,22 @@ class Receipt: EVObject {
             self.tax = taxPct * self.subTotal
         }
     }
-    
     var subTotalAsString: String {
-        return Utilities.moneyToString(amount: self.subTotal)
+        return Utilities.moneyToString(self.subTotal)
     }
-    
-    
-    // Whether or not the receipt has been paid for.
+    /** Whether or not the receipt has been paid for */
     var paid: Bool = false
-    
     
     required init() {
         store = Store(id: "dummy")
     }
     
+    /**
+     Saves the Receipt object to Parse. Note that it also saves all of the corresponding Products.
+     
+     Author:
+        Jose Villanueva
+     */
     func parseSave(){
         let receipt = PFObject(className: "Receipt")
         receipt["userId"] = self.userId

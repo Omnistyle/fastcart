@@ -18,6 +18,29 @@ enum apiType {
 }
 
 class Product: EVObject {
+    /**
+     Converts responses from the `api` to an array of products.
+     
+     - Author:
+     Belinda Zeng
+     
+     - parameters:
+     - dictionaries: An array of responses from the api. Each response should map to a `Product`
+     - api: The api from which the responses should be parsed.
+     
+     - returns:
+     An array of Products.
+     */
+    class func productsWithArray(dictionaries: [NSDictionary], api: apiType) -> [Product]{
+        var products = [Product]()
+        for dictionary in dictionaries {
+            let product =
+                Product.init(dictionary: dictionary, api: api)
+            products.append(product)
+        }
+        return products
+    }
+    
     /** The unique product id based on Parse **/
     var id : String?
     /** The unique receipt id from Parse to which this product belongs */
@@ -36,7 +59,7 @@ class Product: EVObject {
     var salePrice: Double?
     var salePriceAsString: String {
         if let price = salePrice {
-            return Utilities.moneyToString(amount: price)
+            return Utilities.moneyToString(price)
         }
         return ""
     }
@@ -115,7 +138,7 @@ class Product: EVObject {
             print("---> setValue for key '\(key)' should be handled.")
         }
     }
-    override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", {
                 if let url = $0 as? String {
@@ -141,29 +164,6 @@ class Product: EVObject {
     func setProductImage(view: UIImageView) -> Void {
         guard let largeImageURL = image else { return }
         Utilities.updateImageView(view, withAsset: URLRequest(url: largeImageURL), withPreview: nil, withPlaceholder: #imageLiteral(resourceName: "noimagefound"))
-    }
-    
-    /**
-     Converts responses from the `api` to an array of products.
-     
-     - Author:
-        Belinda Zeng
-     
-     - parameters:
-        - dictionaries: An array of responses from the api. Each response should map to a `Product`
-        - api: The api from which the responses should be parsed.
-     
-     - returns:
-        An array of Products.
-     */
-    class func productsWithArray(dictionaries: [NSDictionary], api: apiType) -> [Product]{
-        var products = [Product]()
-        for dictionary in dictionaries {
-            let product =
-                Product.init(dictionary: dictionary, api: api)
-            products.append(product)
-        }
-        return products
     }
     
     /** 
