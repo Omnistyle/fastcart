@@ -75,7 +75,7 @@ extension SAParallaxViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension SAParallaxViewController: UICollectionViewDelegate {
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard var cells = collectionView.visibleCells as? [SAParallaxViewCell] else { return }
+        guard let cells = collectionView.visibleCells as? [SAParallaxViewCell] else { return }
         cells.forEach {
             guard let point = $0.superview?.convert($0.frame.origin, to:view) else { return }
             let yScrollStart = scrollView.frame.size.height - $0.frame.size.height

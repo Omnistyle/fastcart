@@ -20,9 +20,9 @@ class Store: EVObject {
      
      - todo: Improve the implementation.
      */
-    class var currentStore: Store? {
+    class var currentStore: Store! {
         get {
-            return User.currentUser?.current.store
+            return User.currentUser.current.store
         }
     }
     

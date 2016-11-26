@@ -14,5 +14,6 @@ target 'FastCart' do
     pod 'EVReflection'
     pod 'Parse'
     pod "MXParallaxHeader"
-    pod "SAParallaxViewControllerSwift"
+    # We've made modification to the code for our own uses.
+    pod "SAParallaxViewControllerSwift", :git => "https://github.com/Omnistyle/SAParallaxViewControllerSwift.git"
 end

@@ -72,7 +72,16 @@ DEPENDENCIES:
   - FBSDKShareKit
   - MXParallaxHeader
   - Parse
-  - SAParallaxViewControllerSwift
+  - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
+
+EXTERNAL SOURCES:
+  SAParallaxViewControllerSwift:
+    :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
+
+CHECKOUT OPTIONS:
+  SAParallaxViewControllerSwift:
+    :commit: cc5107fb4cc28c2d217e11182972c41bb1a700d4
+    :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -89,6 +98,6 @@ SPEC CHECKSUMS:
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
 
-PODFILE CHECKSUM: 83833219790bb4f8cfdbff714c9a1ec8896ad551
+PODFILE CHECKSUM: 94b67913b9bd8381cfe38ec20569c2d98fe3b100
 
 COCOAPODS: 1.1.1
