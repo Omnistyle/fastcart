@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class Receipt: NSObject {
     // List of products purchased with this receipt.
@@ -39,8 +40,15 @@ class Receipt: NSObject {
         return self.moneyToString(amount: self.total)
     }
     
+    var id: String?
+    
     // Associate with a store.
-    var store: Store = Store(id: "1")
+    var storeId: String?
+    
+    var store: Store
+    
+    //Associate with an User
+    var userId: String?
 
     // The amount of tax charged for this receipt.
     var tax: Double = 0.0 {
@@ -72,5 +80,36 @@ class Receipt: NSObject {
     // Converts a double to the correct string representation.
     private func moneyToString(amount: Double) -> String {
         return String(format: "$%.2f", amount)
+    }
+    
+    override init() { //need to add init to remove errors
+        self.store = Store(id: "dummy")
+    }
+    
+    func parseSave(){
+        let receipt = PFObject(className: "Receipt")
+        receipt["userId"] = self.userId
+        receipt["storeId"] = self.storeId
+        receipt["started"] = self.started
+        receipt["completed"] = self.completed
+        receipt["total"] = self.total
+        receipt["subtotal"] = self.subTotal
+        receipt["tax"] = self.tax
+        receipt["paid"] = self.paid
+        
+        receipt.saveInBackground { (succeeded:Bool, error:Error?) in
+            if(succeeded){
+                self.id = receipt.objectId
+                print("saved with id: \(receipt.objectId)")
+                
+                for product in self.products { //save all products in receipt
+                    product.receiptId = self.id
+                    product.parseSave()
+                }
+                
+            } else {
+                print(error?.localizedDescription ?? "default: error saving reciept to parse")
+            }
+        }
     }
 }

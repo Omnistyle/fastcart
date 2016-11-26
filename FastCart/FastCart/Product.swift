@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import Parse
 
 enum apiType {
     case walmart
@@ -20,7 +21,7 @@ class Product: NSObject {
     var name: String?
     var overview: String?
     var image: URL?
-    var store: Store?
+    //var store: Store?
     var salePrice: Double?
     var brandName: String?
     var averageRating: String?
@@ -30,7 +31,9 @@ class Product: NSObject {
     var freeShipToStore: Bool?
     var addToCartUrl: URL?
     var category: String?
-        
+    var id : String?
+    var receiptId : String?
+    
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
         let intervalInt = Int(interval) * -1
@@ -67,7 +70,7 @@ class Product: NSObject {
             if let imageString = dictionary["largeImage"] as? String{
                 self.image = URL(string: imageString)
             }
-            store = Store(id: "Walmart")
+            //store = Store(id: "Walmart")
             // round to two decimals
             if let salePriceDouble = dictionary["salePrice"] as? Double {
                 salePrice = round(salePriceDouble * 100)/100
@@ -111,5 +114,29 @@ class Product: NSObject {
         return products
     }
     
+    func parseSave(){
+        let product = PFObject(className: "Product")
+        product["receipId"] = self.receiptId
+        product["upc"] = self.upc
+        product["name"] = self.name
+        product["imageUrl"] = self.image
+        product["salePrice"] = self.salePrice
+        product["brandName"] = self.brandName
+        product["averageRating"] = self.averageRating
+        product["color"] = self.color
+        product["size"] = self.size
+        product["freeShipToStore"] = self.freeShipToStore
+        product["addToCartUrl"] = self.addToCartUrl
+        product["category"] = self.category
+        
+        product.saveInBackground { (succeeded:Bool, error:Error?) in
+            if(succeeded){
+                self.id = product.objectId
+                print("saved with id: \(product.objectId)")
+            } else {
+                print(error?.localizedDescription ?? "default: error saving \(self.name) product to parse")
+            }
+        }
+    }
 
 }

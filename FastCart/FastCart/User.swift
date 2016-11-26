@@ -18,7 +18,7 @@ class User: NSObject {
     var facebookId: String?
     
     // Necessary unique id for each user of our application.
-    var id: Int = 1234
+    var id: String = "1234"
     
     // List of receipts (only keep the last 20)
     var history: [Receipt] = []
@@ -110,10 +110,10 @@ class User: NSObject {
         user["facebookId"] = self.facebookId
         user.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
+                self.id = user.objectId!
                 print("saved with id: \(user.objectId)")
             } else {
-                print("failed to send message")
-                //print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "default: error saving user to parse")
             }
         }
     }
