@@ -104,8 +104,6 @@ class Product: EVObject {
             freeShipToStore = value as? Bool
         case "salePrice":
             salePrice = value as? Double
-        case "image":
-            image = value as? URL
         case "formatter":
             // Nothing to do, skip.
             break
@@ -118,10 +116,12 @@ class Product: EVObject {
         return [
             ("image", {
                 if let url = $0 as? String {
-                    self.image = URL(string: url)
+                    if url != "nil" {
+                        self.image = URL(string: url)
+                    }
                 }
             }, {
-                return self.image?.absoluteString ?? ""
+                return self.image?.absoluteString ?? "nil"
             })
         ]
     }

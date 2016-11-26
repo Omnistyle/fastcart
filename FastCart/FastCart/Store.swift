@@ -48,15 +48,6 @@ class Store: EVObject {
     /**
      Need to override since EVObject has issues with optionals.
      */
-    override func setValue(_ value: Any!, forUndefinedKey key: String) {
-        switch key {
-        case "image":
-            image = value as? URL
-        default:
-            self.addStatusMessage(.IncorrectKey, message: "SetValue for key '\(key)' should be handled.")
-            print("---> setValue for key '\(key)' should be handled.")
-        }
-    }
     override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", {
