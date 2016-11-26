@@ -11,9 +11,6 @@ import Parse
 import EVReflection
 
 class User: EVObject {
-    private enum Pesistece: String {
-        case receipt = "currentReceipt"
-    }
     // Necessary unique id for each user of our application.
     var id: String!
     
@@ -29,7 +26,7 @@ class User: EVObject {
     // The current list of items the user is shopping.
     var current = Receipt() {
         didSet {
-            Utilities.persist(object: self, withKey: Pesistece.receipt.rawValue)
+            Utilities.persist(object: self, withKey: Persistece.receipt.rawValue)
         }
     }
     
@@ -47,11 +44,15 @@ class User: EVObject {
         facebookId = dictionary["facebookId"] as? String
         
         // Load current from local storage.
-        current = Utilities.load(fromKey: Pesistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
+        current = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
     }
     
     required init() {
-        fatalError("init() has not been implemented")
+        id = ""
+        username = ""
+        email = ""
+        facebookId = ""
+        dictionary = NSDictionary()
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
@@ -93,6 +94,16 @@ class User: EVObject {
         
         // Reset to a new receipt.
         self.current = Receipt()
+    }
+
+    /**
+     Persists the current user receipt. Call this only when manual modifications
+     have been done to the receipt without knowledge of the user class.
+     
+     ie -> replacing the products array after a call to currentReceipt()
+     */
+    func persistCurrent() -> Void {
+        Utilities.persist(object: self.current, withKey: Persistece.receipt.rawValue)
     }
     
     static func getParseUser(email: String, completion: @escaping (_ result: User) -> Void ) {

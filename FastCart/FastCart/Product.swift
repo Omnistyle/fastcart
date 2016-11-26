@@ -29,6 +29,12 @@ class Product: EVObject {
     var store: Store?
     /** The current sale price of this specific product */
     var salePrice: Double?
+    var salePriceAsString: String {
+        if let price = salePrice {
+            return Utilities.moneyToString(amount: price)
+        }
+        return ""
+    }
     /** The brand name of the Product */
     var brandName: String?
     /** The average rating given to this Product across marketplaces */
@@ -45,9 +51,6 @@ class Product: EVObject {
     var addToCartUrl: URL?
     /** A string description of the category this Product belongs to */
     var category: String?
-    
-    /** Mark -- Private variables */
-    private let formatter = DateFormatter()
     
     /**
      Initialize `User` from a dictionary object.
@@ -88,45 +91,41 @@ class Product: EVObject {
             name = dictionary["name"] as? String
         }
     }
-    
     required init() {
-        fatalError("init() has not been implemented")
+    }
+    
+    /** MARK - EVObject */
+    /**
+     Need to override since EVObject has issues with optionals.
+     */
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        switch key {
+        case "freeShipToStore":
+            freeShipToStore = value as? Bool
+        case "salePrice":
+            salePrice = value as? Double
+        case "image":
+            image = value as? URL
+        case "formatter":
+            // Nothing to do, skip.
+            break
+        default:
+            self.addStatusMessage(.IncorrectKey, message: "SetValue for key '\(key)' should be handled.")
+            print("---> setValue for key '\(key)' should be handled.")
+        }
+    }
+    override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+        return [
+            ("image", {
+                if let url = $0 as? String {
+                    self.image = URL(string: url)
+                }
+            }, {
+                return self.image?.absoluteString ?? ""
+            })
+        ]
     }
 
-    /**
-     Pretty-formats a date.
-     
-     - author:
-        Luis Perez
-     
-     - parameters:
-        - date: The date to be converted.
-     - returns:
-        A pretty string for the date.
-     */
-    func formatTimeToString(date: Date) -> String {
-        formatter.dateFormat = "M/d/yyyy"
-        let elapsedTime = date.timeIntervalSinceNow
-        let ti = -Int(elapsedTime)
-        let days = (ti / (60*60*24))
-        if days > 3 {
-            return formatter.string(from: date)
-        }
-        if days > 0 {
-            return "\(days) d"
-        }
-        let hours = (ti / (60*60)) % 24
-        if hours > 0 {
-            return "\(hours) h"
-        }
-        let minutes = (ti / 60) % 60
-        if minutes > 0 {
-            return "\(minutes) m"
-        }
-        let seconds = ti % 60
-        return "\(seconds) s"
-    }
-    
     func parseSave(){
         print(self)
     }
@@ -142,7 +141,7 @@ class Product: EVObject {
     */
     func setProductImage(view: UIImageView) -> Void {
         guard let largeImageURL = image else { return }
-        Utilities.updateImageView(view, withAsset: URLRequest(url: largeImageURL), withPreview: nil, withPlaceholder: nil)
+        Utilities.updateImageView(view, withAsset: URLRequest(url: largeImageURL), withPreview: nil, withPlaceholder: #imageLiteral(resourceName: "noimagefound"))
     }
     
     /**

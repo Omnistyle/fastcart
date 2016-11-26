@@ -8,15 +8,14 @@
 
 
 import UIKit
+import CoreLocation
 import EVReflection
-
-typealias GPS = (lat: Double, long: Double)
 
 class Store: EVObject {
     /** The store name */
     var name: String!
     /** The location of the store, in (lat, long) format. `nil` implies the location is undetermined */
-    var location: GPS?
+    var location: CLLocation?
     /** When the self.location is not nil, this returns a pretty-print format of the location, typically as `City, State` */
     var locationAsString: String? {
         return "Mountain View"
@@ -37,14 +36,37 @@ class Store: EVObject {
     init(id: String) {
         super.init()
         name = "Walmart"
-        location = (lat: 0, long: 0)
         overview = "This is walmart, a lowprice retailer"
         image = URL(string: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSWYZIj9Q4-Bamxzyb6W_c3k3zQ2BtNg7uADgbxB90WhoTO9fWT_KAzs_Ja")
         
     }
-    
     required init() {
-        fatalError("init() has not been implemented")
+        name  = ""
+    }
+    
+    /** MARK - EVObject */
+    /**
+     Need to override since EVObject has issues with optionals.
+     */
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        switch key {
+        case "image":
+            image = value as? URL
+        default:
+            self.addStatusMessage(.IncorrectKey, message: "SetValue for key '\(key)' should be handled.")
+            print("---> setValue for key '\(key)' should be handled.")
+        }
+    }
+    override public func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+        return [
+            ("image", {
+                if let url = $0 as? String {
+                    self.image = URL(string: url)
+                }
+            }, {
+                return self.image?.absoluteString ?? ""
+            })
+        ]
     }
     
     /**

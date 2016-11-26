@@ -9,19 +9,11 @@
 import UIKit
 import EVReflection
 
-
 class Receipt: EVObject {
     // List of products purchased with this receipt.
     var products: [Product] = [] {
         didSet {
-            var subtotal = 0.0
-            // calculate and update subtotal
-            for product in products {
-                if let price = product.salePrice {
-                    subtotal = subtotal + price
-                }
-            }
-            self.subTotal = subtotal
+            self.subTotal = products.reduce(0, { (acc, cur) in acc + (cur.salePrice ?? 0) })
         }
     }
     
@@ -38,7 +30,7 @@ class Receipt: EVObject {
     
     var total: Double = 0.0
     var totalAsString: String {
-        return self.moneyToString(amount: self.total)
+        return Utilities.moneyToString(amount: self.total)
     }
     
     // Associate with a store.
@@ -51,7 +43,7 @@ class Receipt: EVObject {
         }
     }
     var taxAsString: String {
-        return self.moneyToString(amount: self.tax)
+        return Utilities.moneyToString(amount: self.tax)
     }
     
     // The subtotal on the receipt.
@@ -64,7 +56,7 @@ class Receipt: EVObject {
     }
     
     var subTotalAsString: String {
-        return self.moneyToString(amount: self.subTotal)
+        return Utilities.moneyToString(amount: self.subTotal)
     }
     
     
@@ -73,10 +65,5 @@ class Receipt: EVObject {
     
     func parseSave(){
         print(self)
-    }
-    
-    // Converts a double to the correct string representation.
-    private func moneyToString(amount: Double) -> String {
-        return String(format: "$%.2f", amount)
     }
 }

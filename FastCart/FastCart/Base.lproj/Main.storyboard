@@ -394,7 +394,6 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onCheckout:" destination="nY3-wk-DzT" eventType="touchUpInside" id="Zdn-d8-cti"/>
                                     <action selector="onCheckoutButton:" destination="nY3-wk-DzT" eventType="touchUpInside" id="aga-cs-hvk"/>
                                 </connections>
                             </button>
@@ -406,7 +405,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c3e-BU-bv8" id="qTQ-sO-Ol5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-hk-mb8">
@@ -473,7 +472,6 @@
                                 <rect key="frame" x="322" y="112" width="29" height="26"/>
                                 <state key="normal" image="camera_outline"/>
                                 <connections>
-                                    <action selector="onAddItemWithScanner:" destination="nY3-wk-DzT" eventType="touchUpInside" id="ZfZ-0A-HBF"/>
                                     <action selector="onScanButton:" destination="nY3-wk-DzT" eventType="touchUpInside" id="XUQ-fV-8tR"/>
                                 </connections>
                             </button>
@@ -582,7 +580,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XY5-fQ-dxv" id="sfN-Ux-pn9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="obM-Iq-m3i">

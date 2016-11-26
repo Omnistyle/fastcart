@@ -21,11 +21,7 @@ class ProductCell: UITableViewCell {
     
     var product: Product! {
         didSet {
-            if let image = product.image {
-                productImage.setImageWith(image)
-            } else {
-                productImage.image = #imageLiteral(resourceName: "noimagefound")
-            }
+            product.setProductImage(view: productImage)
             
             productImage.layer.cornerRadius = productImage.frame.size.width / 2
             productImage.layer.masksToBounds = true
@@ -40,10 +36,7 @@ class ProductCell: UITableViewCell {
                 return
             }
             productName.text = product.name
-            if let salePrice = product?.salePrice {
-                priceLabel.text = "$" + String(describing: salePrice)
-            }
-            
+            priceLabel.text = product.salePriceAsString
         }
     }
     
