@@ -11,7 +11,7 @@ import EVReflection
 import Parse
 
 class Receipt: EVObject {
-    /** List of products purchased with this receipt. *//
+    /** List of products purchased with this receipt. */
     var products: [Product] = [] {
         didSet {
             self.subTotal = products.reduce(0, { (acc, cur) in acc + (cur.salePrice ?? 0) })
@@ -38,7 +38,7 @@ class Receipt: EVObject {
     // Associate with a store.
     var storeId: String?
     
-    var store: Store?
+    var store: Store!
     
     //Associate with an User
     var userId: String?
@@ -71,7 +71,8 @@ class Receipt: EVObject {
     var paid: Bool = false
     
     
-    override init() {
+    required init() {
+        store = Store(id: "dummy")
     }
     
     func parseSave(){

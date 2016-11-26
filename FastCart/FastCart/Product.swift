@@ -80,7 +80,7 @@ class Product: EVObject {
                 self.image = URL(string: imageString)
             }
             //store = Store(id: "Walmart")
-            salePrice = dictionary["salePrice"] as? Double {
+            salePrice = dictionary["salePrice"] as? Double
             brandName = dictionary["brandName"] as? String
             averageRating = dictionary["customerRating"] as? String
             color = dictionary["color"] as? String
