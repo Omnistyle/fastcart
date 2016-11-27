@@ -140,15 +140,8 @@ class Product: EVObject {
     }
     override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
-            ("image", {
-                if let url = $0 as? String {
-                    if url != "nil" {
-                        self.image = URL(string: url)
-                    }
-                }
-            }, {
-                return self.image?.absoluteString ?? "nil"
-            })
+            ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
+            ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
         ]
     }
     

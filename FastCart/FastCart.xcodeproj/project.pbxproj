@@ -357,7 +357,6 @@
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
 				106C3F501DE8329E00CE9E7C /* Common.swift in Sources */,
 				7F95158B1DE50D23001EC1D5 /* OptionCell.swift in Sources */,
-				103215951DD2E08000186704 /* Payment.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,
 				7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */,
 				1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */,

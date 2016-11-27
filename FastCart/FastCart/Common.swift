@@ -15,3 +15,18 @@ public enum Persistece: String {
     case receipt = "currentReceipt"
     case user = "currentUser"
 }
+
+/** Support reflection for NSURL/URL **/
+extension NSURL: EVReflectable {}
+
+extension URL {
+    func toJson() -> String {
+        return self.absoluteString
+    }
+    static func fromJson(json: String?) -> URL? {
+        if let url = json {
+            return URL(string: url)
+        }
+        return nil
+    }
+}

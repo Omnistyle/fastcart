@@ -62,21 +62,11 @@ class Store: EVObject {
         name  = ""
     }
     
-    /**
-     Need to override since EVObject has issues with optionals.
-     
-     - Author:
-        Luis Perez
-    */
+    /** Mark -- EVObject overrides **/
     override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
-            ("image", {
-                if let url = $0 as? String {
-                    self.image = URL(string: url)
-                }
-            }, {
-                return self.image?.absoluteString ?? ""
-            })
+            ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
+            ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
         ]
     }
     

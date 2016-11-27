@@ -659,8 +659,8 @@ final public class EVReflection {
                 if "\(theValue)" == "nil" {
                     return (NSNull(), valueType, false)
                 }
-                let (val, _, _) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
-                return (val, valueType, false)
+                let (val, _, isObject) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
+                return (val, valueType, isObject)
             } else {
                 theValue = "\(theValue)"
             }
