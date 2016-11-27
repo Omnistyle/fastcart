@@ -12,6 +12,8 @@ import CoreLocation
 import EVReflection
 import Parse
 
+extension CLLocation : EVReflectable {}
+
 class Store: EVObject {
     /**
      Returns the current store selected by the current user.
@@ -20,9 +22,9 @@ class Store: EVObject {
      
      - todo: Improve the implementation.
      */
-    class var currentStore: Store! {
+    class var currentStore: Store? {
         get {
-            return User.currentUser.current.store
+            return User.currentUser?.current.store
         }
     }
     

@@ -72,7 +72,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     
     private func setUpPayments() {
-        let userId: String = User.currentUser.id;
+        let userId: String = User.currentUser!.id;
         let clientTokenURL = URL(string: "\(self.paymentServerURL)/client_token/\(userId)")!
         var clientTokenRequest = URLRequest(url: clientTokenURL)
         clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")

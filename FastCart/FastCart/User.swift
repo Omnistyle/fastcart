@@ -21,32 +21,17 @@ class User: EVObject {
      - Author:
         Jose Villanueva
      */
-    class var currentUser: User! {
+    class var currentUser: User? {
         get {
             if self._currentUser == nil {
-                let defaults = UserDefaults.standard
-                let userData = defaults.object(forKey: "currentUserData") as? NSData
-                
-                if let userData = userData {
-                    let dictionary = try! JSONSerialization.jsonObject(with: userData as Data, options: []) as! NSDictionary
-                    _currentUser = User(dictionary: dictionary)
-                }
+                _currentUser = Utilities.load(fromKey: Persistece.user.rawValue, into: User.self) as? User
             }
             return self._currentUser
         }
         
         set(user) {
             self._currentUser = user
-            let defaults = UserDefaults.standard
-            if let user = user {
-                let data = try! JSONSerialization.data(withJSONObject: user.dictionary, options:[])
-                defaults.set(data, forKey: "currentUserData")
-            }
-            else {
-                defaults.set(nil, forKey: "currentUserData")
-            }
-            
-            defaults.synchronize()
+            Utilities.persist(user, withKey: Persistece.user.rawValue)
         }
     }
     
@@ -120,11 +105,11 @@ class User: EVObject {
     }
     /** The user's favorite stores */
     var favoriteStores: [Store] = []
-    /** TODO (remove and add more generalized local persistence using EvReflection */
-    var dictionary: NSDictionary!
     
+    /**
+     Used exclusively by Parse.
+    */
     init(dictionary: NSDictionary){
-        self.dictionary = dictionary
         id = dictionary["id"] as? String
         username = dictionary["username"] as? String
         email = dictionary["email"] as? String
@@ -138,7 +123,18 @@ class User: EVObject {
         username = ""
         email = ""
         facebookId = ""
-        dictionary = NSDictionary()
+        // Load current from stored.
+        current = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
+    }
+    /** MARK: Override */
+    override func skipPropertyValue(_ value: Any, key: String) -> Bool {
+        // Skip current, as this is set seperately when the class is initialized.
+        switch key {
+        case "current":
+            return true
+        default:
+            return super.skipPropertyValue(value, key: key)
+        }
     }
     
     /** Complete the user checkout process by saving all our data to Parse */
@@ -148,13 +144,19 @@ class User: EVObject {
         
         // Reset to a new receipt.
         self.current = Receipt()
+        self.persistCurrent()
     }
 
     /**
-     Persists the current user receipt.
+     Persists the current user receipt only. Used to avoid persisting the entire user on a new product addition.
+     Note that we need to clear this key once the user logs out so the next user does not see the products this
+     user added to their cart.
      
      - author:
         Luis Perez
+     
+     - todo:
+        Clear persistence.
      */
     func persistCurrent() -> Void {
         Utilities.persist(self.current, withKey: Persistece.receipt.rawValue)

@@ -94,12 +94,17 @@ class Utilities {
         Luis Perez
      
      - parameters:
-        - object: The object to be persisted.
+        - object: The object to be persisted. If nil, the object is removed from storage.
         - withKey: The key which can later be used for retrieval
      */
-    static func persist(_ object: EVObject, withKey key: String) {
+    static func persist(_ object: EVObject?, withKey key: String) {
         let defaults = UserDefaults.standard
-        defaults.set(object.toJsonString(), forKey: key)
+        if let object = object {
+            defaults.set(object.toJsonString(), forKey: key)
+        } else {
+            defaults.set(nil, forKey: key)
+        }
+        defaults.synchronize()
     }
     
     /**

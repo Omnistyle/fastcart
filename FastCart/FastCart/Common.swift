@@ -13,4 +13,5 @@ import EVReflection
  */
 public enum Persistece: String {
     case receipt = "currentReceipt"
+    case user = "currentUser"
 }
