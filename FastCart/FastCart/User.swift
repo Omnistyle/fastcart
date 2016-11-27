@@ -12,7 +12,7 @@ import EVReflection
 
 class User: EVObject {
     /** Notification to be triggered when the user logs out */
-    static let userDidLogoutNotification = "UserDidLogout"
+    static let userDidLogoutNotification: Notification.Name = Notification.Name(rawValue: "UserDidLogout")
     
     private static var _currentUser: User?
     /** 

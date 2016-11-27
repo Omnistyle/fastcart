@@ -129,6 +129,19 @@ class Utilities {
     }
     
     /**
+     Clears any data we've persisted.
+     
+     - author:
+        Luis Perez
+     */
+    static func clearDefaults() -> Void {
+        let defaults = UserDefaults.standard
+        for key in Persistece.allValues {
+            defaults.removeObject(forKey: key.rawValue)
+        }
+    }
+    
+    /**
      Converts the given value into the appropriate monetary string representation.
      
      - author:  

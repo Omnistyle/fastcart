@@ -142,11 +142,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        User.currentUser = nil
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
-        
-        print("did log out of facebook")
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
 
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {

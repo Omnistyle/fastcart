@@ -14,6 +14,8 @@ import EVReflection
 public enum Persistece: String {
     case receipt = "currentReceipt"
     case user = "currentUser"
+    
+    static let allValues = [receipt, user]
 }
 
 /** Support reflection for NSURL/URL **/

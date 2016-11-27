@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
 
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("did log out of facebook")
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
     
     
