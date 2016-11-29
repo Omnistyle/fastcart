@@ -42,13 +42,7 @@ open class SAParallaxContainerView: UIView {
     fileprivate func initialize() {
         imageView.contentMode = .scaleAspectFit
         
-//        blurContainerView.backgroundColor = .clear
-//        blurContainerView.clipsToBounds = true
-        
         accessoryView.backgroundColor = .clear
-        
-//        blurColorView.backgroundColor = .white
-//        blurColorView.alpha = 0.3
         
         backgroundColor = .clear
         clipsToBounds = true
@@ -69,31 +63,10 @@ open class SAParallaxContainerView: UIView {
             imageView.frame = CGRect(x: 0, y: -yPoint, width: width, height: height)
             addSubview(imageView)
         }
-        
-//        let width = UIScreen.main.bounds.size.width
-//        let height = width / 320.0 * accessoryViewHeight
-//        blurContainerView.frame = CGRect(x: 0, y: frame.size.height - height, width: width, height: height)
-//        addSubview(blurContainerView)
-        
-//        let blurImage = imageView.image
-//        if let imageSize = blurImage?.size {
-//            let height = width * imageSize.height / imageSize.width
-//            blurImageView.image = blurImage
-//            blurImageView.addBlurEffect(blurSize)
-//            blurImageView.frame = CGRect(x: 0, y: -(frame.size.height - blurContainerView.frame.height), width: width, height: height)
-//            blurContainerView.addSubview(blurImageView)
-//        }
-//        
-//        blurColorView.frame = blurContainerView.bounds
-//        blurContainerView.addSubview(blurColorView)
-//        
-//        accessoryView.frame = blurContainerView.bounds
-//        blurContainerView.addSubview(accessoryView)
     }
     
     open func setImageOffset(_ offset: CGPoint) {
         imageView.frame = imageView.bounds.offsetBy(dx: offset.x, dy: offset.y)
-        // blurImageView.frame = blurImageView.bounds.offsetBy(dx: offset.x, dy: -(frame.size.height - blurContainerView.frame.height) + offset.y)
     }
     
     open func setParallaxStartPosition(_ y: CGFloat) {

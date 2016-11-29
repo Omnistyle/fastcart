@@ -21,30 +21,31 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Braintree (4.7.2):
-    - Braintree/Card (= 4.7.2)
-    - Braintree/Core (= 4.7.2)
-    - Braintree/PayPal (= 4.7.2)
-    - Braintree/UI (= 4.7.2)
-  - Braintree/Apple-Pay (4.7.2):
+  - Braintree (4.7.3):
+    - Braintree/Card (= 4.7.3)
+    - Braintree/Core (= 4.7.3)
+    - Braintree/PayPal (= 4.7.3)
+    - Braintree/UI (= 4.7.3)
+  - Braintree/Apple-Pay (4.7.3):
     - Braintree/Core
-  - Braintree/Card (4.7.2):
+  - Braintree/Card (4.7.3):
     - Braintree/Core
-  - Braintree/Core (4.7.2)
-  - Braintree/PayPal (4.7.2):
+  - Braintree/Core (4.7.3)
+  - Braintree/PayPal (4.7.3):
     - Braintree/Core
     - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.7.2):
+  - Braintree/PayPalDataCollector (4.7.3):
     - Braintree/Core
     - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.7.2):
+  - Braintree/PayPalOneTouch (4.7.3):
     - Braintree/Core
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.7.2)
-  - Braintree/UI (4.7.2):
+  - Braintree/PayPalUtils (4.7.3)
+  - Braintree/UI (4.7.3):
     - Braintree/Card
     - Braintree/Core
+  - EVReflection (3.4.1)
   - FBSDKCoreKit (4.17.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.17.0):
@@ -65,18 +66,29 @@ DEPENDENCIES:
   - BarcodeScanner
   - Braintree
   - Braintree/Apple-Pay
+  - EVReflection
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
   - MXParallaxHeader
   - Parse
-  - SAParallaxViewControllerSwift
+  - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
+
+EXTERNAL SOURCES:
+  SAParallaxViewControllerSwift:
+    :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
+
+CHECKOUT OPTIONS:
+  SAParallaxViewControllerSwift:
+    :commit: cc5107fb4cc28c2d217e11182972c41bb1a700d4
+    :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Braintree: 2de65628b1cb31df053ac808f2acd7a485569ecd
+  Braintree: 3eee856da5d30357a55439283b4bb3dbaddcaa7c
+  EVReflection: 7abe8026327f83472fb60a7858fbfe1be346605d
   FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
   FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
   FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
@@ -86,6 +98,6 @@ SPEC CHECKSUMS:
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
 
-PODFILE CHECKSUM: 26aa2885e13d1219d1883ca971ca72e587be0315
+PODFILE CHECKSUM: 94b67913b9bd8381cfe38ec20569c2d98fe3b100
 
 COCOAPODS: 1.1.1

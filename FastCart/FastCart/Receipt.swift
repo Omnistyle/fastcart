@@ -7,60 +7,55 @@
 //
 
 import UIKit
+import EVReflection
 import Parse
 
-class Receipt: NSObject {
-    // List of products purchased with this receipt.
+class Receipt: EVObject {
+    /** The unique parse id for this receipt */
+    var id: String?
+    /** The unique parse store id corresponding to the store associated with this receipt. */
+    var storeId: String?
+    /** The unique parse id associating this receipt to a user */
+    var userId: String?
+    /** List of products purchased with this receipt. */
     var products: [Product] = [] {
         didSet {
-            var subtotal = 0.0
-            // calculate and update subtotal
-            for product in products {
-                if let price = product.salePrice {
-                    subtotal = subtotal + price
-                }
-            }
-            self.subTotal = subtotal
+            self.subTotal = products.reduce(0, { (acc, cur) in acc + (cur.salePrice ?? 0) })
         }
     }
-    
-    // The time at which the first product was added to the receipt.
-    // If nil, the receipt has no products.
+    /** The time at which the first product was added to the receipt. If nil, the receipt has no products. */
     var started: Date?
-    var startedAsString: String? {
-        return started?.description
+    var startedAsString: String {
+        if let date = started {
+            return Utilities.formatTimeToString(date)
+        }
+        return "N/A"
     }
-    
-    // The timestamp when the user submitted the payment information for this receipt.
-    // If nil, the receipt has not been paid for.
+    /** The timestamp when the user submitted the payment information for this receipt. If nil, the receipt has not been paid for. */
     var completed: Date?
-    
+    var completedAsString: String {
+        if let date = completed {
+            return Utilities.formatTimeToString(date)
+        }
+        return "N/A"
+    }
+    /** The total amount for the items in the receipt */
     var total: Double = 0.0
     var totalAsString: String {
-        return self.moneyToString(amount: self.total)
+        return Utilities.moneyToString(self.total)
     }
-    
-    var id: String?
-    
-    // Associate with a store.
-    var storeId: String?
-    
-    var store: Store
-    
-    //Associate with an User
-    var userId: String?
-
-    // The amount of tax charged for this receipt.
+    /** The store object associated with this receipt */
+    var store: Store!
+    /** The amount of tax charged for this receipt. */
     var tax: Double = 0.0 {
         didSet {
             self.total = self.tax + self.subTotal
         }
     }
     var taxAsString: String {
-        return self.moneyToString(amount: self.tax)
+        return Utilities.moneyToString(self.tax)
     }
-    
-    // The subtotal on the receipt.
+    /** The subtotal on the receipt. */
     var subTotal: Double = 0.0 {
         didSet {
             // update tax
@@ -68,25 +63,35 @@ class Receipt: NSObject {
             self.tax = taxPct * self.subTotal
         }
     }
-    
     var subTotalAsString: String {
-        return self.moneyToString(amount: self.subTotal)
+        return Utilities.moneyToString(self.subTotal)
     }
-    
-    
-    // Whether or not the receipt has been paid for.
+    /** Whether or not the receipt has been paid for */
     var paid: Bool = false
     
-    // Converts a double to the correct string representation.
-    private func moneyToString(amount: Double) -> String {
-        return String(format: "$%.2f", amount)
+    required init() {
+        store = Store(id: "dummy")
     }
     
-    override init() { //need to add init to remove errors
-        self.store = Store(id: "dummy")
-    }
-    
+    /**
+     Saves the Receipt object to Parse. Note that it also saves all of the corresponding Products.
+     
+     Author:
+        Jose Villanueva
+     */
     func parseSave(){
+        // Save the store. TODO: Save in case of failure?
+        if (Store.currentStore.id == nil) {
+            store.parseSave(completion: { (store: Store) in
+                self.storeId = store.id
+                self.parseSaveWithStore()
+            })
+        } else {
+            self.parseSaveWithStore()
+        }
+    }
+    
+    private func parseSaveWithStore() {
         let receipt = PFObject(className: "Receipt")
         receipt["userId"] = self.userId
         receipt["storeId"] = self.storeId

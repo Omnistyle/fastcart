@@ -14,13 +14,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     var scrollView: MXScrollView!
     
-    @IBOutlet weak var table1: UITableView!
+    @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
     let titlesInSection1 = ["Recent orders", "My reviews", "Upgrade to Pro"]
     let titlesInSection2 = ["How it works", "Contact us", "Rate the app", "Invite friends"]
-    
-    var table2: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,12 +67,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         
         // tableview 
         
-        table1.dataSource = self;
-        table1.delegate = self
-        table1.backgroundColor = UIColor.white
-        scrollView.addSubview(table1)
+        tableView.dataSource = self;
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.white
+        scrollView.addSubview(tableView)
         // hide first section header
-        table1.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
+        tableView.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
         // get rid of empty cells
         
     }
@@ -86,8 +84,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         scrollView.frame = frame
         scrollView.contentSize = frame.size
         
-        frame.size.height = table1.contentSize.height
-        table1.frame = frame
+        frame.size.height = tableView.contentSize.height
+        tableView.frame = frame
         
     }
     
@@ -165,11 +163,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        User.currentUser = nil
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
-        
-        print("did log out of facebook")
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
 
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {

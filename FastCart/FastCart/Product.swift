@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import EVReflection
 import Parse
 
 enum apiType {
@@ -16,94 +17,20 @@ enum apiType {
     case manual
 }
 
-class Product: NSObject {
-    var upc: String?
-    var name: String?
-    var overview: String?
-    var image: URL?
-    //var store: Store?
-    var salePrice: Double?
-    var brandName: String?
-    var averageRating: String?
-    var color: String?
-    var size: String?
-    var recommended: [Product]?
-    var freeShipToStore: Bool?
-    var addToCartUrl: URL?
-    var category: String?
-    var id : String?
-    var receiptId : String?
-    
-    func formatTimeToString(date: NSDate) -> String {
-        let interval = date.timeIntervalSinceNow
-        let intervalInt = Int(interval) * -1
-        let days = (intervalInt / 3600) / 24
-        if days != 0 {
-            let daysStr = String(days) + "d"
-            return daysStr
-        }
-        let hours = (intervalInt / 3600)
-        if hours != 0 {
-            return String(hours) + "h"
-        }
-        
-        let minutes = (intervalInt / 60) % 60
-        if minutes != 0 {
-            return String(minutes) + "m"
-        }
-        
-        let seconds = intervalInt % 60
-        if seconds != 0 {
-            return String(seconds) + "s"
-        }
-        else  {
-            return "Now"
-        }
-    }
-    
-    init(dictionary: NSDictionary, api: apiType) {
-        super.init()
-        if api == apiType.walmart {
-            upc = dictionary["upc"] as? String
-            name = dictionary["name"] as? String
-            overview = dictionary["shortDescription"] as? String
-            if let imageString = dictionary["largeImage"] as? String{
-                self.image = URL(string: imageString)
-            }
-            //store = Store(id: "Walmart")
-            // round to two decimals
-            if let salePriceDouble = dictionary["salePrice"] as? Double {
-                salePrice = round(salePriceDouble * 100)/100
-            }
-            brandName = dictionary["brandName"] as? String
-            averageRating = dictionary["customerRating"] as? String
-            color = dictionary["color"] as? String
-            category = dictionary["categoryPath"] as? String
-            size = dictionary["size"] as? String
-            freeShipToStore =  dictionary["freeShipToStore"] as? Bool
-        }
-        else if api == apiType.upc {
-            // often multiple objects in array though
-        }
-        else if api == apiType.manual {
-            name = dictionary["name"] as? String
-        }
-    }
-    
+class Product: EVObject {
     /**
-     Updates an imageview to reflect the product.
+     Converts responses from the `api` to an array of products.
      
-     - Author: 
-     Luis Perez
+     - Author:
+     Belinda Zeng
      
      - parameters:
-        - image: The UIImageView to be updated to reflect this products image.
-    */
-    func setProductImage(view: UIImageView) -> Void {
-        guard let largeImageURL = image else { return }
-        Utilities.updateImageView(view, withAsset: URLRequest(url: largeImageURL), withPreview: nil, withPlaceholder: nil)
-    }
-    
+     - dictionaries: An array of responses from the api. Each response should map to a `Product`
+     - api: The api from which the responses should be parsed.
+     
+     - returns:
+     An array of Products.
+     */
     class func productsWithArray(dictionaries: [NSDictionary], api: apiType) -> [Product]{
         var products = [Product]()
         for dictionary in dictionaries {
@@ -114,6 +41,130 @@ class Product: NSObject {
         return products
     }
     
+    /** The unique product id based on Parse **/
+    var id : String?
+    /** The unique receipt id from Parse to which this product belongs */
+    var receiptId : String?
+    /** The UPC-13 code for Product */
+    var upc: String?
+    /** The short name of the Product */
+    var name: String?
+    /** A short descriptive overview of the Product */
+    var overview: String?
+    /** The URL for the image for the Product */
+    var image: URL?
+    /** The store from which the Product information is pulled */
+    // var store: Store?
+    /** The current sale price of this specific product */
+    var salePrice: Double?
+    var salePriceAsString: String {
+        if let price = salePrice {
+            return Utilities.moneyToString(price)
+        }
+        return ""
+    }
+    /** The brand name of the Product */
+    var brandName: String?
+    /** The average rating given to this Product across marketplaces */
+    var averageRating: String?
+    /** The color (if necessary) for the Product */
+    var color: String?
+    /** The size (if available) of the Product */
+    var size: String?
+    /** A list of similar product recommeded by other users */
+    var recommended: [Product]?
+    /** If true, the Product if free to ship to store */
+    var freeShipToStore: Bool?
+    /** The url for adding this product to the customers cart from the respective Store */
+    var addToCartUrl: URL?
+    /** A string description of the category this Product belongs to */
+    var category: String?
+    
+    /**
+     Initialize `User` from a dictionary object.
+     
+     - author:
+        Belinda Zeng
+        Jose Villanueva 
+     
+     - parameters: 
+        - dictionary: The input dictionary.
+        - api: The API from which the dictionary was retrieved.
+     - returns: 
+        A `User` with the fields set from `dictionary`
+     */
+    init(dictionary: NSDictionary, api: apiType) {
+        switch api {
+        case .walmart:
+            upc = dictionary["upc"] as? String
+            name = dictionary["name"] as? String
+            overview = dictionary["shortDescription"] as? String
+            if let imageString = dictionary["largeImage"] as? String{
+                self.image = URL(string: imageString)
+            }
+            //store = Store(id: "Walmart")
+            salePrice = dictionary["salePrice"] as? Double
+            brandName = dictionary["brandName"] as? String
+            averageRating = dictionary["customerRating"] as? String
+            color = dictionary["color"] as? String
+            category = dictionary["categoryPath"] as? String
+            size = dictionary["size"] as? String
+            freeShipToStore =  dictionary["freeShipToStore"] as? Bool
+        case .upc:
+            // often multiple objects in array though
+            break
+        case .manual:
+            name = dictionary["name"] as? String
+        }
+    }
+    required init() {
+    }
+    
+    /** MARK - EVObject */
+    /**
+     Need to override since EVObject has issues with optionals.
+     */
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        switch key {
+        case "freeShipToStore":
+            freeShipToStore = value as? Bool
+        case "salePrice":
+            salePrice = value as? Double
+        case "formatter":
+            // Nothing to do, skip.
+            break
+        default:
+            self.addStatusMessage(.IncorrectKey, message: "SetValue for key '\(key)' should be handled.")
+            print("---> setValue for key '\(key)' should be handled.")
+        }
+    }
+    override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
+        return [
+            ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
+            ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
+        ]
+    }
+    
+    /**
+     Updates an imageview to reflect the product.
+     
+     - author:
+     Luis Perez
+     
+     - parameters:
+        - image: The UIImageView to be updated to reflect this products image.
+    */
+    func setProductImage(view: UIImageView) -> Void {
+        guard let largeImageURL = image else { return }
+        Utilities.updateImageView(view, withAsset: URLRequest(url: largeImageURL), withPreview: nil, withPlaceholder: #imageLiteral(resourceName: "noimagefound"))
+    }
+    
+    /** 
+     Saves the current `Product` to our Parse Database.
+     
+     - Author:
+        Jose Villanueva 
+     */
     func parseSave(){
         let product = PFObject(className: "Product")
         product["receipId"] = self.receiptId
@@ -138,5 +189,4 @@ class Product: NSObject {
             }
         }
     }
-
 }

@@ -23,31 +23,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let PLACEHOLDER_TEXT = "Type or tap the camera to scan an item"
     
     var products = [Product]() {
-        didSet {
-            // show and hide relevant headers
-            if products.count > 0 {
-                hideAndShowViewsWithAnimation(show: self.cartViews, hide: self.emptyViews)
-            } else {
-                hideAndShowViewsWithAnimation(show: self.emptyViews, hide: self.cartViews)
-            }
-            var subtotal = 0.0
-            for product in products {
-                if let price = product.salePrice {
-                    subtotal = subtotal + price
+        didSet(oldValue) {
+            // Only update if we can update User.
+            if let user = User.currentUser {
+                let receipt = user.current
+                if products.count > 0 {
+                    hideAndShowViewsWithAnimation(show: self.cartViews, hide: self.emptyViews)
+                } else {
+                    hideAndShowViewsWithAnimation(show: self.emptyViews, hide: self.cartViews)
                 }
+                receipt.products = products
+                subtotalLabel.text = receipt.subTotalAsString
+                user.persistCurrent()
             }
-            
-            // update subtotal
-            self.subtotal = subtotal
-            // update the current user
-            User.currentUser?.current.products = products
-            
-        }
-    }
-    
-    var subtotal = 0.00 {
-        didSet {
-            subtotalLabel.text = "$" + String(describing: subtotal)
+            else {
+                products = oldValue
+            }
         }
     }
     
@@ -93,9 +84,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func addProduct() {
         let product = Product(dictionary: ["name": addItemTextView.text], api: apiType.manual)
-        User.currentUser?.current.products.append(product)
-        products.append(product)
-        
+        products = products + [product]
         tableView.reloadData()
         addItemTextView.text = "Type or tap the camera to scan an item"
     }
@@ -125,13 +114,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onCheckout(_ sender: UIButton) {
-        // TODO: Implement checkout functionality.
-    }
-
-    @IBAction func onAddItemWithScanner(_ sender: UIButton) {
-    }
-    
     /*
     // MARK: - UITableViewDelegate
     */
@@ -153,7 +135,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let navigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
-        
         let productDetailsViewController = navigationController.topViewController as! ProductDetailsViewController
         productDetailsViewController.product = product
         
@@ -163,14 +144,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-        let product = self.products[indexPath.row]
-            
-            
-        // remove from our array immediately
-        self.products.remove(at: indexPath.row)
-            
-        tableView.reloadData()
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { (action, index) in
+            // Note that this call the didSet listener!
+            self.products.remove(at: indexPath.row)
+            tableView.reloadData()
         
         // TODO: remove from parse
         }
@@ -178,16 +155,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return [delete]
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func onScanButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
