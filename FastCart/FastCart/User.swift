@@ -100,7 +100,8 @@ class User: EVObject {
     /** The current list of items the user is shopping for */
     var current = Receipt() {
         didSet {
-            Utilities.persist(self, withKey: Persistece.receipt.rawValue)
+            // Assume user takes ownership of any newly set Receipt.
+            didSetNewCurrent()
         }
     }
     /** The user's favorite stores */
@@ -108,23 +109,43 @@ class User: EVObject {
     
     /**
      Used exclusively by Parse.
+     
+     - Author:
+        Jose
     */
     init(dictionary: NSDictionary){
+        super.init()
         id = dictionary["id"] as? String
-        username = dictionary["username"] as? String
+        username = dictionary["unsername"] as? String
         email = dictionary["email"] as? String
         facebookId = dictionary["facebookId"] as? String
         
-        // Load current from local storage.
-        current = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
+        // Load current from local storage if possible.
+        if let local = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt {
+            current = local
+        }
+        // Create a fresh instance, give ownership to User.
+        else {
+            current = Receipt()
+            // Needs to be called because property observers aren't active during initialization.
+            didSetNewCurrent()
+        }
     }
     required init() {
+        super.init()
+        
         id = ""
         username = ""
         email = ""
         facebookId = ""
         // Load current from stored.
-        current = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt ?? Receipt()
+        if let local = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt {
+            current = local
+        }
+        else {
+            current = Receipt()
+            didSetNewCurrent()
+        }
     }
     /** MARK: Override */
     override func skipPropertyValue(_ value: Any, key: String) -> Bool {
@@ -183,4 +204,15 @@ class User: EVObject {
         }
     }
     
+    /**
+     Called after a new receipt is set as the current for the user. Takes care of initializing the receipt appropriately.
+     
+     - author:
+        Luis Perez
+     */
+    private func didSetNewCurrent() {
+        current.userId = id
+        current.started = Date()
+        persistCurrent()
+    }
 }

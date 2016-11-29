@@ -80,6 +80,18 @@ class Receipt: EVObject {
         Jose Villanueva
      */
     func parseSave(){
+        // Save the store. TODO: Save in case of failure?
+        if (Store.currentStore.id == nil) {
+            store.parseSave(completion: { (store: Store) in
+                self.storeId = store.id
+                self.parseSaveWithStore()
+            })
+        } else {
+            self.parseSaveWithStore()
+        }
+    }
+    
+    private func parseSaveWithStore() {
         let receipt = PFObject(className: "Receipt")
         receipt["userId"] = self.userId
         receipt["storeId"] = self.storeId

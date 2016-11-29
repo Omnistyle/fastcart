@@ -22,9 +22,16 @@ class Store: EVObject {
      
      - todo: Improve the implementation.
      */
-    class var currentStore: Store? {
+    private static var _currentStore: Store?
+    class var currentStore: Store {
         get {
-            return User.currentUser?.current.store
+            if self._currentStore == nil {
+                _currentStore = Store(id: "dummy")
+            }
+            return self._currentStore!
+        }
+        set(store) {
+            self._currentStore = store
         }
     }
     
@@ -56,10 +63,11 @@ class Store: EVObject {
         name = "Walmart"
         overview = "This is walmart, a lowprice retailer"
         image = URL(string: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSWYZIj9Q4-Bamxzyb6W_c3k3zQ2BtNg7uADgbxB90WhoTO9fWT_KAzs_Ja")
+        self.parseSave(completion: {(s: Store) in })
         
     }
     required init() {
-        name  = ""
+        super.init()
     }
     
     /** Mark -- EVObject overrides **/
@@ -89,17 +97,18 @@ class Store: EVObject {
      - Author:
         Jose Villanueva 
      */
-    func parseSave(){
+    func parseSave(completion: @escaping (Store) -> Void){
         let store = PFObject(className: "Store")
         store["name"] = self.name
-        store["location"] = self.location
-        store["locationAsString"] = self.locationAsString
-        store["imageUrl"] = self.image
+        // TODO (need to change this)
+        // store["location"] = self.location ?? "Stuff"
+        // store["imageUrl"] = self.image?.absoluteString
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
                 self.id = store.objectId
                 print("saved with id: \(store.objectId)")
+                completion(self)
             } else {
                 print(error?.localizedDescription ?? "default: error saving \(self.name) store to parse")
             }

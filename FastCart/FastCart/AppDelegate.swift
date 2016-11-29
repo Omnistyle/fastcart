@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
         // Braintree app switch url!
         BTAppSwitch.setReturnURLScheme(AppURLSchemes.payments.rawValue)
         
@@ -58,6 +57,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
+        // Initialize Parse
+        // Set applicationId and server based on the values in the Heroku settings.
+        // clientKey is not used on Parse open source unless explicitly configured
+        // TODO: Why is this in open url?
+        Parse.initialize(
+            with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
+                configuration.applicationId = "f0a1s2t3c4a5r6t728"
+                configuration.clientKey = nil  // set to nil assuming you have not set clientKey
+                configuration.server = "http://fastcart-parse.herokuapp.com/parse"
+            })
+        )
+        
         NotificationCenter.default.addObserver(forName: User.userDidLogoutNotification, object: nil, queue: OperationQueue.main) { (Notification) in
             Utilities.clearDefaults()
         
@@ -74,18 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Extract source application for compatibility with some older APIs.
         // We currently don't handle URLs if we don't know the application sending them.
         guard let sourceApplication: String = options[.sourceApplication] as? String else { return false }
-        
-        // Initialize Parse
-        // Set applicationId and server based on the values in the Heroku settings.
-        // clientKey is not used on Parse open source unless explicitly configured
-        // TODO: Why is this in open url?
-        Parse.initialize(
-            with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "f0a1s2t3c4a5r6t728"
-                configuration.clientKey = nil  // set to nil assuming you have not set clientKey
-                configuration.server = "http://fastcart-parse.herokuapp.com/parse"
-            })
-        )
         
         // Check if returning from payments.
         if url.scheme?.localizedCaseInsensitiveCompare(AppURLSchemes.payments.rawValue) == .orderedSame {

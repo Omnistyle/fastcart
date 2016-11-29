@@ -92,11 +92,10 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
             totalLabel.text = receipt.totalAsString
             taxesLabel.text = receipt.taxAsString
         }
-        if let store = Store.currentStore {
-            storeLabel.text = store.name
-            storeLocationLabel.text = store.locationAsString
-            store.setStoreImage(view: storeImage)
-        }
+        let store = Store.currentStore
+        storeLabel.text = store.name
+        storeLocationLabel.text = store.locationAsString
+        store.setStoreImage(view: storeImage)
     }
     
     private func paymentStarted(_ client: BTAPIClient) {
