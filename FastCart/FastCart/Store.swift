@@ -45,9 +45,9 @@ class Store: NSObject {
     func parseSave(){
         let store = PFObject(className: "Store")
         store["name"] = self.name
-        store["location"] = self.location
+        //store["location"] = self.location
         store["locationAsString"] = self.locationAsString
-        store["imageUrl"] = self.image
+        //store["imageUrl"] = self.image
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){

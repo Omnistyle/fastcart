@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         super.viewDidLoad()
 
         let loginButton = FBSDKLoginButton()
-        view.addSubview(loginButton)
+        //view.addSubview(loginButton)
         
         loginButton.frame = CGRect(x: 16, y: 450, width: view.frame.width - 32, height: 50)
         loginButton.delegate = self
@@ -35,12 +35,35 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         scrollView = MXScrollView()
         let header = Bundle.main.loadNibNamed("StarshipHeader", owner: self, options: nil)?.first as? CustomHeader
         header?.backgroundImageUrl = URL(string: "http://img05.deviantart.net/fb0f/i/2011/197/8/8/gray_texture_by_gbyaln-d3xigul.jpg")
-        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
+        
+        if let user = User.currentUser {
+            if let strg = user.facebookProfilePictureUrlString {
+            
+                header?.foregroundImageUrl = URL(string: strg)
+                print(strg)
+            }
+        }
+    
+        
+//        if ((User.currentUser?.facebookProfilePictureUrlString = User.currentUser?.facebookProfilePictureUrlString) != nil) {
+//            
+//            if let gotUserProfileUrlPic = User.currentUser?.facebookProfilePictureUrlString {
+//                header?.foregroundImageUrl = URL(string: "http://graph.facebook.com/10157675891475375/picture?type=large")
+//                
+//                print(gotUserProfileUrlPic)
+//            }
+//            
+//            
+//        }
+        
+//        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
         scrollView.parallaxHeader.height = 300
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
+        view.addSubview(loginButton)
+        
         
 //        table1 = UITableView()
         

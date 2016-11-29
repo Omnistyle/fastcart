@@ -64,7 +64,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
             }
         }
-        
     }
     
     func onLogin(username: String, password: String){

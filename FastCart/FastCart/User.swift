@@ -17,6 +17,8 @@ class User: NSObject {
     
     var facebookId: String?
     
+    var facebookProfilePictureUrlString: String! = "default"
+    
     // Necessary unique id for each user of our application.
     var id: String = "1234"
     
@@ -37,6 +39,7 @@ class User: NSObject {
         username = dictionary["username"] as? String
         email = dictionary["email"] as? String
         facebookId = dictionary["facebookId"] as? String
+        facebookProfilePictureUrlString = "http://graph.facebook.com/\(facebookId)/picture?type=large"
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
@@ -108,6 +111,7 @@ class User: NSObject {
         user["unsername"] = self.username
         user["email"] = self.email
         user["facebookId"] = self.facebookId
+        user["facebookProfilePictureUrl"] = self.facebookProfilePictureUrlString
         user.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
                 self.id = user.objectId!
