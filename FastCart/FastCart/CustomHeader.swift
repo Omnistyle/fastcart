@@ -53,4 +53,19 @@ class CustomHeader: UIView {
             }
         }
     }
+    
+    var foregroundImageVariable: UIImage? {
+        didSet {
+            if let image = foregroundImageVariable {
+                foregroundImage.image = image
+                //create filter
+                let newImage = makeBlackAndWhite(image: image)
+                foregroundImage.image = newImage
+                
+                let cornerRadius = foregroundImage.frame.width / 2.0
+                foregroundImage.layer.cornerRadius = cornerRadius
+                foregroundImage.layer.masksToBounds = true
+            }
+        }
+    }
 }

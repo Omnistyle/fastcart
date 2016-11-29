@@ -121,6 +121,11 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         // for now,
         print("clicked on a store ad")
         // do the segue
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as! ShopViewController
+        vc.store = Store.init(id: "1")
+        self.navigationController?.pushViewController(vc, animated: true)
+        
 //        let viewController = DetailViewController()
 //        viewController.transitioningDelegate = self
 //        viewController.trantisionContainerView = containerView

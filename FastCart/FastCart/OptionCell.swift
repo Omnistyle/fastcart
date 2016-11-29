@@ -10,7 +10,7 @@ import UIKit
 
 class OptionCell: UITableViewCell {
 
-    @IBOutlet weak var iconImageView: UIImageView!
+//    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var optionLabel: UILabel!
     
     override func awakeFromNib() {

@@ -34,10 +34,13 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         // Parallax Header
         scrollView = MXScrollView()
         let header = Bundle.main.loadNibNamed("StarshipHeader", owner: self, options: nil)?.first as? CustomHeader
-        header?.backgroundImageUrl = URL(string: "http://img05.deviantart.net/fb0f/i/2011/197/8/8/gray_texture_by_gbyaln-d3xigul.jpg")
-        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
+        header?.backgroundImageUrl = URL(string: "http://www.designbolts.com/wp-content/uploads/2013/02/Noise-Light-Grey-Tileable-Pattern-For-Website-Background.jpg")
+        
+//        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
+        header?.foregroundImageVariable = #imageLiteral(resourceName: "profileImage")
+//        header?.foregroundImageVariable = UIImage(#imageLiteral(resourceName: "profileImage"))
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
-        scrollView.parallaxHeader.height = 300
+        scrollView.parallaxHeader.height = 250
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
@@ -139,6 +142,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {

@@ -33,6 +33,8 @@
 		7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9515861DE416F6001EC1D5 /* CustomHeader.swift */; };
 		7F9515891DE4D88F001EC1D5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9515881DE4D88F001EC1D5 /* ThemeManager.swift */; };
 		7F95158B1DE50D23001EC1D5 /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F95158A1DE50D23001EC1D5 /* OptionCell.swift */; };
+		7F95158D1DE5473A001EC1D5 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */; };
+		7F9515911DE6281C001EC1D5 /* ProductOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */; };
 		7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */; };
 		7FF055F61DD126BD00434F2A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F51DD126BD00434F2A /* Product.swift */; };
 		7FF055F81DD12BB600434F2A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */; };
@@ -72,6 +74,8 @@
 		7F9515861DE416F6001EC1D5 /* CustomHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		7F9515881DE4D88F001EC1D5 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		7F95158A1DE50D23001EC1D5 /* OptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
+		7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductOverviewCell.swift; sourceTree = "<group>"; };
 		7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptCell.swift; sourceTree = "<group>"; };
 		7FF055F51DD126BD00434F2A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		7FF055F71DD12BB600434F2A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				103215981DD2F2DE00186704 /* HistoryViewController.swift */,
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
 				223A663C1DDA6C330075DBB5 /* LoginViewController.swift */,
+				7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 				7F95158A1DE50D23001EC1D5 /* OptionCell.swift */,
 				1057DECA1DD91510001203D2 /* ProductCell.swift */,
 				7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */,
+				7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -339,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F9515911DE6281C001EC1D5 /* ProductOverviewCell.swift in Sources */,
 				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */,
 				102D9C111DE147BF00E8232A /* Utilities.swift in Sources */,
@@ -359,6 +366,7 @@
 				103215951DD2E08000186704 /* Payment.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,
 				7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */,
+				7F95158D1DE5473A001EC1D5 /* ShopViewController.swift in Sources */,
 				1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */,
 				103215931DD2DBDA00186704 /* User.swift in Sources */,
 				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,

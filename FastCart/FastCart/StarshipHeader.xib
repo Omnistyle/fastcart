@@ -26,10 +26,18 @@
                         <constraint firstAttribute="width" secondItem="V05-dY-Hrh" secondAttribute="height" multiplier="1:1" id="ZSI-Ws-xUX"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Belinda Zeng" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X0-VQ-cMb">
+                    <rect key="frame" x="138" y="400" width="99" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.99607843139999996" green="0.99215686270000003" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="V05-dY-Hrh" firstAttribute="centerY" secondItem="0rn-g5-eiJ" secondAttribute="centerY" id="8iP-cq-5iE"/>
+                <constraint firstItem="0X0-VQ-cMb" firstAttribute="top" secondItem="V05-dY-Hrh" secondAttribute="bottom" constant="16.5" id="KXr-ch-tTy"/>
+                <constraint firstItem="0X0-VQ-cMb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="a3G-fl-Od7"/>
                 <constraint firstItem="0rn-g5-eiJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="atb-03-fOp"/>
                 <constraint firstItem="V05-dY-Hrh" firstAttribute="centerX" secondItem="0rn-g5-eiJ" secondAttribute="centerX" id="d9D-Vd-7c3"/>
                 <constraint firstItem="0rn-g5-eiJ" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="fSA-ry-5Z0"/>

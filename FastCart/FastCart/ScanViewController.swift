@@ -19,11 +19,15 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
             // try this
-            let productDetailsNavigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
-            let productDetailsViewController = productDetailsNavigationController.topViewController as! ProductDetailsViewController
+            
+            let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
+            
+//            let productDetailsNavigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
+//            let productDetailsViewController = productDetailsNavigationController.topViewController as! ProductDetailsViewController
             productDetailsViewController.product = products[0]
             print("product\(products)")
-            self.present(productDetailsNavigationController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+//            self.present(productDetailsNavigationController, animated: true, completion: nil)
             
         }, failure: {(error: Error) -> () in
             print(error.localizedDescription)

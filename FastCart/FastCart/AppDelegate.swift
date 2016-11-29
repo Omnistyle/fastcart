@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
             tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
             tabBarItem3.selectedImage = #imageLiteral(resourceName: "list_filled")
-            tabBarItem4.selectedImage = #imageLiteral(resourceName: "creditcard_filled")
+            tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
             tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
             
             // nonselected color to black
@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let item = tabItem as! UITabBarItem
                 item.image = item.image?.withRenderingMode(.alwaysOriginal)
                 item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
+                // change the iimage insets to only have the image
+                item.imageInsets = UIEdgeInsets(top: 7, left: 0, bottom: -7, right: 0)
             }
             
             // change tint color to black

@@ -17,6 +17,7 @@ enum apiType {
 
 class Product: NSObject {
     var upc: String?
+    var idFromStore: String?
     var name: String?
     var overview: String?
     var image: URL?
@@ -30,6 +31,23 @@ class Product: NSObject {
     var freeShipToStore: Bool?
     var addToCartUrl: URL?
     var category: String?
+    var variants: [String]? {
+        didSet {
+            if variants == nil {
+                return
+            }
+            WalmartClient.sharedInstance.getVariantImages(ids: variants!, success: {(images: [URL]) -> () in
+                self.variantImages = images
+            }, failure: {(error: Error) -> () in
+                print(error)
+            }
+            )
+        }
+    }
+    var clearance: Bool?
+    var specialBuy: Bool?
+    var originalPrice: Double?
+    var variantImages: [URL]?
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -61,6 +79,7 @@ class Product: NSObject {
     init(dictionary: NSDictionary, api: apiType) {
         super.init()
         if api == apiType.walmart {
+            idFromStore = dictionary["itemId"] as? String
             upc = dictionary["upc"] as? String
             name = dictionary["name"] as? String
             overview = dictionary["shortDescription"] as? String
@@ -72,12 +91,23 @@ class Product: NSObject {
             if let salePriceDouble = dictionary["salePrice"] as? Double {
                 salePrice = round(salePriceDouble * 100)/100
             }
+            
+            if let originalPriceDouble = dictionary["msrp"] as? Double {
+                originalPrice = round(originalPriceDouble * 100)/100
+            }
+            
             brandName = dictionary["brandName"] as? String
             averageRating = dictionary["customerRating"] as? String
             color = dictionary["color"] as? String
             category = dictionary["categoryPath"] as? String
             size = dictionary["size"] as? String
             freeShipToStore =  dictionary["freeShipToStore"] as? Bool
+            
+            variants = dictionary["variants"] as? [String]
+            
+            clearance = dictionary["clearance"] as? Bool
+            specialBuy = dictionary["specialBuy"] as? Bool
+        
         }
         else if api == apiType.upc {
             // often multiple objects in array though
