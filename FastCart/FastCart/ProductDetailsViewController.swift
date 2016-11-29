@@ -66,7 +66,7 @@ class ProductDetailsViewController: UIViewController {
     }
     @IBAction func onAddButton(_ sender: Any) {
         if self.product != nil {
-            User.currentUser?.current.products.append(self.product!)
+            User.currentUser?.current.products.append(product!)
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController

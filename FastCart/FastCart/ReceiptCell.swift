@@ -21,21 +21,18 @@ class ReceiptCell: UITableViewCell {
     
     var receipt: Receipt? {
         didSet {
-            if let image = self.receipt?.store.image {
-                storeImage.setImageWith(image)
+            if let receipt = receipt {
+                receipt.store.setStoreImage(view: storeImage)
                 storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
                 storeImage.layer.masksToBounds = true
-//                storeImage.layer.borderColor = UIColor.lightGray.cgColor
-//                storeImage.layer.borderWidth = 1
+    //          storeImage.layer.borderColor = UIColor.lightGray.cgColor
+    //          storeImage.layer.borderWidth = 1
                 
+                priceLabel.text = receipt.totalAsString
+                storeLabel.text = receipt.store.name
+                dateLabel.text = receipt.startedAsString
+                locationLabel.text = receipt.store.locationAsString
             }
-            if let price = self.receipt?.totalAsString {
-                priceLabel.text = "$" + String(describing: price)
-            }
-            storeLabel.text = self.receipt?.store.name
-            dateLabel.text = self.receipt?.startedAsString
-            locationLabel.text = self.receipt?.store.locationAsString
-            
         }
     }
     override func awakeFromNib() {

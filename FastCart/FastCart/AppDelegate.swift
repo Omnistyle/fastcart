@@ -9,6 +9,11 @@
 import UIKit
 import FBSDKCoreKit
 import Parse
+import Braintree
+
+enum AppURLSchemes: String {
+    case payments = "lemonbunny.FastCart.payments"
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        // Braintree app switch url!
+        BTAppSwitch.setReturnURLScheme(AppURLSchemes.payments.rawValue)
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
 
         if User.currentUser != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -39,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // nonselected color to black
             for tabItem in tabBar.items! {
-                let item = tabItem as! UITabBarItem
+                let item = tabItem
                 item.image = item.image?.withRenderingMode(.alwaysOriginal)
                 item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
                 // change the iimage insets to only have the image
@@ -52,38 +60,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil, queue: OperationQueue.main) { (Notification) in
-            
+        // Initialize Parse
+        // Set applicationId and server based on the values in the Heroku settings.
+        // clientKey is not used on Parse open source unless explicitly configured
+        // TODO: Why is this in open url?
+        Parse.initialize(
+            with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
+                configuration.applicationId = "f0a1s2t3c4a5r6t728"
+                configuration.clientKey = nil  // set to nil assuming you have not set clientKey
+                configuration.server = "http://fastcart-parse.herokuapp.com/parse"
+            })
+        )
+        
+        NotificationCenter.default.addObserver(forName: User.userDidLogoutNotification, object: nil, queue: OperationQueue.main) { (Notification) in
+            Utilities.clearDefaults()
+        
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = vc
-            
         }
-        
-    // fix tab bar
-   
-        
-        
+  
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
+        // Extract source application for compatibility with some older APIs.
+        // We currently don't handle URLs if we don't know the application sending them.
+        guard let sourceApplication: String = options[.sourceApplication] as? String else { return false }
         
-        // Initialize Parse
-        // Set applicationId and server based on the values in the Heroku settings.
-        // clientKey is not used on Parse open source unless explicitly configured
-        Parse.initialize(
-            with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "f0a1s2t3c4a5r6t728"
-                configuration.clientKey = nil  // set to nil assuming you have not set clientKey
-                configuration.server = "http://fastcart-parse.herokuapp.com/parse"//"https://fastcart-parse.herokuapp.com/"
-            })
-        )
-        
-        let handle = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-        
-        return handle
+        // Check if returning from payments.
+        if url.scheme?.localizedCaseInsensitiveCompare(AppURLSchemes.payments.rawValue) == .orderedSame {
+            return BTAppSwitch.handleOpen(url, sourceApplication:sourceApplication)
+        } else {
+            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: sourceApplication, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

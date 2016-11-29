@@ -27,8 +27,6 @@ open class SAParallaxViewLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = 0.0
         sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         let width = UIScreen.main.bounds.size.width
-        print(width)
-//        let height = CGFloat(200.0)
         let height = CGFloat(200.0)
         itemSize = CGSize(width: width, height: height)
     }

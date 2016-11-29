@@ -14,18 +14,16 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     var scrollView: MXScrollView!
     
-    @IBOutlet weak var table1: UITableView!
+    @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
     let titlesInSection1 = ["Recent orders", "My reviews", "Upgrade to Pro"]
     let titlesInSection2 = ["How it works", "Contact us", "Rate the app", "Invite friends"]
-    
-    var table2: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let loginButton = FBSDKLoginButton()
-        view.addSubview(loginButton)
+        //view.addSubview(loginButton)
         
         loginButton.frame = CGRect(x: 16, y: 450, width: view.frame.width - 32, height: 50)
         loginButton.delegate = self
@@ -34,27 +32,51 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         // Parallax Header
         scrollView = MXScrollView()
         let header = Bundle.main.loadNibNamed("StarshipHeader", owner: self, options: nil)?.first as? CustomHeader
+
         header?.backgroundImageUrl = URL(string: "http://www.designbolts.com/wp-content/uploads/2013/02/Noise-Light-Grey-Tileable-Pattern-For-Website-Background.jpg")
         
+        if let user = User.currentUser {
+            if let strg = user.facebookProfilePictureUrlString {
+            
+                header?.foregroundImageUrl = URL(string: strg)
+                print(strg)
+            }
+        } else {
+            header?.foregroundImageVariable = #imageLiteral(resourceName: "profileImage")
+
+        }
+    
+        
+//        if ((User.currentUser?.facebookProfilePictureUrlString = User.currentUser?.facebookProfilePictureUrlString) != nil) {
+//            
+//            if let gotUserProfileUrlPic = User.currentUser?.facebookProfilePictureUrlString {
+//                header?.foregroundImageUrl = URL(string: "http://graph.facebook.com/10157675891475375/picture?type=large")
+//                
+//                print(gotUserProfileUrlPic)
+//            }
+//            
+//            
+//        }
+        
 //        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
-        header?.foregroundImageVariable = #imageLiteral(resourceName: "profileImage")
-//        header?.foregroundImageVariable = UIImage(#imageLiteral(resourceName: "profileImage"))
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
         scrollView.parallaxHeader.height = 250
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
+        view.addSubview(loginButton)
+        
         
 //        table1 = UITableView()
         
         // tableview 
         
-        table1.dataSource = self;
-        table1.delegate = self
-        table1.backgroundColor = UIColor.white
-        scrollView.addSubview(table1)
+        tableView.dataSource = self;
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.white
+        scrollView.addSubview(tableView)
         // hide first section header
-        table1.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
+        tableView.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
         // get rid of empty cells
         
     }
@@ -66,8 +88,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         scrollView.frame = frame
         scrollView.contentSize = frame.size
         
-        frame.size.height = table1.contentSize.height
-        table1.frame = frame
+        frame.size.height = tableView.contentSize.height
+        tableView.frame = frame
         
     }
     
@@ -148,11 +170,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        User.currentUser = nil
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
-        
-        print("did log out of facebook")
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
 
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {

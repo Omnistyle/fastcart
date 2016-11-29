@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
 
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("did log out of facebook")
+        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
     
     
@@ -64,7 +64,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
             }
         }
-        
     }
     
     func onLogin(username: String, password: String){
@@ -74,7 +73,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
             } else {
                 print("failed to log in")
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
             }
             
         }
@@ -113,7 +112,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             if(succeeded){
                                 print("saved with id: \(user.objectId)")
                                 
-                                var userDic = User.getUserDictionary(user: user)
+                                let userDic = User.getUserDictionary(user: user)
                                 let user = User(dictionary: userDic)
                                 User.currentUser = user
                                 

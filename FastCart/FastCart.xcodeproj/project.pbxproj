@@ -15,11 +15,11 @@
 		1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */; };
 		103215911DD2DB9600186704 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215901DD2DB9600186704 /* Receipt.swift */; };
 		103215931DD2DBDA00186704 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215921DD2DBDA00186704 /* User.swift */; };
-		103215951DD2E08000186704 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215941DD2E08000186704 /* Payment.swift */; };
 		103215971DD2E0FA00186704 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215961DD2E0FA00186704 /* Review.swift */; };
 		103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215981DD2F2DE00186704 /* HistoryViewController.swift */; };
 		1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032159A1DD2F7B200186704 /* TabViewController.swift */; };
 		1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057DECA1DD91510001203D2 /* ProductCell.swift */; };
+		106C3F501DE8329E00CE9E7C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106C3F4F1DE8329E00CE9E7C /* Common.swift */; };
 		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
 		7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F12DF871DDB9F09003C78C6 /* Reviews.xib */; };
 		7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF891DDB9F5D003C78C6 /* Reviews.swift */; };
@@ -52,11 +52,11 @@
 		1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
 		103215901DD2DB9600186704 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		103215921DD2DBDA00186704 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		103215941DD2E08000186704 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		103215961DD2E0FA00186704 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		103215981DD2F2DE00186704 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		1032159A1DD2F7B200186704 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		1057DECA1DD91510001203D2 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		106C3F4F1DE8329E00CE9E7C /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
 		223A663C1DDA6C330075DBB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		223A663E1DDA6D010075DBB5 /* FastCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastCart.entitlements; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				102D9C101DE147BF00E8232A /* Utilities.swift */,
+				106C3F4F1DE8329E00CE9E7C /* Common.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -199,7 +200,6 @@
 				7FF055F51DD126BD00434F2A /* Product.swift */,
 				103215901DD2DB9600186704 /* Receipt.swift */,
 				103215921DD2DBDA00186704 /* User.swift */,
-				103215941DD2E08000186704 /* Payment.swift */,
 				103215961DD2E0FA00186704 /* Review.swift */,
 				7FF055FB1DD2DD1200434F2A /* Store.swift */,
 			);
@@ -362,8 +362,8 @@
 				7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */,
 				7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */,
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
+				106C3F501DE8329E00CE9E7C /* Common.swift in Sources */,
 				7F95158B1DE50D23001EC1D5 /* OptionCell.swift in Sources */,
-				103215951DD2E08000186704 /* Payment.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,
 				7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */,
 				7F95158D1DE5473A001EC1D5 /* ShopViewController.swift in Sources */,
