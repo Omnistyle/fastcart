@@ -135,7 +135,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let navigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
-        
         let productDetailsViewController = navigationController.topViewController as! ProductDetailsViewController
         productDetailsViewController.product = product
         

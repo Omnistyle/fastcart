@@ -63,8 +63,6 @@ class Store: EVObject {
         name = "Walmart"
         overview = "This is walmart, a lowprice retailer"
         image = URL(string: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSWYZIj9Q4-Bamxzyb6W_c3k3zQ2BtNg7uADgbxB90WhoTO9fWT_KAzs_Ja")
-        self.parseSave(completion: {(s: Store) in })
-        
     }
     required init() {
         super.init()
