@@ -204,8 +204,12 @@ class User: EVObject {
         user["facebookProfilePictureUrl"] = self.facebookProfilePictureUrlString!
         user.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = user.objectId!
-                print("saved with id: \(user.objectId)")
+                if let id = user.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                } else {
+                    print("default: error retrieving id from saved object \(self.username)")
+                }
             } else {
                 print(error?.localizedDescription ?? "default: error saving user to parse")
             }

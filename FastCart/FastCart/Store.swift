@@ -107,12 +107,16 @@ class Store: EVObject {
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = store.objectId
-                print("saved with id: \(store.objectId)")
-                completion(self)
+                if let id = store.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                } else {
+                    print("default: error retrieving id from saved object \(self.name)")
+                }
             } else {
                 print(error?.localizedDescription ?? "default: error saving \(self.name) store to parse")
             }
+            completion(self)
         }
     }
 }

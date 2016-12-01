@@ -104,12 +104,15 @@ class Receipt: EVObject {
         
         receipt.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = receipt.objectId
-                print("saved with id: \(receipt.objectId)")
-                
-                for product in self.products { //save all products in receipt
-                    product.receiptId = self.id
-                    product.parseSave()
+                if let id = receipt.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                    for product in self.products { //save all products in receipt
+                        product.receiptId = self.id
+                        product.parseSave()
+                    }
+                } else {
+                    print("default: error retrieving id for receipt after parse save")
                 }
                 
             } else {
