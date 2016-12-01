@@ -237,17 +237,17 @@ class Product: EVObject {
     func parseSave(){
         let product = PFObject(className: "Product")
         product["receipId"] = self.receiptId!
-        product["upc"] = self.upc!
+        product["upc"] = self.upc ?? ""
         product["name"] = self.name!
-        product["imageUrl"] = self.image!.absoluteString
+        product["imageUrl"] = self.image?.absoluteString ?? ""
         product["salePrice"] = self.salePrice!
-        product["brandName"] = self.brandName!
-        product["averageRating"] = self.averageRating!
-        product["color"] = self.color!
-        product["size"] = self.size!
-        product["freeShipToStore"] = self.freeShipToStore!
-        product["addToCartUrl"] = self.addToCartUrl!.absoluteString
-        product["category"] = self.category!
+        product["brandName"] = self.brandName ?? ""
+        product["averageRating"] = self.averageRating ?? ""
+        product["color"] = self.color ?? ""
+        product["size"] = self.size ?? ""
+        product["freeShipToStore"] = self.freeShipToStore ?? false
+        product["addToCartUrl"] = self.addToCartUrl?.absoluteString ?? ""
+        product["category"] = self.category ?? ""
         
         product.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){

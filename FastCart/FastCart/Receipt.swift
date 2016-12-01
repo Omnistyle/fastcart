@@ -96,7 +96,7 @@ class Receipt: EVObject {
         receipt["userId"] = self.userId!
         receipt["storeId"] = self.storeId!
         receipt["started"] = self.started!
-        receipt["completed"] = self.completed!
+        receipt["completed"] = self.completed ?? Date()
         receipt["total"] = self.total
         receipt["subtotal"] = self.subTotal
         receipt["tax"] = self.tax
