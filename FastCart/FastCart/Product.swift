@@ -197,8 +197,12 @@ class Product: EVObject {
         switch key {
         case "freeShipToStore":
             freeShipToStore = value as? Bool
+        case "clearance":
+            clearance = value as? Bool
         case "salePrice":
             salePrice = value as? Double
+        case "originalPrice":
+            originalPrice = value as? Double
         case "formatter":
             // Nothing to do, skip.
             break
@@ -237,17 +241,36 @@ class Product: EVObject {
     func parseSave(){
         let product = PFObject(className: "Product")
         product["receipId"] = self.receiptId!
-        product["upc"] = self.upc ?? ""
+        if let upc = self.upc {
+            product["upc"] = upc
+        }
         product["name"] = self.name!
-        product["imageUrl"] = self.image?.absoluteString ?? ""
+        if let imageUrl = self.image?.absoluteString {
+            product["imageUrl"] = imageUrl
+        }
         product["salePrice"] = self.salePrice!
-        product["brandName"] = self.brandName ?? ""
-        product["averageRating"] = self.averageRating ?? ""
-        product["color"] = self.color ?? ""
-        product["size"] = self.size ?? ""
-        product["freeShipToStore"] = self.freeShipToStore ?? false
-        product["addToCartUrl"] = self.addToCartUrl?.absoluteString ?? ""
-        product["category"] = self.category ?? ""
+        if let brandName = self.brandName {
+            product["brandName"] = brandName
+        }
+        if let averageRating = self.averageRating {
+            product["averageRating"] = averageRating
+        }
+        if let color = self.color {
+            product["color"] = color
+        }
+        if let size = self.size {
+            product["size"] = size
+        }
+        if let freeShipToStore = self.freeShipToStore {
+            product["freeShipToStore"] = freeShipToStore
+
+        }
+        if let addToCartUrl = self.addToCartUrl{
+            product["addToCartUrl"] = addToCartUrl
+        }
+        if let category = self.category {
+            product["category"] = category
+        }
         
         product.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){

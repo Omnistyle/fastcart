@@ -98,8 +98,12 @@ class Store: EVObject {
     func parseSave(completion: @escaping (Store) -> Void){
         let store = PFObject(className: "Store")
         store["name"] = self.name!
-        store["location"] = self.location ?? ""
-        store["imageUrl"] = self.image?.absoluteString ?? ""
+        if let location = self.location {
+            store["location"] = location
+        }
+        if let imageUrl = self.image?.absoluteString {
+            store["imageUrl"] = imageUrl
+        }
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
