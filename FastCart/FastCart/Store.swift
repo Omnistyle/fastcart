@@ -99,8 +99,8 @@ class Store: EVObject {
         let store = PFObject(className: "Store")
         store["name"] = self.name
         // TODO (need to change this)
-        // store["location"] = self.location ?? "Stuff"
-        // store["imageUrl"] = self.image?.absoluteString
+        store["location"] = self.location ?? "Stuff"
+        store["imageUrl"] = self.image!.absoluteString
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){

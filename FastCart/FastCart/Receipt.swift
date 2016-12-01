@@ -93,10 +93,10 @@ class Receipt: EVObject {
     
     private func parseSaveWithStore() {
         let receipt = PFObject(className: "Receipt")
-        receipt["userId"] = self.userId
-        receipt["storeId"] = self.storeId
-        receipt["started"] = self.started
-        receipt["completed"] = self.completed
+        receipt["userId"] = self.userId!
+        receipt["storeId"] = self.storeId!
+        receipt["started"] = self.started!
+        receipt["completed"] = self.completed!
         receipt["total"] = self.total
         receipt["subtotal"] = self.subTotal
         receipt["tax"] = self.tax
