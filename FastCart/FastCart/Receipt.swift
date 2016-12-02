@@ -117,4 +117,73 @@ class Receipt: EVObject {
             }
         }
     }
+    
+    static private func ReceiptDeserialization(rawRecepit : PFObject) -> Receipt{
+        let receipt = Receipt()
+        receipt.id = rawRecepit.objectId
+        receipt.userId = rawRecepit["userId"] as! String?
+        receipt.storeId = rawRecepit["storeId"] as! String?
+        receipt.started = rawRecepit["started"] as! Date?
+        receipt.completed = rawRecepit["completed"] as! Date?
+        receipt.total = rawRecepit["total"] as! Double
+        receipt.subTotal = rawRecepit["subtotal"] as! Double
+        receipt.tax = rawRecepit["tax"] as! Double
+        receipt.paid = (rawRecepit["paid"] != nil)
+        
+        return receipt
+        
+    }
+    
+    static private func ReceiptsDeserialization(rawReceipts : [PFObject]) -> [Receipt] {
+        
+        var receipts = [Receipt]()
+        for rawRecpt in rawReceipts{
+            let receipt = ReceiptDeserialization(rawRecepit: rawRecpt)
+            
+            let products = Product.getProducts(receiptId: receipt.id!, completion: { (products:[Product]) in
+                if products != nil {
+                    for product in products {
+                        receipt.products.append(product)
+                    }
+                }
+            })
+            
+            receipts.append(receipt)
+        }
+        
+        return receipts
+    }
+    
+    static func getReceipts(userId: String, completion: @escaping (_ result: [Receipt]) -> Void) {
+        let query = PFQuery(className: "Receipt")
+        query.whereKey("userId", equalTo: userId)
+        
+        _ = query.findObjectsInBackground{
+            (recieptPFPbjects: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if recieptPFPbjects != nil{
+                    let receipts = self.ReceiptsDeserialization(rawReceipts: recieptPFPbjects!)
+                    
+                    completion(receipts)
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

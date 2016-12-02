@@ -258,4 +258,50 @@ class Product: EVObject {
             }
         }
     }
+    
+    static private func ProductDeserialization(rawProduct : PFObject) -> Product{
+        let product = Product()
+        product.receiptId = rawProduct["receiptId"] as! String?
+        product.upc = rawProduct["upc"] as! String?
+        product.name = rawProduct["name"] as! String?
+        product.image = rawProduct["imageUrl"] as! URL?
+        product.salePrice = rawProduct["salePrice"] as! Double?
+        product.brandName = rawProduct["brandName"] as! String?
+        product.averageRating = rawProduct["averageRating"] as! String?
+        product.color = rawProduct["color"] as! String?
+        product.size = rawProduct["size"] as! String?
+        product.freeShipToStore = rawProduct["freeShipToStore"] as! Bool?
+        product.addToCartUrl = rawProduct["addToCartUrl"] as! URL?
+        product.addToCartUrl = rawProduct["addToCartUrl"] as! URL?
+        return product
+    }
+    
+    static func ProductsDeserialization(rawProducts : [PFObject]) -> [Product]{
+        var products = [Product]()
+        for rawProduct in rawProducts{
+            let product = ProductDeserialization(rawProduct: rawProduct)
+            products.append(product)
+        }
+        
+        return products
+    }
+    
+    static func getProducts(receiptId: String, completion: @escaping (_ result: [Product]) -> Void) {
+        let query = PFQuery(className: "Product")
+        query.whereKey("productId", equalTo: receiptId)
+        
+        _ = query.findObjectsInBackground{
+            (producPFPbjects: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if producPFPbjects != nil{
+                    let products = self.ProductsDeserialization(rawProducts: producPFPbjects!)
+                    completion(products)
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+        }
+    }
+    
 }
