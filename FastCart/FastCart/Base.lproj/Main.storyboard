@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xLc-yF-UVp">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xLc-yF-UVp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -386,9 +387,8 @@
                                                     <constraint firstAttribute="height" constant="1" id="geA-O9-3XH"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GW9-Sh-oLB">
-                                                <rect key="frame" x="8" y="8" width="170" height="53"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GW9-Sh-oLB">
+                                                <rect key="frame" x="8" y="8" width="180" height="57"/>
                                                 <state key="normal" title="History">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -396,9 +396,8 @@
                                                     <action selector="onTabButtonTap:" destination="m8k-b0-9Yo" eventType="touchUpInside" id="lR6-uh-w5u"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTF-bR-RDb">
-                                                <rect key="frame" x="188" y="10" width="179" height="51"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTF-bR-RDb">
+                                                <rect key="frame" x="187.5" y="8" width="179.5" height="58"/>
                                                 <state key="normal" title="Current">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -415,8 +414,16 @@
                                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="6Gd-FW-gaL" firstAttribute="top" secondItem="Hai-93-Rvi" secondAttribute="top" constant="74" id="3sK-DG-CSa"/>
+                                            <constraint firstAttribute="trailing" secondItem="TTF-bR-RDb" secondAttribute="trailing" constant="8" id="4Nq-Rs-ebd"/>
+                                            <constraint firstItem="TTF-bR-RDb" firstAttribute="top" secondItem="Hai-93-Rvi" secondAttribute="top" constant="8" id="52k-94-oii"/>
+                                            <constraint firstItem="6Gd-FW-gaL" firstAttribute="top" secondItem="GW9-Sh-oLB" secondAttribute="bottom" constant="9" id="IT2-6R-PSL"/>
+                                            <constraint firstItem="GW9-Sh-oLB" firstAttribute="top" secondItem="Hai-93-Rvi" secondAttribute="top" constant="8" id="PYF-i4-tcT"/>
+                                            <constraint firstItem="GW9-Sh-oLB" firstAttribute="leading" secondItem="Hai-93-Rvi" secondAttribute="leading" constant="8" id="Rh0-4w-bf6"/>
+                                            <constraint firstItem="6Gd-FW-gaL" firstAttribute="top" secondItem="TTF-bR-RDb" secondAttribute="bottom" constant="8" id="Smr-YV-Pgs"/>
                                             <constraint firstAttribute="trailing" secondItem="6Gd-FW-gaL" secondAttribute="trailing" id="keu-3I-5LO"/>
+                                            <constraint firstAttribute="centerX" secondItem="GW9-Sh-oLB" secondAttribute="trailing" id="lf1-bA-9AE"/>
                                             <constraint firstItem="6Gd-FW-gaL" firstAttribute="leading" secondItem="Hai-93-Rvi" secondAttribute="leading" id="mM6-Un-eua"/>
+                                            <constraint firstItem="TTF-bR-RDb" firstAttribute="leading" secondItem="Hai-93-Rvi" secondAttribute="centerX" id="uEf-F3-xMA"/>
                                             <constraint firstAttribute="height" constant="75" id="xQw-gC-kLb"/>
                                         </constraints>
                                     </view>
@@ -494,7 +501,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c3e-BU-bv8" id="qTQ-sO-Ol5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-hk-mb8">
@@ -669,7 +676,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XY5-fQ-dxv" id="sfN-Ux-pn9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="obM-Iq-m3i">
@@ -868,10 +875,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OptionCell" id="LEs-x4-Y3m" customClass="OptionCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LEs-x4-Y3m" id="1oO-Ec-lti">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron" translatesAutoresizingMaskIntoConstraints="NO" id="B6S-1T-TZn">
@@ -920,7 +927,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IhZ-qr-PEo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="creditcard_outline" id="NvI-ZB-M0U"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mIM-Py-i4R">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mIM-Py-i4R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -939,7 +946,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tUt-dg-wlj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="profile_outline" id="BgY-Dl-tvZ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Fc5-be-9hM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fc5-be-9hM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -958,7 +965,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nPY-uD-0su" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="camera_outline" id="dya-Dm-fTP"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="sXD-hD-Pk6">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sXD-hD-Pk6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -976,7 +983,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ProductDetailsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="YUX-7A-sqm" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aBA-AG-9jx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aBA-AG-9jx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1104,7 +1111,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GBM-2Q-H8u" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="list_outline" id="4Pc-PP-sKr"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="csd-4n-vlZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="csd-4n-vlZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
