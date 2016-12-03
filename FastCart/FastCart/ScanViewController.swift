@@ -57,6 +57,7 @@ extension ScanViewController: BarcodeScannerDismissalDelegate {
 class ScanViewController: UIViewController {
     var product: Product?
     
+    @IBOutlet weak var loadingIcon: UIImageView!
     
     @IBAction func onFakeScanButtonPress(_ sender: Any) {
         let code = "787651241531"
@@ -75,15 +76,67 @@ class ScanViewController: UIViewController {
             print(error.localizedDescription)
         })
     
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("loaded")
+        UIView.animate(withDuration: 1, delay: 0.5, options: [UIViewAnimationOptions.curveLinear, .repeat], animations: {
+            self.loadingIcon.center.x = -10
+            
+        }, completion: nil)
         
+        // automatically load camera
+        // check to see if camera usage is authorized
+        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) ==  AVAuthorizationStatus.authorized
+        {
+            // Already Authorized
+            startScanning()
+        }
+        else
+        {
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted :Bool) -> Void in
+                if granted == true
+                {
+                    // User granted
+                    self.startScanning()
+                }
+                else
+                {
+                    // User Rejected
+                    
+                }
+            });
+        }
         
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        // check to see if camera usage is authorized
+//        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) ==  AVAuthorizationStatus.authorized
+//        {
+//            // Already Authorized
+//            startScanning()
+//        }
+//        else
+//        {
+//            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted :Bool) -> Void in
+//                if granted == true
+//                {
+//                    // User granted
+//                    self.startScanning()
+//                }
+//                else
+//                {
+//                    // User Rejected
+//                    
+//                }
+//            });
+//        }
+//    }
+    
+    
     @IBOutlet weak var scanButton: UIButton!
     
     @IBAction func onScanButtonPress(_ sender: Any) {

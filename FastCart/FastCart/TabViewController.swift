@@ -30,19 +30,25 @@ class TabViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         listViewController = storyboard.instantiateViewController(withIdentifier: "ListViewController")
+        
         historyViewController = storyboard.instantiateViewController(withIdentifier: "HistoryViewController")
         
         viewControllers = [historyViewController, listViewController]
+        self.view.layoutIfNeeded()
         
         buttons[selectedIndex].isSelected = true
         onTabButtonTap(buttons[selectedIndex])
         
         // Do any additional setup after loading the view.
-        
+        let width = self.view.frame.size.width
+        self.underline.frame.size.width = width / 2.0
         underlineOriginalCenter = underline.center
+        underlineOriginalCenter?.x = width / 4.0 * 3.0
+        
         if selectedIndex == 0 {
-            let width = self.view.frame.size.width
             self.underline.center.x = width / 4.0
+        } else {
+            self.underline.center.x = width / 4.0 * 3.0
         }
         for button in buttons {
             button.setTitleColor(UIColor.lightGray, for: .normal)
