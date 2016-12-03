@@ -160,6 +160,7 @@ class Receipt: EVObject {
     static func getReceipts(userId: String, completion: @escaping (_ result: [Receipt]) -> Void) {
         let query = PFQuery(className: "Receipt")
         query.whereKey("userId", equalTo: userId)
+        query.addDescendingOrder("createdAt")
         
         _ = query.findObjectsInBackground{
             (recieptPFPbjects: [PFObject]?, error: Error?) -> Void in
