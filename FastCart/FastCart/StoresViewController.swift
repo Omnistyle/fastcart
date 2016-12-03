@@ -8,17 +8,19 @@
 
 import UIKit
 import SAParallaxViewControllerSwift
-
+import MisterFusion
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
     private class Constants {
-        static let numStores = 8
+        static let numStores = 7
         static let bannerHeight = CGFloat(40.0)
     }
     
+    private var isAdShown: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         if let y = self.navigationController?.navigationBar.frame.height {
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
             self.addBanner(at: origin);
@@ -26,39 +28,60 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
     
     private func addBanner(at origin: CGPoint) {
-        let frame = CGRect(origin: origin, size: CGSize(width: self.view.frame.size.height, height: Constants.bannerHeight))
-        let view = UIView(frame: frame)
+        let view = UIView()
         view.backgroundColor = UIColor(red: 114/255, green: 190/255, blue: 183/255, alpha: 1)
         
         // add label
         let text = "Free shipping on orders over $50, use promo code: SHIP."
-        let label = UILabel(frame: CGRect(x: 15.0, y: 0.0, width: view.frame.size.width, height: view.frame.size.height))
+        let label = UILabel()
         label.font = label.font.withSize(13.0)
         label.text = text
         label.textColor = UIColor.white
-        view.addSubview(label)
+        view.addLayoutSubview(label, andConstraints:
+            label.top,
+            label.right |+| 10,
+            label.left |+| 10,
+            label.bottom)
         
         view.isUserInteractionEnabled = true
         // add touch target
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
         tap.delegate = self
         view.addGestureRecognizer(tap)
-
-        // TODO should push everything else down
-        // TODO parallax doesn't look amazing
         
-        self.view.addSubview(view)
-    }
-    // hide banner if people find it annoying
+        // Add top view.
+        self.view.addLayoutSubview(view, andConstraints:
+            view.top |+| origin.y,
+            view.left,
+            view.right,
+            view.height |==| Constants.bannerHeight
+        )
+        isAdShown = true
+
+        // Add collection view. (Manually!)
+        self.view.addLayoutSubview(collectionView, andConstraints:
+            collectionView.top |==| view.bottom,
+            collectionView.left,
+            collectionView.right,
+            collectionView.bottom)
+ }
+    
+    // Hides the banner,
     func hideBanner(sender: UITapGestureRecognizer? = nil) {
         if let notificationView = sender?.view {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
-            notificationView.frame = CGRect(x: 0.0, y: 0.0, width: notificationView.frame.width, height: 0.0)
-
-        }) { if $0 {
-            notificationView.removeFromSuperview()
-            }
-        }
+            UIView.animate(withDuration: 0.7, delay: 0.0, options: [], animations: {
+                // Move up!
+                self.collectionView.frame = CGRect(
+                    x: self.collectionView.frame.origin.x,
+                    y: self.collectionView.frame.origin.y - notificationView.frame.height - self.navigationController!.navigationBar.frame.height,
+                    width: self.collectionView.frame.width,
+                    height: self.collectionView.frame.height + notificationView.frame.height + self.navigationController!.navigationBar.frame.height)
+            }, completion: nil)
+            // Delay a few seconds before removing, so no awkward whitespace.
+            UIView.animate(withDuration: 1.0, delay: 0.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                notificationView.frame = CGRect(x: 0.0, y: 0.0, width: notificationView.frame.width, height: 0.0)
+                self.isAdShown = false
+            })
         }
     }
     
@@ -95,8 +118,10 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let imageName = String(format: "image%d", rankStore(at: index) + 1)
         if let image = UIImage(named: imageName) {
             cell.setImage(image)
-            if index == 0 {
-                cell.setImageOffset(CGPoint(x: 0, y: -100))
+            // hacky way to get first image to work?
+            if imageName == "image1" {
+                // We do this because we hide part of the image behind the navbar?
+                cell.containerView.setParallaxStartPosition(-self.navigationController!.navigationBar.frame.height + 3)
             }
         }
         
@@ -128,5 +153,21 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
 //        viewController.trantisionContainerView = containerView
 //        
 //        present(viewController, animated: true, completion: nil)
+    }
+    
+    // Limit scrolling to height for beauty purposes.
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let top: CGFloat = 0.0
+        let topBounce = (isAdShown) ? 0 : (self.navigationController?.navigationBar.frame.height ?? 0)
+        if (scrollView.contentOffset.y < top - topBounce) {
+            scrollView.contentOffset = CGPoint(x: 0, y: top - topBounce);
+        }
+        let bottom = scrollView.contentSize.height - scrollView.frame.size.height
+        let bottomBounce: CGFloat = self.tabBarController?.tabBar.frame.height ?? 0
+        if scrollView.contentOffset.y > bottom + bottomBounce {
+            scrollView.contentOffset = CGPoint(x: 0, y: bottom + bottomBounce);
+        }
+        
+        super.scrollViewDidScroll(scrollView)
     }
 }
