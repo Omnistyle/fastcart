@@ -97,19 +97,26 @@ class Store: EVObject {
      */
     func parseSave(completion: @escaping (Store) -> Void){
         let store = PFObject(className: "Store")
-        store["name"] = self.name
-        // TODO (need to change this)
-        // store["location"] = self.location ?? "Stuff"
-        // store["imageUrl"] = self.image?.absoluteString
+        store["name"] = self.name!
+        if let location = self.location {
+            store["location"] = location
+        }
+        if let imageUrl = self.image?.absoluteString {
+            store["imageUrl"] = imageUrl
+        }
         
         store.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = store.objectId
-                print("saved with id: \(store.objectId)")
-                completion(self)
+                if let id = store.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                } else {
+                    print("default: error retrieving id from saved object \(self.name)")
+                }
             } else {
                 print(error?.localizedDescription ?? "default: error saving \(self.name) store to parse")
             }
+            completion(self)
         }
     }
 }

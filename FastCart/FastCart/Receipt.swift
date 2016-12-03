@@ -93,10 +93,10 @@ class Receipt: EVObject {
     
     private func parseSaveWithStore() {
         let receipt = PFObject(className: "Receipt")
-        receipt["userId"] = self.userId
-        receipt["storeId"] = self.storeId
-        receipt["started"] = self.started
-        receipt["completed"] = self.completed
+        receipt["userId"] = self.userId!
+        receipt["storeId"] = self.storeId!
+        receipt["started"] = self.started!
+        receipt["completed"] = self.completed ?? Date()
         receipt["total"] = self.total
         receipt["subtotal"] = self.subTotal
         receipt["tax"] = self.tax
@@ -104,12 +104,15 @@ class Receipt: EVObject {
         
         receipt.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = receipt.objectId
-                print("saved with id: \(receipt.objectId)")
-                
-                for product in self.products { //save all products in receipt
-                    product.receiptId = self.id
-                    product.parseSave()
+                if let id = receipt.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                    for product in self.products { //save all products in receipt
+                        product.receiptId = self.id
+                        product.parseSave()
+                    }
+                } else {
+                    print("default: error retrieving id for receipt after parse save")
                 }
                 
             } else {
@@ -117,4 +120,73 @@ class Receipt: EVObject {
             }
         }
     }
+    
+    static private func ReceiptDeserialization(rawRecepit : PFObject) -> Receipt{
+        let receipt = Receipt()
+        receipt.id = rawRecepit.objectId
+        receipt.userId = rawRecepit["userId"] as! String?
+        receipt.storeId = rawRecepit["storeId"] as! String?
+        receipt.started = rawRecepit["started"] as! Date?
+        receipt.completed = rawRecepit["completed"] as! Date?
+        receipt.total = rawRecepit["total"] as! Double
+        receipt.subTotal = rawRecepit["subtotal"] as! Double
+        receipt.tax = rawRecepit["tax"] as! Double
+        receipt.paid = (rawRecepit["paid"] != nil)
+        
+        return receipt
+        
+    }
+    
+    static private func ReceiptsDeserialization(rawReceipts : [PFObject]) -> [Receipt] {
+        
+        var receipts = [Receipt]()
+        for rawRecpt in rawReceipts{
+            let receipt = ReceiptDeserialization(rawRecepit: rawRecpt)
+            
+            let products = Product.getProducts(receiptId: receipt.id!, completion: { (products:[Product]) in
+                if products != nil {
+                    for product in products {
+                        receipt.products.append(product)
+                    }
+                }
+            })
+            
+            receipts.append(receipt)
+        }
+        
+        return receipts
+    }
+    
+    static func getReceipts(userId: String, completion: @escaping (_ result: [Receipt]) -> Void) {
+        let query = PFQuery(className: "Receipt")
+        query.whereKey("userId", equalTo: userId)
+        
+        _ = query.findObjectsInBackground{
+            (recieptPFPbjects: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if recieptPFPbjects != nil{
+                    let receipts = self.ReceiptsDeserialization(rawReceipts: recieptPFPbjects!)
+                    
+                    completion(receipts)
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

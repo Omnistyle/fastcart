@@ -170,6 +170,9 @@ class User: EVObject {
         // Reset to a new receipt.
         self.current = Receipt()
         self.persistCurrent()
+        
+        // Persist the user and the receipt so we keep the history around.
+        Utilities.persist(self, withKey: Persistece.user.rawValue)
     }
 
     /**
@@ -195,14 +198,18 @@ class User: EVObject {
      */
     func parseSave(){
         let user = PFObject(className: "AppUsers")
-        user["unsername"] = self.username
-        user["email"] = self.email
-        user["facebookId"] = self.facebookId
-        user["facebookProfilePictureUrl"] = self.facebookProfilePictureUrlString
+        user["unsername"] = self.username!
+        user["email"] = self.email!
+        user["facebookId"] = self.facebookId!
+        user["facebookProfilePictureUrl"] = self.facebookProfilePictureUrlString!
         user.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){
-                self.id = user.objectId!
-                print("saved with id: \(user.objectId)")
+                if let id = user.objectId {
+                    self.id = id
+                    print("saved with id: \(id)")
+                } else {
+                    print("default: error retrieving id from saved object \(self.username)")
+                }
             } else {
                 print(error?.localizedDescription ?? "default: error saving user to parse")
             }
