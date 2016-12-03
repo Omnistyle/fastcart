@@ -141,8 +141,10 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         let dropInViewController = BTDropInViewController(apiClient: client)
         dropInViewController.delegate = self
         dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        dropInViewController.view.tintColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
         dropInViewController.view.frame = self.paymentView.bounds
         dropInViewController.fetchPaymentMethods(onCompletion: {
+            dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.addChildViewController(dropInViewController)
             self.paymentView.addSubview(dropInViewController.view)
             dropInViewController.didMove(toParentViewController: self)
