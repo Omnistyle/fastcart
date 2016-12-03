@@ -79,23 +79,11 @@ class Product: EVObject {
     var addToCartUrl: URL?
     /** A string description of the category this Product belongs to */
     var category: String?
-    var variants: [String]? {
-        didSet {
-            if variants == nil {
-                return
-            }
-            WalmartClient.sharedInstance.getVariantImages(ids: variants!, success: {(images: [URL]) -> () in
-                self.variantImages = images
-            }, failure: {(error: Error) -> () in
-                print(error)
-            }
-            )
-        }
-    }
+    var variants: [String]?
     var clearance: Bool?
     var specialBuy: Bool?
     var originalPrice: Double?
-    var variantImages: [URL]?
+    var variantImages = [URL]()
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -137,6 +125,42 @@ class Product: EVObject {
      - returns: 
         A `User` with the fields set from `dictionary`
      */
+    func getVariantImages(ids: [String]) {
+        let intArray = ids.map({(id: String) -> Int in
+            return Int(id) ?? 0})
+        let max = intArray.max()
+        let min = intArray.min()
+        if let max = max {
+        let use = String(describing: max)
+        
+            WalmartClient.sharedInstance.getVariantImage(id: use, success: {(image: URL) -> () in
+                self.variantImages.append(image)
+                
+            }, failure: {(error: Error) -> () in
+                print(error)
+            }
+            )
+        }
+    }
+    
+//        let shortenedIds = ids.suffix(2)
+//        for id in shortenedIds {
+//            let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+//            DispatchQueue.main.asyncAfter(deadline: when) {
+//                // Your code with delay
+//                WalmartClient.sharedInstance.getVariantImage(id: id, success: {(image: URL) -> () in
+//                        self.variantImages.append(image)
+//                        
+//                    }, failure: {(error: Error) -> () in
+//                        print(error)
+//                    }
+//                    )
+//            }
+//
+//            
+//        }
+//    }
+
     init(dictionary: NSDictionary, api: apiType) {
 
         super.init()
@@ -171,16 +195,40 @@ class Product: EVObject {
             size = dictionary["size"] as? String
             freeShipToStore =  dictionary["freeShipToStore"] as? Bool
             
-//            if let walmartId = dictionary["variants"] as? String {
-//            WalmartClient.sharedInstance.getProductsByItemId(id: walmartId, success: {(product) -> () in
-//                variants = dictionary["variants"] as? [String]
-//            }, failure: <#T##(Error) -> ()#>)
+            
+//            if let walmartId = dictionary["itemId"] as? Int {
+//                // make call to get variants
+//                WalmartClient.sharedInstance.getVariantsByItemId(id: String(walmartId), success: { (variants: [String]) -> () in
+//                    self.variants = variants
+//                    // now set variant images
+//                    self.getVariantImages(ids: variants)
+//                }, failure: { (error) -> () in
+//                })
+//            }
+        
+        if let imageEntities = dictionary["imageEntities"] as? [NSDictionary] {
+            for image in imageEntities {
+                if let imageString = image["largeImage"] as? String {
+                    print(imageString)
+                    if let imageUrl = URL(string: imageString) {
+                        print(imageUrl)
+                        self.variantImages.append(imageUrl)
+                    }
+                }
+            }
+        }
+
+//            for image in imageEntities {
+//                if let imageString = image["largeImage"] as? String {
+//                    if let imageUrl = URL(string: imageString) {
+//                    self.variantImages.append(imageUrl)
+//                    }
+//                }
 //            }
             
-//            print(dictionary["variants"])
             
-            clearance = dictionary["clearance"] as? Bool
-            specialBuy = dictionary["specialBuy"] as? Bool
+        clearance = dictionary["clearance"] as? Bool
+        specialBuy = dictionary["specialBuy"] as? Bool
 
         case .upc:
             // often multiple objects in array though

@@ -17,7 +17,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     var products = [Product]()
-    
+    var searchTerm = "dress"
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +26,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         
         
-
+        self.title = "Shop"
         
         // flow layout stuff
 //        collectionView.setContentOffset(CGPoint(), animated: <#T##Bool#>)
@@ -36,7 +36,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // perform network request
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: "dress", success: { (products: [Product]) in
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", success: { (products: [Product]) in
             // save product and present correct view
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
@@ -82,26 +82,38 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func handleSwipe(sender: UIPanGestureRecognizer) {
         if let image = sender.view as? UIImageView {
-            let cell = image.superview?.superview?.superview as! ProductOverviewCell
+            let cell = image.superview?.superview as! ProductOverviewCell
             
         if sender.state == .began {
             let velocity = sender.velocity(in: self.view)
             if velocity.x > 0 {
                 print("swiped right")
-                guard let variantImagesArray = cell.product.variantImages else {
-                    print("stuck here")
-                    print(cell.product.variants)
+                guard cell.product.variantImages.count > 0 else {
+                    print("apparently no other images")
                     return }
-                if let variantImageUrl = variantImagesArray[0] as? URL {
+                let originalX = cell.productImage.frame.origin.x
+                let originalY =  cell.productImage.frame.origin.y
+                if let variantImageUrl = cell.product.variantImages[0] as? URL {
+                    var toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
+                    var fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
+                    var movement = CABasicAnimation(keyPath: "movement")
+                    movement.isAdditive = true
+                    movement.fromValue =  NSValue(cgPoint: fromPoint)
+                    movement.toValue =  NSValue(cgPoint: toPoint)
+                    movement.duration = 0.3
+
+                    view.layer.add(movement, forKey: "move")
                     cell.productImage.setImageWith(variantImageUrl)
+                    
                         collectionView.reloadData()
                 } else {
                     print("stuck getting here")
                 }
             } else if velocity.x < 0 {
                 print("swiped left")
-                guard let variantImagesArray = cell.product.variantImages else {return }
-                if let variantImageUrl = variantImagesArray[0] as? URL {
+                guard cell.product.variantImages.count > 0 else {return }
+                
+                if let variantImageUrl = cell.product.variantImages[0] as? URL {
                     cell.productImage.setImageWith(variantImageUrl)
                 }
 
@@ -131,7 +143,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             let frame = CGRect(x: 0, y: 0, width: borderWidth, height: collectionView.contentSize.height)
             let border = UIView(frame: frame)
-            border.backgroundColor = UIColor.lightGray
+            border.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             cell.addSubview(border)
         }
         
@@ -141,7 +153,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let y = cell.frame.origin.y
             let frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: borderWidth)
             let border = UIView(frame: frame)
-            border.backgroundColor = UIColor.lightGray
+            border.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             cell.addSubview(border)
         }
         
@@ -177,5 +189,26 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Pass the selected object to the new view controller.
     }
     */
+    var isMoreDataLoading = false
+    
+    func loadMoreData() {
+        let count = products.count
+        let newCount = String(count + 10)
+        let startIndex = String(count + 1)
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: startIndex, success: {
+             (products: [Product]) in
+                // populate tableview with tweets
+                self.products = self.products + products
+                self.collectionView.reloadData()
+                self.isMoreDataLoading = false
+                // Stop the loading indicator
+//                self.loadingMoreView!.stopAnimating()
+            
+            
+            
+        }, failure: {(error: Error) -> () in
+            print(error.localizedDescription)
+        })
+    }
 
 }

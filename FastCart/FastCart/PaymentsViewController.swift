@@ -33,6 +33,11 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         self.setUpView()
         self.setPaymentInformation()
         self.setUpBraintree()
+        
+        storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
+        storeImage.layer.masksToBounds = true
+        storeImage.layer.borderColor = UIColor.lightGray.cgColor
+        storeImage.layer.borderWidth = 1
     }
     
     override func viewWillAppear(_ animated: Bool) {
