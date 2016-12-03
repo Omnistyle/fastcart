@@ -656,8 +656,8 @@ final public class EVReflection {
                     return (NSNull(), valueType, false)
                 }
                 theValue = mi.children.first?.value ?? theValue
-                let (val, _, _) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
-                return (val, valueType, false)
+                let (val, _, isObject) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
+                return (val, valueType, isObject)
             } else {
                 theValue = "\(theValue)"
             }
