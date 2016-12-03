@@ -25,12 +25,15 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        // flow layout stuff
         
+
+        
+        // flow layout stuff
+//        collectionView.setContentOffset(CGPoint(), animated: <#T##Bool#>)
 //        flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 1
-        flowLayout.sectionInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // perform network request
         WalmartClient.sharedInstance.getProductsWithSearchTerm(term: "dress", success: { (products: [Product]) in
@@ -55,11 +58,71 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return products.count
     }
     
+    func handleTap(sender: UITapGestureRecognizer) {
+        if let image = sender.view as? UIImageView {
+            let cell = image.superview!.superview as! ProductOverviewCell
+            if cell.heartImage.image == #imageLiteral(resourceName: "heart") {
+                cell.heartImage.image = #imageLiteral(resourceName: "heart_filled")
+            } else {
+              cell.heartImage.image = #imageLiteral(resourceName: "heart")
+            }
+
+            
+            let pulseAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
+            pulseAnimation.duration = 0.5
+            pulseAnimation.toValue = NSNumber(value: 1.2)
+            pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            pulseAnimation.autoreverses = true
+            pulseAnimation.repeatCount = 1
+            cell.heartImage.layer.add(pulseAnimation, forKey: nil)
+            
+        }
+
+    }
+    
+    func handleSwipe(sender: UIPanGestureRecognizer) {
+        if let image = sender.view as? UIImageView {
+            let cell = image.superview?.superview?.superview as! ProductOverviewCell
+            
+        if sender.state == .began {
+            let velocity = sender.velocity(in: self.view)
+            if velocity.x > 0 {
+                print("swiped right")
+                guard let variantImagesArray = cell.product.variantImages else {
+                    print("stuck here")
+                    print(cell.product.variants)
+                    return }
+                if let variantImageUrl = variantImagesArray[0] as? URL {
+                    cell.productImage.setImageWith(variantImageUrl)
+                        collectionView.reloadData()
+                } else {
+                    print("stuck getting here")
+                }
+            } else if velocity.x < 0 {
+                print("swiped left")
+                guard let variantImagesArray = cell.product.variantImages else {return }
+                if let variantImageUrl = variantImagesArray[0] as? URL {
+                    cell.productImage.setImageWith(variantImageUrl)
+                }
+
+            }
+        }
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductOverviewCell", for: indexPath) as! ProductOverviewCell
         cell.product = products[indexPath.row]
         
-        
+        // add tap target
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ShopViewController.handleTap))
+        //        tapGestureRecognizer.addTarget(self, action:#selector(TweetsViewController.profileTapGestureRecognizer as (TweetsViewController) -> () -> ()))
+        cell.heartImage.addGestureRecognizer(tap)
+        // add scroll target
+        cell.heartImage.isUserInteractionEnabled = true
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(ShopViewController.handleSwipe))
+        cell.productImage.addGestureRecognizer(swipe)
+        cell.productImage.isUserInteractionEnabled = true
         // no top border for first two
         // if it's even
         if indexPath.row % 2 == 1 {
@@ -92,11 +155,11 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = products[indexPath.row]
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
-        vc.product = product
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let product = products[indexPath.row]
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
+//        vc.product = product
+//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     override func didReceiveMemoryWarning() {

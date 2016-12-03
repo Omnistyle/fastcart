@@ -171,7 +171,13 @@ class Product: EVObject {
             size = dictionary["size"] as? String
             freeShipToStore =  dictionary["freeShipToStore"] as? Bool
             
-            variants = dictionary["variants"] as? [String]
+//            if let walmartId = dictionary["variants"] as? String {
+//            WalmartClient.sharedInstance.getProductsByItemId(id: walmartId, success: {(product) -> () in
+//                variants = dictionary["variants"] as? [String]
+//            }, failure: <#T##(Error) -> ()#>)
+//            }
+            
+//            print(dictionary["variants"])
             
             clearance = dictionary["clearance"] as? Bool
             specialBuy = dictionary["specialBuy"] as? Bool
