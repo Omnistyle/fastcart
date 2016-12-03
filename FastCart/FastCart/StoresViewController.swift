@@ -17,6 +17,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
     
     private var isAdShown: Bool = false
+    private var first: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,9 +120,10 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         if let image = UIImage(named: imageName) {
             cell.setImage(image)
             // hacky way to get first image to work?
-            if imageName == "image1" {
+            if imageName == "image1" && self.first {
                 // We do this because we hide part of the image behind the navbar?
                 cell.containerView.setParallaxStartPosition(-self.navigationController!.navigationBar.frame.height + 3)
+                self.first = false
             }
         }
         
