@@ -45,12 +45,12 @@ PODS:
   - Braintree/UI (4.7.3):
     - Braintree/Card
     - Braintree/Core
-  - EVReflection (3.4.1)
-  - FBSDKCoreKit (4.17.0):
+  - EVReflection (3.4.2)
+  - FBSDKCoreKit (4.18.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.17.0):
+  - FBSDKLoginKit (4.18.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.17.0):
+  - FBSDKShareKit (4.18.0):
     - FBSDKCoreKit
   - MisterFusion (2.0.1)
   - MXParallaxHeader (0.6.0)
@@ -60,6 +60,7 @@ PODS:
   - SAParallaxViewControllerSwift (2.0.0):
     - MisterFusion
     - SABlurImageView
+  - SCLAlertView (0.7.0)
   - TLYShyNavBar (1.1.1)
 
 DEPENDENCIES:
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - MXParallaxHeader
   - Parse
   - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
+  - SCLAlertView
   - TLYShyNavBar
 
 EXTERNAL SOURCES:
@@ -82,7 +84,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SAParallaxViewControllerSwift:
-    :commit: cc5107fb4cc28c2d217e11182972c41bb1a700d4
+    :commit: a159e3671c111069a1fbc72b77cef6cd75dee5d5
     :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
 
 SPEC CHECKSUMS:
@@ -90,17 +92,18 @@ SPEC CHECKSUMS:
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Braintree: 3eee856da5d30357a55439283b4bb3dbaddcaa7c
-  EVReflection: 7abe8026327f83472fb60a7858fbfe1be346605d
-  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
-  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
-  FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
+  EVReflection: 3b24ff86d9e630fcfb71a6927e02ce67256595b8
+  FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
+  FBSDKLoginKit: 6773073e970b2b15fb12e451ce7f11da0532b880
+  FBSDKShareKit: 0b8d6cc3f103c75297eb3c62caec284a2ccf1b9e
   MisterFusion: d42cac7afe8318c282bcda93396eba0aef45d30e
   MXParallaxHeader: 2997592b8349baf8557ae0e4346f6b17e141de39
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
+  SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 51a229ecf1e1e63c872d4cd335da5ad5e3524712
+PODFILE CHECKSUM: 9d2dd4fa52283ce1f15469b6327f4186561d9987
 
 COCOAPODS: 1.1.1

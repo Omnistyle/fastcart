@@ -64,7 +64,7 @@ For a quick start have a look at this [YouTube tutorial](https://www.youtube.com
 
 ## It's easy to use:
 
-Defining an object. You only have to set EVObject as it's base class:
+Defining an object. You only have to set EVObject as it's base class (or extend an NSObject with EVReflectable):
 ```
 class User: EVObject {
     var id: Int = 0
@@ -131,10 +131,10 @@ use_frameworks!
 pod "EVReflection"
 ```
 
-Now there is also a Swift 3 branch (also a 2.3 version). If you want to use EVReflection, then get that version by using the podfile command:
+You can also use the Swift2.2 or Swift2.3 version of EVReflection. You can get that version by using the podfile command:
 ```
 use_frameworks!
-pod "EVReflection", :branch => 'Swift3'
+pod "EVReflection"', :git => 'https://github.com/evermeer/EVReflection.git', :branch => 'Swift2.2'
 ```
 
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:

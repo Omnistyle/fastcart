@@ -97,6 +97,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SABlurImageView/SABlurImageView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SAParallaxViewControllerSwift/SAParallaxViewControllerSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SCLAlertView/SCLAlertView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TLYShyNavBar/TLYShyNavBar.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -113,5 +114,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SABlurImageView/SABlurImageView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SAParallaxViewControllerSwift/SAParallaxViewControllerSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SCLAlertView/SCLAlertView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TLYShyNavBar/TLYShyNavBar.framework"
 fi

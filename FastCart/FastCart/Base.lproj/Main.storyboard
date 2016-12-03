@@ -554,7 +554,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type or tap the camera to scan an item" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pgg-k8-lMs">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Tap the camera to scan an item" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pgg-k8-lMs">
                                 <rect key="frame" x="61" y="110" width="292" height="46"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
