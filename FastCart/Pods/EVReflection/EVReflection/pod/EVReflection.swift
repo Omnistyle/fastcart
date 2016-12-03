@@ -641,11 +641,7 @@ final public class EVReflection {
             valueType = String(reflecting:type(of: theValue))
         } else if mi.displayStyle == .enum {
             valueType = String(reflecting:type(of: theValue))
-            if let value = theValue as? EVRawString {
-                theValue = value.rawValue as AnyObject
-            } else if let value = theValue as? EVRawInt {
-                theValue = NSNumber(value: Int32(value.rawValue) as Int32)
-            } else  if let value = theValue as? EVRaw {
+            if let value = theValue as? EVRaw {
                 theValue = value.anyRawValue
             } else if let value = theValue as? EVAssociated {
                 let (enumValue, enumType, _) = valueForAny(theValue, key: value.associated.label, anyValue: value.associated.value as Any, conversionOptions: conversionOptions, isCachable: isCachable, parents: parents)
@@ -656,11 +652,12 @@ final public class EVReflection {
                 subtype = subtype.substring(to: subtype.characters.index(before: subtype.endIndex))
                 valueType = convertToInternalSwiftRepresentation(type: subtype)
 
-                if "\(theValue)" == "nil" {
+                if mi.children.count == 0 {
                     return (NSNull(), valueType, false)
                 }
-                let (val, _, isObject) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
-                return (val, valueType, isObject)
+                theValue = mi.children.first?.value ?? theValue
+                let (val, _, _) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
+                return (val, valueType, false)
             } else {
                 theValue = "\(theValue)"
             }
@@ -1388,6 +1385,8 @@ final public class EVReflection {
             return tempArray
         case let date as Date:
             return (getDateFormatter().string(from: date) as AnyObject? ?? "" as AnyObject)
+        case let reflectable as EVReflectable:
+            return convertDictionaryForJsonSerialization(reflectable.toDictionary(), theObject: theObject)
         case let ok as NSDictionary:
             return convertDictionaryForJsonSerialization(ok, theObject: theObject)
         default:
@@ -1397,7 +1396,6 @@ final public class EVReflection {
         }
     }
 }
-
 
 
 /**
