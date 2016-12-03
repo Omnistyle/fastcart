@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TLYShyNavBar
 
 class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -24,6 +25,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Do any additional setup after loading the view.
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        self.shyNavBarManager.scrollView = self.collectionView
         
         
         self.title = "Shop"

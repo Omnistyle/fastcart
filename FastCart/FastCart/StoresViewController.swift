@@ -21,7 +21,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         if let y = self.navigationController?.navigationBar.frame.height {
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
             self.addBanner(at: origin);
