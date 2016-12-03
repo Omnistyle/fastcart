@@ -13,9 +13,49 @@ class WalmartClient {
     let EAN_LENGTH = 13
     static let sharedInstance : WalmartClient = WalmartClient.init()
     
+    func getVariantImage(id: String, success: @escaping (URL) -> (), failure: @escaping (Error) -> ()) {
+        
+        
+        // request
+        guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else {return}
+        
+        let request = URLRequest(url: url)
+        
+        // Configure session so that completion handler is executed on main UI thread
+        let session = URLSession(
+        configuration: URLSessionConfiguration.default,
+        delegate:nil,
+        delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+        // ... Remainder of response handling code ...
+        if let data = data {
+        if let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+        
+            if let imageString = dictionary["largeImage"] as? String {
+                if let imageUrl = URL(string: imageString) {
+                    success(imageUrl)
+                }
+            } else {
+                print(dictionary)}
+            }
+        
+        }
+        else if error != nil {
+        failure(error!)
+        }
+        
+        });
+        
+        task.resume()
+    }
+
     func getVariantImages(ids: [String], success: @escaping ([URL]) -> (), failure: @escaping (Error) -> ()) {
         var images = [URL]()
-        for id in ids {
+        let shortenedIds = ids.prefix(upTo: 2)
+        for id in shortenedIds {
+            
             // request
             guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else {return}
             
@@ -37,18 +77,23 @@ class WalmartClient {
                             if let imageUrl = URL(string: imageString) {
                                 images.append(imageUrl)
                             }
-                        }
+                        } else {
+                        print(dictionary)
                     }
+                    }
+                    
                 }
                 else if error != nil {
                     failure(error!)
                 }
+                
             });
-            success(images)
+            
             task.resume()
         }
+        success(images)
     }
-    func getProductsByItemId(id: String, success: @escaping (Product) -> (), failure: @escaping (Error) -> ()) {
+    func getVariantsByItemId(id: String, success: @escaping ([String]) -> (), failure: @escaping (Error) -> ()) {
         //http://api.walmartlabs.com/v1/search?query=dress&format=json&apiKey=69sak8n5jctvbapcs8wp88tt
         
         // request
@@ -67,8 +112,14 @@ class WalmartClient {
             // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    let product = Product(dictionary: responseDictionary, api: apiType.walmart)
-                    success(product)
+                    if let variants = responseDictionary["variants"] as? [Int] {
+                        var variantStrings = [String]()
+                        for variant in variants {
+                            let variantString = String(variant)
+                            variantStrings.append(variantString)
+                        }
+                        success(variantStrings)
+                    }
                 }
             }
             else if error != nil {
@@ -79,11 +130,11 @@ class WalmartClient {
         
     }
     
-    func getProductsWithSearchTerm(term: String, success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()) {
+    func getProductsWithSearchTerm(term: String, startIndex: String, success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()) {
         //http://api.walmartlabs.com/v1/search?query=dress&format=json&apiKey=69sak8n5jctvbapcs8wp88tt
         
         // request
-        guard let url = URL(string:"http://api.walmartlabs.com/v1/search?query=\(term)&format=json&apiKey=\(self.apiKey)") else {return}
+        guard let url = URL(string:"http://api.walmartlabs.com/v1/search?query=\(term)&start=\(startIndex)&format=json&apiKey=\(self.apiKey)") else {return}
         
         let request = URLRequest(url: url)
         

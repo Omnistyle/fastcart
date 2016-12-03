@@ -19,9 +19,7 @@ class ProductOverviewCell: UICollectionViewCell{
     var product: Product! {
         didSet {
             nameLabel.text = product.name
-            if let salePrice = product?.salePrice {
-                priceLabel.text = "$" + String(describing: salePrice)
-            }
+            priceLabel.text = product.salePriceAsString
             if let image = product.image {
                 productImage.setImageWith(image)
             }
