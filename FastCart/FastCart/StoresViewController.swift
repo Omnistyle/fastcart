@@ -11,39 +11,43 @@ import SAParallaxViewControllerSwift
 
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
-    let numStores = 3
-    let bannerHeight = CGFloat(40.0)
+    private class Constants {
+        static let numStores = 8
+        static let bannerHeight = CGFloat(40.0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        // 
         
         if let y = self.navigationController?.navigationBar.frame.height {
-            let frame = CGRect(origin: CGPoint(x: 0,y: y), size: CGSize(width: self.view.frame.size.height, height: bannerHeight))
-            let view = UIView(frame: frame)
-                view.backgroundColor = UIColor(red: 114/255, green: 190/255, blue: 183/255, alpha: 1)
-            
-            // add label
-            let text = "Free shipping on orders over $50, use promo code: SHIP."
-            let label = UILabel(frame: CGRect(x: 15.0, y: 0.0, width: view.frame.size.width, height: view.frame.size.height))
-            label.font = label.font.withSize(13.0)
-            label.text = text
-            label.textColor = UIColor.white
-            view.addSubview(label)
-            
-            view.isUserInteractionEnabled = true
-            // add touch target
-            let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
-            tap.delegate = self
-            view.addGestureRecognizer(tap)
-            // TODO should push everything else down
-            // TODO parallax doesn't look amazing
-            
-            self.view.addSubview(view)
-            
-            
+            let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
+            self.addBanner(at: origin);
         }
+    }
+    
+    private func addBanner(at origin: CGPoint) {
+        let frame = CGRect(origin: origin, size: CGSize(width: self.view.frame.size.height, height: Constants.bannerHeight))
+        let view = UIView(frame: frame)
+        view.backgroundColor = UIColor(red: 114/255, green: 190/255, blue: 183/255, alpha: 1)
+        
+        // add label
+        let text = "Free shipping on orders over $50, use promo code: SHIP."
+        let label = UILabel(frame: CGRect(x: 15.0, y: 0.0, width: view.frame.size.width, height: view.frame.size.height))
+        label.font = label.font.withSize(13.0)
+        label.text = text
+        label.textColor = UIColor.white
+        view.addSubview(label)
+        
+        view.isUserInteractionEnabled = true
+        // add touch target
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
+
+        // TODO should push everything else down
+        // TODO parallax doesn't look amazing
+        
+        self.view.addSubview(view)
     }
     // hide banner if people find it annoying
     func hideBanner(sender: UITapGestureRecognizer? = nil) {
@@ -75,8 +79,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         super.init(coder: aDecoder)
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numStores
-        
+        return Constants.numStores
     }
     
     //MARK: - UICollectionViewDataSource
@@ -88,9 +91,8 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             view.removeFromSuperview()
         }
         
-        
-        let index = (indexPath as NSIndexPath).row % 6
-        let imageName = String(format: "image%d", index + 1)
+        let index = indexPath.row
+        let imageName = String(format: "image%d", rankStore(at: index) + 1)
         if let image = UIImage(named: imageName) {
             cell.setImage(image)
             if index == 0 {
@@ -98,16 +100,11 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             }
         }
         
-        
-        // don't create label
-//        let label = UILabel(frame: cell.containerView.accessoryView.bounds)
-//        label.textAlignment = .center
-//        label.text = titleList[index]
-//        label.textColor = .white
-//        label.font = .systemFont(ofSize: 30)
-//        cell.containerView.accessoryView.addSubview(label)
-        
         return cell
+    }
+    
+    private func rankStore(at index: Int) -> Int {
+        return index
     }
     
     //MARK: - UICollectionViewDelegate
