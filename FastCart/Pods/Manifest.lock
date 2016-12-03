@@ -60,7 +60,11 @@ PODS:
   - SAParallaxViewControllerSwift (2.0.0):
     - MisterFusion
     - SABlurImageView
+<<<<<<< HEAD
   - SCLAlertView (0.7.0)
+=======
+  - TLYShyNavBar (1.1.1)
+>>>>>>> d105d9a0812bc382b7cbe5afd70407784904f1d0
 
 DEPENDENCIES:
   - AFNetworking
@@ -74,7 +78,11 @@ DEPENDENCIES:
   - MXParallaxHeader
   - Parse
   - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
+<<<<<<< HEAD
   - SCLAlertView
+=======
+  - TLYShyNavBar
+>>>>>>> d105d9a0812bc382b7cbe5afd70407784904f1d0
 
 EXTERNAL SOURCES:
   SAParallaxViewControllerSwift:
@@ -99,8 +107,14 @@ SPEC CHECKSUMS:
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
+<<<<<<< HEAD
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
 
 PODFILE CHECKSUM: fc9dc5d80846ecb2408d6ce1817d435c62c07fa7
+=======
+  TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
+
+PODFILE CHECKSUM: 51a229ecf1e1e63c872d4cd335da5ad5e3524712
+>>>>>>> d105d9a0812bc382b7cbe5afd70407784904f1d0
 
 COCOAPODS: 1.1.1

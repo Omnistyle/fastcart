@@ -29,15 +29,9 @@ open class SAParallaxViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        
-        view.addLayoutSubview(collectionView, andConstraints:
-            collectionView.top,
-            collectionView.left,
-            collectionView.right,
-            collectionView.bottom
-        )
-        
+    
         collectionView.register(SAParallaxViewCell.self, forCellWithReuseIdentifier: SAParallaxViewController.parallaxViewCellReuseIdentifier)
+        
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self

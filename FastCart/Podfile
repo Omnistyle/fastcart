@@ -17,4 +17,5 @@ target 'FastCart' do
     # We've made modification to the code for our own uses.
     pod "SAParallaxViewControllerSwift", :git => "https://github.com/Omnistyle/SAParallaxViewControllerSwift.git"
     pod 'SCLAlertView'
+    pod 'TLYShyNavBar'
 end

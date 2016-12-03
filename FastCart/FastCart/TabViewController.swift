@@ -24,6 +24,7 @@ class TabViewController: UIViewController {
     var underlineOriginalCenter: CGPoint?
     
     @IBOutlet weak var tabBar: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
