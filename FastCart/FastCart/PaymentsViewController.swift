@@ -8,6 +8,7 @@
 
 import UIKit
 import Braintree
+import SCLAlertView
 
 class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     
@@ -38,6 +39,38 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         storeImage.layer.masksToBounds = true
         storeImage.layer.borderColor = UIColor.lightGray.cgColor
         storeImage.layer.borderWidth = 1
+        
+    }
+    func createAlert() {
+        // Complete the receipt.
+        let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40.0,
+            showCloseButton: false
+            
+        )
+        //        let alertView = SCLAlertView(appearance: appearance)
+        //        alertView.title = "Nice!"
+        //        alertVie
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("My Receipt", target:self, selector:Selector("showReceipt"))
+        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
+        //        alertView.showInfo("Nice!\n", subTitle: "This is a nice alert with a custom icon you choose", circleIconImage: alertViewIcon)
+        alertView.showTitle(
+            "Nice!\n", // Title of view
+            subTitle: "\nYou're done with checkout.\n", // String of view
+            duration: 0.0, // Duration to show before closing automatically, default: 0.0
+            completeText: "See My Receipt", // Optional button value, default: ""
+            style: .success, // Styles - see below.
+            colorStyle: 0x72BEB7,
+            colorTextButton: 0xFFFFFF,
+            circleIconImage: alertViewIcon
+        )
+    }
+    func showReceipt() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
+        vc.selectedIndex = 0
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +151,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
 
     private func postNonceToServer(paymentMethodNonce: String) {
+        self.createAlert()
         let fakePaymentMethodNonce = "fake-valid-nonce"
         guard let paymentAmount = User.currentUser?.current.total else { return }
         print("$\(paymentAmount)")
@@ -131,17 +165,21 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         URLSession.shared.dataTask(with: request, completionHandler: {[unowned self] (data, response, error) -> Void in
             // if (error != nil) {
                 if let user = User.currentUser {
+                    
                     self.completePayment(user: user)
                 }
             //}
         }).resume()
+        
     }
     
     private func completePayment(user: User) {
-        // Complete the receipt.
+        
+        
         let receipt = user.current
         receipt.paid = true
         receipt.completed = Date()
         user.completeCheckout()
+        
     }
 }

@@ -37,7 +37,12 @@ class TabViewController: UIViewController {
         onTabButtonTap(buttons[selectedIndex])
         
         // Do any additional setup after loading the view.
+        
         underlineOriginalCenter = underline.center
+        if selectedIndex == 0 {
+            let width = self.view.frame.size.width
+            self.underline.center.x = width / 4.0
+        }
         for button in buttons {
             button.setTitleColor(UIColor.lightGray, for: .normal)
             button.setTitleColor(UIColor.darkGray, for: .selected)
