@@ -8,6 +8,7 @@
 
 import UIKit
 import TLYShyNavBar
+import SCLAlertView
 
 class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -17,10 +18,19 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    private var activityIndicator: UIActivityIndicatorView!
+    
     var products = [Product]()
     var searchTerm = "dress"
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createErrorAlert()
+        
+        // Add activitiy indicator.
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        self.activityIndicator.center = self.view.center;
+        self.view.addSubview(self.activityIndicator)
 
         // Do any additional setup after loading the view.
         collectionView.delegate = self
@@ -39,22 +49,39 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // perform network request
+        self.activityIndicator.startAnimating()
         WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", success: { (products: [Product]) in
-            // save product and present correct view
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
             // get additional information
-            for product in products {
+            for _ in products {
                 // get product related info images
             }
             
             self.products = products
+            self.activityIndicator.stopAnimating()
             self.collectionView.reloadData()
             
         }, failure: {(error: Error) -> () in
+            self.activityIndicator.stopAnimating()
             print(error.localizedDescription)
         })
         
+    }
+    private func createErrorAlert() {
+        // Complete the receipt.
+        let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40.0,
+            showCloseButton: true
+            
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
+        alertView.showTitle(
+            "Nice!\n",
+            subTitle: "\nYou're done with checkout.\n",
+            style: SCLAlertViewStyle.notice,
+            duration: 0.0 ,
+            circleIconImage: alertViewIcon
+        )
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

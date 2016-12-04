@@ -77,19 +77,15 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
             showCloseButton: false
             
         )
-        //        let alertView = SCLAlertView(appearance: appearance)
-        //        alertView.title = "Nice!"
-        //        alertVie
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
         let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
-        //        alertView.showInfo("Nice!\n", subTitle: "This is a nice alert with a custom icon you choose", circleIconImage: alertViewIcon)
         alertView.showTitle(
-            "Nice!\n", // Title of view
-            subTitle: "\nYou're done with checkout.\n", // String of view
-            duration: 0.0, // Duration to show before closing automatically, default: 0.0
-            completeText: "See My Receipt", // Optional button value, default: ""
-            style: .success, // Styles - see below.
+            "Nice!\n",
+            subTitle: "\nYou're done with checkout.\n",
+            duration: 0.0,
+            completeText: "See My Receipt",
+            style: .success,
             colorStyle: 0x72BEB7,
             colorTextButton: 0xFFFFFF,
             circleIconImage: alertViewIcon
