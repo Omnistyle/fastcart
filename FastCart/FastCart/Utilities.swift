@@ -139,6 +139,7 @@ class Utilities {
         for key in Persistece.allValues {
             defaults.removeObject(forKey: key.rawValue)
         }
+        defaults.synchronize()
     }
     
     /**

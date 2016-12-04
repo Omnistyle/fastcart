@@ -1381,6 +1381,8 @@ final public class EVReflection {
             return stringValue
         case let numberValue as NSNumber:
             return numberValue
+        case let urlValue as NSURL:
+            return urlValue.absoluteString! as NSString
         case let nullValue as NSNull:
             return nullValue
         case let arrayValue as NSArray:

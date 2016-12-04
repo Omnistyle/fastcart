@@ -33,7 +33,7 @@ class ProductDetailsViewController: UIViewController {
             priceLabel.text = "$" + String(describing: salePrice)
         }
         if let imageUrl = product?.image {
-            productImageView.setImageWith(imageUrl)
+            productImageView.setImageWith(imageUrl as URL)
         }
         // Do any additional setup after loading the view.
     

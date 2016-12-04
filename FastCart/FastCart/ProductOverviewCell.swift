@@ -21,7 +21,7 @@ class ProductOverviewCell: UICollectionViewCell{
             nameLabel.text = product.name
             priceLabel.text = product.salePriceAsString
             if let image = product.image {
-                productImage.setImageWith(image)
+                productImage.setImageWith(image as URL)
             }
         }
     }

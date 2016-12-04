@@ -155,8 +155,6 @@ class User: EVObject {
     override func skipPropertyValue(_ value: Any, key: String) -> Bool {
         // Skip current, as this is set seperately when the class is initialized.
         switch key {
-        case "history":
-            return true
         case "current":
             return true
         default:
