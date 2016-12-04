@@ -24,9 +24,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var searchTerm = "dress"
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        createErrorAlert()
-        
+    
         // Add activitiy indicator.
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         self.activityIndicator.center = self.view.center;
@@ -42,8 +40,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.title = "Shop"
         
         // flow layout stuff
-//        collectionView.setContentOffset(CGPoint(), animated: <#T##Bool#>)
-//        flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
@@ -62,28 +58,11 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }, failure: {(error: Error) -> () in
             self.activityIndicator.stopAnimating()
-            print(error.localizedDescription)
+            Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
         
     }
-    private func createErrorAlert() {
-        // Complete the receipt.
-        let appearance = SCLAlertView.SCLAppearance(
-            kCircleIconHeight: 40.0,
-            showCloseButton: true
-            
-        )
-        let alertView = SCLAlertView(appearance: appearance)
-        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
-        alertView.showTitle(
-            "Nice!\n",
-            subTitle: "\nYou're done with checkout.\n",
-            style: SCLAlertViewStyle.notice,
-            duration: 0.0 ,
-            circleIconImage: alertViewIcon
-        )
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
@@ -116,38 +95,32 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         if sender.state == .began {
             let velocity = sender.velocity(in: self.view)
-            if velocity.x > 0 {
-                print("swiped right")
-                guard cell.product.variantImages.count > 0 else {
-                    print("apparently no other images")
-                    return }
-                let originalX = cell.productImage.frame.origin.x
-                let originalY =  cell.productImage.frame.origin.y
-                if let variantImageUrl = cell.product.variantImages[0] as? URL {
-                    var toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
-                    var fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
-                    var movement = CABasicAnimation(keyPath: "movement")
-                    movement.isAdditive = true
-                    movement.fromValue =  NSValue(cgPoint: fromPoint)
-                    movement.toValue =  NSValue(cgPoint: toPoint)
-                    movement.duration = 0.3
-
-                    view.layer.add(movement, forKey: "move")
-                    cell.productImage.setImageWith(variantImageUrl)
-                    
-                        collectionView.reloadData()
-                } else {
-                    print("stuck getting here")
-                }
-            } else if velocity.x < 0 {
-                print("swiped left")
-                guard cell.product.variantImages.count > 0 else {return }
-                
-                if let variantImageUrl = cell.product.variantImages[0] as? URL {
-                    cell.productImage.setImageWith(variantImageUrl)
-                }
-
+            guard cell.product.variantImages.count > 0 else {
+                print("No other variant images")
+                return
             }
+            
+            // Not sure on the purpose of this code...
+            let originalX = cell.productImage.frame.origin.x
+            let originalY =  cell.productImage.frame.origin.y
+            let toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
+            let fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
+            let movement = CABasicAnimation(keyPath: "movement")
+            movement.isAdditive = true
+            movement.fromValue =  NSValue(cgPoint: fromPoint)
+            movement.toValue =  NSValue(cgPoint: toPoint)
+            movement.duration = 0.3
+            
+            cell.productImage.layer.add(movement, forKey: "move")
+            
+            if velocity.x > 0 {
+                cell.variantImageIndex = (cell.variantImageIndex + 1) % cell.product.variantImages.count
+            } else if velocity.x < 0 {
+                cell.variantImageIndex = (cell.variantImageIndex - 1) % cell.product.variantImages.count
+            }
+            let variantImageUrl = cell.product.variantImages[cell.variantImageIndex] as URL
+            cell.productImage.setImageWith(variantImageUrl)
+            collectionView.reloadData()
         }
         }
     }
