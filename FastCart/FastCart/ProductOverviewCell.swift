@@ -25,6 +25,4 @@ class ProductOverviewCell: UICollectionViewCell{
             }
         }
     }
-    
-    var variantImageIndex: Int = 0
 }

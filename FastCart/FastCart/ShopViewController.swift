@@ -20,6 +20,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     private var activityIndicator: UIActivityIndicatorView!
     
+    // Maps the item index to the current variant image index.
+    private var variantIndexFor: [Int: Int] = [:]
+    
     var products = [Product]()
     var searchTerm = "dress"
     override func viewDidLoad() {
@@ -113,12 +116,23 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             cell.productImage.layer.add(movement, forKey: "move")
             
-            if velocity.x > 0 {
-                cell.variantImageIndex = (cell.variantImageIndex + 1) % cell.product.variantImages.count
-            } else if velocity.x < 0 {
-                cell.variantImageIndex = (cell.variantImageIndex - 1) % cell.product.variantImages.count
+            guard let item = collectionView.indexPath(for: cell)?.item else {
+                print("Invalid item in collection view")
+                return
             }
-            let variantImageUrl = cell.product.variantImages[cell.variantImageIndex] as URL
+            var index = variantIndexFor[item] ?? 0
+            if velocity.x > 0 {
+                index = (index + 1) % cell.product.variantImages.count
+            } else if velocity.x < 0 {
+                if index > 0 {
+                    index = (index - 1) % cell.product.variantImages.count
+                } else {
+                    index = cell.product.variantImages.count - 1
+                }
+            }
+            print(index)
+            variantIndexFor[item] = index
+            let variantImageUrl = cell.product.variantImages[variantIndexFor[item]!] as URL
             cell.productImage.setImageWith(variantImageUrl)
             collectionView.reloadData()
         }
