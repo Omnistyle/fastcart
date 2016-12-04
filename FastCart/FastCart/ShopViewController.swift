@@ -113,8 +113,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             movement.fromValue =  NSValue(cgPoint: fromPoint)
             movement.toValue =  NSValue(cgPoint: toPoint)
             movement.duration = 0.3
-            
-            cell.productImage.layer.add(movement, forKey: "move")
+            cell.contentView.layer.add(movement, forKey: "move")
             
             guard let item = collectionView.indexPath(for: cell)?.item else {
                 print("Invalid item in collection view")
@@ -149,14 +148,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.heartImage.addGestureRecognizer(tap)
         // add scroll target
         cell.heartImage.isUserInteractionEnabled = true
-        let swipe = UIPanGestureRecognizer(target: self, action: #selector(ShopViewController.handleSwipe))
+        let swipe = PanDirectionGestureRecognizer(direction:PanDirection.horizontal, target: self, action: #selector(ShopViewController.handleSwipe))
         cell.productImage.addGestureRecognizer(swipe)
         cell.productImage.isUserInteractionEnabled = true
         // no top border for first two
         // if it's even
         if indexPath.row % 2 == 1 {
             let borderWidth = CGFloat(1)
-            let x = cell.frame.origin.x
             
             let frame = CGRect(x: 0, y: 0, width: borderWidth, height: collectionView.contentSize.height)
             let border = UIView(frame: frame)
@@ -167,16 +165,20 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if indexPath.row != 0 && indexPath.row != 1 {
             // top border
             let borderWidth = CGFloat(1)
-            let y = cell.frame.origin.y
             let frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: borderWidth)
             let border = UIView(frame: frame)
             border.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             cell.addSubview(border)
         }
         
+        // Overwrite current image if the user has already swiped through them.
+        if let variantIndex = variantIndexFor[indexPath.item] {
+            cell.productImage.setImageWith(products[indexPath.row].variantImages[variantIndex] as URL)
+            
+        }
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         // set to 4 per grid
         return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.bounds.size.height / 2)
@@ -210,7 +212,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func loadMoreData() {
         let count = products.count
-        let newCount = String(count + 10)
         let startIndex = String(count + 1)
         WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: startIndex, success: {
              (products: [Product]) in

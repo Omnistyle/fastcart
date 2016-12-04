@@ -37,8 +37,8 @@ class ProductDetailsViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     
-        let contentWidth = scrollView.bounds.width
-        let contentHeight = scrollView.bounds.height * 3
+        _ = scrollView.bounds.width
+        _ = scrollView.bounds.height * 3
         
         // add additional sections
         let frame = CGRect(x: CGFloat(0), y: CGFloat(20) + contentView.bounds.height, width: view.bounds.width, height: CGFloat(200))

@@ -129,7 +129,7 @@ class Product: EVObject {
         let intArray = ids.map({(id: String) -> Int in
             return Int(id) ?? 0})
         let max = intArray.max()
-        let min = intArray.min()
+        _ = intArray.min()
         if let max = max {
         let use = String(describing: max)
         
