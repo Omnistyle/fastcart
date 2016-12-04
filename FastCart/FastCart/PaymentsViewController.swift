@@ -24,6 +24,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     
     private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
     private var activityIndicator: UIActivityIndicatorView!
+    private var dropInViewController: BTDropInViewController?
     
     var braintreeClient: BTAPIClient!
     let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
@@ -41,6 +42,27 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         storeImage.layer.borderWidth = 1
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let frame = self.paymentView.bounds
+        dropInViewController?.view.frame = CGRect(x: frame.origin.x ,y: frame.origin.y - 40, width: frame.width, height: frame.height - 40)
+    }
+    private func moveDropIn(_ dropInViewController: BTDropInViewController){
+        // Fix some parameter issues, like bounds and scrolling.
+        dropInViewController.view.frame = self.paymentView.bounds
+        for view in dropInViewController.view.subviews {
+            if let scrollView = view as? UIScrollView {
+                scrollView.bounces = false
+                scrollView.isScrollEnabled = false
+            }
+        }
+        
+        // Move it in!
+        self.paymentView.addSubview(dropInViewController.view)
+        self.addChildViewController(dropInViewController)
+        dropInViewController.didMove(toParentViewController: self)
+    }
     func createAlert() {
         // Complete the receipt.
         let appearance = SCLAlertView.SCLAppearance(
@@ -52,7 +74,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         //        alertView.title = "Nice!"
         //        alertVie
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("My Receipt", target:self, selector:Selector("showReceipt"))
+        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
         let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
         //        alertView.showInfo("Nice!\n", subTitle: "This is a nice alert with a custom icon you choose", circleIconImage: alertViewIcon)
         alertView.showTitle(
@@ -138,16 +160,12 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     
     private func paymentStarted(_ client: BTAPIClient) {
         // Create a BTDropInViewController
-        let dropInViewController = BTDropInViewController(apiClient: client)
+        self.dropInViewController = BTDropInViewController(apiClient: client)
+        guard let dropInViewController = dropInViewController else { return }
         dropInViewController.delegate = self
-        dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        dropInViewController.view.tintColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
-        dropInViewController.view.frame = self.paymentView.bounds
+        dropInViewController.view.tintColor = Constants.themeColor
         dropInViewController.fetchPaymentMethods(onCompletion: {
-            dropInViewController.view.frame = self.paymentView.bounds;
-            self.paymentView.addSubview(dropInViewController.view)
-            self.addChildViewController(dropInViewController)
-            dropInViewController.didMove(toParentViewController: self)
+            self.moveDropIn(dropInViewController)
             self.activityIndicator.stopAnimating()
         })
     }

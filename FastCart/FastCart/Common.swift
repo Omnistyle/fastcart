@@ -18,6 +18,10 @@ public enum Persistece: String {
     static let allValues = [receipt, user]
 }
 
+public class Constants {
+    static let themeColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
+}
+
 extension URL {
     func toJson() -> String {
         return self.absoluteString
