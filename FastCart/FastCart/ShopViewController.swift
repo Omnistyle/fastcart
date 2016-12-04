@@ -133,8 +133,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             print(index)
             variantIndexFor[item] = index
             let variantImageUrl = cell.product.variantImages[variantIndexFor[item]!] as URL
+            cell.productImage.image = nil
             cell.productImage.setImageWith(variantImageUrl)
-            collectionView.reloadData()
         }
         }
     }
