@@ -45,7 +45,7 @@ PODS:
   - Braintree/UI (4.7.3):
     - Braintree/Card
     - Braintree/Core
-  - EVReflection (3.4.2)
+  - EVReflection (3.4.3)
   - FBSDKCoreKit (4.18.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.18.0):
@@ -68,7 +68,7 @@ DEPENDENCIES:
   - BarcodeScanner
   - Braintree
   - Braintree/Apple-Pay
-  - EVReflection
+  - EVReflection (from `https://github.com/Omnistyle/EVReflection.git`)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -79,10 +79,15 @@ DEPENDENCIES:
   - TLYShyNavBar
 
 EXTERNAL SOURCES:
+  EVReflection:
+    :git: https://github.com/Omnistyle/EVReflection.git
   SAParallaxViewControllerSwift:
     :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
 
 CHECKOUT OPTIONS:
+  EVReflection:
+    :commit: c24cf3b4964a69ae14e96ffa487cbc961b2f7945
+    :git: https://github.com/Omnistyle/EVReflection.git
   SAParallaxViewControllerSwift:
     :commit: a159e3671c111069a1fbc72b77cef6cd75dee5d5
     :git: https://github.com/Omnistyle/SAParallaxViewControllerSwift.git
@@ -92,7 +97,7 @@ SPEC CHECKSUMS:
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Braintree: 3eee856da5d30357a55439283b4bb3dbaddcaa7c
-  EVReflection: 3b24ff86d9e630fcfb71a6927e02ce67256595b8
+  EVReflection: 6f48599f3156e64bc473d469bf8d728dd79ed3ed
   FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
   FBSDKLoginKit: 6773073e970b2b15fb12e451ce7f11da0532b880
   FBSDKShareKit: 0b8d6cc3f103c75297eb3c62caec284a2ccf1b9e
@@ -104,6 +109,6 @@ SPEC CHECKSUMS:
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 9d2dd4fa52283ce1f15469b6327f4186561d9987
+PODFILE CHECKSUM: 608f753cba7e27ff17643b432ea893c2caaed98e
 
 COCOAPODS: 1.1.1
