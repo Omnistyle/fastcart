@@ -10,8 +10,40 @@ import UIKit
 import AVFoundation
 import BarcodeScanner
 
-extension ScanViewController: BarcodeScannerCodeDelegate {
+class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
+    var product: Product?
+    
+    private var scanController: BarcodeScannerController!
+    
+    override func viewDidLoad() {
+        scanController = createScanner()
+        // If camera is available, push the scanner. Otherwise display default.
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.navigationController?.pushViewController(scanController, animated: true)
+        }
+    }
+    
+    @IBAction func onFakeScanButtonPress(_ sender: Any) {
+        self.processCode(nil, didCaptureCode: "787651241531", type: "upc")
+    }
+    
+    /** Mark - BarcodeScannerCodeDelegate */
     func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        self.processCode(controller, didCaptureCode: code, type: type)
+    }
+   
+    // Creates the controller for scanning purposes.
+    private func createScanner() -> BarcodeScannerController {
+        let controller = BarcodeScannerController()
+        controller.codeDelegate = self
+        controller.errorDelegate = self
+        controller.dismissalDelegate = self
+        
+        return controller
+    }
+    // Process the captured code. Abstracted out so we can re-use even when testing.
+    // If the controller is nil, we don't do anything to it.
+    private func processCode(_ controller: BarcodeScannerController?, didCaptureCode code: String, type: String) {
         // perform network request
         WalmartClient.sharedInstance.getProductWithUPC(upc: code, success: { (products: [Product]) in
             guard products.count > 0 else {
@@ -25,11 +57,11 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
             
             productDetailsViewController.product = products[0]
             self.present(productDetailsViewController, animated: true, completion: {
-                controller.reset()
+                controller?.reset()
             })
             
         }, failure: {(error: Error) -> () in
-            controller.resetWithError(message: "UPC: \(code) not found!")
+            controller?.resetWithError(message: "UPC: \(code) not found!")
         })
     }
 }
@@ -45,35 +77,6 @@ extension ScanViewController: BarcodeScannerDismissalDelegate {
     
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
         controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-class ScanViewController: UIViewController {
-    var product: Product?
-    
-    private var scanController: BarcodeScannerController!
-    
-    @IBAction func onFakeScanButtonPress(_ sender: Any) {
-        let code = "787651241531"
-        scanController.codeDelegate?.barcodeScanner(scanController, didCaptureCode: code, type: "upc")
-    }
-   
-    // Creates the controller for scanning purposes.
-    private func createScanner() -> BarcodeScannerController {
-        let controller = BarcodeScannerController()
-        controller.codeDelegate = self
-        controller.errorDelegate = self
-        controller.dismissalDelegate = self
-        
-        return controller
-    }
-    
-    override func viewDidLoad() {
-        scanController = createScanner()
-        // If camera is available, push the scanner. Otherwise display default.
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            self.navigationController?.pushViewController(scanController, animated: true)
-        }
     }
 }
 
