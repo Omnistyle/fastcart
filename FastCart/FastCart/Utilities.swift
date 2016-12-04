@@ -121,12 +121,10 @@ class Utilities {
         Returns the retrieved object, or nil on failure.
      */
     static func load(fromKey key: String, into Object: EVObject.Type) -> EVObject? {
-        /*
         let defaults = UserDefaults.standard
         if let jsonString = defaults.value(forKey: key) as? String {
             return Object.init(json: jsonString)
         }
-         */
         return nil
     }
     
