@@ -891,6 +891,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Payments" id="cCB-cw-fSD"/>
                     <connections>
+                        <outlet property="infoView" destination="50h-Jc-Kb8" id="9hR-Eu-98d"/>
+                        <outlet property="paymentTopConstraint" destination="9hH-0o-bsH" id="DAz-4B-DvL"/>
                         <outlet property="paymentView" destination="Qxz-ex-h9N" id="6GV-5k-eHj"/>
                         <outlet property="storeImage" destination="UYL-4H-gAi" id="yNe-Ea-a15"/>
                         <outlet property="storeLabel" destination="sa5-Us-mQ7" id="HLq-bY-IOR"/>
