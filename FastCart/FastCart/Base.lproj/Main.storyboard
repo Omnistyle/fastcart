@@ -158,14 +158,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Scan" id="BRU-Xy-aeu"/>
                     <connections>
-                        <segue destination="YUX-7A-sqm" kind="presentation" identifier="presentProductDetails" id="5rE-ox-1Ed"/>
+                        <outlet property="fakeScanButton" destination="3yY-Mf-z4y" id="4j7-HE-mQo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2116" y="26.53673163418291"/>
         </scene>
-        <!--Product-->
+        <!--Product Details View Controller-->
         <scene sceneID="kVX-HV-au5">
             <objects>
                 <viewController storyboardIdentifier="ProductDetailsWithScrollViewController" id="pOY-h3-HVx" customClass="ProductDetailsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
@@ -178,10 +178,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCL-ow-t0Q">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                             </scrollView>
                             <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-OW-pcY" userLabel="Container View">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J3J-ne-pll">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="368"/>
@@ -190,7 +190,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfU-T0-oge">
-                                        <rect key="frame" x="0.0" y="303" width="320" height="201"/>
+                                        <rect key="frame" x="0.0" y="347" width="320" height="201"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Daystarter Dress Shirt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3e-ub-gEa">
                                                 <rect key="frame" x="20" y="20" width="206" height="25"/>
@@ -251,18 +251,6 @@
                             <constraint firstItem="jC9-vK-CBB" firstAttribute="top" secondItem="CjE-OW-pcY" secondAttribute="bottom" id="zrv-DW-50t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Product" id="zSK-Lv-Nyx">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Wns-As-xBf">
-                            <connections>
-                                <action selector="onCancelButton:" destination="pOY-h3-HVx" id="n0w-Hd-h8L"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="guB-CI-vem">
-                            <connections>
-                                <action selector="onAddButton:" destination="pOY-h3-HVx" id="Ybo-kd-Mld"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="CjE-OW-pcY" id="hOH-bY-bs5"/>
                         <outlet property="descriptionContainerView" destination="kfU-T0-oge" id="fyQ-ya-0OW"/>
@@ -275,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ADp-ad-vFi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3696.8000000000002" y="25.637181409295355"/>
+            <point key="canvasLocation" x="2854" y="26"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qdW-Fy-xtI">
@@ -299,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLw-h2-8iS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5192" y="26"/>
+            <point key="canvasLocation" x="4391" y="25"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="AvM-Wv-CaW">
@@ -1027,24 +1015,6 @@
             </objects>
             <point key="canvasLocation" x="1176.8" y="26.53673163418291"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="gr9-dr-3GO">
-            <objects>
-                <navigationController storyboardIdentifier="ProductDetailsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="YUX-7A-sqm" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aBA-AG-9jx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="pOY-h3-HVx" kind="relationship" relationship="rootViewController" id="8Ip-nr-zsl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fZ6-gR-Pff" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2876" y="27"/>
-        </scene>
         <!--Product-->
         <scene sceneID="r3B-y1-Q8d">
             <objects>
@@ -1152,7 +1122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kg6-cC-eBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4469.6000000000004" y="26.53673163418291"/>
+            <point key="canvasLocation" x="3596" y="25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OYa-5h-onR">

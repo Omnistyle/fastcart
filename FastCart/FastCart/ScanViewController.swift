@@ -11,8 +11,10 @@ import AVFoundation
 import BarcodeScanner
 
 class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
-    var product: Product?
     
+    @IBOutlet weak var fakeScanButton: UIButton!
+
+    var product: Product?
     private var scanController: BarcodeScannerController!
     
     override func viewDidLoad() {
@@ -22,8 +24,13 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             self.navigationController?.pushViewController(scanController, animated: true)
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fakeScanButton.isEnabled = true
+    }
     
-    @IBAction func onFakeScanButtonPress(_ sender: Any) {
+    @IBAction func onFakeScanButtonPress(_ sender: UIButton) {
+        fakeScanButton.isEnabled = false
         self.processCode(nil, didCaptureCode: "787651241531", type: "upc")
     }
     
@@ -54,12 +61,9 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             // Present product modally.
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
-            
             productDetailsViewController.product = products[0]
-            self.present(productDetailsViewController, animated: true, completion: {
-                controller?.reset()
-            })
-            
+            productDetailsViewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         }, failure: {(error: Error) -> () in
             controller?.resetWithError(message: "UPC: \(code) not found!")
         })
