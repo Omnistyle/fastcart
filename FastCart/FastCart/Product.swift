@@ -83,7 +83,7 @@ class Product: EVObject {
     var clearance: Bool?
     var specialBuy: Bool?
     var originalPrice: Double?
-    var variantImages = [URL]()
+    var variantImages = [NSURL]()
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -134,7 +134,7 @@ class Product: EVObject {
         let use = String(describing: max)
         
             WalmartClient.sharedInstance.getVariantImage(id: use, success: {(image: URL) -> () in
-                self.variantImages.append(image)
+                self.variantImages.append(image as NSURL)
                 
             }, failure: {(error: Error) -> () in
                 print(error)
@@ -212,7 +212,7 @@ class Product: EVObject {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl)
+                        self.variantImages.append(imageUrl as NSURL)
                     }
                 }
             }

@@ -773,8 +773,14 @@ final public class EVReflection {
         if theValue is UUID {
             return ((theValue as! UUID).uuidString as AnyObject, "NSString", false)
         }
+        if theValue is Array<NSURL> {
+            return ((theValue as! Array<NSURL>) as AnyObject, valueType, false)
+        }
         if theValue is Array<Any> {
             return ((theValue as! Array<Any>) as AnyObject, valueType, false)
+        }
+        if !(theValue is URL) && theValue is NSURL {
+            return ((theValue as! NSURL) as AnyObject, valueType, false)
         }
         if theValue is EVReflectable && theValue is NSObject {
             if valueType.contains("<") {

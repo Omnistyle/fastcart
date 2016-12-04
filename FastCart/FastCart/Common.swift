@@ -18,9 +18,6 @@ public enum Persistece: String {
     static let allValues = [receipt, user]
 }
 
-/** Support reflection for NSURL/URL **/
-extension NSURL: EVReflectable {}
-
 extension URL {
     func toJson() -> String {
         return self.absoluteString
