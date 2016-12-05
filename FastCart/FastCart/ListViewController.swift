@@ -163,7 +163,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // checkout button
     
     @IBAction func onCheckoutButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // check to see if there are unscanned products
         for product in products {
             // check to see if there are unscanned products
@@ -176,10 +175,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-        // select the list index
-        vc.selectedIndex = 3
-        present(vc, animated: true, completion: nil)
+        tabBarController?.selectedIndex = 3
     }
     
 }
