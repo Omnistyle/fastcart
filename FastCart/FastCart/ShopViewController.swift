@@ -29,9 +29,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
     
         // Add activitiy indicator.
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.center = self.view.center;
-        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator = Utilities.addActivityIndicator(to: self.view)
 
         // Do any additional setup after loading the view.
         collectionView.delegate = self
@@ -186,11 +184,12 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let product = products[indexPath.row]
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
-//        vc.product = product
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let product = products[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
+        vc.product = product
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     override func didReceiveMemoryWarning() {

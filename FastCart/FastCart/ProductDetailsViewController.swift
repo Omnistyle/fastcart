@@ -72,13 +72,13 @@ class ProductDetailsViewController: UIViewController {
         UIView.transition(from: fromView, to: toView, duration: 0.7, options: .transitionCrossDissolve, completion: { if $0 {
             self.tabBarController?.selectedIndex = 2
             self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
-            let _ = self.navigationController?.popToRootViewController(animated: false)
+            let _ = self.navigationController?.popToRootViewController(animated: true)
         }})
     }
     @IBAction func onCancelButton(_ sender: UIButton) {
-        self.tabBarController?.selectedIndex = 1
+//        self.tabBarController?.selectedIndex = 1
         self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
-        let _ = self.navigationController?.popToRootViewController(animated: true)
+        let _ = self.navigationController?.popViewController(animated: true)
     }
 
 //    @IBAction func onSeeReviews(_ sender: Any) {

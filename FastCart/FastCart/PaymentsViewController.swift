@@ -72,24 +72,39 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     func createAlert() {
         // Complete the receipt.
+//        let appearance = SCLAlertView.SCLAppearance(
+//            kCircleIconHeight: 40.0,
+//            showCloseButton: false
+//            
+//        )
         let appearance = SCLAlertView.SCLAppearance(
             kCircleIconHeight: 40.0,
-            showCloseButton: false
+            showCloseButton: true
             
         )
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
+//        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
         let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
         alertView.showTitle(
-            "Nice!\n",
-            subTitle: "\nYou're done with checkout.\n",
+            "Oops!\n",
+            subTitle: "\nWe're still in beta. We'll let you know as soon as its ready.\n",
             duration: 0.0,
-            completeText: "See My Receipt",
+            completeText: "Done",
             style: .success,
             colorStyle: 0x72BEB7,
             colorTextButton: 0xFFFFFF,
             circleIconImage: alertViewIcon
         )
+//        alertView.showTitle(
+//            "Nice!\n",
+//            subTitle: "\nYou're done with checkout.\n",
+//            duration: 0.0,
+//            completeText: "See My Receipt",
+//            style: .success,
+//            colorStyle: 0x72BEB7,
+//            colorTextButton: 0xFFFFFF,
+//            circleIconImage: alertViewIcon
+//        )
     }
     func showReceipt() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -128,10 +143,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     
     private func setUpView() {
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.center = self.view.center;
-        // self.view.autoresizesSubviews = true
-        self.view.addSubview(self.activityIndicator)
+        activityIndicator = Utilities.addActivityIndicator(to: self.view)
     }
     // Only call after the view is ready to display or re-display.
     private func modifyViewOnAppearance() {
