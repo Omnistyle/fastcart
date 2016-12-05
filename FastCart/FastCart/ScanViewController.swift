@@ -16,19 +16,24 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
 
     var product: Product?
     private var scanController: BarcodeScannerController!
+    private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
-        // On first launch, hide with no animation!
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        // Activity indicator.
+        activityIndicator = Utilities.addActivityIndicator(to: self.view)
         scanController = createScanner()
+        
         // If camera is available, push the scanner. Otherwise display default.
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            self.navigationController?.pushViewController(scanController, animated: true)
+            // FYI -- we currently never stop this animation.
+            activityIndicator.startAnimating()
+            fakeScanButton.isEnabled = false
+            fakeScanButton.isHidden = true
+            moveScannerIn()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         fakeScanButton.isEnabled = true
     }
     
@@ -71,6 +76,16 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
         }, failure: {(error: Error) -> () in
             controller?.resetWithError(message: "UPC: \(code) not found!")
         })
+    }
+    
+    private func moveScannerIn() {
+        let frame = self.view.bounds
+        scanController.view.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height - self.tabBarController!.tabBar.frame.height)
+    
+        // Move it in!
+        self.view.addSubview(scanController.view)
+        self.addChildViewController(scanController)
+        scanController.didMove(toParentViewController: self)
     }
 }
 

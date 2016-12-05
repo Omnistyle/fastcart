@@ -128,10 +128,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     
     private func setUpView() {
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.center = self.view.center;
-        // self.view.autoresizesSubviews = true
-        self.view.addSubview(self.activityIndicator)
+        activityIndicator = Utilities.addActivityIndicator(to: self.view)
     }
     // Only call after the view is ready to display or re-display.
     private func modifyViewOnAppearance() {

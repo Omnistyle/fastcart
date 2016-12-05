@@ -29,9 +29,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
     
         // Add activitiy indicator.
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.center = self.view.center;
-        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator = Utilities.addActivityIndicator(to: self.view)
 
         // Do any additional setup after loading the view.
         collectionView.delegate = self

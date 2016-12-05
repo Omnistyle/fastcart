@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // change tint color to black
         UITabBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().tintColor = UIColor.black
         if User.currentUser != nil {
             window?.rootViewController = vc
             
