@@ -61,6 +61,12 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
+    @IBAction func OnBackToProdcut(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            //do nothin
+        }
+        )
+    }
 
     /*
     // MARK: - Navigation

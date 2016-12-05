@@ -41,8 +41,17 @@ class ProductDetailsViewController: UIViewController {
         
         }, completion: nil)
         
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
+        reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
+        reviewsImageView.isUserInteractionEnabled = true
     }
 
+    func onTapReviews(){
+        print("navigating to reviews")
+        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
+    }
+    
     /** set the information for this controller */
     private func display(product: Product) {
         nameLabel.text = product.name
@@ -66,10 +75,10 @@ class ProductDetailsViewController: UIViewController {
         let _ = self.navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func onSeeReviews(_ sender: Any) {
-        print("navigating to reviews")
-        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
-    }
+//    @IBAction func onSeeReviews(_ sender: Any) {
+//        print("navigating to reviews")
+//        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
+//    }
     
     
     // MARK: - Navigation
