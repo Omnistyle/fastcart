@@ -1144,6 +1144,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Done" id="xwd-Hg-x88"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="fixedView" destination="blh-6v-sjb" id="Ejd-Z7-8H7"/>
                         <outlet property="nameLabel" destination="9xh-pm-Hp1" id="5DW-F1-KkK"/>
                         <outlet property="priceLabel" destination="MUo-MC-lsA" id="ZrP-kf-FDh"/>
                         <outlet property="productImageView" destination="edH-tH-vQH" id="mMb-GN-t1s"/>
