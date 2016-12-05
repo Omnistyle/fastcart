@@ -178,10 +178,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-        // select the list index
-        vc.selectedIndex = 3
-        present(vc, animated: true, completion: nil)
+        tabBarController?.selectedIndex = 3
     }
     
 }
