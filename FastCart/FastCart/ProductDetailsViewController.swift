@@ -10,12 +10,15 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
     @IBOutlet weak var productImageView: UIImageView!
     
     var product: Product!
+    
+    @IBOutlet weak var ratingsLabel: UILabel!
+    
+    @IBOutlet weak var reviewsImageView: UIImageView!
     
     private var wasNavHidden: Bool!
     
@@ -33,8 +36,11 @@ class ProductDetailsViewController: UIViewController {
     /** set the information for this controller */
     private func display(product: Product) {
         nameLabel.text = product.name
-        descriptionLabel.text = product.overview ?? ""
         priceLabel.text = product.salePriceAsString
+        ratingsLabel.text = product.averageRating
+        if let ratingUrl = product.ratingImage {
+            reviewsImageView.setImageWith(ratingUrl)
+        }
         product.setProductImage(view: productImageView)
     }
 
