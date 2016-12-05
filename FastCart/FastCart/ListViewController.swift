@@ -157,9 +157,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func onScanButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ScanViewController")
-        present(vc, animated: true, completion: nil)
+        self.tabBarController?.selectedIndex = 1
     }
     
     // checkout button
