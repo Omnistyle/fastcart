@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // change navigation bar tint 
+         UINavigationBar.appearance().tintColor = UIColor.black
+
         // Braintree app switch url!
         BTAppSwitch.setReturnURLScheme(AppURLSchemes.payments.rawValue)
         

@@ -23,6 +23,8 @@ class ProductDetailsViewController: UIViewController {
 
     private var wasNavHidden: Bool!
     
+    @IBOutlet weak var fixedView: UIView!
+    
     override func viewDidLoad() {        
         super.viewDidLoad()
         wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
@@ -32,6 +34,12 @@ class ProductDetailsViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         display(product: product)
+        fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
+        // Start the animation
+        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
+            self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
+        
+        }, completion: nil)
     }
 
     /** set the information for this controller */
@@ -51,7 +59,7 @@ class ProductDetailsViewController: UIViewController {
         guard let fromView = self.tabBarController?.selectedViewController?.view else { return }
         guard let toView = self.tabBarController?.viewControllers?[2].view else { return }
         
-        UIView.transition(from: fromView, to: toView, duration: 0.5, options: .transitionCrossDissolve, completion: { if $0 {
+        UIView.transition(from: fromView, to: toView, duration: 0.7, options: .transitionCrossDissolve, completion: { if $0 {
             self.tabBarController?.selectedIndex = 2
             self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
             let _ = self.navigationController?.popToRootViewController(animated: false)

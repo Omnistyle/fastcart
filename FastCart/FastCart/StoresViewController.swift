@@ -12,7 +12,7 @@ import MisterFusion
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
     private class Constants {
-        static let numStores = 6
+        static let numStores = 5
         static let bannerHeight = CGFloat(40.0)
     }
     
