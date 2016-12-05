@@ -192,6 +192,7 @@ class Utilities {
         return "\(seconds) s"
     }
     
+
     /**
      Creates and presents an error alert with the given title and message.
      

@@ -67,6 +67,8 @@ class Product: EVObject {
     var brandName: String?
     /** The average rating given to this Product across marketplaces */
     var averageRating: String?
+    /** Rating image */
+    var ratingImage: URL?
     /** The color (if necessary) for the Product */
     var color: String?
     /** The size (if available) of the Product */
@@ -169,7 +171,9 @@ class Product: EVObject {
             upc = dictionary["upc"] as? String
             name = dictionary["name"] as? String
             overview = dictionary["shortDescription"] as? String
-            idFromStore = dictionary["itemId"] as? String
+            let x: Int = dictionary["itemId"] as! Int
+            let xNSNumber = x as NSNumber
+            idFromStore = xNSNumber.stringValue
             if let imageString = dictionary["largeImage"] as? String{
                 self.image = URL(string: imageString)
                 
@@ -183,6 +187,10 @@ class Product: EVObject {
             
             if let originalPriceDouble = dictionary["msrp"] as? Double {
                 originalPrice = round(originalPriceDouble * 100)/100
+            }
+            if let ratingImageString = dictionary["customerRatingImage"] as? String{
+                self.ratingImage = URL(string: ratingImageString)
+                
             }
             
             //store = Store(id: "Walmart")
@@ -349,6 +357,7 @@ class Product: EVObject {
         product.salePrice = rawProduct["salePrice"] as! Double?
         product.brandName = rawProduct["brandName"] as! String?
         product.averageRating = rawProduct["averageRating"] as! String?
+        
         product.color = rawProduct["color"] as! String?
         product.size = rawProduct["size"] as! String?
         product.freeShipToStore = rawProduct["freeShipToStore"] as! Bool?

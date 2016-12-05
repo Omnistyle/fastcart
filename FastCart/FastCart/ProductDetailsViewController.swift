@@ -10,14 +10,20 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
     @IBOutlet weak var productImageView: UIImageView!
     
     var product: Product!
     
+    @IBOutlet weak var ratingsLabel: UILabel!
+    
+    @IBOutlet weak var reviewsImageView: UIImageView!
+    
+
     private var wasNavHidden: Bool!
+    
+    @IBOutlet weak var fixedView: UIView!
     
     override func viewDidLoad() {        
         super.viewDidLoad()
@@ -28,13 +34,22 @@ class ProductDetailsViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         display(product: product)
+        fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
+        // Start the animation
+        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
+            self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
+        
+        }, completion: nil)
     }
 
     /** set the information for this controller */
     private func display(product: Product) {
         nameLabel.text = product.name
-        descriptionLabel.text = product.overview ?? ""
         priceLabel.text = product.salePriceAsString
+        ratingsLabel.text = product.averageRating
+        if let ratingUrl = product.ratingImage {
+            reviewsImageView.setImageWith(ratingUrl)
+        }
         product.setProductImage(view: productImageView)
     }
 
@@ -44,7 +59,7 @@ class ProductDetailsViewController: UIViewController {
         guard let fromView = self.tabBarController?.selectedViewController?.view else { return }
         guard let toView = self.tabBarController?.viewControllers?[2].view else { return }
         
-        UIView.transition(from: fromView, to: toView, duration: 0.5, options: .transitionCrossDissolve, completion: { if $0 {
+        UIView.transition(from: fromView, to: toView, duration: 0.7, options: .transitionCrossDissolve, completion: { if $0 {
             self.tabBarController?.selectedIndex = 2
             self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
             let _ = self.navigationController?.popToRootViewController(animated: false)
@@ -55,8 +70,30 @@ class ProductDetailsViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+
+    @IBAction func onSeeReviews(_ sender: Any) {
+        print("navigating to reviews")
+        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
     }
+    
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+//self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+
+        if (segue.identifier == "reviewsSegue"){
+            let navigationViewController = segue.destination as! UINavigationController
+            let reviewViewController = navigationViewController.topViewController as! ReviewsViewController
+            
+            reviewViewController.itemId = (product?.idFromStore)!
+            
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+ 
+
 }

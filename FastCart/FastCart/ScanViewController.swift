@@ -102,4 +102,3 @@ extension ScanViewController: BarcodeScannerDismissalDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
-
