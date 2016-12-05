@@ -192,6 +192,7 @@ class Utilities {
         return "\(seconds) s"
     }
     
+
     /**
      Creates and presents an error alert with the given title and message.
      
@@ -212,6 +213,20 @@ class Utilities {
             closeButtonTitle: "OK",
             duration: 0.0
         )
+    }
+    
+    /** 
+     Creates an activity indicator for re-use throughout our code base.
+     
+     - returns: The activity indicator reference, after it's been added to the view.
+    */
+    static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.color = Constants.themeColor
+        activityIndicator.center = view.center;
+        view.addSubview(activityIndicator)
+        
+        return activityIndicator
     }
     
     /**

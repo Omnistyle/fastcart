@@ -20,6 +20,7 @@ class ProductDetailsViewController: UIViewController {
     
     @IBOutlet weak var reviewsImageView: UIImageView!
     
+
     private var wasNavHidden: Bool!
     
     @IBOutlet weak var fixedView: UIView!
@@ -70,8 +71,30 @@ class ProductDetailsViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
         let _ = self.navigationController?.popViewController(animated: true)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+
+    @IBAction func onSeeReviews(_ sender: Any) {
+        print("navigating to reviews")
+        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
     }
+    
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+//self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+
+        if (segue.identifier == "reviewsSegue"){
+            let navigationViewController = segue.destination as! UINavigationController
+            let reviewViewController = navigationViewController.topViewController as! ReviewsViewController
+            
+            reviewViewController.itemId = (product?.idFromStore)!
+            
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+ 
+
 }

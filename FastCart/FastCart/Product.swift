@@ -171,7 +171,9 @@ class Product: EVObject {
             upc = dictionary["upc"] as? String
             name = dictionary["name"] as? String
             overview = dictionary["shortDescription"] as? String
-            idFromStore = dictionary["itemId"] as? String
+            let x: Int = dictionary["itemId"] as! Int
+            let xNSNumber = x as NSNumber
+            idFromStore = xNSNumber.stringValue
             if let imageString = dictionary["largeImage"] as? String{
                 self.image = URL(string: imageString)
                 

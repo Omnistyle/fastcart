@@ -199,7 +199,31 @@ class WalmartClient {
         task.resume()
     }
     
-    func getReviewsFromProduct(upc: String, success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()) {
+    func getReviewsFromProduct(itemId: String, success: @escaping ([Review]) -> (), failure: @escaping (Error) -> ()){
+        guard let url = URL(string:"http://api.walmartlabs.com/v1/reviews/\(itemId)?apiKey=\(self.apiKey)") else {return}
         
+        let request = URLRequest(url: url)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            // ... Remainder of response handling code ...
+            if let data = data {
+                if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                    
+                    guard let reviewsDictionary = responseDictionary["reviews"] as? [NSDictionary] else {return}
+                    let reviews = Review.reviewWithArray(dictionaries: reviewsDictionary)
+                    success(reviews)
+
+                }
+            }
+            else if error != nil {
+                failure(error!)
+            }
+        });
+        task.resume()
     }
 }
