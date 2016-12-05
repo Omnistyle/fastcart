@@ -46,6 +46,7 @@ class TabViewController: UIViewController {
         underlineOriginalCenter?.x = width / 4.0 * 3.0
         
         if selectedIndex == 0 {
+            print("getting here?")
             self.underline.center.x = width / 4.0
         } else {
             self.underline.center.x = width / 4.0 * 3.0
