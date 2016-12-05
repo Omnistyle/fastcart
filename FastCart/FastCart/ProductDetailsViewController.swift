@@ -50,6 +50,11 @@ class ProductDetailsViewController: UIViewController {
         scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height)
         
         
+        WalmartClient.sharedInstance.getReviewsFromProduct(itemId: (product?.idFromStore)!, success: { (reviews:[Review]) in
+            var revs = reviews
+        }, failure: {(error: Error) -> () in
+            print(error.localizedDescription)
+        })
         
         contentView.addSubview(reviewView)
         
@@ -77,14 +82,28 @@ class ProductDetailsViewController: UIViewController {
 //        self.dismiss(animated: true, completion: nil)
     }
     
-    /*
+    
+    @IBAction func onSeeReviews(_ sender: Any) {
+        print("navigating to reviews")
+        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "reviewsSegue"){
+            let navigationViewController = segue.destination as! UINavigationController
+            let reviewViewController = navigationViewController.topViewController as! ReviewsViewController
+            
+            reviewViewController.itemId = (product?.idFromStore)!
+            
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+ 
 
 }

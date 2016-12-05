@@ -21,6 +21,8 @@
 		1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057DECA1DD91510001203D2 /* ProductCell.swift */; };
 		106C3F501DE8329E00CE9E7C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106C3F4F1DE8329E00CE9E7C /* Common.swift */; };
 		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
+		22511A391DF4D40A009BD9CB /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */; };
+		22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */; };
 		7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F12DF871DDB9F09003C78C6 /* Reviews.xib */; };
 		7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF891DDB9F5D003C78C6 /* Reviews.swift */; };
 		7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */; };
@@ -60,6 +62,8 @@
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
 		223A663C1DDA6C330075DBB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		223A663E1DDA6D010075DBB5 /* FastCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastCart.entitlements; sourceTree = "<group>"; };
+		22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		7F12DF871DDB9F09003C78C6 /* Reviews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Reviews.xib; sourceTree = "<group>"; };
 		7F12DF891DDB9F5D003C78C6 /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUpcClient.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
 				223A663C1DDA6C330075DBB5 /* LoginViewController.swift */,
 				7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */,
+				22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				1057DECA1DD91510001203D2 /* ProductCell.swift */,
 				7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */,
 				7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */,
+				22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -249,9 +255,8 @@
 				TargetAttributes = {
 					7F28EEF81DD10EDE0084410B = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 6AQU6Q6WHZ;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -347,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F9515911DE6281C001EC1D5 /* ProductOverviewCell.swift in Sources */,
+				22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */,
 				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */,
 				102D9C111DE147BF00E8232A /* Utilities.swift in Sources */,
@@ -366,6 +372,7 @@
 				106C3F501DE8329E00CE9E7C /* Common.swift in Sources */,
 				7F95158B1DE50D23001EC1D5 /* OptionCell.swift in Sources */,
 				103215971DD2E0FA00186704 /* Review.swift in Sources */,
+				22511A391DF4D40A009BD9CB /* ReviewsViewController.swift in Sources */,
 				7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */,
 				7F95158D1DE5473A001EC1D5 /* ShopViewController.swift in Sources */,
 				1032159B1DD2F7B200186704 /* TabViewController.swift in Sources */,
@@ -501,12 +508,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
-				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lemonbunny.FastCart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -517,12 +526,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
-				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lemonbunny.FastCart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
