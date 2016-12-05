@@ -258,8 +258,9 @@
 				TargetAttributes = {
 					7F28EEF81DD10EDE0084410B = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 6AQU6Q6WHZ;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -513,7 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lemonbunny.FastCart;
@@ -531,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lemonbunny.FastCart;
@@ -551,7 +552,7 @@
 				7F28EF0A1DD10EDE0084410B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F28EF0B1DD10EDE0084410B /* Build configuration list for PBXNativeTarget "FastCart" */ = {
 			isa = XCConfigurationList;
@@ -560,7 +561,7 @@
 				7F28EF0D1DD10EDE0084410B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

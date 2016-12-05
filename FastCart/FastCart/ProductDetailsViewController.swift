@@ -48,8 +48,10 @@ class ProductDetailsViewController: UIViewController {
     }
 
     func onTapReviews(){
-        print("navigating to reviews")
-        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reviewsViewController = storyboard.instantiateViewController(withIdentifier: "ReviewsViewController") as! ReviewsViewController
+        reviewsViewController.itemId = (product.idFromStore)!
+        self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
     
     /** set the information for this controller */
@@ -74,30 +76,4 @@ class ProductDetailsViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
         let _ = self.navigationController?.popViewController(animated: true)
     }
-
-//    @IBAction func onSeeReviews(_ sender: Any) {
-//        print("navigating to reviews")
-//        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
-//    }
-    
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-//self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
-
-        if (segue.identifier == "reviewsSegue"){
-            let navigationViewController = segue.destination as! UINavigationController
-            let reviewViewController = navigationViewController.topViewController as! ReviewsViewController
-            
-            reviewViewController.itemId = (product?.idFromStore)!
-            
-        }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
- 
-
 }

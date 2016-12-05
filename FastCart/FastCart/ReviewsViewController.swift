@@ -15,7 +15,11 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var reviewsTable: UITableView!
     
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let navigationFrame = self.navigationController!.navigationBar.frame
+        reviewsTable.contentInset = UIEdgeInsetsMake(navigationFrame.origin.y + navigationFrame.height, reviewsTable.contentInset.left, 0, reviewsTable.contentInset.right);
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
