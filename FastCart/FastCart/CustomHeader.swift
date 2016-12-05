@@ -14,6 +14,8 @@ class CustomHeader: UIView {
     @IBOutlet private weak var backgroundImage: UIImageView!
     @IBOutlet private weak var foregroundImage: UIImageView!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    
     let iconsInSection1 = [UIImage]()
     let iconsInSection2 = [UIImage]()
     var backgroundImageUrl: URL? {
@@ -24,6 +26,15 @@ class CustomHeader: UIView {
             }
         }
     }
+    
+    var name: String? {
+        didSet {
+            if let usernameStr = name {
+                nameLabel.text = usernameStr
+            }
+        }
+    }
+    
     func makeBlackAndWhite(image: UIImage) -> UIImage{
         let imageRect:CGRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         let colorSpace = CGColorSpaceCreateDeviceGray()

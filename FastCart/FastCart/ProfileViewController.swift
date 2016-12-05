@@ -16,8 +16,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
-    let titlesInSection1 = ["Recent orders", "My reviews", "Upgrade to Pro"]
-    let titlesInSection2 = ["How it works", "Contact us", "Rate the app", "Invite friends"]
+    let titlesInSection1 = ["Current order"]
+    let titlesInSection2 = ["Contact us", "Rate the app", "Invite friends"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +41,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 header?.foregroundImageUrl = URL(string: strg)
                 print(strg)
             }
-        } else {
-            header?.foregroundImageVariable = #imageLiteral(resourceName: "profileImage")
-
+            if let username = user.username {
+                header?.name = username
+                print(username)
+            }
         }
-    
+     
         
 //        if ((User.currentUser?.facebookProfilePictureUrlString = User.currentUser?.facebookProfilePictureUrlString) != nil) {
 //            
@@ -167,6 +168,48 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        // handle transition
+        if indexPath.section == 0 {
+            self.tabBarController?.selectedIndex = 2
+        } else {
+            // contact
+            if indexPath.row == 0 {
+                UIApplication.shared.openURL(NSURL(string: "https://fastcart.herokuapp.com/")! as URL)
+            }
+            // rate app
+            else if indexPath.row == 1 {
+                self.rateApp()
+            }
+            // share
+            else {
+                self.shareApp(self, message: "Hi, checkout this awesome app!")
+            }
+        }
+    }
+    
+    // relevant functions
+    func shareApp(_ view: UIViewController, message: String) {
+        var objectsToShare = [Any]()
+        let appId = "1182855639"
+        if let myWebsite = URL(string: "itms://itunes.apple.com/us/app/apple-store/\(appId)?mt=8") {
+            objectsToShare = [message, myWebsite]
+        }
+        else {
+            objectsToShare = [message]
+        }
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+        view.present(activityVC, animated: true, completion: nil)
+    }
+    
+    func rateApp() {
+        // TODO test this
+        let appId = "1182855639"
+        let url_string = "itms-apps://itunes.apple.com/app/id\(appId)"
+        if let url = URL(string: url_string) {
+            UIApplication.shared.openURL(url as URL)
+        }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {

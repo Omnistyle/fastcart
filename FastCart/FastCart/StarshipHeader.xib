@@ -16,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background1" translatesAutoresizingMaskIntoConstraints="NO" id="0rn-g5-eiJ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="0rn-g5-eiJ">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaceship" translatesAutoresizingMaskIntoConstraints="NO" id="V05-dY-Hrh">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimagefound" translatesAutoresizingMaskIntoConstraints="NO" id="V05-dY-Hrh">
                     <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="5lt-Ek-4H8"/>
                         <constraint firstAttribute="width" secondItem="V05-dY-Hrh" secondAttribute="height" multiplier="1:1" id="ZSI-Ws-xUX"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Belinda Zeng" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X0-VQ-cMb">
-                    <rect key="frame" x="138" y="400" width="99" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Found" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X0-VQ-cMb">
+                    <rect key="frame" x="148" y="400" width="79.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -47,11 +47,13 @@
             <connections>
                 <outlet property="backgroundImage" destination="0rn-g5-eiJ" id="41k-VL-MAv"/>
                 <outlet property="foregroundImage" destination="V05-dY-Hrh" id="hBv-1L-CkO"/>
+                <outlet property="nameLabel" destination="0X0-VQ-cMb" id="UuD-eM-92u"/>
             </connections>
+            <point key="canvasLocation" x="126.5" y="54.5"/>
         </view>
     </objects>
     <resources>
-        <image name="Background1" width="400" height="300"/>
-        <image name="Spaceship" width="217" height="236"/>
+        <image name="background" width="550" height="250"/>
+        <image name="noimagefound" width="275" height="275"/>
     </resources>
 </document>
