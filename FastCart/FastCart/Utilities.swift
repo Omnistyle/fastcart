@@ -8,6 +8,7 @@
 
 import UIKit
 import EVReflection
+import SCLAlertView
 
 /**
  A container for re-usuable functions. We like to code in a `functional` way, so common functions that may typically be stored within an object are instead stored here, to avoid inheritence and Ctrl-C, Ctrl-V behaviour.
@@ -121,12 +122,10 @@ class Utilities {
         Returns the retrieved object, or nil on failure.
      */
     static func load(fromKey key: String, into Object: EVObject.Type) -> EVObject? {
-        /*
         let defaults = UserDefaults.standard
         if let jsonString = defaults.value(forKey: key) as? String {
             return Object.init(json: jsonString)
         }
-         */
         return nil
     }
     
@@ -141,6 +140,7 @@ class Utilities {
         for key in Persistece.allValues {
             defaults.removeObject(forKey: key.rawValue)
         }
+        defaults.synchronize()
     }
     
     /**
@@ -192,4 +192,56 @@ class Utilities {
         return "\(seconds) s"
     }
     
+
+    /**
+     Creates and presents an error alert with the given title and message.
+     
+     - params:
+        - title: The title string. Keep extremely short.
+        - message: The message dislplayed in the error. Keep short.
+    */
+    static func presentErrorAlert(title: String, message: String) {
+        let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40.0,
+            showCloseButton: true
+            
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.showError(
+            "\(title)\n",
+            subTitle: "\n\(message)\n",
+            closeButtonTitle: "OK",
+            duration: 0.0
+        )
+    }
+    
+    /**
+     Creates and presents a success alert with the given title and message.
+     
+     - params:
+        - title: The title string. Keep extremely short.
+        - message: The message dislplayed in the error. Keep short.
+        - button: The message to be added on a custom dismiss button.
+     */
+    static func presentSuccessAlert(title: String, message: String, button: String?) {
+        // TODO -- implement.
+        let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40.0,
+            showCloseButton: false
+            
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
+        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
+        alertView.showTitle(
+            "Nice!\n",
+            subTitle: "\nYou're done with checkout.\n",
+            duration: 0.0,
+            completeText: "See My Receipt",
+            style: .success,
+            colorStyle: 0x72BEB7,
+            colorTextButton: 0xFFFFFF,
+            circleIconImage: alertViewIcon
+        )
+    }
 }

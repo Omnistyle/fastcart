@@ -67,6 +67,8 @@ class Product: EVObject {
     var brandName: String?
     /** The average rating given to this Product across marketplaces */
     var averageRating: String?
+    /** Rating image */
+    var ratingImage: URL?
     /** The color (if necessary) for the Product */
     var color: String?
     /** The size (if available) of the Product */
@@ -83,7 +85,7 @@ class Product: EVObject {
     var clearance: Bool?
     var specialBuy: Bool?
     var originalPrice: Double?
-    var variantImages = [URL]()
+    var variantImages = [NSURL]()
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -129,12 +131,12 @@ class Product: EVObject {
         let intArray = ids.map({(id: String) -> Int in
             return Int(id) ?? 0})
         let max = intArray.max()
-        let min = intArray.min()
+        _ = intArray.min()
         if let max = max {
         let use = String(describing: max)
         
             WalmartClient.sharedInstance.getVariantImage(id: use, success: {(image: URL) -> () in
-                self.variantImages.append(image)
+                self.variantImages.append(image as NSURL)
                 
             }, failure: {(error: Error) -> () in
                 print(error)
@@ -186,6 +188,10 @@ class Product: EVObject {
             if let originalPriceDouble = dictionary["msrp"] as? Double {
                 originalPrice = round(originalPriceDouble * 100)/100
             }
+            if let ratingImageString = dictionary["customerRatingImage"] as? String{
+                self.ratingImage = URL(string: ratingImageString)
+                
+            }
             
             //store = Store(id: "Walmart")
             salePrice = dictionary["salePrice"] as? Double
@@ -214,7 +220,7 @@ class Product: EVObject {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl)
+                        self.variantImages.append(imageUrl as NSURL)
                     }
                 }
             }
@@ -270,7 +276,7 @@ class Product: EVObject {
     override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
-            ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
+            ("addToCartUrl", { self.addToCartUrl = URL.fromJson(json: $0 as? String) }, { return self.addToCartUrl?.toJson() ?? "nil" }),
         ]
     }
     
@@ -351,6 +357,7 @@ class Product: EVObject {
         product.salePrice = rawProduct["salePrice"] as! Double?
         product.brandName = rawProduct["brandName"] as! String?
         product.averageRating = rawProduct["averageRating"] as! String?
+        
         product.color = rawProduct["color"] as! String?
         product.size = rawProduct["size"] as! String?
         product.freeShipToStore = rawProduct["freeShipToStore"] as! Bool?

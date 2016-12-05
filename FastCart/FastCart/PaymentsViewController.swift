@@ -20,19 +20,27 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     @IBOutlet weak var storeLocationLabel: UILabel!
     @IBOutlet weak var storeImage: UIImageView!
     
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var paymentView: UIView!
     
     private var paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
     private var activityIndicator: UIActivityIndicatorView!
+    private var dropInViewController: BTDropInViewController?
     
     var braintreeClient: BTAPIClient!
     let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
     
+    private var canCheckout = false
+    private var minimumRequiredForCheckout = 0.0
+    
+    @IBOutlet var paymentTopConstraint: NSLayoutConstraint!
+    private var paymentTopTotalConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setUpView()
+    
         self.setPaymentInformation()
+        self.setUpView()
         self.setUpBraintree()
         
         storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
@@ -41,6 +49,27 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         storeImage.layer.borderWidth = 1
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
+        self.setPaymentInformation()
+        self.modifyViewOnAppearance()
+    }
+    private func moveDropIn(_ dropInViewController: BTDropInViewController){
+        // Fix some parameter issues, like bounds and scrolling.
+        dropInViewController.view.frame = self.paymentView.bounds
+        for view in dropInViewController.view.subviews {
+            if let scrollView = view as? UIScrollView {
+                scrollView.bounces = false
+                scrollView.isScrollEnabled = false
+            }
+        }
+        
+        // Move it in!
+        self.paymentView.addSubview(dropInViewController.view)
+        self.addChildViewController(dropInViewController)
+        dropInViewController.didMove(toParentViewController: self)
+    }
     func createAlert() {
         // Complete the receipt.
         let appearance = SCLAlertView.SCLAppearance(
@@ -48,19 +77,15 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
             showCloseButton: false
             
         )
-        //        let alertView = SCLAlertView(appearance: appearance)
-        //        alertView.title = "Nice!"
-        //        alertVie
         let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("My Receipt", target:self, selector:Selector("showReceipt"))
+        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
         let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
-        //        alertView.showInfo("Nice!\n", subTitle: "This is a nice alert with a custom icon you choose", circleIconImage: alertViewIcon)
         alertView.showTitle(
-            "Nice!\n", // Title of view
-            subTitle: "\nYou're done with checkout.\n", // String of view
-            duration: 0.0, // Duration to show before closing automatically, default: 0.0
-            completeText: "See My Receipt", // Optional button value, default: ""
-            style: .success, // Styles - see below.
+            "Nice!\n",
+            subTitle: "\nYou're done with checkout.\n",
+            duration: 0.0,
+            completeText: "See My Receipt",
+            style: .success,
             colorStyle: 0x72BEB7,
             colorTextButton: 0xFFFFFF,
             circleIconImage: alertViewIcon
@@ -105,8 +130,32 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     private func setUpView() {
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         self.activityIndicator.center = self.view.center;
-        self.view.autoresizesSubviews = true
+        // self.view.autoresizesSubviews = true
         self.view.addSubview(self.activityIndicator)
+    }
+    // Only call after the view is ready to display or re-display.
+    private func modifyViewOnAppearance() {
+        // Change constraints if we can't checkout so payments take-up entire screen.
+        if !self.canCheckout {
+            self.infoView.isHidden = true
+            if self.paymentTopConstraint.isActive {
+                NSLayoutConstraint.deactivate([self.paymentTopConstraint])
+            }
+            if self.paymentTopTotalConstraint == nil || !self.paymentTopTotalConstraint!.isActive{
+                paymentTopTotalConstraint = NSLayoutConstraint(item: self.paymentView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+                NSLayoutConstraint.activate([self.paymentTopTotalConstraint!])
+            }
+        } else {
+            self.infoView.isHidden = false
+            if self.paymentTopTotalConstraint != nil && self.paymentTopTotalConstraint!.isActive {
+                NSLayoutConstraint.deactivate([self.paymentTopTotalConstraint!])
+            }
+            if !self.paymentTopConstraint.isActive {
+                NSLayoutConstraint.activate([self.paymentTopConstraint])
+            }
+        }
+        dropInViewController?.paymentRequest?.shouldHideCallToAction = !canCheckout
+        self.view.layoutIfNeeded()
     }
     
     private func setUpPayments() {
@@ -124,30 +173,29 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         }).resume()
     }
     
+    // Returns whether or not the view will display receipt information at the top.
     private func setPaymentInformation() {
-        if let receipt = User.currentUser?.current {
-            subTotalLabel.text = receipt.subTotalAsString
-            totalLabel.text = receipt.totalAsString
-            taxesLabel.text = receipt.taxAsString
-        }
         let store = Store.currentStore
         storeLabel.text = store.name
         storeLocationLabel.text = store.locationAsString
         store.setStoreImage(view: storeImage)
+        if let receipt = User.currentUser?.current {
+            subTotalLabel.text = receipt.subTotalAsString
+            totalLabel.text = receipt.totalAsString
+            taxesLabel.text = receipt.taxAsString
+            canCheckout =  receipt.subTotal > minimumRequiredForCheckout
+        }
     }
     
     private func paymentStarted(_ client: BTAPIClient) {
         // Create a BTDropInViewController
-        let dropInViewController = BTDropInViewController(apiClient: client)
+        self.dropInViewController = BTDropInViewController(apiClient: client)
+        guard let dropInViewController = dropInViewController else { return }
         dropInViewController.delegate = self
-        dropInViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        dropInViewController.view.tintColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
-        dropInViewController.view.frame = self.paymentView.bounds
+        dropInViewController.view.tintColor = Constants.themeColor
+        dropInViewController.paymentRequest?.shouldHideCallToAction = !canCheckout
         dropInViewController.fetchPaymentMethods(onCompletion: {
-            dropInViewController.view.frame = self.paymentView.bounds;
-            self.paymentView.addSubview(dropInViewController.view)
-            self.addChildViewController(dropInViewController)
-            dropInViewController.didMove(toParentViewController: self)
+            self.moveDropIn(dropInViewController)
             self.activityIndicator.stopAnimating()
         })
     }

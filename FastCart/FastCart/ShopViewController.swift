@@ -8,6 +8,7 @@
 
 import UIKit
 import TLYShyNavBar
+import SCLAlertView
 
 class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -17,10 +18,20 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    private var activityIndicator: UIActivityIndicatorView!
+    
+    // Maps the item index to the current variant image index.
+    private var variantIndexFor: [Int: Int] = [:]
+    
     var products = [Product]()
     var searchTerm = "dress"
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        // Add activitiy indicator.
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        self.activityIndicator.center = self.view.center;
+        self.view.addSubview(self.activityIndicator)
 
         // Do any additional setup after loading the view.
         collectionView.delegate = self
@@ -32,31 +43,29 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.title = "Shop"
         
         // flow layout stuff
-//        collectionView.setContentOffset(CGPoint(), animated: <#T##Bool#>)
-//        flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // perform network request
+        self.activityIndicator.startAnimating()
         WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", success: { (products: [Product]) in
-            // save product and present correct view
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
             // get additional information
-            for product in products {
+            for _ in products {
                 // get product related info images
             }
             
             self.products = products
+            self.activityIndicator.stopAnimating()
             self.collectionView.reloadData()
             
         }, failure: {(error: Error) -> () in
-            print(error.localizedDescription)
+            self.activityIndicator.stopAnimating()
+            Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
         
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
@@ -89,38 +98,42 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         if sender.state == .began {
             let velocity = sender.velocity(in: self.view)
-            if velocity.x > 0 {
-                print("swiped right")
-                guard cell.product.variantImages.count > 0 else {
-                    print("apparently no other images")
-                    return }
-                let originalX = cell.productImage.frame.origin.x
-                let originalY =  cell.productImage.frame.origin.y
-                if let variantImageUrl = cell.product.variantImages[0] as? URL {
-                    var toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
-                    var fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
-                    var movement = CABasicAnimation(keyPath: "movement")
-                    movement.isAdditive = true
-                    movement.fromValue =  NSValue(cgPoint: fromPoint)
-                    movement.toValue =  NSValue(cgPoint: toPoint)
-                    movement.duration = 0.3
-
-                    view.layer.add(movement, forKey: "move")
-                    cell.productImage.setImageWith(variantImageUrl)
-                    
-                        collectionView.reloadData()
-                } else {
-                    print("stuck getting here")
-                }
-            } else if velocity.x < 0 {
-                print("swiped left")
-                guard cell.product.variantImages.count > 0 else {return }
-                
-                if let variantImageUrl = cell.product.variantImages[0] as? URL {
-                    cell.productImage.setImageWith(variantImageUrl)
-                }
-
+            guard cell.product.variantImages.count > 0 else {
+                print("No other variant images")
+                return
             }
+            
+            // Not sure on the purpose of this code...
+            let originalX = cell.productImage.frame.origin.x
+            let originalY =  cell.productImage.frame.origin.y
+            let toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
+            let fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
+            let movement = CABasicAnimation(keyPath: "movement")
+            movement.isAdditive = true
+            movement.fromValue =  NSValue(cgPoint: fromPoint)
+            movement.toValue =  NSValue(cgPoint: toPoint)
+            movement.duration = 0.3
+            cell.contentView.layer.add(movement, forKey: "move")
+            
+            guard let item = collectionView.indexPath(for: cell)?.item else {
+                print("Invalid item in collection view")
+                return
+            }
+            var index = variantIndexFor[item] ?? 0
+            if velocity.x > 0 {
+                index = (index + 1) % cell.product.variantImages.count
+            } else if velocity.x < 0 {
+                if index > 0 {
+                    index = (index - 1) % cell.product.variantImages.count
+                } else {
+                    index = cell.product.variantImages.count - 1
+                }
+            }
+            print(index)
+            variantIndexFor[item] = index
+            let variantImageUrl = cell.product.variantImages[variantIndexFor[item]!] as URL
+            cell.productImage.image = nil
+            cell.productImage.setImageWith(variantImageUrl)
         }
         }
     }
@@ -135,14 +148,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.heartImage.addGestureRecognizer(tap)
         // add scroll target
         cell.heartImage.isUserInteractionEnabled = true
-        let swipe = UIPanGestureRecognizer(target: self, action: #selector(ShopViewController.handleSwipe))
+        let swipe = PanDirectionGestureRecognizer(direction:PanDirection.horizontal, target: self, action: #selector(ShopViewController.handleSwipe))
         cell.productImage.addGestureRecognizer(swipe)
         cell.productImage.isUserInteractionEnabled = true
         // no top border for first two
         // if it's even
         if indexPath.row % 2 == 1 {
             let borderWidth = CGFloat(1)
-            let x = cell.frame.origin.x
             
             let frame = CGRect(x: 0, y: 0, width: borderWidth, height: collectionView.contentSize.height)
             let border = UIView(frame: frame)
@@ -153,16 +165,20 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if indexPath.row != 0 && indexPath.row != 1 {
             // top border
             let borderWidth = CGFloat(1)
-            let y = cell.frame.origin.y
             let frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: borderWidth)
             let border = UIView(frame: frame)
             border.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             cell.addSubview(border)
         }
         
+        // Overwrite current image if the user has already swiped through them.
+        if let variantIndex = variantIndexFor[indexPath.item] {
+            cell.productImage.setImageWith(products[indexPath.row].variantImages[variantIndex] as URL)
+            
+        }
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         // set to 4 per grid
         return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.bounds.size.height / 2)
@@ -196,7 +212,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func loadMoreData() {
         let count = products.count
-        let newCount = String(count + 10)
         let startIndex = String(count + 1)
         WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: startIndex, success: {
              (products: [Product]) in
