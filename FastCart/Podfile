@@ -11,7 +11,8 @@ target 'FastCart' do
     pod 'FBSDKCoreKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
-    pod 'EVReflection'
+    # Modified to handle URLs.
+    pod 'EVReflection', :git => "https://github.com/Omnistyle/EVReflection.git"
     pod 'Parse'
     pod "MXParallaxHeader"
     # We've made modification to the code for our own uses.

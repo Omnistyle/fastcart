@@ -83,7 +83,7 @@ class Product: EVObject {
     var clearance: Bool?
     var specialBuy: Bool?
     var originalPrice: Double?
-    var variantImages = [URL]()
+    var variantImages = [NSURL]()
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -129,12 +129,12 @@ class Product: EVObject {
         let intArray = ids.map({(id: String) -> Int in
             return Int(id) ?? 0})
         let max = intArray.max()
-        let min = intArray.min()
+        _ = intArray.min()
         if let max = max {
         let use = String(describing: max)
         
             WalmartClient.sharedInstance.getVariantImage(id: use, success: {(image: URL) -> () in
-                self.variantImages.append(image)
+                self.variantImages.append(image as NSURL)
                 
             }, failure: {(error: Error) -> () in
                 print(error)
@@ -212,7 +212,7 @@ class Product: EVObject {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl)
+                        self.variantImages.append(imageUrl as NSURL)
                     }
                 }
             }
@@ -268,7 +268,7 @@ class Product: EVObject {
     override func propertyConverters() -> [(String?, ((Any?) -> ())?, (() -> Any?)?)] {
         return [
             ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
-            ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
+            ("addToCartUrl", { self.addToCartUrl = URL.fromJson(json: $0 as? String) }, { return self.addToCartUrl?.toJson() ?? "nil" }),
         ]
     }
     

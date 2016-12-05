@@ -656,8 +656,8 @@ final public class EVReflection {
                     return (NSNull(), valueType, false)
                 }
                 theValue = mi.children.first?.value ?? theValue
-                let (val, _, _) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
-                return (val, valueType, false)
+                let (val, _, isObject) =  valueForAnyDetail(parentObject, key: key, theValue: theValue, valueType: valueType)
+                return (val, valueType, isObject)
             } else {
                 theValue = "\(theValue)"
             }
@@ -773,8 +773,14 @@ final public class EVReflection {
         if theValue is UUID {
             return ((theValue as! UUID).uuidString as AnyObject, "NSString", false)
         }
+        if theValue is Array<NSURL> {
+            return ((theValue as! Array<NSURL>) as AnyObject, valueType, false)
+        }
         if theValue is Array<Any> {
             return ((theValue as! Array<Any>) as AnyObject, valueType, false)
+        }
+        if !(theValue is URL) && theValue is NSURL {
+            return ((theValue as! NSURL) as AnyObject, valueType, false)
         }
         if theValue is EVReflectable && theValue is NSObject {
             if valueType.contains("<") {
@@ -1375,6 +1381,8 @@ final public class EVReflection {
             return stringValue
         case let numberValue as NSNumber:
             return numberValue
+        case let urlValue as NSURL:
+            return urlValue.absoluteString! as NSString
         case let nullValue as NSNull:
             return nullValue
         case let arrayValue as NSArray:

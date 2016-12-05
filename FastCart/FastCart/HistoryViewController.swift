@@ -31,10 +31,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let user = User.currentUser {
              Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
-                if recps != nil {
-                
-                    self.receipts = recps
-                }
+                self.receipts = recps
             })
         }
     }

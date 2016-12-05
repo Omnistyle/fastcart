@@ -92,7 +92,7 @@ class TabViewController: UIViewController {
 //            buttons[selectedIndex].setTitleColor(UIColor.darkGray, for: .normal)
 //            buttons[1].setTitleColor(UIColor.lightGray, for: .normal)
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                if let center = self.underlineOriginalCenter {
+                if self.underlineOriginalCenter != nil {
                     
                     let width = self.view.frame.size.width
                     self.underline.center.x = width / 4.0
