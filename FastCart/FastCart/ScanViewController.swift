@@ -18,6 +18,8 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
     private var scanController: BarcodeScannerController!
     
     override func viewDidLoad() {
+        // On first launch, hide with no animation!
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         scanController = createScanner()
         // If camera is available, push the scanner. Otherwise display default.
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -26,6 +28,7 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         fakeScanButton.isEnabled = true
     }
     
@@ -60,9 +63,10 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             
             // Present product modally.
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsWithScrollViewController") as! ProductDetailsViewController
-            productDetailsViewController.product = products[0]
+            let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
             productDetailsViewController.hidesBottomBarWhenPushed = true
+            productDetailsViewController.product = products[0]
+    
             self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         }, failure: {(error: Error) -> () in
             controller?.resetWithError(message: "UPC: \(code) not found!")
