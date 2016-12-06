@@ -784,16 +784,16 @@
                         <viewControllerLayoutGuide type="top" id="ODZ-Ni-jD0"/>
                         <viewControllerLayoutGuide type="bottom" id="9BB-mY-4pQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Cyx-Xx-CGo">
+                    <view key="view" contentMode="scaleToFill" id="Cyx-Xx-CGo">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxz-ex-h9N" userLabel="PaymentsView">
-                                <rect key="frame" x="0.0" y="206" width="320" height="225"/>
+                                <rect key="frame" x="0.0" y="206" width="320" height="161"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50h-Jc-Kb8">
-                                <rect key="frame" x="16" y="27" width="288" height="179"/>
+                                <rect key="frame" x="8" y="27" width="304" height="179"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-wz-ESw">
                                         <rect key="frame" x="8" y="16" width="82" height="26"/>
@@ -847,14 +847,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UYL-4H-gAi">
-                                        <rect key="frame" x="152" y="17" width="43" height="43"/>
+                                        <rect key="frame" x="160" y="17" width="43" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="Ixg-pm-Hxr"/>
                                             <constraint firstAttribute="width" constant="43" id="zbV-ey-fSy"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moutain View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6F-a6-3Tu">
-                                        <rect key="frame" x="203.5" y="42" width="80" height="21"/>
+                                        <rect key="frame" x="211" y="42" width="80" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="bwo-FZ-ria"/>
                                         </constraints>
@@ -869,7 +869,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walmart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sa5-Us-mQ7">
-                                        <rect key="frame" x="203.5" y="21" width="64" height="21"/>
+                                        <rect key="frame" x="211" y="21" width="64" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="J8I-8H-wGH"/>
                                         </constraints>
@@ -907,13 +907,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Qxz-ex-h9N" secondAttribute="trailing" id="2Qe-TF-lwI"/>
                             <constraint firstItem="50h-Jc-Kb8" firstAttribute="top" secondItem="ODZ-Ni-jD0" secondAttribute="bottom" constant="27" id="3aA-C1-LMt"/>
                             <constraint firstItem="Qxz-ex-h9N" firstAttribute="top" secondItem="50h-Jc-Kb8" secondAttribute="bottom" id="9hH-0o-bsH"/>
-                            <constraint firstItem="Qxz-ex-h9N" firstAttribute="leading" secondItem="Cyx-Xx-CGo" secondAttribute="leading" id="LXf-CN-aed"/>
-                            <constraint firstItem="50h-Jc-Kb8" firstAttribute="trailing" secondItem="Cyx-Xx-CGo" secondAttribute="trailingMargin" id="UjS-JG-I7O"/>
-                            <constraint firstItem="50h-Jc-Kb8" firstAttribute="leading" secondItem="Cyx-Xx-CGo" secondAttribute="leadingMargin" id="kv6-ej-fYl"/>
+                            <constraint firstAttribute="trailing" secondItem="50h-Jc-Kb8" secondAttribute="trailing" constant="8" id="TSS-5j-s3k"/>
+                            <constraint firstItem="Qxz-ex-h9N" firstAttribute="leading" secondItem="Cyx-Xx-CGo" secondAttribute="leading" id="b59-2x-3sr"/>
+                            <constraint firstAttribute="trailing" secondItem="Qxz-ex-h9N" secondAttribute="trailing" id="jKQ-4I-Bju"/>
                             <constraint firstItem="9BB-mY-4pQ" firstAttribute="top" secondItem="Qxz-ex-h9N" secondAttribute="bottom" id="l7k-aO-8Ep"/>
+                            <constraint firstItem="50h-Jc-Kb8" firstAttribute="leading" secondItem="Cyx-Xx-CGo" secondAttribute="leading" constant="8" id="mQ8-du-f3o"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
@@ -932,7 +932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lk6-WI-Vvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="1384.8575712143929"/>
+            <point key="canvasLocation" x="2210.625" y="1383.75"/>
         </scene>
         <!--Profile-->
         <scene sceneID="hhl-Zg-eTQ">

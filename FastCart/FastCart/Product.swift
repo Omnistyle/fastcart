@@ -265,6 +265,8 @@ class Product: EVObject {
             salePrice = value as? Double
         case "originalPrice":
             originalPrice = value as? Double
+        case "ratingImage":
+            ratingImage = value as? URL
         case "formatter":
             // Nothing to do, skip.
             break
