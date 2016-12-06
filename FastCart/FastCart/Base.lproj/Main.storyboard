@@ -1067,6 +1067,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xnc-in-L5a" userLabel="ScrollView">
                                 <rect key="frame" x="0.0" y="20" width="320" height="419"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKS-Ct-R3E" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
+                                        <rect key="frame" x="34" y="30" width="252" height="265"/>
+                                        <color key="backgroundColor" red="0.84696626659999996" green="0.84711211919999996" blue="0.84695702790000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="kKS-Ct-R3E" secondAttribute="height" multiplier="252:265" id="VZu-eX-5yK"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-uF-zv6">
                                         <rect key="frame" x="0.0" y="303" width="320" height="104"/>
                                         <subviews>
@@ -1110,20 +1117,14 @@
                                             <constraint firstItem="9xh-pm-Hp1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qp7-uF-zv6" secondAttribute="leading" constant="12" id="Z6N-dM-PjD"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="edH-tH-vQH">
-                                        <rect key="frame" x="52.5" y="30" width="216" height="263"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="edH-tH-vQH" secondAttribute="height" multiplier="68:83" id="unL-AE-B7c"/>
-                                        </constraints>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="edH-tH-vQH" firstAttribute="centerX" secondItem="xnc-in-L5a" secondAttribute="centerX" id="2ki-1C-zGf"/>
+                                    <constraint firstItem="Qp7-uF-zv6" firstAttribute="top" secondItem="kKS-Ct-R3E" secondAttribute="bottom" constant="8" id="6Sw-0W-PT3"/>
                                     <constraint firstItem="Qp7-uF-zv6" firstAttribute="leading" secondItem="xnc-in-L5a" secondAttribute="leading" id="ABa-nK-r8n"/>
-                                    <constraint firstItem="Qp7-uF-zv6" firstAttribute="top" secondItem="edH-tH-vQH" secondAttribute="bottom" constant="10" id="M9P-Hg-zEI"/>
+                                    <constraint firstItem="kKS-Ct-R3E" firstAttribute="centerX" secondItem="xnc-in-L5a" secondAttribute="centerX" id="PZk-9Q-aoh"/>
+                                    <constraint firstItem="kKS-Ct-R3E" firstAttribute="top" secondItem="xnc-in-L5a" secondAttribute="top" constant="30" id="U8e-BU-GGg"/>
                                     <constraint firstAttribute="trailing" secondItem="Qp7-uF-zv6" secondAttribute="trailing" id="Vg5-KY-gaz"/>
-                                    <constraint firstItem="edH-tH-vQH" firstAttribute="top" secondItem="xnc-in-L5a" secondAttribute="top" constant="30" id="nNc-7b-brq"/>
                                     <constraint firstAttribute="bottom" secondItem="Qp7-uF-zv6" secondAttribute="bottom" constant="12" id="uKO-P1-mch"/>
                                 </constraints>
                             </view>
@@ -1133,7 +1134,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OED-nN-yz4">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="45"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.92941176470588238" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Cancel">
+                                        <state key="normal" title="No Thanks">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1184,14 +1185,14 @@
                         <outlet property="fixedView" destination="blh-6v-sjb" id="Ejd-Z7-8H7"/>
                         <outlet property="nameLabel" destination="9xh-pm-Hp1" id="5DW-F1-KkK"/>
                         <outlet property="priceLabel" destination="MUo-MC-lsA" id="ZrP-kf-FDh"/>
-                        <outlet property="productImageView" destination="edH-tH-vQH" id="mMb-GN-t1s"/>
+                        <outlet property="productScrollView" destination="kKS-Ct-R3E" id="Bzi-97-lZ2"/>
                         <outlet property="ratingsLabel" destination="c9P-Qw-QQF" id="ne9-oG-Sre"/>
                         <outlet property="reviewsImageView" destination="S4s-eT-BBX" id="RNd-K6-yvU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kg6-cC-eBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3594.375" y="24.295774647887324"/>
+            <point key="canvasLocation" x="3594.375" y="23.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OYa-5h-onR">

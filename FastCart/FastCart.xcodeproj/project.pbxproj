@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DD3231DF684760075F2E1 /* ImageScrollView.swift */; };
 		102D9C111DE147BF00E8232A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D9C101DE147BF00E8232A /* Utilities.swift */; };
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		101DD3231DF684760075F2E1 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		102D9C101DE147BF00E8232A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */,
 				7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */,
 				22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */,
+				101DD3231DF684760075F2E1 /* ImageScrollView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				103215931DD2DBDA00186704 /* User.swift in Sources */,
 				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,
 				1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */,
+				101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */,
 				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
 				1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */,
 			);

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ProductDetailsViewController: UIViewController {
+class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet weak var productScrollView: ImageScrollView!
     
     var product: Product!
     
@@ -20,28 +20,36 @@ class ProductDetailsViewController: UIViewController {
     
     @IBOutlet weak var reviewsImageView: UIImageView!
     
-
     private var wasNavHidden: Bool!
     
     @IBOutlet weak var fixedView: UIView!
     
     override func viewDidLoad() {        
         super.viewDidLoad()
+        
+        // Set-up the scrollable image.
+        self.productScrollView.datasource = self
+        self.productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
+        self.productScrollView.show()
+        
         wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.setHidesBackButton(false, animated: false)
         
         display(product: product)
+        
+        
+        // Add reviews.
         fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
-        // Start the animation
         UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
             self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
         
         }, completion: nil)
         
         
+        // Reviews image.
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
@@ -62,7 +70,14 @@ class ProductDetailsViewController: UIViewController {
         if let ratingUrl = product.ratingImage {
             reviewsImageView.setImageWith(ratingUrl)
         }
-        product.setProductImage(view: productImageView)
+    }
+    
+    /** MARK - DTImageScrollViewDataSource */
+    func numberOfImages() -> Int {
+        return product.variantImages.count
+    }
+    func imageURL(index: Int) -> URL {
+        return product.variantImages[index] as URL
     }
 
     @IBAction func onAddButton(_ sender: UIButton) {
