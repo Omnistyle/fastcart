@@ -48,7 +48,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         loadingView.startAnimating()
         WalmartClient.sharedInstance.getReviewsFromProduct(itemId: itemId, success: { (reviews:[Review]) in
             self.reviews = reviews
-            self.loadingView.startAnimating()
+            self.loadingView.stopAnimating()
             self.reviewsTable.reloadData()
         }, failure: {(error: Error) -> () in
             self.loadingView.stopAnimating()
