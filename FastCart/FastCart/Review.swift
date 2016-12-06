@@ -36,10 +36,8 @@ class Review: EVObject {
         }
         
         let overallRating = dictionary["overallRating"] as! NSDictionary
-        if overallRating != nil {
-            //var stringRating = overallRating["rating"] as! String
-            rating = Int(overallRating["rating"] as! String)
-        }
+        //var stringRating = overallRating["rating"] as! String
+        rating = Int(overallRating["rating"] as! String)
         
     }
     

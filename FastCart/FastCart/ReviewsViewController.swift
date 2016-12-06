@@ -45,13 +45,8 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         })
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if self.reviews != nil {
-            return self.reviews.count
-        } else {
-            return 0
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.reviews.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

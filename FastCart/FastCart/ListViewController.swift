@@ -163,7 +163,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // checkout button
     
     @IBAction func onCheckoutButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // check to see if there are unscanned products
         for product in products {
             // check to see if there are unscanned products
