@@ -69,7 +69,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func handleTap(sender: UITapGestureRecognizer) {
         if let image = sender.view as? UIImageView {
-            let cell = image.superview!.superview as! ProductOverviewCell
+            let cell = image.superview!.superview?.superview as! ProductOverviewCell
             if cell.heartImage.image == #imageLiteral(resourceName: "heart") {
                 cell.heartImage.image = #imageLiteral(resourceName: "heart_filled")
             } else {
@@ -91,7 +91,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func handleSwipe(sender: UIPanGestureRecognizer) {
         if let image = sender.view as? UIImageView {
-            let cell = image.superview?.superview as! ProductOverviewCell
+            let cell = image.superview?.superview?.superview as! ProductOverviewCell
             
         if sender.state == .began {
             let velocity = sender.velocity(in: self.view)
@@ -99,19 +99,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 print("No other variant images")
                 return
             }
-            
-            // Not sure on the purpose of this code...
-            let originalX = cell.productImage.frame.origin.x
-            let originalY =  cell.productImage.frame.origin.y
-            let toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
-            let fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
-            let movement = CABasicAnimation(keyPath: "movement")
-            movement.isAdditive = true
-            movement.fromValue =  NSValue(cgPoint: fromPoint)
-            movement.toValue =  NSValue(cgPoint: toPoint)
-            movement.duration = 0.3
-            cell.contentView.layer.add(movement, forKey: "move")
-            
+        
             guard let item = collectionView.indexPath(for: cell)?.item else {
                 print("Invalid item in collection view")
                 return
@@ -173,12 +161,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.productImage.setImageWith(products[indexPath.row].variantImages[variantIndex] as URL)
             
         }
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // set to 4 per grid
-        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.bounds.size.height / 2)
+        // Sets to 4 per screen.
+        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.frame.size.height / 2 - 0.5)
        
     }
     
