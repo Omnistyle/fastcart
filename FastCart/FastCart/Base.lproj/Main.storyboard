@@ -64,12 +64,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alk-3S-FTn">
                                                     <rect key="frame" x="0.0" y="0.0" width="155" height="206"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QGd-3t-LBF">
-                                                            <rect key="frame" x="22" y="26" width="109" height="117"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJT-p7-eTC" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
+                                                            <rect key="frame" x="21" y="32" width="114" height="111"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <gestureRecognizers/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="QGd-3t-LBF" secondAttribute="height" multiplier="34:41" constant="11.975609756097569" id="Z7t-WI-9aH"/>
+                                                                <constraint firstAttribute="width" secondItem="gJT-p7-eTC" secondAttribute="height" multiplier="38:37" id="Igj-zb-Z17"/>
                                                             </constraints>
-                                                        </imageView>
+                                                        </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="6lz-T7-XMk">
                                                             <rect key="frame" x="131" y="4" width="20" height="20"/>
                                                             <constraints>
@@ -97,12 +99,12 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="6lz-T7-XMk" secondAttribute="trailing" constant="4" id="1N2-rA-YxY"/>
                                                         <constraint firstAttribute="trailing" secondItem="eZ7-xE-15W" secondAttribute="trailing" constant="8" id="27o-Za-iIY"/>
+                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="32" id="2Av-Z0-KVa"/>
                                                         <constraint firstItem="eZ7-xE-15W" firstAttribute="leading" secondItem="alk-3S-FTn" secondAttribute="leading" constant="8" id="B9S-xn-m3j"/>
+                                                        <constraint firstItem="eZ7-xE-15W" firstAttribute="top" secondItem="gJT-p7-eTC" secondAttribute="bottom" constant="8" id="Fp5-pe-NKB"/>
                                                         <constraint firstItem="Pbg-ud-YgW" firstAttribute="top" secondItem="eZ7-xE-15W" secondAttribute="bottom" constant="6.5" id="HVq-dS-IMi"/>
                                                         <constraint firstItem="6lz-T7-XMk" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="4" id="Kfl-Hq-YMk"/>
-                                                        <constraint firstItem="QGd-3t-LBF" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" constant="-1" id="T11-9Q-E4A"/>
-                                                        <constraint firstItem="eZ7-xE-15W" firstAttribute="top" secondItem="QGd-3t-LBF" secondAttribute="bottom" constant="8" id="Xci-as-hxW"/>
-                                                        <constraint firstItem="QGd-3t-LBF" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="26" id="a9w-Ej-hbv"/>
+                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" id="iBH-y7-ebE"/>
                                                         <constraint firstAttribute="bottom" secondItem="Pbg-ud-YgW" secondAttribute="bottom" constant="8" id="qS8-ea-sjm"/>
                                                         <constraint firstItem="Pbg-ud-YgW" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" id="yHI-CN-vVd"/>
                                                     </constraints>
@@ -121,7 +123,7 @@
                                             <outlet property="heartImage" destination="6lz-T7-XMk" id="egB-nT-PSu"/>
                                             <outlet property="nameLabel" destination="eZ7-xE-15W" id="m1d-Ca-Ayx"/>
                                             <outlet property="priceLabel" destination="Pbg-ud-YgW" id="We8-Ry-1qQ"/>
-                                            <outlet property="productImage" destination="QGd-3t-LBF" id="E7I-yj-DXn"/>
+                                            <outlet property="productScrollView" destination="gJT-p7-eTC" id="nch-vK-pc9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -777,21 +779,21 @@
         <!--Payments-->
         <scene sceneID="wea-9g-6bV">
             <objects>
-                <viewController id="gVO-e0-TW2" customClass="PaymentsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gVO-e0-TW2" customClass="PaymentsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ODZ-Ni-jD0"/>
                         <viewControllerLayoutGuide type="bottom" id="9BB-mY-4pQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Cyx-Xx-CGo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Cyx-Xx-CGo">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxz-ex-h9N" userLabel="PaymentsView">
-                                <rect key="frame" x="0.0" y="270" width="320" height="161"/>
+                                <rect key="frame" x="0.0" y="206" width="320" height="225"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50h-Jc-Kb8">
-                                <rect key="frame" x="16" y="91" width="288" height="179"/>
+                                <rect key="frame" x="16" y="27" width="288" height="179"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-wz-ESw">
                                         <rect key="frame" x="8" y="16" width="82" height="26"/>
@@ -914,6 +916,7 @@
                             <constraint firstItem="9BB-mY-4pQ" firstAttribute="top" secondItem="Qxz-ex-h9N" secondAttribute="bottom" id="l7k-aO-8Ep"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Payments" id="cCB-cw-fSD"/>
                     <connections>
                         <outlet property="infoView" destination="50h-Jc-Kb8" id="9hR-Eu-98d"/>
@@ -1055,7 +1058,7 @@
         <!--Product-->
         <scene sceneID="r3B-y1-Q8d">
             <objects>
-                <viewController storyboardIdentifier="ProductDetailsViewController" id="rTI-8S-4da" customClass="ProductDetailsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductDetailsViewController" automaticallyAdjustsScrollViewInsets="NO" id="rTI-8S-4da" customClass="ProductDetailsViewController" customModule="FastCart" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1cv-4t-0ko"/>
                         <viewControllerLayoutGuide type="bottom" id="XJv-xw-yvm"/>

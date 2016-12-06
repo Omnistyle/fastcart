@@ -33,7 +33,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         self.productScrollView.show()
         
         wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -59,6 +59,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let reviewsViewController = storyboard.instantiateViewController(withIdentifier: "ReviewsViewController") as! ReviewsViewController
         reviewsViewController.itemId = (product.idFromStore)!
+        self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
     

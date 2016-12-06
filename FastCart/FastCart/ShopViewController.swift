@@ -10,7 +10,7 @@ import UIKit
 import TLYShyNavBar
 import SCLAlertView
 
-class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate {
     
     var store : Store?
     
@@ -88,39 +88,10 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
 
     }
-    
-    func handleSwipe(sender: UIPanGestureRecognizer) {
-        if let image = sender.view as? UIImageView {
-            let cell = image.superview?.superview?.superview as! ProductOverviewCell
-            
-        if sender.state == .began {
-            let velocity = sender.velocity(in: self.view)
-            guard cell.product.variantImages.count > 0 else {
-                print("No other variant images")
-                return
-            }
-        
-            guard let item = collectionView.indexPath(for: cell)?.item else {
-                print("Invalid item in collection view")
-                return
-            }
-            var index = variantIndexFor[item] ?? 0
-            if velocity.x > 0 {
-                index = (index + 1) % cell.product.variantImages.count
-            } else if velocity.x < 0 {
-                if index > 0 {
-                    index = (index - 1) % cell.product.variantImages.count
-                } else {
-                    index = cell.product.variantImages.count - 1
-                }
-            }
-            print(index)
-            variantIndexFor[item] = index
-            let variantImageUrl = cell.product.variantImages[variantIndexFor[item]!] as URL
-            cell.productImage.image = nil
-            cell.productImage.setImageWith(variantImageUrl)
-        }
-        }
+    func handleCellTap(sender: UITapGestureRecognizer) {
+        let cell = sender.view?.superview?.superview?.superview as! ProductOverviewCell
+        let indexPath = collectionView.indexPath(for: cell)!
+        collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,13 +100,14 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // add tap target
         let tap = UITapGestureRecognizer(target: self, action: #selector(ShopViewController.handleTap))
-        //        tapGestureRecognizer.addTarget(self, action:#selector(TweetsViewController.profileTapGestureRecognizer as (TweetsViewController) -> () -> ()))
         cell.heartImage.addGestureRecognizer(tap)
         // add scroll target
         cell.heartImage.isUserInteractionEnabled = true
-        let swipe = PanDirectionGestureRecognizer(direction:PanDirection.horizontal, target: self, action: #selector(ShopViewController.handleSwipe))
-        cell.productImage.addGestureRecognizer(swipe)
-        cell.productImage.isUserInteractionEnabled = true
+        
+        // Add tap target to image.
+        let cellTap = UITapGestureRecognizer(target: self, action: #selector(ShopViewController.handleCellTap))
+        cell.productScrollView.addGestureRecognizer(cellTap)
+        
         // no top border for first two
         // if it's even
         if indexPath.row % 2 == 1 {
@@ -158,9 +130,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // Overwrite current image if the user has already swiped through them.
         if let variantIndex = variantIndexFor[indexPath.item] {
-            cell.productImage.setImageWith(products[indexPath.row].variantImages[variantIndex] as URL)
-            
+            cell.imageIndex = variantIndex
         }
+        
         
         return cell
     }
@@ -179,6 +151,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         
+    }
+    
+    // MARK: - ScrollCellDelegate 
+    func didSelectIndexForCell(cell: UICollectionViewCell, index: Int) {
+        if let item = collectionView.indexPath(for: cell)?.item {
+            variantIndexFor[item] = index
+        }
     }
 
     /*

@@ -30,7 +30,9 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
     open let pageControl = UIPageControl()
     open var placeholderImage: UIImage?
     
-    open weak var datasource: ImageScrollViewDataSource?
+    open weak var datasource: ImageScrollViewDataSource!
+    
+    open var initialPage: Int = 0
     
     open func show() {
         setup()
@@ -48,11 +50,15 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view":self.scrollView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view":self.scrollView]))
         
-        // add page control
-        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.pageControl)
-        self.addConstraint(NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: self.pageControl, attribute: .centerX, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: self.pageControl, attribute: .bottom, multiplier: 1, constant: 0))
+        // add page control only if more than one image!
+        if self.datasource.numberOfImages() > 1 {
+            self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+            self.pageControl.currentPageIndicatorTintColor = UIColor.darkGray
+            self.pageControl.pageIndicatorTintColor = UIColor.lightGray
+            self.addSubview(self.pageControl)
+            self.addConstraint(NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: self.pageControl, attribute: .left, multiplier: 1, constant: 0))
+            self.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: self.pageControl, attribute: .bottom, multiplier: 1, constant: 0))
+        }
         
         // add photos
         reloadPhotos()
@@ -65,14 +71,13 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
         }
         
         // add photos to scrollView
-        for index in 0..<self.datasource!.numberOfImages() {
+        for index in 0..<self.datasource.numberOfImages() {
             let imageView = UIImageView()
             imageView.tag = index+1
-            imageView.image = self.placeholderImage
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            Utilities.updateImageView(imageView, withAsset: URLRequest(url: self.datasource!.imageURL(index: index)), withPreview: nil, withPlaceholder: self.placeholderImage)
+            Utilities.updateImageView(imageView, withAsset: URLRequest(url: self.datasource.imageURL(index: index)), withPreview: nil, withPlaceholder: self.placeholderImage)
             self.scrollView.addSubview(imageView)
             
             // add constraints
@@ -87,20 +92,21 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
             if index == 0 {
                 // left to scrollview
                 self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .left, relatedBy: .equal, toItem: imageView, attribute: .left, multiplier: 1, constant: 0))
-            } else {
+            }
+            if index > 0 {
                 // left to right of previous view
                 let previouseImageView = self.viewWithTag(index)!
                 self.scrollView.addConstraint(NSLayoutConstraint(item: previouseImageView, attribute: .right, relatedBy: .equal, toItem: imageView, attribute: .left, multiplier: 1, constant: 0))
             }
-            if index == self.datasource!.numberOfImages() - 1 {
+            if index == self.datasource.numberOfImages() - 1 {
                 // right to scrollview
                 self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .right, relatedBy: .equal, toItem: imageView, attribute: .right, multiplier: 1, constant: 0))
             }
         }
         
         // update page control
-        self.pageControl.numberOfPages = self.datasource!.numberOfImages()
-        self.pageControl.currentPage = 0
+        self.pageControl.numberOfPages = self.datasource.numberOfImages()
+        self.pageControl.currentPage = self.initialPage
         
     }
     
