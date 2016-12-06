@@ -195,7 +195,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if (!isMoreDataLoading) {
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = collectionView.contentSize.height
-            let scrollOffsetThreshold = scrollViewContentHeight - 2 * collectionView.bounds.size.height
+            let scrollOffsetThreshold = scrollViewContentHeight - collectionView.bounds.size.height - collectionView.bounds.size.height / 2
             
             // When the user has scrolled past the threshold, start requesting
             if(scrollView.contentOffset.y > scrollOffsetThreshold && collectionView.isDragging) {
