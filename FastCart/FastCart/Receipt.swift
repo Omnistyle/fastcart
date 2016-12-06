@@ -143,11 +143,11 @@ class Receipt: EVObject {
         for rawRecpt in rawReceipts{
             let receipt = ReceiptDeserialization(rawRecepit: rawRecpt)
             
-            _ = Product.getProducts(receiptId: receipt.id!, completion: { (products:[Product]) in
-                for product in products {
-                    receipt.products.append(product)
-                }
-            })
+//            _ = Product.getProducts(receiptId: receipt.id!, completion: { (products:[Product]) in
+//                for product in products {
+//                    receipt.products.append(product)
+//                }
+//            })
             
             receipts.append(receipt)
         }

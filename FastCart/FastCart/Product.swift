@@ -350,10 +350,14 @@ class Product: EVObject {
     
     static private func ProductDeserialization(rawProduct : PFObject) -> Product{
         let product = Product()
-        product.receiptId = rawProduct["receiptId"] as! String?
+        product.receiptId = rawProduct["receipId"] as! String?
         product.upc = rawProduct["upc"] as! String?
         product.name = rawProduct["name"] as! String?
-        product.image = rawProduct["imageUrl"] as! URL?
+        
+        if let stringUrl = rawProduct["imageUrl"] as! String? {
+            product.image = URL(string: stringUrl)
+        }
+        
         product.salePrice = rawProduct["salePrice"] as! Double?
         product.brandName = rawProduct["brandName"] as! String?
         product.averageRating = rawProduct["averageRating"] as! String?
@@ -378,7 +382,7 @@ class Product: EVObject {
     
     static func getProducts(receiptId: String, completion: @escaping (_ result: [Product]) -> Void) {
         let query = PFQuery(className: "Product")
-        query.whereKey("productId", equalTo: receiptId)
+            query.whereKey("receipId", equalTo: receiptId)
         
         _ = query.findObjectsInBackground{
             (producPFPbjects: [PFObject]?, error: Error?) -> Void in
