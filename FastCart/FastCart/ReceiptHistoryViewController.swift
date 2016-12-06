@@ -73,11 +73,7 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if self.products != nil {
-            return self.products.count
-        } else {
-            return 0
-        }
+        return self.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
