@@ -19,6 +19,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     private var activityIndicator: UIActivityIndicatorView!
+    private var isMoreDataLoading = false
     
     // Maps the item index to the current variant image index.
     private var variantIndexFor: [Int: Int] = [:]
@@ -169,8 +170,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Pass the selected object to the new view controller.
     }
     */
-    var isMoreDataLoading = false
     
+    // MARK: - UIScrollView
     func loadMoreData() {
         let count = products.count
         let startIndex = String(count + 1)
@@ -180,14 +181,32 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.products = self.products + products
                 self.collectionView.reloadData()
                 self.isMoreDataLoading = false
-                // Stop the loading indicator
-//                self.loadingMoreView!.stopAnimating()
+                //Stop the loading indicator
+                self.activityIndicator.stopAnimating()
             
             
             
         }, failure: {(error: Error) -> () in
             print(error.localizedDescription)
         })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = collectionView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - 2 * collectionView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && collectionView.isDragging) {
+                isMoreDataLoading = true
+                
+                self.activityIndicator.startAnimating()
+                
+                // Code to load more results
+                loadMoreData()
+            }
+        }
     }
 
 }

@@ -265,8 +265,6 @@ class Product: EVObject {
             salePrice = value as? Double
         case "originalPrice":
             originalPrice = value as? Double
-        case "ratingImage":
-            ratingImage = value as? URL
         case "formatter":
             // Nothing to do, skip.
             break
@@ -279,6 +277,7 @@ class Product: EVObject {
         return [
             ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
             ("addToCartUrl", { self.addToCartUrl = URL.fromJson(json: $0 as? String) }, { return self.addToCartUrl?.toJson() ?? "nil" }),
+            ("ratingImage", { self.ratingImage = URL.fromJson(json: $0 as? String) }, { return self.ratingImage?.toJson() ?? "nil" }),
         ]
     }
     
