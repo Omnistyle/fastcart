@@ -63,6 +63,7 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
         WalmartClient.sharedInstance.getProductWithUPC(upc: code, success: { (products: [Product]) in
             guard products.count > 0 else {
                 Utilities.presentErrorAlert(title: "No Products", message: "Could not find product for code \(code).")
+                controller?.resetWithError(message: "No products for UPC: \(code)!")
                 return
             }
             
@@ -71,10 +72,10 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
             productDetailsViewController.hidesBottomBarWhenPushed = true
             productDetailsViewController.product = products[0]
-    
             self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+            controller?.reset()
         }, failure: {(error: Error) -> () in
-            controller?.resetWithError(message: "UPC: \(code) not found!")
+            controller?.resetWithError(message: "UPC: \(code) not found or network error!")
         })
     }
     

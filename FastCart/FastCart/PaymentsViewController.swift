@@ -52,6 +52,11 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     
+        // We don't hide the view controller under the bar, so we set the UIColor
+        // to white.
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.isOpaque = false
+        
         self.setPaymentInformation()
         self.modifyViewOnAppearance()
     }
@@ -72,39 +77,24 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
     func createAlert() {
         // Complete the receipt.
-//        let appearance = SCLAlertView.SCLAppearance(
-//            kCircleIconHeight: 40.0,
-//            showCloseButton: false
-//            
-//        )
         let appearance = SCLAlertView.SCLAppearance(
             kCircleIconHeight: 40.0,
-            showCloseButton: true
+            showCloseButton: false
             
         )
         let alertView = SCLAlertView(appearance: appearance)
-//        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
+        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
         let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
         alertView.showTitle(
-            "Oops!\n",
-            subTitle: "\nWe're still in beta. We'll let you know as soon as its ready.\n",
+            "Nice!\n",
+            subTitle: "\nYou're done with checkout.\n",
             duration: 0.0,
-            completeText: "Done",
+            completeText: "See My Receipt",
             style: .success,
             colorStyle: 0x72BEB7,
             colorTextButton: 0xFFFFFF,
             circleIconImage: alertViewIcon
         )
-//        alertView.showTitle(
-//            "Nice!\n",
-//            subTitle: "\nYou're done with checkout.\n",
-//            duration: 0.0,
-//            completeText: "See My Receipt",
-//            style: .success,
-//            colorStyle: 0x72BEB7,
-//            colorTextButton: 0xFFFFFF,
-//            circleIconImage: alertViewIcon
-//        )
     }
     func showReceipt() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

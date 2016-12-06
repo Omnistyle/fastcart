@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ProductDetailsViewController: UIViewController {
+class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet weak var productScrollView: ImageScrollView!
     
     var product: Product!
     
@@ -20,36 +20,47 @@ class ProductDetailsViewController: UIViewController {
     
     @IBOutlet weak var reviewsImageView: UIImageView!
     
-
     private var wasNavHidden: Bool!
     
     @IBOutlet weak var fixedView: UIView!
     
     override func viewDidLoad() {        
         super.viewDidLoad()
+        
+        // Set-up the scrollable image.
+        self.productScrollView.datasource = self
+        self.productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
+        self.productScrollView.show()
+        
         wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.setHidesBackButton(false, animated: false)
         
         display(product: product)
+        
+        
+        // Add reviews.
         fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
-        // Start the animation
         UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
             self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
         
         }, completion: nil)
         
         
+        // Reviews image.
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
     }
 
     func onTapReviews(){
-        print("navigating to reviews")
-        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reviewsViewController = storyboard.instantiateViewController(withIdentifier: "ReviewsViewController") as! ReviewsViewController
+        reviewsViewController.itemId = (product.idFromStore)!
+        self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
+        self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
     
     /** set the information for this controller */
@@ -60,7 +71,14 @@ class ProductDetailsViewController: UIViewController {
         if let ratingUrl = product.ratingImage {
             reviewsImageView.setImageWith(ratingUrl)
         }
-        product.setProductImage(view: productImageView)
+    }
+    
+    /** MARK - DTImageScrollViewDataSource */
+    func numberOfImages() -> Int {
+        return product.variantImages.count
+    }
+    func imageURL(index: Int) -> URL {
+        return product.variantImages[index] as URL
     }
 
     @IBAction func onAddButton(_ sender: UIButton) {
@@ -74,30 +92,4 @@ class ProductDetailsViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
         let _ = self.navigationController?.popViewController(animated: true)
     }
-
-//    @IBAction func onSeeReviews(_ sender: Any) {
-//        print("navigating to reviews")
-//        self.performSegue(withIdentifier: "reviewsSegue", sender: nil)
-//    }
-    
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-//self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
-
-        if (segue.identifier == "reviewsSegue"){
-            let navigationViewController = segue.destination as! UINavigationController
-            let reviewViewController = navigationViewController.topViewController as! ReviewsViewController
-            
-            reviewViewController.itemId = (product?.idFromStore)!
-            
-        }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
- 
-
 }

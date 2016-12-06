@@ -8,16 +8,24 @@
 
 import UIKit
 
-class ReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     var itemId: String = ""
     var reviews : [Review] = []
     
     @IBOutlet weak var reviewsTable: UITableView!
     
+    private var loadingView: UIActivityIndicatorView!
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let navigationFrame = self.navigationController!.navigationBar.frame
+        reviewsTable.contentInset = UIEdgeInsetsMake(navigationFrame.origin.y + navigationFrame.height, reviewsTable.contentInset.left, 0, reviewsTable.contentInset.right);
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadingView = Utilities.addActivityIndicator(to: self.view)
 
         self.reviewsTable.dataSource = self
         self.reviewsTable.delegate = self
@@ -37,11 +45,14 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func getReviews(){
+        loadingView.startAnimating()
         WalmartClient.sharedInstance.getReviewsFromProduct(itemId: itemId, success: { (reviews:[Review]) in
             self.reviews = reviews
+            self.loadingView.startAnimating()
             self.reviewsTable.reloadData()
         }, failure: {(error: Error) -> () in
-            print(error.localizedDescription)
+            self.loadingView.stopAnimating()
+            Utilities.presentErrorAlert(title: "Network Error", message: error.localizedDescription)
         })
     }
     
@@ -59,8 +70,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func OnBackToProdcut(_ sender: Any) {
         self.dismiss(animated: true, completion: {
             //do nothin
-        }
-        )
+        })
     }
 
     /*

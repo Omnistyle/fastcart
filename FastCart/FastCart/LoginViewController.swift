@@ -11,6 +11,11 @@ import FBSDKLoginKit
 import Parse
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    struct Constants {
+        static let facebookButtonLeftRightMargin: CGFloat = 16
+        static let facebookButtonHeight: CGFloat = 50
+        static let facebookButtonBottomMargin: CGFloat = 100
+    }
 
     var dict : NSDictionary!
     //self.dict = result as NSDictionary
@@ -21,26 +26,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         
         let loginButton = FBSDKLoginButton()
-        view.addSubview(loginButton)
         
-        let y = self.view.frame.size.height - 100
-        loginButton.frame = CGRect(x: 16, y: y, width: view.frame.width - 32, height: 50)
+        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+        loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
+                                   width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
+                                   height: Constants.facebookButtonHeight)
         loginButton.delegate = self
         loginButton.readPermissions = ["email", "public_profile"]
         
-        // Do any additional setup after loading the view.
-        // only to speed development
-        self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+        view.addSubview(loginButton)
     }
 
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -49,22 +47,20 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
         }
         
-        print("succesfully login with facebook...")
-        
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start { (connecion, result, error) in
             if error != nil {
                 print("failed to start graph")
                 print(error?.localizedDescription ?? "undefined error")
                 return
             }
-            
-            //print(result)
-            
+        
             self.dict = result as! NSDictionary
             DispatchQueue.main.async {
                 self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
             }
         }
+        
+        self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
     
     func onLogin(username: String, password: String){
@@ -132,15 +128,4 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.performSegue(withIdentifier: "successloginsegue", sender: nil)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

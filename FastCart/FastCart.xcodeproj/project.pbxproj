@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DD3231DF684760075F2E1 /* ImageScrollView.swift */; };
 		102D9C111DE147BF00E8232A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D9C101DE147BF00E8232A /* Utilities.swift */; };
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
@@ -21,9 +22,11 @@
 		1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057DECA1DD91510001203D2 /* ProductCell.swift */; };
 		106C3F501DE8329E00CE9E7C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106C3F4F1DE8329E00CE9E7C /* Common.swift */; };
 		10C4F29D1DF4D183006E51FD /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F29C1DF4D183006E51FD /* ProductDetailsViewController.swift */; };
+		222FD6831DF6B25A00B75B80 /* HistoryProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222FD6821DF6B25A00B75B80 /* HistoryProductCell.swift */; };
 		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
 		22511A391DF4D40A009BD9CB /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */; };
 		22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */; };
+		22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */; };
 		7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F12DF871DDB9F09003C78C6 /* Reviews.xib */; };
 		7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF891DDB9F5D003C78C6 /* Reviews.swift */; };
 		7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */; };
@@ -47,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		101DD3231DF684760075F2E1 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		102D9C101DE147BF00E8232A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -62,10 +66,12 @@
 		106C3F4F1DE8329E00CE9E7C /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		10C4F29C1DF4D183006E51FD /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
+		222FD6821DF6B25A00B75B80 /* HistoryProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProductCell.swift; sourceTree = "<group>"; };
 		223A663C1DDA6C330075DBB5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		223A663E1DDA6D010075DBB5 /* FastCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastCart.entitlements; sourceTree = "<group>"; };
 		22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptHistoryViewController.swift; sourceTree = "<group>"; };
 		7F12DF871DDB9F09003C78C6 /* Reviews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Reviews.xib; sourceTree = "<group>"; };
 		7F12DF891DDB9F5D003C78C6 /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUpcClient.swift; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 				223A663C1DDA6C330075DBB5 /* LoginViewController.swift */,
 				7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */,
 				22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */,
+				22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -142,6 +149,8 @@
 				7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */,
 				7F9515901DE6281C001EC1D5 /* ProductOverviewCell.swift */,
 				22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */,
+				101DD3231DF684760075F2E1 /* ImageScrollView.swift */,
+				222FD6821DF6B25A00B75B80 /* HistoryProductCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -260,7 +269,7 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = J87Z56BB74;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -357,6 +366,7 @@
 			files = (
 				7F9515911DE6281C001EC1D5 /* ProductOverviewCell.swift in Sources */,
 				22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */,
+				22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */,
 				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */,
 				102D9C111DE147BF00E8232A /* Utilities.swift in Sources */,
@@ -367,6 +377,7 @@
 				223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */,
 				7F9515891DE4D88F001EC1D5 /* ThemeManager.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
+				222FD6831DF6B25A00B75B80 /* HistoryProductCell.swift in Sources */,
 				7FF055F81DD12BB600434F2A /* ProductDetailsWithScrollViewController.swift in Sources */,
 				7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */,
 				103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */,
@@ -384,6 +395,7 @@
 				103215931DD2DBDA00186704 /* User.swift in Sources */,
 				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,
 				1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */,
+				101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */,
 				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
 				1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */,
 			);
@@ -513,8 +525,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = J87Z56BB74;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemonbunny.fastcart;
@@ -533,8 +545,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = J87Z56BB74;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemonbunny.fastcart;
@@ -556,7 +568,7 @@
 				7F28EF0A1DD10EDE0084410B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F28EF0B1DD10EDE0084410B /* Build configuration list for PBXNativeTarget "FastCart" */ = {
 			isa = XCConfigurationList;
@@ -565,7 +577,7 @@
 				7F28EF0D1DD10EDE0084410B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -10,7 +10,7 @@ import UIKit
 import TLYShyNavBar
 import SCLAlertView
 
-class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate {
     
     var store : Store?
     
@@ -19,6 +19,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     private var activityIndicator: UIActivityIndicatorView!
+    private var isMoreDataLoading = false
     
     // Maps the item index to the current variant image index.
     private var variantIndexFor: [Int: Int] = [:]
@@ -36,7 +37,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         
         self.shyNavBarManager.scrollView = self.collectionView
-        
         
         self.title = "Shop"
         
@@ -70,7 +70,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func handleTap(sender: UITapGestureRecognizer) {
         if let image = sender.view as? UIImageView {
-            let cell = image.superview!.superview as! ProductOverviewCell
+            let cell = image.superview!.superview?.superview as! ProductOverviewCell
             if cell.heartImage.image == #imageLiteral(resourceName: "heart") {
                 cell.heartImage.image = #imageLiteral(resourceName: "heart_filled")
             } else {
@@ -89,51 +89,10 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
 
     }
-    
-    func handleSwipe(sender: UIPanGestureRecognizer) {
-        if let image = sender.view as? UIImageView {
-            let cell = image.superview?.superview as! ProductOverviewCell
-            
-        if sender.state == .began {
-            let velocity = sender.velocity(in: self.view)
-            guard cell.product.variantImages.count > 0 else {
-                print("No other variant images")
-                return
-            }
-            
-            // Not sure on the purpose of this code...
-            let originalX = cell.productImage.frame.origin.x
-            let originalY =  cell.productImage.frame.origin.y
-            let toPoint: CGPoint = CGPoint(x: originalX + cell.frame.size.width / 2, y: originalY)
-            let fromPoint : CGPoint = CGPoint(x: originalX, y: originalY)
-            let movement = CABasicAnimation(keyPath: "movement")
-            movement.isAdditive = true
-            movement.fromValue =  NSValue(cgPoint: fromPoint)
-            movement.toValue =  NSValue(cgPoint: toPoint)
-            movement.duration = 0.3
-            cell.contentView.layer.add(movement, forKey: "move")
-            
-            guard let item = collectionView.indexPath(for: cell)?.item else {
-                print("Invalid item in collection view")
-                return
-            }
-            var index = variantIndexFor[item] ?? 0
-            if velocity.x > 0 {
-                index = (index + 1) % cell.product.variantImages.count
-            } else if velocity.x < 0 {
-                if index > 0 {
-                    index = (index - 1) % cell.product.variantImages.count
-                } else {
-                    index = cell.product.variantImages.count - 1
-                }
-            }
-            print(index)
-            variantIndexFor[item] = index
-            let variantImageUrl = cell.product.variantImages[variantIndexFor[item]!] as URL
-            cell.productImage.image = nil
-            cell.productImage.setImageWith(variantImageUrl)
-        }
-        }
+    func handleCellTap(sender: UITapGestureRecognizer) {
+        let cell = sender.view?.superview?.superview?.superview as! ProductOverviewCell
+        let indexPath = collectionView.indexPath(for: cell)!
+        collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,13 +101,14 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // add tap target
         let tap = UITapGestureRecognizer(target: self, action: #selector(ShopViewController.handleTap))
-        //        tapGestureRecognizer.addTarget(self, action:#selector(TweetsViewController.profileTapGestureRecognizer as (TweetsViewController) -> () -> ()))
         cell.heartImage.addGestureRecognizer(tap)
         // add scroll target
         cell.heartImage.isUserInteractionEnabled = true
-        let swipe = PanDirectionGestureRecognizer(direction:PanDirection.horizontal, target: self, action: #selector(ShopViewController.handleSwipe))
-        cell.productImage.addGestureRecognizer(swipe)
-        cell.productImage.isUserInteractionEnabled = true
+        
+        // Add tap target to image.
+        let cellTap = UITapGestureRecognizer(target: self, action: #selector(ShopViewController.handleCellTap))
+        cell.productScrollView.addGestureRecognizer(cellTap)
+        
         // no top border for first two
         // if it's even
         if indexPath.row % 2 == 1 {
@@ -171,15 +131,16 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // Overwrite current image if the user has already swiped through them.
         if let variantIndex = variantIndexFor[indexPath.item] {
-            cell.productImage.setImageWith(products[indexPath.row].variantImages[variantIndex] as URL)
-            
+            cell.imageIndex = variantIndex
         }
+        
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // set to 4 per grid
-        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.bounds.size.height / 2)
+        // Sets to 4 per screen.
+        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.frame.size.height / 2 - 0.5)
        
     }
     
@@ -192,11 +153,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    // MARK: - ScrollCellDelegate 
+    func didSelectIndexForCell(cell: UICollectionViewCell, index: Int) {
+        if let item = collectionView.indexPath(for: cell)?.item {
+            variantIndexFor[item] = index
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -207,8 +170,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Pass the selected object to the new view controller.
     }
     */
-    var isMoreDataLoading = false
     
+    // MARK: - UIScrollView
     func loadMoreData() {
         let count = products.count
         let startIndex = String(count + 1)
@@ -218,14 +181,32 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.products = self.products + products
                 self.collectionView.reloadData()
                 self.isMoreDataLoading = false
-                // Stop the loading indicator
-//                self.loadingMoreView!.stopAnimating()
+                //Stop the loading indicator
+                self.activityIndicator.stopAnimating()
             
             
             
         }, failure: {(error: Error) -> () in
             print(error.localizedDescription)
         })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = collectionView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - collectionView.bounds.size.height - collectionView.bounds.size.height / 2
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && collectionView.isDragging) {
+                isMoreDataLoading = true
+                
+                self.activityIndicator.startAnimating()
+                
+                // Code to load more results
+                loadMoreData()
+            }
+        }
     }
 
 }
