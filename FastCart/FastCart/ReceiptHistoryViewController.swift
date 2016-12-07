@@ -30,12 +30,18 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var timestampLabel: UILabel!
     
     private var wasNavHidden: Bool?
+    private var activityIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Activity indicator.
+        activityIndicator = Utilities.addActivityIndicator(to: view)
+        
+        // Navigation bar.
         wasNavHidden = self.navigationController?.isNavigationBarHidden
         navigationController?.setNavigationBarHidden(false, animated: true)
+        
         receiptId = receiept.id!
         print("printing recepit id: " + receiptId )
         
@@ -65,7 +71,9 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func getProducts(){
+        activityIndicator.startAnimating()
         Product.getProducts(receiptId: receiptId, completion: {(products:[Product]) in
+            self.activityIndicator.stopAnimating()
             self.products = products
             self.receiptTable.reloadData()
         })

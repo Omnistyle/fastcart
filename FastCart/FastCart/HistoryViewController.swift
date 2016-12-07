@@ -17,9 +17,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.reloadData()
         }
     }
+    private var activityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Activity indicator.
+        activityIndicator = Utilities.addActivityIndicator(to: view)
 
         // Do any additional setup after loading the view.
         tableView.dataSource = self
@@ -32,7 +37,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if let user = User.currentUser {
+            activityIndicator.startAnimating()
              Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
+                self.activityIndicator.stopAnimating()
                 self.receipts = recps
             })
         }
