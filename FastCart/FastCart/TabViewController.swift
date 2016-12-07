@@ -32,6 +32,7 @@ class TabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         listViewController = storyboard.instantiateViewController(withIdentifier: "ListViewController")
@@ -60,7 +61,6 @@ class TabViewController: UIViewController {
             button.setTitleColor(UIColor.darkGray, for: .selected)
             button.adjustsImageWhenHighlighted = false
         }
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
