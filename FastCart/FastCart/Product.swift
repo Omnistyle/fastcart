@@ -85,7 +85,7 @@ class Product: EVObject {
     var clearance: Bool?
     var specialBuy: Bool?
     var originalPrice: Double?
-    var variantImages = [NSURL]()
+    var variantImages = [URL]()
         
     func formatTimeToString(date: NSDate) -> String {
         let interval = date.timeIntervalSinceNow
@@ -136,7 +136,7 @@ class Product: EVObject {
         let use = String(describing: max)
         
             WalmartClient.sharedInstance.getVariantImage(id: use, success: {(image: URL) -> () in
-                self.variantImages.append(image as NSURL)
+                self.variantImages.append(image)
                 
             }, failure: {(error: Error) -> () in
                 print(error)
@@ -220,7 +220,7 @@ class Product: EVObject {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl as NSURL)
+                        self.variantImages.append(imageUrl)
                     }
                 }
             }
@@ -278,6 +278,7 @@ class Product: EVObject {
             ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
             ("addToCartUrl", { self.addToCartUrl = URL.fromJson(json: $0 as? String) }, { return self.addToCartUrl?.toJson() ?? "nil" }),
             ("ratingImage", { self.ratingImage = URL.fromJson(json: $0 as? String) }, { return self.ratingImage?.toJson() ?? "nil" }),
+            ("variantImages", { self.variantImages = Utilities.ArrayFromJson(json: $0 as? String) ?? [] }, { return Utilities.URLArrayToJson(array: self.variantImages) }),
         ]
     }
     

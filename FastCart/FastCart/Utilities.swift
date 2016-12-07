@@ -258,4 +258,20 @@ class Utilities {
             circleIconImage: alertViewIcon
         )
     }
+    
+    static func URLArrayToJson(array: [URL]) -> String {
+        let strings = array.map { (url: URL) -> String in
+            return url.toJson()
+        }
+        return strings.joined(separator: "-")
+    }
+    
+    static func ArrayFromJson(json: String?) -> [URL]? {
+        if let json = json {
+            return json.components(separatedBy: "-").map { (el: String) -> URL in
+                return URL.fromJson(json: el)!
+            }
+        }
+        return nil
+    }
 }
