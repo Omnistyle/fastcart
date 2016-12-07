@@ -131,7 +131,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         if indexPath.section == 2 {
             let loginButton = FBSDKLoginButton()
             
-            loginButton.frame = CGRect(x: 0, y: 0, width: tableview.bounds.width, height: cell.contentView.frame.height)
+            loginButton.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: cell.contentView.frame.height)
             loginButton.delegate = self
             
             cell.contentView.addSubview(loginButton)
