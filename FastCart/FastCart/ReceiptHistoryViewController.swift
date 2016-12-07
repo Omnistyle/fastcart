@@ -29,10 +29,13 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     
     @IBOutlet weak var timestampLabel: UILabel!
     
+    private var wasNavHidden: Bool?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        wasNavHidden = self.navigationController?.isNavigationBarHidden
+        navigationController?.setNavigationBarHidden(false, animated: true)
         receiptId = receiept.id!
         print("printing recepit id: " + receiptId )
         
@@ -46,6 +49,13 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
         getProducts()
         getReceiptDetails()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let wasNavHidden = wasNavHidden {
+            navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+        }
     }
 
     func getStore(){
