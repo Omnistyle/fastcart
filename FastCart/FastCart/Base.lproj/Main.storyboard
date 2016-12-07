@@ -700,11 +700,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Receipt" id="oKB-uh-lKK">
-                        <barButtonItem key="leftBarButtonItem" title="History" id="h1c-ru-I9p">
-                            <connections>
-                                <action selector="onBackToHistory:" destination="ewv-Ma-svI" id="r2O-ei-n7V"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Print" id="Yid-ZO-wNB"/>
                     </navigationItem>
                     <connections>
