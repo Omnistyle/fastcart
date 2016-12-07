@@ -16,6 +16,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var reviewsTable: UITableView!
     
     private var loadingView: UIActivityIndicatorView!
+    private var wasNavHidden: Bool?
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -37,6 +38,17 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         getReviews()
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        wasNavHidden = navigationController?.isNavigationBarHidden
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let wasNavHidden = wasNavHidden {
+            navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
