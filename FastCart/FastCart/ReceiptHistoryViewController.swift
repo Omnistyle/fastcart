@@ -37,8 +37,7 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
         self.receiptTable.dataSource = self
         self.receiptTable.delegate = self
         self.receiptTable.rowHeight = UITableViewAutomaticDimension
-        self.receiptTable.estimatedRowHeight = 100
-        
+        self.receiptTable.estimatedRowHeight = 120
         self.automaticallyAdjustsScrollViewInsets = false
         
         getStore()
@@ -62,6 +61,7 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     
     func getReceiptDetails(){
         if let currentReceipt = receiept {
+            
             subtotalLabel.text = currentReceipt.subTotalAsString
             taxLabel.text = currentReceipt.taxAsString
             totalLabel.text = currentReceipt.totalAsString
