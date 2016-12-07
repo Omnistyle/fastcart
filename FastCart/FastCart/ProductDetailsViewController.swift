@@ -31,13 +31,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         self.productScrollView.datasource = self
         self.productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
         self.productScrollView.show()
-        
-        wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        
+    
         display(product: product)
         
         
@@ -53,6 +47,14 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     func onTapReviews(){
