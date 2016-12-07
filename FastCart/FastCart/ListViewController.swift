@@ -134,12 +134,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // prepare for segue
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let navigationController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsNavigationController") as! UINavigationController
-        let productDetailsViewController = navigationController.topViewController as! ProductDetailsViewController
+        let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
         productDetailsViewController.product = product
-        
-        // segue to the details view
-        self.show(navigationController, sender: self)
+        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         
     }
     

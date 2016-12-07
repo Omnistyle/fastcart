@@ -174,7 +174,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         } else {
             // contact
             if indexPath.row == 0 {
-                UIApplication.shared.openURL(NSURL(string: "https://fastcart.herokuapp.com/")! as URL)
+                if let url = URL(string: "https://fastcart.herokuapp.com/") {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
             }
             // rate app
             else if indexPath.row == 1 {
@@ -208,7 +210,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         let appId = "1182855639"
         let url_string = "itms-apps://itunes.apple.com/app/id\(appId)"
         if let url = URL(string: url_string) {
-            UIApplication.shared.openURL(url as URL)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
