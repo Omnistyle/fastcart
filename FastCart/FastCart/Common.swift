@@ -35,6 +35,17 @@ extension URL {
     }
 }
 
+extension UITabBarController {
+    func switchToList(at index: Int) {
+        let nvc = self.viewControllers![2] as! UINavigationController
+        let tvc = nvc.viewControllers[0] as! TabViewController
+        // Force load it, just in case.
+        let _ = tvc.view
+        
+        tvc.selectedIndex = index
+    }
+}
+
 /**
  The direction the recognizer detects. Note that the direction is defined according to the 
  velocity of the initial swipe.

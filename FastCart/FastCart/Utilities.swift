@@ -201,32 +201,21 @@ class Utilities {
         - message: The message dislplayed in the error. Keep short.
     */
     static func presentErrorAlert(title: String, message: String) {
-        let appearance = SCLAlertView.SCLAppearance(
-            kCircleIconHeight: 40.0,
-            showCloseButton: true
-            
-        )
-        let alertView = SCLAlertView(appearance: appearance)
-        alertView.showError(
-            "\(title)\n",
-            subTitle: "\n\(message)\n",
-            closeButtonTitle: "OK",
-            duration: 0.0
-        )
-    }
-    
-    /** 
-     Creates an activity indicator for re-use throughout our code base.
-     
-     - returns: The activity indicator reference, after it's been added to the view.
-    */
-    static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activityIndicator.color = Constants.themeColor
-        activityIndicator.center = view.center;
-        view.addSubview(activityIndicator)
+        DispatchQueue.main.async(execute: {
+            let appearance = SCLAlertView.SCLAppearance(
+                kCircleIconHeight: 40.0,
+                showCloseButton: true
+                
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.showError(
+                "\(title)\n",
+                subTitle: "\n\(message)\n",
+                closeButtonTitle: "OK",
+                duration: 0.0
+            )
+        })
         
-        return activityIndicator
     }
     
     /**
@@ -237,33 +226,53 @@ class Utilities {
         - message: The message dislplayed in the error. Keep short.
         - button: The message to be added on a custom dismiss button.
      */
-    static func presentSuccessAlert(title: String, message: String, button: String?) {
+    static func presentSuccessAlert(title: String, message: String, button: String?, action: (() -> Void)?) {
         // TODO -- implement.
-        let appearance = SCLAlertView.SCLAppearance(
-            kCircleIconHeight: 40.0,
-            showCloseButton: false
-            
-        )
-        let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
-        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
-        alertView.showTitle(
-            "Nice!\n",
-            subTitle: "\nYou're done with checkout.\n",
-            duration: 0.0,
-            completeText: "See My Receipt",
-            style: .success,
-            colorStyle: 0x72BEB7,
-            colorTextButton: 0xFFFFFF,
-            circleIconImage: alertViewIcon
-        )
+        DispatchQueue.main.async(execute: {
+            let appearance = SCLAlertView.SCLAppearance(
+                kCircleIconHeight: 40.0,
+                showCloseButton: false
+                
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            if let button = button {
+                alertView.addButton(button, action: action ?? {})
+            }
+            let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
+        
+            alertView.showTitle(
+                title,
+                subTitle: message,
+                duration: 0.0,
+                completeText: "",
+                style: .success,
+                colorStyle: 0x72BEB7,
+                colorTextButton: 0xFFFFFF,
+                circleIconImage: alertViewIcon
+            )
+        })
     }
+    
+    /**
+     Creates an activity indicator for re-use throughout our code base.
+     
+     - returns: The activity indicator reference, after it's been added to the view.
+     */
+    static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.color = Constants.themeColor
+        activityIndicator.center = view.center;
+        view.addSubview(activityIndicator)
+        
+        return activityIndicator
+    }
+    
     
     static func URLArrayToJson(array: [URL]) -> String {
         let strings = array.map { (url: URL) -> String in
             return url.toJson()
         }
-        return strings.joined(separator: "!**/**!")
+        return strings.joined(separator: "!**/**")
     }
     
     static func ArrayFromJson(json: String?) -> [URL]? {

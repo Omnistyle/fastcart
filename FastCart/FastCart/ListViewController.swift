@@ -19,7 +19,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var addItemTextView: UITextView!
     var cartViews = [UIView]()
     var emptyViews = [UIView]()
-    
+
     let PLACEHOLDER_TEXT = "Type or tap the camera to scan an item"
     
     var products = [Product]() {

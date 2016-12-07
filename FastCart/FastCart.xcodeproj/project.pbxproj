@@ -13,7 +13,6 @@
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
 		1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158A1DD2D8C100186704 /* PaymentsViewController.swift */; };
 		1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158C1DD2D99200186704 /* ProfileViewController.swift */; };
-		1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */; };
 		103215911DD2DB9600186704 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215901DD2DB9600186704 /* Receipt.swift */; };
 		103215931DD2DBDA00186704 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215921DD2DBDA00186704 /* User.swift */; };
 		103215971DD2E0FA00186704 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215961DD2E0FA00186704 /* Review.swift */; };
@@ -55,7 +54,6 @@
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1032158A1DD2D8C100186704 /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		1032158C1DD2D99200186704 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
 		103215901DD2DB9600186704 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		103215921DD2DBDA00186704 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		103215961DD2E0FA00186704 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 				103215881DD2D8AD00186704 /* ListViewController.swift */,
 				1032158A1DD2D8C100186704 /* PaymentsViewController.swift */,
 				1032158C1DD2D99200186704 /* ProfileViewController.swift */,
-				1032158E1DD2DB5000186704 /* AddPaymentViewController.swift */,
 				103215981DD2F2DE00186704 /* HistoryViewController.swift */,
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
 				223A663C1DDA6C330075DBB5 /* LoginViewController.swift */,
@@ -264,7 +261,7 @@
 				TargetAttributes = {
 					7F28EEF81DD10EDE0084410B = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 6AQU6Q6WHZ;
+						DevelopmentTeam = J87Z56BB74;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -393,7 +390,6 @@
 				1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */,
 				101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */,
 				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
-				1032158F1DD2DB5000186704 /* AddPaymentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,13 +518,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
+				DEVELOPMENT_TEAM = J87Z56BB74;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemonbunny.fastcart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2cbcb369-f63d-4956-905c-173dec9f41ec";
-				PROVISIONING_PROFILE_SPECIFIER = Fastcart;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -542,13 +538,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FastCart/FastCart.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6AQU6Q6WHZ;
+				DEVELOPMENT_TEAM = J87Z56BB74;
 				INFOPLIST_FILE = FastCart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemonbunny.fastcart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2cbcb369-f63d-4956-905c-173dec9f41ec";
-				PROVISIONING_PROFILE_SPECIFIER = Fastcart;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
