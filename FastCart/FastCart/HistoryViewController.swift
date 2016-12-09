@@ -11,15 +11,23 @@ import UIKit
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currentReceipt : Receipt!
-
+    var refreshControl: UIRefreshControl!
     var receipts = [Receipt]() {
         didSet {
             tableView.reloadData()
         }
     }
+    
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //adding refresh table
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(HistoryViewController.refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
 
         // Do any additional setup after loading the view.
         tableView.dataSource = self
@@ -31,13 +39,34 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             receipts = history
         }
         
+        //getReceipts()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getReceipts()
+        print("calling view will appear")
+    }
+    
+    func refresh(){
+        self.receipts = []
+        getReceipts()
+        print("refreshing table view")
+    }
+    
+    func getReceipts(){
         if let user = User.currentUser {
-             Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
+            Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
                 self.receipts = recps
+                print("just pulled \(recps.count) receipts...")
+                if self.refreshControl.isRefreshing
+                {
+                    self.refreshControl.endRefreshing()
+                }
             })
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -87,6 +116,4 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
- 
-
 }

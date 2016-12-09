@@ -38,6 +38,7 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
         self.receiptTable.delegate = self
         self.receiptTable.rowHeight = UITableViewAutomaticDimension
         self.receiptTable.estimatedRowHeight = 120
+        self.receiptTable.separatorStyle = .none
         self.automaticallyAdjustsScrollViewInsets = false
         
         getStore()
