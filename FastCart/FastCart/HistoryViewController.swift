@@ -17,6 +17,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.reloadData()
         }
     }
+
+    private var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,6 +30,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(HistoryViewController.refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl)
+
+        // Activity indicator.
+        activityIndicator = Utilities.addActivityIndicator(to: view)
+
 
         // Do any additional setup after loading the view.
         tableView.dataSource = self
@@ -55,8 +61,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func getReceipts(){
+        
         if let user = User.currentUser {
-            Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
+            activityIndicator.startAnimating()
+             Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
+                self.activityIndicator.stopAnimating()
+
                 self.receipts = recps
                 print("just pulled \(recps.count) receipts...")
                 if self.refreshControl.isRefreshing
@@ -91,13 +101,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ReceiptHistoryViewController") as! ReceiptHistoryViewController
-        controller.receiptId = self.currentReceipt.id!
+        // What if no current receipt?
         controller.receiept = receipts[indexPath.row] as Receipt
-        let navigationController = UINavigationController(rootViewController: controller)
-        
-        self.present(navigationController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(controller, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         
     }
+
 
     
     // MARK: - Navigation

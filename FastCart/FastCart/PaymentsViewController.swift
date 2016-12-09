@@ -75,55 +75,19 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         self.addChildViewController(dropInViewController)
         dropInViewController.didMove(toParentViewController: self)
     }
-    func createAlert() {
-        // Complete the receipt.
-        let appearance = SCLAlertView.SCLAppearance(
-            kCircleIconHeight: 40.0,
-            showCloseButton: false
-            
-        )
-        let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("My Receipt", target:self, selector:#selector(PaymentsViewController.showReceipt))
-        let alertViewIcon = #imageLiteral(resourceName: "fastcartIcon")
-        alertView.showTitle(
-            "Nice!\n",
-            subTitle: "\nYou're done with checkout.\n",
-            duration: 0.0,
-            completeText: "See My Receipt",
-            style: .success,
-            colorStyle: 0x72BEB7,
-            colorTextButton: 0xFFFFFF,
-            circleIconImage: alertViewIcon
-        )
-    }
+
     func showReceipt() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
-        vc.selectedIndex = 0
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.tabBarController?.switchToList(at: 0)
+        self.tabBarController?.selectedIndex = 2
     }
     
     /* MARK - BTDropInViewControllerDelegate Methods */
     public func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
         // Send payment method nonce to your server for processing
         postNonceToServer(paymentMethodNonce: paymentMethodNonce.nonce)
-        
-        dismiss(animated: true, completion: {[unowned self] in
-            self.tabBarController?.selectedIndex = 2
-        })
     }
     
     public func drop(inViewControllerDidCancel viewController: BTDropInViewController) {
-        let _ = self.navigationController?.popViewController(animated: true)
     }
     /* END MARK - BTDropInViewControllerDelegate Methods */
     
@@ -135,11 +99,15 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     private func setUpView() {
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
     }
+    
     // Only call after the view is ready to display or re-display.
     private func modifyViewOnAppearance() {
         // Change constraints if we can't checkout so payments take-up entire screen.
         if !self.canCheckout {
             self.infoView.isHidden = true
+            let paymentRequest = BTPaymentRequest()
+            paymentRequest.shouldHideCallToAction = true
+            self.dropInViewController?.paymentRequest = paymentRequest
             if self.paymentTopConstraint.isActive {
                 NSLayoutConstraint.deactivate([self.paymentTopConstraint])
             }
@@ -149,6 +117,9 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
             }
         } else {
             self.infoView.isHidden = false
+            let paymentRequest = BTPaymentRequest()
+            paymentRequest.shouldHideCallToAction = false
+            self.dropInViewController?.paymentRequest = paymentRequest
             if self.paymentTopTotalConstraint != nil && self.paymentTopTotalConstraint!.isActive {
                 NSLayoutConstraint.deactivate([self.paymentTopTotalConstraint!])
             }
@@ -192,18 +163,18 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     private func paymentStarted(_ client: BTAPIClient) {
         // Create a BTDropInViewController
         self.dropInViewController = BTDropInViewController(apiClient: client)
-        guard let dropInViewController = dropInViewController else { return }
-        dropInViewController.delegate = self
-        dropInViewController.view.tintColor = Constants.themeColor
-        dropInViewController.paymentRequest?.shouldHideCallToAction = !canCheckout
-        dropInViewController.fetchPaymentMethods(onCompletion: {
-            self.moveDropIn(dropInViewController)
-            self.activityIndicator.stopAnimating()
+        dropInViewController?.delegate = self
+        dropInViewController?.paymentRequest?.shouldHideCallToAction = !canCheckout
+        dropInViewController?.fetchPaymentMethods(onCompletion: {
+            if let dropInViewController = self.dropInViewController {
+                self.moveDropIn(dropInViewController)
+                self.activityIndicator.stopAnimating()
+            }
         })
+        dropInViewController?.view.tintColor = Constants.themeColor
     }
 
     private func postNonceToServer(paymentMethodNonce: String) {
-        self.createAlert()
         let fakePaymentMethodNonce = "fake-valid-nonce"
         guard let paymentAmount = User.currentUser?.current.total else { return }
         print("$\(paymentAmount)")
@@ -214,24 +185,25 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
         request.httpBody = data.data(using: String.Encoding.utf8)
         request.httpMethod = "POST"
         
+        activityIndicator.startAnimating()
         URLSession.shared.dataTask(with: request, completionHandler: {[unowned self] (data, response, error) -> Void in
             // if (error != nil) {
-                if let user = User.currentUser {
-                    
-                    self.completePayment(user: user)
-                }
+            self.activityIndicator.stopAnimating()
+            if let user = User.currentUser {
+                self.completePayment(user: user)
+            }
             //}
         }).resume()
         
     }
     
     private func completePayment(user: User) {
-        
-        
         let receipt = user.current
         receipt.paid = true
         receipt.completed = Date()
         user.completeCheckout()
-        
+        Utilities.presentSuccessAlert(title: "Nice\n", message: "\nYou're done with checkout.\n", button: "My Receipt", action: {
+            self.showReceipt()
+        })
     }
 }

@@ -16,17 +16,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
-    let titlesInSection1 = ["Current order"]
-    let titlesInSection2 = ["Contact us", "Rate the app", "Invite friends"]
-
+    let titles = [["Current order"],
+                  ["Contact us", "Rate the app", "Invite friends"],
+                  ["Account"]]
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let loginButton = FBSDKLoginButton()
-        //view.addSubview(loginButton)
-        
-        loginButton.frame = CGRect(x: 16, y: 450, width: view.frame.width - 32, height: 50)
-        loginButton.delegate = self
         
         // Do any additional setup after loading the view.
         // Parallax Header
@@ -65,8 +59,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
-        view.addSubview(loginButton)
-        
         
 //        table1 = UITableView()
         
@@ -122,30 +114,29 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     // table functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return titlesInSection1.count
-        }
-        return titlesInSection2.count
+        return titles[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell") as! OptionCell
         
-//        if (cell == nil) {
-//            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "OptionCell") as! OptionCell
-//        }
-        if indexPath.section == 0 {
-            cell.optionLabel.text = titlesInSection1[indexPath.row]
-        } else if indexPath.section == 1 {
-            cell.optionLabel.text = titlesInSection2[indexPath.row]
+        cell.optionLabel.text = titles[indexPath.section][indexPath.row]
+        // Add logout button.
+        if indexPath.section == 2 {
+            let loginButton = FBSDKLoginButton()
+            
+            loginButton.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: cell.contentView.frame.height)
+            loginButton.delegate = self
+            
+            cell.contentView.addSubview(loginButton)
         }
-        
+
         cell.backgroundColor = UIColor.white
         
         // separator insets
@@ -162,14 +153,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
 //    }
     
     //
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // handle transition
         if indexPath.section == 0 {
+            self.tabBarController?.switchToList(at: 1)
             self.tabBarController?.selectedIndex = 2
         } else {
             // contact
@@ -224,8 +213,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             return
         }
         
-        print("succesfully login with facebook...")
-        
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start { (connecion, result, error) in
             if error != nil {
                 print("failed to start graph")
@@ -236,14 +223,5 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

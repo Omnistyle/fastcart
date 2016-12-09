@@ -29,9 +29,20 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     
     @IBOutlet weak var timestampLabel: UILabel!
     
+    private var wasNavHidden: Bool?
+    private var activityIndicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Activity indicator.
+        activityIndicator = Utilities.addActivityIndicator(to: view)
+        
+        // Navigation bar.
+        wasNavHidden = self.navigationController?.isNavigationBarHidden
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        receiptId = receiept.id!
         print("printing recepit id: " + receiptId )
         
         self.receiptTable.dataSource = self
@@ -46,6 +57,13 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
         getReceiptDetails()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let wasNavHidden = wasNavHidden {
+            navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
+        }
+    }
 
     func getStore(){
         let store = Store.currentStore
@@ -54,7 +72,9 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func getProducts(){
+        activityIndicator.startAnimating()
         Product.getProducts(receiptId: receiptId, completion: {(products:[Product]) in
+            self.activityIndicator.stopAnimating()
             self.products = products
             self.receiptTable.reloadData()
         })
@@ -83,26 +103,4 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
         cell.product = products[indexPath.row]
         return cell
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func onBackToHistory(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-        })
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

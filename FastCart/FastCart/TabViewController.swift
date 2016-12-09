@@ -18,7 +18,12 @@ class TabViewController: UIViewController {
     var historyViewController: UIViewController!
     
     var viewControllers: [UIViewController]!
-    var selectedIndex: Int = 1
+    private var defaultIndex = 1
+    var selectedIndex: Int? {
+        didSet(previousIndex) {
+            updateViews(selectedIndex: selectedIndex ?? defaultIndex, previousIndex: previousIndex)
+        }
+    }
     
     @IBOutlet weak var underline: UIView!
     var underlineOriginalCenter: CGPoint?
@@ -27,6 +32,7 @@ class TabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         listViewController = storyboard.instantiateViewController(withIdentifier: "ListViewController")
@@ -36,8 +42,8 @@ class TabViewController: UIViewController {
         viewControllers = [historyViewController, listViewController]
         self.view.layoutIfNeeded()
         
-        buttons[selectedIndex].isSelected = true
-        onTabButtonTap(buttons[selectedIndex])
+        // Switch view ctonroller
+        selectedIndex = defaultIndex
         
         // Do any additional setup after loading the view.
         let width = self.view.frame.size.width
@@ -46,7 +52,6 @@ class TabViewController: UIViewController {
         underlineOriginalCenter?.x = width / 4.0 * 3.0
         
         if selectedIndex == 0 {
-            print("getting here?")
             self.underline.center.x = width / 4.0
         } else {
             self.underline.center.x = width / 4.0 * 3.0
@@ -56,7 +61,11 @@ class TabViewController: UIViewController {
             button.setTitleColor(UIColor.darkGray, for: .selected)
             button.adjustsImageWhenHighlighted = false
         }
-        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,12 +76,28 @@ class TabViewController: UIViewController {
     @IBAction func onTabButtonTap(_ sender: UIButton) {
         let previousIndex = selectedIndex
         selectedIndex = sender.tag
-        // add polish for changing text color and animating the UIView
-        // selected current
+        updateViews(selectedIndex: selectedIndex!, previousIndex: previousIndex)
+    }
+    
+    private func updateViews(selectedIndex: Int,  previousIndex: Int?) {
+        buttons[selectedIndex].isSelected = true
         
+        if let previousIndex = previousIndex {
+            buttons[previousIndex].isSelected = false
+            let previousVC = viewControllers[previousIndex]
+            
+            previousVC.willMove(toParentViewController: nil)
+            previousVC.view.removeFromSuperview()
+            previousVC.removeFromParentViewController()
+        }
         
-        buttons[previousIndex].isSelected = false
+        let vc = viewControllers[selectedIndex]
+        addChildViewController(vc)
+        vc.view.frame = contentView.bounds
+        contentView.addSubview(vc.view)
+        vc.didMove(toParentViewController: self)
         
+        // UIAnimations
         if selectedIndex == 1 {
 //            buttons[selectedIndex].setTitleColor(UIColor.darkGray, for: .normal)
 //            buttons[0].setTitleColor(UIColor.lightGray, for: .normal)
@@ -103,30 +128,5 @@ class TabViewController: UIViewController {
             }, completion: nil)
             
         }
-        
-        
-        let previousVC = viewControllers[previousIndex]
-        
-        previousVC.willMove(toParentViewController: nil)
-        previousVC.view.removeFromSuperview()
-        previousVC.removeFromParentViewController()
-        
-        sender.isSelected = true
-        let vc = viewControllers[selectedIndex]
-        addChildViewController(vc)
-        vc.view.frame = contentView.bounds
-        contentView.addSubview(vc.view)
-        vc.didMove(toParentViewController: self)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
