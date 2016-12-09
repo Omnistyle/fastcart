@@ -52,6 +52,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.18.0):
     - FBSDKCoreKit
+  - LUExpandableTableView (1.0.1)
   - MisterFusion (2.0.1)
   - MXParallaxHeader (0.6.0)
   - Parse (1.14.2):
@@ -61,6 +62,7 @@ PODS:
     - MisterFusion
     - SABlurImageView
   - SCLAlertView (0.7.0)
+  - SideMenu (2.0.6)
   - TLYShyNavBar (1.1.1)
 
 DEPENDENCIES:
@@ -72,10 +74,12 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - LUExpandableTableView
   - MXParallaxHeader
   - Parse
   - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
   - SCLAlertView
+  - SideMenu
   - TLYShyNavBar
 
 EXTERNAL SOURCES:
@@ -101,14 +105,16 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
   FBSDKLoginKit: 6773073e970b2b15fb12e451ce7f11da0532b880
   FBSDKShareKit: 0b8d6cc3f103c75297eb3c62caec284a2ccf1b9e
+  LUExpandableTableView: 9eeac602db932ed1bc38788126cce9a3f3896738
   MisterFusion: d42cac7afe8318c282bcda93396eba0aef45d30e
   MXParallaxHeader: 2997592b8349baf8557ae0e4346f6b17e141de39
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
+  SideMenu: 90be7a14e9f54eb528f96f2033aa54f2992c5667
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 608f753cba7e27ff17643b432ea893c2caaed98e
+PODFILE CHECKSUM: 72ef7a67786f2c0cd0ff020c8bd4cfc05f179a24
 
 COCOAPODS: 1.1.1

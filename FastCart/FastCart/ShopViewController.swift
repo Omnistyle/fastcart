@@ -9,6 +9,7 @@
 import UIKit
 import TLYShyNavBar
 import SCLAlertView
+import SideMenu
 
 class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
@@ -44,7 +45,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.shyNavBarManager.scrollView = self.collectionView
         
         // add right bar button item
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: "buttonMethod")
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(ShopViewController.buttonMethod))
         navigationItem.rightBarButtonItem = refreshButton
         
         self.title = "Shop"
@@ -93,6 +94,23 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
         
+        setUpSideMenu()
+    }
+    
+    func buttonMethod() {
+        present(SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
+    }
+    func setUpSideMenu() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let menuRightNavigationController = storyboard.instantiateViewController(withIdentifier: "FiltersRightNavigationController") as! UISideMenuNavigationController
+        
+        // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+        SideMenuManager.menuRightNavigationController = menuRightNavigationController
+        
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         print("first started")
