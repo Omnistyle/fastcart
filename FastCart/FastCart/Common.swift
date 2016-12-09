@@ -43,6 +43,7 @@ extension UITabBarController {
         let _ = tvc.view
         
         tvc.selectedIndex = index
+        nvc.popToRootViewController(animated: false)
     }
 }
 

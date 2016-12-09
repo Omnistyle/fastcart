@@ -31,13 +31,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         self.productScrollView.datasource = self
         self.productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
         self.productScrollView.show()
-        
-        wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        
+    
         display(product: product)
         
         
@@ -54,12 +48,24 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        wasNavHidden = self.navigationController?.isNavigationBarHidden ?? false
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
+    }
 
     func onTapReviews(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let reviewsViewController = storyboard.instantiateViewController(withIdentifier: "ReviewsViewController") as! ReviewsViewController
         reviewsViewController.itemId = (product.idFromStore)!
-        self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
     
@@ -86,11 +92,9 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         
         self.tabBarController?.switchToList(at: 1)
         self.tabBarController?.selectedIndex = 2
-        self.navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func onCancelButton(_ sender: UIButton) {
-        self.navigationController?.setNavigationBarHidden(wasNavHidden, animated: true)
         let _ = self.navigationController?.popViewController(animated: true)
     }
 }
