@@ -9,9 +9,8 @@
 import UIKit
 
 class StoreCellHeaderView: UICollectionReusableView {
-
-    @IBOutlet weak var storeName: UILabel!
     
+    @IBOutlet weak var storeName: UILabel!
     var store: Store! {
         didSet {
             storeName.text = store.name

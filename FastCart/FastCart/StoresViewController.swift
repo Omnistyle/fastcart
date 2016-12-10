@@ -11,6 +11,7 @@ import SAParallaxViewControllerSwift
 import MisterFusion
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
+    private var kItemSectionHeaderViewID = "StoreCellHeaderView"
     private class Constants {
         static let numStores = 5
         static let bannerHeight = CGFloat(40.0)
@@ -40,6 +41,9 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
             self.addBanner(at: origin);
         }
+        
+        // Register the .xib for the custom header view and footerview.
+        self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     }
     
     private func addBanner(at origin: CGPoint) {
@@ -134,7 +138,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             view.removeFromSuperview()
         }
         
-        let index = indexPath.row
+        let index = indexPath.section
         let imageName = String(format: "image%d", rankStore(at: index) + 1)
         if let image = UIImage(named: imageName) {
             cell.setImage(image)

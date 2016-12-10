@@ -152,6 +152,7 @@
 		102257FA1DFBD84600D8690C /* ReviewsView */ = {
 			isa = PBXGroup;
 			children = (
+				7F12DF871DDB9F09003C78C6 /* Reviews.xib */,
 				22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */,
 				7F12DF891DDB9F5D003C78C6 /* Reviews.swift */,
 			);
@@ -161,6 +162,7 @@
 		102257FB1DFBD86800D8690C /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				7F9515821DE41417001EC1D5 /* StarshipHeader.xib */,
 				7F9515861DE416F6001EC1D5 /* CustomHeader.swift */,
 				7F95158A1DE50D23001EC1D5 /* OptionCell.swift */,
 			);
@@ -258,8 +260,6 @@
 				7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */,
 				7F9515881DE4D88F001EC1D5 /* ThemeManager.swift */,
 				7F28EF001DD10EDE0084410B /* Main.storyboard */,
-				7F9515821DE41417001EC1D5 /* StarshipHeader.xib */,
-				7F12DF871DDB9F09003C78C6 /* Reviews.xib */,
 				7F28EF051DD10EDE0084410B /* LaunchScreen.storyboard */,
 				7F28EF081DD10EDE0084410B /* Info.plist */,
 			);
