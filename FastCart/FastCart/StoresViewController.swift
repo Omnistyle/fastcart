@@ -145,13 +145,17 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "TESTHEADER", forIndexPath: indexPath) as HeaderView
-            headerView.label?.text = "Section \(indexPath.section)"
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreCellHeaderView", for: indexPath) as! StoreCellHeaderView
+            headerView.storeName.text = "Text"
             
             return headerView
         case UICollectionElementKindSectionFooter:
             return UICollectionReusableView()
+        default:
+            assert(false, "Unsupported supplementary view kind: \(kind)")
+            return UICollectionReusableView()
         }
+        
     }
     
     private func rankStore(at index: Int) -> Int {
