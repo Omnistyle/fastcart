@@ -23,7 +23,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
     @IBOutlet weak var loginButton: UIButton!
     
     @IBOutlet weak var signupButton: UIButton!
@@ -51,8 +50,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.signupButton.layer.shadowRadius = 4.0
         self.signupButton.layer.masksToBounds = false
         
-        activityIndicator.hidesWhenStopped = true;
-        activityIndicator.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.gray;
+        activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         let loginButton = FBSDKLoginButton()
         
@@ -147,8 +145,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         //var storeUser = User.getParseUser(email: email)
                       
                         let rawUser = users?[0]
-                        
-                        print(rawUser)
                         
                         let userDictionary = User.getUserDictionary(user: rawUser!)
                         let storedUser = User(dictionary: userDictionary)

@@ -158,8 +158,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         tableView.deselectRow(at: indexPath, animated: true)
         // handle transition
         if indexPath.section == 0 {
-            self.tabBarController?.switchToList(at: 1)
-            self.tabBarController?.selectedIndex = 2
+            self.tabBarController?.switchTo(listTab: .receipt)
         } else {
             // contact
             if indexPath.row == 0 {

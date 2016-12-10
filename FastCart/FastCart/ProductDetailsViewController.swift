@@ -90,8 +90,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBAction func onAddButton(_ sender: UIButton) {
         User.currentUser?.current.products.insert(product, at: 0)
         
-        self.tabBarController?.switchToList(at: 1)
-        self.tabBarController?.selectedIndex = 2
+        self.tabBarController?.switchTo(listTab: .receipt)
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func onCancelButton(_ sender: UIButton) {

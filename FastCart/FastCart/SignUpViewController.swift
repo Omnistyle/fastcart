@@ -55,16 +55,13 @@ class SignUpViewController: UIViewController {
         let email = self.emailLabel.text
         
         if (username?.characters.count)! < 5 {
-            let alert = UIAlertView(title: "Invalid", message: "Username must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
-            alert.show()
+            Utilities.presentErrorAlert(title: "Invalid", message: "Username must be greater than 5 characters.")
             
         } else if (password?.characters.count)! < 8 {
-            let alert = UIAlertView(title: "Invalid", message: "Password must be greater than 8 characters", delegate: self, cancelButtonTitle: "OK")
-            alert.show()
+            Utilities.presentErrorAlert(title: "Invalid", message: "Password must be greater than 8 characters.")
             
         } else if (email?.characters.count)! < 8 {
-            let alert = UIAlertView(title: "Invalid", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
-            alert.show()
+            Utilities.presentErrorAlert(title: "Invalid", message: "Please enter a valid email address.")
             
         } else {
             activityIndicator.startAnimating()
