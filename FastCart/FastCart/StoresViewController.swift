@@ -166,7 +166,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         return index
     }
     
-    //MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         super.collectionView(collectionView, didSelectItemAt: indexPath)
         
@@ -174,8 +173,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let containerView = SATransitionContainerView(frame: view.bounds)
         containerView.setViews(cells, view: view)
         
-        // for now,
-        print("clicked on a store ad")
         // do the segue
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as! ShopViewController

@@ -12,6 +12,24 @@ import SAParallaxViewControllerSwift
 // Overrides SAParallaxViewLayout to implement functionality for sticky headers.
 class StickyHeaderFlowLayout: SAParallaxViewLayout {
     
+    public override init() {
+        super.init()
+        initialize()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    private func initialize() {
+        let width = UIScreen.main.bounds.size.width
+        let height = CGFloat(40.0)
+        headerReferenceSize = CGSize(width: width, height: height)
+        // footerReferenceSize = CGSize(width: width, height: height)
+    }
+
+    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         // Return true so we're asked for layout attributes as the content is scrolled
         return true
