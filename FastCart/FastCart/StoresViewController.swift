@@ -17,8 +17,22 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
     
     private var isAdShown: Bool = false
-    private var first: Bool = true
     
+    // Override the collection view initialization to use our own
+    // StickyHeaderFlowLayout()
+    private var _collectionView: UICollectionView?
+    override var collectionView: UICollectionView {
+        get {
+            if _collectionView == nil {
+                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: StickyHeaderFlowLayout())
+            }
+            return _collectionView!
+        }
+        set(value) {
+            _collectionView = value
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,11 +116,16 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+
+    //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Each "item" will be in a seperate section.
+        return 1
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Constants.numStores
     }
-    
-    //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let rawCell = super.collectionView(collectionView, cellForItemAt: indexPath)
         guard let cell = rawCell as? SAParallaxViewCell else { return rawCell }
@@ -122,6 +141,17 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         }
         
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "TESTHEADER", forIndexPath: indexPath) as HeaderView
+            headerView.label?.text = "Section \(indexPath.section)"
+            
+            return headerView
+        case UICollectionElementKindSectionFooter:
+            return UICollectionReusableView()
+        }
     }
     
     private func rankStore(at index: Int) -> Int {

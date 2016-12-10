@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SAParallaxViewControllerSwift
 
-class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
+// Overrides SAParallaxViewLayout to implement functionality for sticky headers.
+class StickyHeaderFlowLayout: SAParallaxViewLayout {
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         // Return true so we're asked for layout attributes as the content is scrolled
