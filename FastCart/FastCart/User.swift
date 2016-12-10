@@ -79,7 +79,7 @@ class User: EVObject {
     static func getUserDictionary(user: PFObject) -> NSDictionary {
         let userDictionary : NSDictionary = [
             "id": user.objectId ?? "0123456789",
-            "unsername" : user["unsername"] as? String ?? "def username",
+            "username" : user["username"] as? String ?? "def username",
             "email" : user["email"] as? String ?? "defaul@email",
             "facebookId" : user["facebookId"] as? String ?? "0123456789",
             ]
@@ -117,7 +117,7 @@ class User: EVObject {
     init(dictionary: NSDictionary){
         super.init()
         id = dictionary["id"] as? String
-        username = dictionary["unsername"] as? String
+        username = dictionary["username"] as? String
         email = dictionary["email"] as? String
         facebookId = dictionary["facebookId"] as? String
         if let id = facebookId {

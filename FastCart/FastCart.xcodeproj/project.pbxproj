@@ -25,6 +25,7 @@
 		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
 		22511A391DF4D40A009BD9CB /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */; };
 		22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */; };
+		22A238801DFBEFC100BDABB3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A2387F1DFBEFC100BDABB3 /* SignUpViewController.swift */; };
 		22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */; };
 		7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F12DF871DDB9F09003C78C6 /* Reviews.xib */; };
 		7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF891DDB9F5D003C78C6 /* Reviews.swift */; };
@@ -68,6 +69,7 @@
 		223A663E1DDA6D010075DBB5 /* FastCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastCart.entitlements; sourceTree = "<group>"; };
 		22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		22511A3A1DF4D9AB009BD9CB /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		22A2387F1DFBEFC100BDABB3 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptHistoryViewController.swift; sourceTree = "<group>"; };
 		7F12DF871DDB9F09003C78C6 /* Reviews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Reviews.xib; sourceTree = "<group>"; };
 		7F12DF891DDB9F5D003C78C6 /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				7F95158C1DE5473A001EC1D5 /* ShopViewController.swift */,
 				22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */,
 				22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */,
+				22A2387F1DFBEFC100BDABB3 /* SignUpViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A238801DFBEFC100BDABB3 /* SignUpViewController.swift in Sources */,
 				7F9515911DE6281C001EC1D5 /* ProductOverviewCell.swift in Sources */,
 				22511A3B1DF4D9AB009BD9CB /* ReviewCell.swift in Sources */,
 				22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */,

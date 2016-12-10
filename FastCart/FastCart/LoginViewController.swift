@@ -17,6 +17,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         static let facebookButtonBottomMargin: CGFloat = 100
     }
 
+    @IBOutlet weak var usernameLabel: UITextField!
+    
+    @IBOutlet weak var passwordLabel: UITextField!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var signupButton: UIButton!
+    
     var dict : NSDictionary!
     //self.dict = result as NSDictionary
     
@@ -24,6 +35,24 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.loginButton.layer.cornerRadius = 5
+        self.loginButton.layer.shadowColor = UIColor.gray.cgColor
+        self.loginButton.layer.shadowOpacity = 1
+        self.loginButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        self.loginButton.layer.shadowRadius = 4.0
+        self.loginButton.layer.masksToBounds = false
+
+        
+        self.signupButton.layer.cornerRadius = 5
+        self.signupButton.layer.shadowColor = UIColor.gray.cgColor
+        self.signupButton.layer.shadowOpacity = 1
+        self.signupButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        self.signupButton.layer.shadowRadius = 4.0
+        self.signupButton.layer.masksToBounds = false
+        
+        activityIndicator.hidesWhenStopped = true;
+        activityIndicator.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.gray;
         
         let loginButton = FBSDKLoginButton()
         
@@ -37,6 +66,34 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         view.addSubview(loginButton)
     }
 
+    
+    
+    @IBAction func onFastcartLogin(_ sender: Any) {
+        let username = self.usernameLabel.text
+        let password = self.passwordLabel.text
+
+        activityIndicator.startAnimating()
+        
+        PFUser.logInWithUsername (inBackground: username!, password: password!, block: {(user, error) in
+            self.activityIndicator.stopAnimating()
+            if user != nil {
+                //Yes User Exists
+                print(user ?? "default message of user logged in")
+                let userDictionary = User.getUserDictionary(user: user!)
+                let storedUser = User(dictionary: userDictionary)
+                User.currentUser = storedUser
+                self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+
+            }
+            else {
+                let alertController = UIAlertController(title: "Login Failed", message: "Incorrect password or username", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
     }
@@ -90,6 +147,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         //var storeUser = User.getParseUser(email: email)
                       
                         let rawUser = users?[0]
+                        
+                        print(rawUser)
                         
                         let userDictionary = User.getUserDictionary(user: rawUser!)
                         let storedUser = User(dictionary: userDictionary)
