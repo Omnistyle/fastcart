@@ -143,12 +143,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let vc = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as! ShopViewController
         vc.store = Store.init(id: "1")
         self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let viewController = DetailViewController()
-//        viewController.transitioningDelegate = self
-//        viewController.trantisionContainerView = containerView
-//        
-//        present(viewController, animated: true, completion: nil)
     }
     
     // Limit scrolling to height for beauty purposes.
