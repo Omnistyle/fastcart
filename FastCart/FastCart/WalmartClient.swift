@@ -10,6 +10,7 @@ import UIKit
 
 class WalmartClient {
     let apiKey = "69sak8n5jctvbapcs8wp88tt"
+    let alternateApikey = ""
     let EAN_LENGTH = 13
     static let sharedInstance : WalmartClient = WalmartClient.init()
     

@@ -11,20 +11,29 @@ import UIKit
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currentReceipt : Receipt!
-
+    var refreshControl: UIRefreshControl!
     var receipts = [Receipt]() {
         didSet {
             tableView.reloadData()
         }
     }
+
     private var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //adding refresh table
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(HistoryViewController.refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
+
         // Activity indicator.
         activityIndicator = Utilities.addActivityIndicator(to: view)
+
 
         // Do any additional setup after loading the view.
         tableView.dataSource = self
@@ -36,15 +45,38 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             receipts = history
         }
         
+        //getReceipts()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getReceipts()
+        print("calling view will appear")
+    }
+    
+    func refresh(){
+        self.receipts = []
+        getReceipts()
+        print("refreshing table view")
+    }
+    
+    func getReceipts(){
+        
         if let user = User.currentUser {
             activityIndicator.startAnimating()
              Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
                 self.activityIndicator.stopAnimating()
+
                 self.receipts = recps
+                print("just pulled \(recps.count) receipts...")
+                if self.refreshControl.isRefreshing
+                {
+                    self.refreshControl.endRefreshing()
+                }
             })
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,5 +106,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController?.pushViewController(controller, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+
+
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "historyreceiptSegue"){
+            let navigationViewController = segue.destination as! UINavigationController
+            let receipthistoryViewController = navigationViewController.topViewController as! ReceiptHistoryViewController
+            
+            receipthistoryViewController.receiptId = self.currentReceipt.id!
+            
+        }
+        
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
 }

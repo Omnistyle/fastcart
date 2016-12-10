@@ -92,12 +92,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKShareKit/FBSDKShareKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LUExpandableTableView/LUExpandableTableView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MXParallaxHeader/MXParallaxHeader.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SABlurImageView/SABlurImageView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SAParallaxViewControllerSwift/SAParallaxViewControllerSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SCLAlertView/SCLAlertView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TLYShyNavBar/TLYShyNavBar.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -109,11 +111,13 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKShareKit/FBSDKShareKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LUExpandableTableView/LUExpandableTableView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MXParallaxHeader/MXParallaxHeader.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SABlurImageView/SABlurImageView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SAParallaxViewControllerSwift/SAParallaxViewControllerSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SCLAlertView/SCLAlertView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TLYShyNavBar/TLYShyNavBar.framework"
 fi
