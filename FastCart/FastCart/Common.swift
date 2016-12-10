@@ -35,6 +35,12 @@ extension URL {
     }
 }
 
+enum Tab:Int{
+    case Home = 0
+    case Scanner = 1
+    case ShopList = 2
+    case 
+}
 extension UITabBarController {
     func switchToList(at index: Int) {
         let nvc = self.viewControllers![2] as! UINavigationController
@@ -44,6 +50,9 @@ extension UITabBarController {
         
         tvc.selectedIndex = index
         nvc.popToRootViewController(animated: false)
+    }
+    func switchToTab(name: Tab) {
+        self.selectedIndex = name.rawValue
     }
 }
 

@@ -11,11 +11,10 @@ import SAParallaxViewControllerSwift
 import MisterFusion
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
-    private var kItemSectionHeaderViewID = "StoreCellHeaderView"
-    private class Constants {
-        static let numStores = 5
-        static let bannerHeight = CGFloat(40.0)
-    }
+    private let kItemSectionHeaderViewID = "StoreCellHeaderView"
+    private let kNumStores = 5
+    private let kBannerHeight = CGFloat(40.0)
+    private let kBannerText = "Free shipping! Use code: SHIP."
     
     private var isAdShown: Bool = false
     
@@ -46,40 +45,53 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     }
     
-    private func addBanner(at origin: CGPoint) {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 114/255, green: 190/255, blue: 183/255, alpha: 1)
+    private func createBannerView() -> UIView{
+        let bannerView = UIView()
+        bannerView.backgroundColor = Constants.themeColor
         
         // add label
-        let text = "Free shipping on orders over $50, use promo code: SHIP."
         let label = UILabel()
-        label.font = label.font.withSize(13.0)
-        label.text = text
+        label.text = kBannerText
         label.textColor = UIColor.white
-        view.addLayoutSubview(label, andConstraints:
-            label.top,
-            label.right |+| 10,
-            label.left |+| 10,
-            label.bottom)
+        label.numberOfLines = 1;
+        label.textAlignment = .center
+        label.font = label.font.withSize(14.0)
+        label.minimumScaleFactor = 1.0 / 14.0
+        label.adjustsFontSizeToFitWidth = true
+        label.sizeToFit()
         
-        view.isUserInteractionEnabled = true
+        bannerView.addLayoutSubview(label, andConstraints:
+        label.top,
+        label.right |+| 10,
+        label.left |+| 10,
+        label.bottom)
+        
+        bannerView.isUserInteractionEnabled = true
         // add touch target
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
         tap.delegate = self
-        view.addGestureRecognizer(tap)
+        bannerView.addGestureRecognizer(tap)
+    
+        return bannerView
+    }
+    
+    private func addBanner(at origin: CGPoint) {
+        let bannerView = createBannerView()
         
-        // Add top view.
-        self.view.addLayoutSubview(view, andConstraints:
-            view.top |+| origin.y,
-            view.left,
-            view.right,
-            view.height |==| Constants.bannerHeight
+        // Add banner view.
+        self.view.addLayoutSubview(bannerView, andConstraints:
+            bannerView.top |+| origin.y,
+            bannerView.left,
+            bannerView.right,
+            bannerView.height |==| kBannerHeight
         )
         isAdShown = true
 
-        // Add collection view. (Manually!)
+        // Add collection view and manually adjust for the banner.
+        let bannerBottom = origin.y + kBannerHeight
         self.view.addLayoutSubview(collectionView, andConstraints:
-            collectionView.top |==| view.bottom,
+            // Add enough space for the banner to show.
+            collectionView.top |+| bannerBottom,
             collectionView.left,
             collectionView.right,
             collectionView.bottom)
@@ -88,6 +100,9 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     // Hides the banner,
     func hideBanner(sender: UITapGestureRecognizer? = nil) {
         if let notificationView = sender?.view {
+            self.view.layoutIfNeeded()
+            
+            // Set-up new contraints on the collection view.
             UIView.animate(withDuration: 0.7, delay: 0.0, options: [], animations: {
                 // Move up!
                 self.collectionView.frame = CGRect(
@@ -96,10 +111,13 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
                     width: self.collectionView.frame.width,
                     height: self.collectionView.frame.height + notificationView.frame.height + self.navigationController!.navigationBar.frame.height)
             }, completion: nil)
-            // Delay a few seconds before removing, so no awkward whitespace.
+            // Delay a few seconds before removing, so no awkward whitespace and remove.
             UIView.animate(withDuration: 1.0, delay: 0.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 notificationView.frame = CGRect(x: 0.0, y: 0.0, width: notificationView.frame.width, height: 0.0)
+                
+            }, completion: { (success: Bool) -> Void in
                 self.isAdShown = false
+                notificationView.removeFromSuperview()
             })
         }
     }
@@ -128,7 +146,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Constants.numStores
+        return kNumStores
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let rawCell = super.collectionView(collectionView, cellForItemAt: indexPath)

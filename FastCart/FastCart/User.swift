@@ -163,7 +163,7 @@ class User: EVObject {
     }
     
     /** Complete the user checkout process by saving all our data to Parse */
-    func completeCheckout() -> Void {
+    open func completeCheckout() -> Void {
         self.history.insert(self.current, at: 0)
         self.current.parseSave()
         
@@ -173,6 +173,17 @@ class User: EVObject {
         
         // Persist the user and the receipt so we keep the history around.
         Utilities.persist(self, withKey: Persistece.user.rawValue)
+    }
+    /**
+     Returns true if the given store is a favorite for this user.
+     */
+    open func isFavorite(store: Store) -> Bool {
+        for favoriteStore in favoriteStores {
+            if favoriteStore == store {
+                return true
+            }
+        }
+        return false
     }
 
     /**
