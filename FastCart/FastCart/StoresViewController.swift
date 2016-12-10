@@ -11,14 +11,29 @@ import SAParallaxViewControllerSwift
 import MisterFusion
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate {
+    private var kItemSectionHeaderViewID = "StoreCellHeaderView"
     private class Constants {
         static let numStores = 5
         static let bannerHeight = CGFloat(40.0)
     }
     
     private var isAdShown: Bool = false
-    private var first: Bool = true
     
+    // Override the collection view initialization to use our own
+    // StickyHeaderFlowLayout()
+    private var _collectionView: UICollectionView?
+    override var collectionView: UICollectionView {
+        get {
+            if _collectionView == nil {
+                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: StickyHeaderFlowLayout())
+            }
+            return _collectionView!
+        }
+        set(value) {
+            _collectionView = value
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +41,9 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
             self.addBanner(at: origin);
         }
+        
+        // Register the .xib for the custom header view and footerview.
+        self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     }
     
     private func addBanner(at origin: CGPoint) {
@@ -102,11 +120,16 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+
+    //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Each "item" will be in a seperate section.
+        return 1
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Constants.numStores
     }
-    
-    //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let rawCell = super.collectionView(collectionView, cellForItemAt: indexPath)
         guard let cell = rawCell as? SAParallaxViewCell else { return rawCell }
@@ -115,13 +138,28 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             view.removeFromSuperview()
         }
         
-        let index = indexPath.row
+        let index = indexPath.section
         let imageName = String(format: "image%d", rankStore(at: index) + 1)
         if let image = UIImage(named: imageName) {
             cell.setImage(image)
         }
         
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreCellHeaderView", for: indexPath) as! StoreCellHeaderView
+            headerView.storeName.text = "Text"
+            
+            return headerView
+        case UICollectionElementKindSectionFooter:
+            return UICollectionReusableView()
+        default:
+            assert(false, "Unsupported supplementary view kind: \(kind)")
+            return UICollectionReusableView()
+        }
+        
     }
     
     private func rankStore(at index: Int) -> Int {
@@ -143,12 +181,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let vc = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as! ShopViewController
         vc.store = Store.init(id: "1")
         self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let viewController = DetailViewController()
-//        viewController.transitioningDelegate = self
-//        viewController.trantisionContainerView = containerView
-//        
-//        present(viewController, animated: true, completion: nil)
     }
     
     // Limit scrolling to height for beauty purposes.

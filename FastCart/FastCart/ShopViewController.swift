@@ -9,8 +9,9 @@
 import UIKit
 import TLYShyNavBar
 import SCLAlertView
+import SideMenu
 
-class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate {
+class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     var store : Store?
     
@@ -26,6 +27,11 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var products = [Product]()
     var searchTerm = "dress"
+    
+    var searchController: UISearchController!
+    
+    @IBOutlet weak var searchBarPlaceHolder: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -38,7 +44,33 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.shyNavBarManager.scrollView = self.collectionView
         
+        // add right bar button item
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(ShopViewController.buttonMethod))
+        navigationItem.rightBarButtonItem = refreshButton
+        
         self.title = "Shop"
+        
+        
+        // search bar functions
+        // Initializing with searchResultsController set to nil means that
+        // searchController will use this view controller to display the search results
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        
+        // If we are using this same view controller to present the results
+        // dimming it out wouldn't make sense. Should probably only set
+        // this to yes if using another controller to display the search results.
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.delegate = self
+        searchBarPlaceHolder.addSubview(searchController.searchBar)
+        automaticallyAdjustsScrollViewInsets = false
+        definesPresentationContext = true
+        
+        // Sets this view controller as presenting view controller for the search interface
+        definesPresentationContext = true
+        
         
         // flow layout stuff
         flowLayout.minimumLineSpacing = 0
@@ -62,8 +94,81 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
         
+        setUpSideMenu()
+    }
+    
+    func buttonMethod() {
+        present(SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
+    }
+    func setUpSideMenu() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let menuRightNavigationController = storyboard.instantiateViewController(withIdentifier: "FiltersRightNavigationController") as! UISideMenuNavigationController
+        
+        // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+        SideMenuManager.menuRightNavigationController = menuRightNavigationController
+        
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("first started")
+        blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView!.frame = view.bounds
+        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("clicked cancel")
+        if let blurEffectView = blurEffectView {
+            blurEffectView.removeFromSuperview()
+        }
+    }
+    
+    var blurEffect: UIBlurEffect?
+    var blurEffectView: UIVisualEffectView?
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            // perform network request
+            self.activityIndicator.startAnimating()
+            searchTerm = searchText
+            WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchText, startIndex: "1", success: { (products: [Product]) in
+                // get additional information
+                for _ in products {
+                    // get product related info images
+                }
+                
+                self.products = products
+                self.activityIndicator.stopAnimating()
+                self.collectionView.reloadData()
+                
+            }, failure: {(error: Error) -> () in
+                self.activityIndicator.stopAnimating()
+                Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
+            })
     }
 
+//        if let searchText = searchController.searchBar.text {
+//            filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
+//                return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+//            })
+//            
+//            tableView.reloadData()
+//        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.isActive = false
+        searchBar.resignFirstResponder()
+        if let blurEffectView = blurEffectView {
+            blurEffectView.removeFromSuperview()
+        }
+    }
+    
+    // collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
