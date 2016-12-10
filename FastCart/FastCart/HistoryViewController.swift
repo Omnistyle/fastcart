@@ -61,12 +61,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func getReceipts(){
-        
+        activityIndicator.startAnimating()
         if let user = User.currentUser {
-            activityIndicator.startAnimating()
              Receipt.getReceipts(userId: user.id, completion: { ( recps: [Receipt]) in
-                self.activityIndicator.stopAnimating()
-
+                if self.activityIndicator.isAnimating {
+                    self.activityIndicator.stopAnimating()
+                }
+                
                 self.receipts = recps
                 print("just pulled \(recps.count) receipts...")
                 if self.refreshControl.isRefreshing
