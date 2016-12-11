@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
-    let titles = [["Current order"],
+    let titles = [["Current order", "Past orders"],
                   ["Contact us", "Rate the app", "Invite friends"],
                   ["Account"]]
     override func viewDidLoad() {
@@ -55,7 +55,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         
 //        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
-        scrollView.parallaxHeader.height = 250
+        scrollView.parallaxHeader.height = 150
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
@@ -158,8 +158,13 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         tableView.deselectRow(at: indexPath, animated: true)
         // handle transition
         if indexPath.section == 0 {
+            if indexPath.row == 0 {
             self.tabBarController?.switchToList(at: 1)
             self.tabBarController?.selectedIndex = 2
+            } else {
+                self.tabBarController?.switchToList(at: 0)
+                self.tabBarController?.selectedIndex = 2
+            }
         } else {
             // contact
             if indexPath.row == 0 {

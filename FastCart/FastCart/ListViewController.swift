@@ -86,7 +86,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let product = Product(dictionary: ["name": addItemTextView.text], api: apiType.manual)
         products = products + [product]
         tableView.reloadData()
-        addItemTextView.text = "Type or tap the camera to scan an item"
+        addItemTextView.text = "Tap the camera to scan"
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

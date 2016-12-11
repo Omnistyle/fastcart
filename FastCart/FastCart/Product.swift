@@ -213,14 +213,18 @@ class Product: EVObject {
 //                }, failure: { (error) -> () in
 //                })
 //            }
-        
+        if let image = self.image {
+            self.variantImages.append(image)
+        }
         if let imageEntities = dictionary["imageEntities"] as? [NSDictionary] {
             for image in imageEntities {
                 if let imageString = image["largeImage"] as? String {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl)
+                        if !variantImages.contains(imageUrl) {
+                            self.variantImages.append(imageUrl)
+                        }
                     }
                 }
             }

@@ -37,6 +37,9 @@
 		7F828CE11DFB581B0026F8C8 /* FiltersSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F828CE01DFB581B0026F8C8 /* FiltersSectionHeader.xib */; };
 		7F828CE31DFB586E0026F8C8 /* FiltersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F828CE21DFB586E0026F8C8 /* FiltersTableViewCell.swift */; };
 		7F828CE51DFB5BC80026F8C8 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F828CE41DFB5BC80026F8C8 /* FilterTableViewCell.swift */; };
+		7F828CE71DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F828CE61DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift */; };
+		7F828CE91DFB8B190026F8C8 /* ColorFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F828CE81DFB8B190026F8C8 /* ColorFilterTableViewCell.swift */; };
+		7F828CEB1DFB91850026F8C8 /* TrendingSearchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F828CEA1DFB91850026F8C8 /* TrendingSearchesViewController.swift */; };
 		7F9515831DE41417001EC1D5 /* StarshipHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9515821DE41417001EC1D5 /* StarshipHeader.xib */; };
 		7F9515851DE414CD001EC1D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F9515841DE414CD001EC1D5 /* Assets.xcassets */; };
 		7F9515871DE416F6001EC1D5 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9515861DE416F6001EC1D5 /* CustomHeader.swift */; };
@@ -86,6 +89,9 @@
 		7F828CE01DFB581B0026F8C8 /* FiltersSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FiltersSectionHeader.xib; sourceTree = "<group>"; };
 		7F828CE21DFB586E0026F8C8 /* FiltersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersTableViewCell.swift; sourceTree = "<group>"; };
 		7F828CE41DFB5BC80026F8C8 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
+		7F828CE61DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFilterTableViewCell.swift; sourceTree = "<group>"; };
+		7F828CE81DFB8B190026F8C8 /* ColorFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFilterTableViewCell.swift; sourceTree = "<group>"; };
+		7F828CEA1DFB91850026F8C8 /* TrendingSearchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingSearchesViewController.swift; sourceTree = "<group>"; };
 		7F9515821DE41417001EC1D5 /* StarshipHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarshipHeader.xib; sourceTree = "<group>"; };
 		7F9515841DE414CD001EC1D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F9515861DE416F6001EC1D5 /* CustomHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 				22511A381DF4D40A009BD9CB /* ReviewsViewController.swift */,
 				22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */,
 				7F828CDE1DFB523F0026F8C8 /* FiltersViewController.swift */,
+				7F828CEA1DFB91850026F8C8 /* TrendingSearchesViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -157,6 +164,8 @@
 				7F828CE01DFB581B0026F8C8 /* FiltersSectionHeader.xib */,
 				7F828CE21DFB586E0026F8C8 /* FiltersTableViewCell.swift */,
 				7F828CE41DFB5BC80026F8C8 /* FilterTableViewCell.swift */,
+				7F828CE61DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift */,
+				7F828CE81DFB8B190026F8C8 /* ColorFilterTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -386,6 +395,7 @@
 				7F9515891DE4D88F001EC1D5 /* ThemeManager.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
 				222FD6831DF6B25A00B75B80 /* HistoryProductCell.swift in Sources */,
+				7F828CEB1DFB91850026F8C8 /* TrendingSearchesViewController.swift in Sources */,
 				7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */,
 				103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */,
 				1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */,
@@ -404,6 +414,8 @@
 				7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */,
 				1057DECB1DD91510001203D2 /* ProductCell.swift in Sources */,
 				101DD3241DF684760075F2E1 /* ImageScrollView.swift in Sources */,
+				7F828CE91DFB8B190026F8C8 /* ColorFilterTableViewCell.swift in Sources */,
+				7F828CE71DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift in Sources */,
 				7F828CDF1DFB523F0026F8C8 /* FiltersViewController.swift in Sources */,
 				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
 			);

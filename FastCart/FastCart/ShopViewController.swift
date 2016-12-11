@@ -11,7 +11,7 @@ import TLYShyNavBar
 import SCLAlertView
 import SideMenu
 
-class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ScrollCellDelegate, UISearchResultsUpdating, UISearchBarDelegate, FiltersViewControllerDelegate {
     
     var store : Store?
     
@@ -30,6 +30,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var searchController: UISearchController!
     
+    var selectedPrice = "500"
+    var selectedShipping = [String]()
+    var selectedColor = [String]()
     @IBOutlet weak var searchBarPlaceHolder: UIView!
     
     override func viewDidLoad() {
@@ -64,12 +67,17 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         searchController.searchBar.sizeToFit()
         searchController.searchBar.delegate = self
-        searchBarPlaceHolder.addSubview(searchController.searchBar)
+//        searchBarPlaceHolder.addSubview(searchController.searchBar)
+        self.shyNavBarManager.extensionView = searchController.searchBar
         automaticallyAdjustsScrollViewInsets = false
         definesPresentationContext = true
         
         // Sets this view controller as presenting view controller for the search interface
         definesPresentationContext = true
+        
+        
+        // shynav properties
+        self.shyNavBarManager.expansionResistance = 400
         
         
         // flow layout stuff
@@ -79,7 +87,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // perform network request
         self.activityIndicator.startAnimating()
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", success: { (products: [Product]) in
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", price: self.selectedPrice, color: self.selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
             // get additional information
             for _ in products {
                 // get product related info images
@@ -95,23 +103,34 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         })
         
         setUpSideMenu()
+        
+        
+        getTrending()
     }
     
     func buttonMethod() {
+        if let vc = SideMenuManager.menuRightNavigationController!.topViewController as? FiltersViewController {
+            vc.delegate = self
+        }
         present(SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
     }
     func setUpSideMenu() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let menuRightNavigationController = storyboard.instantiateViewController(withIdentifier: "FiltersRightNavigationController") as! UISideMenuNavigationController
-        
+        menuRightNavigationController.setNeedsStatusBarAppearanceUpdate()
         // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
+        
+        
         
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
+    var trendingView: UIView?
+    var titleLabel: UILabel?
+    var label: UILabel?
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         print("first started")
         blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
@@ -119,10 +138,58 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         blurEffectView!.frame = view.bounds
         blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView!)
+        
+        guard let trendingSearches = trending?.prefix(10) else {return}
+       
+        // title label
+        titleLabel = UILabel()
+        titleLabel!.text = "Trending"
+        titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightLight)
+        titleLabel!.frame = CGRect(x: CGFloat(20), y: CGFloat(75), width: view.frame.width, height: 50)
+        view.addSubview(titleLabel!)
+        
+        // trending labels
+        label = UILabel()
+        
+        var currentText = ""
+    
+        for trend in trendingSearches {
+            currentText = currentText + trend + "\r\n\r\n"
+        }
+        
+        label!.text = currentText
+        label!.numberOfLines = 0
+        label!.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
+        label?.textColor = UIColor.black
+        label!.frame = CGRect(x: CGFloat(20), y: CGFloat(150), width: view.frame.width - 40, height: 200)
+        view.addSubview(label!)
+        
+        
+    }
+    var trending: [String]?
+    
+    func getTrending() {
+        trendingView = UIView(frame: CGRect(x: CGFloat(0.0), y: CGFloat(30.0), width: view.frame.width, height: view.frame.height))
+        
+        WalmartClient.sharedInstance.getTrendingSearches(success: { (trending: [String]) in
+            // get additional information
+            self.trending = trending
+            
+        }, failure: {(error: Error) -> () in
+            Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
+        })
+        
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         print("clicked cancel")
+        if let titleLabel = titleLabel {
+            titleLabel.removeFromSuperview()
+        }
+        if let label = label {
+            label.removeFromSuperview()
+        }
         if let blurEffectView = blurEffectView {
             blurEffectView.removeFromSuperview()
         }
@@ -131,10 +198,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var blurEffect: UIBlurEffect?
     var blurEffectView: UIVisualEffectView?
     func updateSearchResults(for searchController: UISearchController) {
+        
         if let searchText = searchController.searchBar.text {
             // perform network request
-            self.activityIndicator.startAnimating()
-            searchTerm = searchText
             WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchText, startIndex: "1", success: { (products: [Product]) in
                 // get additional information
                 for _ in products {
@@ -142,30 +208,32 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
                 
                 self.products = products
-                self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
                 
             }, failure: {(error: Error) -> () in
                 self.activityIndicator.stopAnimating()
                 Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
             })
-    }
-
-//        if let searchText = searchController.searchBar.text {
-//            filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
-//                return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
-//            })
-//            
-//            tableView.reloadData()
-//        }
+        }
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchController.isActive = false
         searchBar.resignFirstResponder()
+        
+        if let titleLabel = titleLabel {
+            titleLabel.removeFromSuperview()
+        }
+        if let label = label {
+            label.removeFromSuperview()
+        }
         if let blurEffectView = blurEffectView {
             blurEffectView.removeFromSuperview()
         }
+        
+        
+        
     }
     
     // collection view
@@ -267,14 +335,38 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     /*
-    // MARK: - Navigation
+     MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+     In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+         Get the new view controller using segue.destinationViewController.
+         Pass the selected object to the new view controller.
     }
     */
+    
+    func didFilter(view: FiltersViewController, selectedPrice: Int, selectedColor: [String], selectedShipping: [String]) {
+        self.selectedPrice = String(describing: selectedPrice)
+        self.selectedShipping = selectedShipping
+        self.selectedColor = selectedColor
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", price: self.selectedPrice, color: self.selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
+            // get additional information
+            for _ in products {
+                // get product related info images
+            }
+            
+            self.products = products
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+            
+        }, failure: {(error: Error) -> () in
+            self.activityIndicator.stopAnimating()
+            Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
+        })
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        
+//    }
     
     // MARK: - UIScrollView
     func loadMoreData() {

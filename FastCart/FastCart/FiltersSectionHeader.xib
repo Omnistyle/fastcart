@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,36 +20,37 @@
                     <rect key="frame" x="0.0" y="0.0" width="443" height="74"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Uo-kY-wQ1">
-                            <rect key="frame" x="10" y="0.0" width="346" height="74"/>
+                            <rect key="frame" x="10" y="0.0" width="44" height="74"/>
                             <gestureRecognizers/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.9137254901960784" green="0.9137254901960784" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxD-LI-l9Y">
-                            <rect key="frame" x="366" y="-11" width="65" height="96"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxD-LI-l9Y">
+                            <rect key="frame" x="413" y="17" width="16" height="9"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="65" id="eO8-qH-cWO"/>
+                                <constraint firstAttribute="height" constant="9" id="J74-n8-a4c"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="YS3-rc-OOI"/>
+                                <constraint firstAttribute="width" constant="16" id="eO8-qH-cWO"/>
+                                <constraint firstAttribute="width" secondItem="MxD-LI-l9Y" secondAttribute="height" multiplier="7:4" id="gsR-5G-q55"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title=" BB" image="chevron_down">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="expandCollapse:" destination="iN0-l3-epB" eventType="touchUpInside" id="fxP-cZ-vPP"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="4Uo-kY-wQ1" firstAttribute="leading" secondItem="7ru-AR-pwS" secondAttribute="leading" constant="10" id="3kD-VC-Df0"/>
                         <constraint firstAttribute="bottom" secondItem="4Uo-kY-wQ1" secondAttribute="bottom" id="V7i-mb-dZL"/>
-                        <constraint firstAttribute="bottom" secondItem="MxD-LI-l9Y" secondAttribute="bottom" constant="-11" id="Yz1-hr-rCp"/>
+                        <constraint firstAttribute="bottom" secondItem="MxD-LI-l9Y" secondAttribute="bottom" constant="48" id="Yz1-hr-rCp"/>
                         <constraint firstItem="4Uo-kY-wQ1" firstAttribute="top" secondItem="7ru-AR-pwS" secondAttribute="top" id="cC9-s5-TLh"/>
-                        <constraint firstAttribute="trailing" secondItem="MxD-LI-l9Y" secondAttribute="trailing" constant="12" id="nvC-91-AgG"/>
-                        <constraint firstItem="MxD-LI-l9Y" firstAttribute="leading" relation="lessThanOrEqual" secondItem="4Uo-kY-wQ1" secondAttribute="trailing" constant="10" id="pT1-dM-q1f"/>
-                        <constraint firstItem="MxD-LI-l9Y" firstAttribute="top" secondItem="7ru-AR-pwS" secondAttribute="top" constant="-11" id="y1R-oe-toL"/>
+                        <constraint firstAttribute="trailing" secondItem="MxD-LI-l9Y" secondAttribute="trailing" constant="14" id="nvC-91-AgG"/>
+                        <constraint firstItem="MxD-LI-l9Y" firstAttribute="top" secondItem="7ru-AR-pwS" secondAttribute="top" constant="17" id="y1R-oe-toL"/>
                     </constraints>
                 </view>
             </subviews>
@@ -63,7 +65,10 @@
                 <outlet property="expandCollapseButton" destination="MxD-LI-l9Y" id="rXv-ek-UI5"/>
                 <outlet property="label" destination="4Uo-kY-wQ1" id="vkQ-eI-0q9"/>
             </connections>
-            <point key="canvasLocation" x="39.5" y="-224"/>
+            <point key="canvasLocation" x="41.5" y="-226"/>
         </view>
     </objects>
+    <resources>
+        <image name="chevron_down" width="84" height="45"/>
+    </resources>
 </document>

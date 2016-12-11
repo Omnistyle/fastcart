@@ -63,6 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
             
         }
+        window?.tintColor = UIColor.black
+        
+        // hide the navigation bar
+        UIApplication.shared.isStatusBarHidden = true
+//        UIApplication.shared.statusBarStyle = .default
+//        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+//        
+//        statusBar.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247.255, alpha: 1)
+        
         
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
