@@ -80,10 +80,11 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     private func noStoresAvailable() {
         let label = UILabel()
         label.text = "Not Available"
+        label.textAlignment = .center
         pricePlaceHolder.addLayoutSubview(label, andConstraints:
             label.top |+| 8,
             label.left |+| 8,
-            label.height |+| pricePlaceHolder.frame.height
+            label.right |+| 8
         )
     }
     private func setUpOtherStores(in view: UIView) {

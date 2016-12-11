@@ -29,8 +29,9 @@ class UPCClient {
             guard code == "OK" else { return failure(genericError) }
             guard let numItems = responseDictionary["total"] as? Int else { return failure(genericError)}
             guard numItems > 0 else { return success([]) }
-            guard let items = responseDictionary["items"] as? [NSDictionary] else { return failure(genericError) }
-            success(Offer.offers(from: items))
+            guard let items = responseDictionary["items"] as? [NSDictionary]else { return failure(genericError) }
+            guard let offers = items[0]["offers"] as? [NSDictionary] else { return failure(genericError)}
+            success(Offer.offers(from: offers))
         })
         
         task.resume()

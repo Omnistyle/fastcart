@@ -1640,7 +1640,6 @@
                     <connections>
                         <outlet property="fixedView" destination="blh-6v-sjb" id="Ejd-Z7-8H7"/>
                         <outlet property="nameLabel" destination="9xh-pm-Hp1" id="5DW-F1-KkK"/>
-                        <outlet property="priceComparisonView" destination="bcc-ZK-hcL" id="h5A-Qd-UXs"/>
                         <outlet property="priceLabel" destination="MUo-MC-lsA" id="ZrP-kf-FDh"/>
                         <outlet property="pricePlaceHolder" destination="zSp-hw-5w1" id="auA-2p-z1u"/>
                         <outlet property="productScrollView" destination="kKS-Ct-R3E" id="Bzi-97-lZ2"/>
