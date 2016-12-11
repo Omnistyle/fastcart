@@ -1740,9 +1740,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OED-nN-yz4">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.92941176470588238" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="rXm-mB-r9j"/>
-                                        </constraints>
                                         <state key="normal" title="No Thanks">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1765,11 +1762,13 @@
                                 <constraints>
                                     <constraint firstItem="OED-nN-yz4" firstAttribute="top" secondItem="IGZ-cJ-4gB" secondAttribute="top" id="0PJ-ja-IvQ"/>
                                     <constraint firstItem="IGZ-cJ-4gB" firstAttribute="baseline" secondItem="OED-nN-yz4" secondAttribute="firstBaseline" id="0zp-qb-eaI"/>
+                                    <constraint firstItem="IGZ-cJ-4gB" firstAttribute="leading" secondItem="blh-6v-sjb" secondAttribute="centerX" id="Fvm-OF-RQe"/>
                                     <constraint firstItem="OED-nN-yz4" firstAttribute="leading" secondItem="blh-6v-sjb" secondAttribute="leading" id="UfB-D4-2Yo"/>
                                     <constraint firstAttribute="width" secondItem="blh-6v-sjb" secondAttribute="height" multiplier="80:11" id="VO0-MI-a0u"/>
                                     <constraint firstItem="OED-nN-yz4" firstAttribute="baseline" secondItem="IGZ-cJ-4gB" secondAttribute="firstBaseline" id="Vpl-Q3-b4E"/>
                                     <constraint firstItem="IGZ-cJ-4gB" firstAttribute="leading" secondItem="OED-nN-yz4" secondAttribute="trailing" id="Zdf-I9-rCg"/>
                                     <constraint firstAttribute="trailing" secondItem="IGZ-cJ-4gB" secondAttribute="trailing" id="cLj-2J-P7O"/>
+                                    <constraint firstAttribute="centerX" secondItem="OED-nN-yz4" secondAttribute="trailing" id="kGh-8O-PeU"/>
                                     <constraint firstAttribute="bottom" secondItem="OED-nN-yz4" secondAttribute="bottom" id="rUg-E1-yqp"/>
                                     <constraint firstItem="OED-nN-yz4" firstAttribute="top" secondItem="blh-6v-sjb" secondAttribute="top" id="v9v-bJ-ckZ"/>
                                 </constraints>
@@ -1796,6 +1795,8 @@
                         <outlet property="productScrollView" destination="kKS-Ct-R3E" id="Bzi-97-lZ2"/>
                         <outlet property="ratingsLabel" destination="c9P-Qw-QQF" id="ne9-oG-Sre"/>
                         <outlet property="reviewsImageView" destination="S4s-eT-BBX" id="RNd-K6-yvU"/>
+                        <outlet property="rootView" destination="89X-oo-Bl4" id="4Of-hG-Nii"/>
+                        <outlet property="scrollView" destination="y7w-VP-2fw" id="X8J-fd-fKG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kg6-cC-eBb" userLabel="First Responder" sceneMemberID="firstResponder"/>

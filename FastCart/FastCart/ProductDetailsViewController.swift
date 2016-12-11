@@ -11,9 +11,19 @@ import ASHorizontalScrollView
 import MisterFusion
 
 class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
+    
+    private class HorizontalScrollView: ASHorizontalScrollView {
+        override func touchesShouldCancel(in view: UIView) -> Bool {
+            return true
+        }
+    }
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    @IBOutlet weak var rootView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var fixedView: UIView!
     @IBOutlet weak var productScrollView: ImageScrollView!
     
     var product: Product!
@@ -24,12 +34,14 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     
     private var wasNavHidden: Bool!
     private let kOfferSize = CGSize(width: 80, height: 80)
-    
-    @IBOutlet weak var fixedView: UIView!
+
     @IBOutlet weak var pricePlaceHolder: UIView!
     
     override func viewDidLoad() {        
         super.viewDidLoad()
+        
+        // Add fixed view at the bottom.
+        self.scrollView.contentInset.bottom += fixedView.frame.height + 20
         
         // Set-up the scrollable image.
         self.productScrollView.datasource = self
@@ -88,7 +100,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     }
     private func setUpOtherStores(in view: UIView) {
         guard let upc = product.upc else { return noStoresAvailable() }
-        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
+        let horizontalScrollView = HorizontalScrollView(frame: view.bounds)
         horizontalScrollView.uniformItemSize = kOfferSize
         horizontalScrollView.setItemsMarginOnce()
         let activityIndicator = Utilities.addActivityIndicator(to: view)
