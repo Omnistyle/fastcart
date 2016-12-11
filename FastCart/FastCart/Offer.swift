@@ -35,14 +35,11 @@ class Offer: EVObject {
     /** Currency of the list_price & price. Can be “USD”, “CAD”, “EUR”, “GBP”, “SEK”. Default “” means “USD” */
     var currency: String?
     /** Original price from the store. */
-    var list_price: Double?
+    var list_price: Double = 0.0
     /** Sale price. */
-    var price: Double?
+    var price: Double = 0.0
     var priceAsString: String {
-        if let price = price {
-            return Utilities.moneyToString(price)
-        }
-        return "NA"
+        return Utilities.moneyToString(price)
     }
     /** “Free Shipping” or other shipping information if not free. */
     var shipping: String?
