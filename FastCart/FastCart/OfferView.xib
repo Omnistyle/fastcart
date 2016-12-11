@@ -24,12 +24,18 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-R3-FZA">
                     <rect key="frame" x="8" y="0.0" width="64" height="54"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                    </accessibility>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="YqI-R3-FZA" secondAttribute="height" multiplier="62:53" id="0ct-zj-wwV"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-ax-FhV">
                     <rect key="frame" x="22" y="64" width="37" height="14"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

@@ -16,6 +16,7 @@ class OfferView: UIView {
     var offer: Offer! {
         didSet {
             priceLabel.text = offer.priceAsString
+            storeImage.image = #imageLiteral(resourceName: "noimagefound")
         }
     }
     
