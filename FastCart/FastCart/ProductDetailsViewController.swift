@@ -11,13 +11,6 @@ import ASHorizontalScrollView
 import MisterFusion
 
 class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
-    
-    private class HorizontalScrollView: ASHorizontalScrollView {
-        override func touchesShouldCancel(in view: UIView) -> Bool {
-            return true
-        }
-    }
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
@@ -25,6 +18,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var fixedView: UIView!
     @IBOutlet weak var productScrollView: ImageScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     var product: Product!
     
@@ -36,12 +30,19 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     private let kOfferSize = CGSize(width: 80, height: 80)
 
     @IBOutlet weak var pricePlaceHolder: UIView!
+    @IBOutlet weak var similarItemsPlaceHolder: UIView!
+    
+    private var similarScrollView: ASHorizontalScrollView?
+    private var otherStoresScrollView: ASHorizontalScrollView?
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Add fixed view at the bottom and set content size.
+        self.scrollView.contentInset.bottom = fixedView.frame.height + 10
+    }
     
     override func viewDidLoad() {        
         super.viewDidLoad()
-        
-        // Add fixed view at the bottom.
-        self.scrollView.contentInset.bottom += fixedView.frame.height + 20
         
         // Set-up the scrollable image.
         self.productScrollView.datasource = self
@@ -65,6 +66,8 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         
         // Setup other stores price comparions
         self.setUpOtherStores(in: pricePlaceHolder)
+        
+        self.setUpOtherItems(in: similarItemsPlaceHolder)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -88,34 +91,69 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     }
     
     // Set-up horizontal scroll in view for other stores.
-    private func noStoresAvailable() {
+    private func notAvailable(_ placeHolder: UIView) {
         let label = UILabel()
         label.text = "Not Available"
         label.textAlignment = .center
-        pricePlaceHolder.addLayoutSubview(label, andConstraints:
+        placeHolder.addLayoutSubview(label, andConstraints:
             label.top |+| 8,
             label.left |+| 8,
             label.right |+| 8
         )
     }
     private func setUpOtherStores(in view: UIView) {
-        guard let upc = product.upc else { return noStoresAvailable() }
-        let horizontalScrollView = HorizontalScrollView(frame: view.bounds)
+        guard let upc = product.upc else { return notAvailable(view) }
+        view.isUserInteractionEnabled = true
+        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
         horizontalScrollView.uniformItemSize = kOfferSize
         horizontalScrollView.setItemsMarginOnce()
+        horizontalScrollView.isUserInteractionEnabled = true
         let activityIndicator = Utilities.addActivityIndicator(to: view)
         activityIndicator.startAnimating()
-        UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
+        /*UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
             for offer in offers {
                 let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
                 let view = OfferView(frame: frame)
                 view.offer = offer
+                view.isUserInteractionEnabled = true
+                horizontalScrollView.addItem(view)
+            }
+            horizontalScrollView.frame = view.bounds
+            view.addSubview(horizontalScrollView)
+            horizontalScrollView.refreshSubView()
+            activityIndicator.stopAnimating()
+        }, failure: {(error: Error) -> () in
+            self.notAvailable(view)
+            activityIndicator.stopAnimating()
+        })
+        */
+    }
+    private func setUpOtherItems(in view: UIView) {
+        guard let upc
+            = product.upc else { return notAvailable(view) }
+        view.isUserInteractionEnabled = true
+        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
+        horizontalScrollView.uniformItemSize = kOfferSize
+        horizontalScrollView.setItemsMarginOnce()
+        horizontalScrollView.isUserInteractionEnabled = true
+        let activityIndicator = Utilities.addActivityIndicator(to: view)
+        activityIndicator.startAnimating()
+        UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
+            horizontalScrollView.frame = view.bounds
+            horizontalScrollView.backgroundColor = UIColor.red
+            for offer in offers {
+                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
+                let view = OfferView(frame: frame)
+                view.offer = offer
+                view.backgroundColor = UIColor.white
+                view.isUserInteractionEnabled = true
                 horizontalScrollView.addItem(view)
             }
             view.addSubview(horizontalScrollView)
+            horizontalScrollView.refreshSubView()
             activityIndicator.stopAnimating()
         }, failure: {(error: Error) -> () in
-            self.noStoresAvailable()
+            self.notAvailable(view)
             activityIndicator.stopAnimating()
         })
     }

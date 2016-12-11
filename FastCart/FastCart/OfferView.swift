@@ -11,12 +11,14 @@ import UIKit
 class OfferView: UIView {
     @IBOutlet weak var storeImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var storeLabel: UILabel!
     @IBOutlet var contentView: UIView!
     
     var offer: Offer! {
         didSet {
             priceLabel.text = offer.priceAsString
-            storeImage.image = #imageLiteral(resourceName: "noimagefound")
+            storeImage.image = offer.availability == .available ? #imageLiteral(resourceName: "check") : #imageLiteral(resourceName: "forbidden")
+            storeLabel.text = offer.merchant
         }
     }
     
