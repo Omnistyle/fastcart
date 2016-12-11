@@ -21,4 +21,5 @@ target 'FastCart' do
     pod 'TLYShyNavBar'
     pod 'SideMenu'
     pod 'LUExpandableTableView'
+    pod 'ASHorizontalScrollView'
 end

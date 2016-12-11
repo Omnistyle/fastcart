@@ -38,6 +38,12 @@ class Offer: EVObject {
     var list_price: Double?
     /** Sale price. */
     var price: Double?
+    var priceAsString: String {
+        if let price = price {
+            return Utilities.moneyToString(price)
+        }
+        return "NA"
+    }
     /** “Free Shipping” or other shipping information if not free. */
     var shipping: String?
     var condition: Condition = .new

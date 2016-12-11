@@ -1489,7 +1489,7 @@
                                                     <constraint firstAttribute="width" secondItem="kKS-Ct-R3E" secondAttribute="height" multiplier="245:284" id="zTd-FT-wkk"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-uF-zv6">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-uF-zv6" userLabel="Details">
                                                 <rect key="frame" x="0.0" y="306" width="320" height="104"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Daystarter Dress Shirt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xh-pm-Hp1">
@@ -1530,13 +1530,44 @@
                                                     <constraint firstItem="9xh-pm-Hp1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qp7-uF-zv6" secondAttribute="leading" constant="8" id="zo7-sM-z9z"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcc-ZK-hcL" userLabel="Price Comparison View">
+                                                <rect key="frame" x="0.0" y="418" width="320" height="130"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPq-w4-jW6">
+                                                        <rect key="frame" x="8" y="8" width="96" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="0W9-fK-eZ0"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSp-hw-5w1" userLabel="pricePlaceHolder">
+                                                        <rect key="frame" x="8" y="34" width="304" height="96"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="xPq-w4-jW6" firstAttribute="leading" secondItem="bcc-ZK-hcL" secondAttribute="leading" constant="8" id="2xp-YR-0dr"/>
+                                                    <constraint firstItem="zSp-hw-5w1" firstAttribute="top" secondItem="xPq-w4-jW6" secondAttribute="bottom" constant="8" id="6FO-c5-s2P"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zSp-hw-5w1" secondAttribute="trailing" constant="8" id="81C-tc-vOM"/>
+                                                    <constraint firstItem="zSp-hw-5w1" firstAttribute="leading" secondItem="bcc-ZK-hcL" secondAttribute="leading" constant="8" id="kHa-ce-Zpv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zSp-hw-5w1" secondAttribute="bottom" id="kj2-5y-mYp"/>
+                                                    <constraint firstAttribute="width" secondItem="bcc-ZK-hcL" secondAttribute="height" multiplier="32:13" id="lge-PI-mhe"/>
+                                                    <constraint firstItem="xPq-w4-jW6" firstAttribute="top" secondItem="bcc-ZK-hcL" secondAttribute="top" constant="8" id="yH5-uy-C3S"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Qp7-uF-zv6" firstAttribute="leading" secondItem="xnc-in-L5a" secondAttribute="leading" id="3JZ-Ih-vOq"/>
+                                            <constraint firstItem="bcc-ZK-hcL" firstAttribute="leading" secondItem="xnc-in-L5a" secondAttribute="leading" id="921-7v-vra"/>
                                             <constraint firstAttribute="trailing" secondItem="Qp7-uF-zv6" secondAttribute="trailing" id="BRJ-Vh-iiF"/>
                                             <constraint firstItem="kKS-Ct-R3E" firstAttribute="leading" secondItem="xnc-in-L5a" secondAttribute="leading" constant="35" id="Gxu-bz-lEY"/>
+                                            <constraint firstItem="bcc-ZK-hcL" firstAttribute="top" secondItem="Qp7-uF-zv6" secondAttribute="bottom" constant="8" id="Jxy-F2-DeG"/>
                                             <constraint firstItem="kKS-Ct-R3E" firstAttribute="centerX" secondItem="Qp7-uF-zv6" secondAttribute="centerX" id="LFq-sQ-cX0"/>
+                                            <constraint firstAttribute="trailing" secondItem="bcc-ZK-hcL" secondAttribute="trailing" id="Li4-Hb-P4S"/>
                                             <constraint firstItem="Qp7-uF-zv6" firstAttribute="top" secondItem="kKS-Ct-R3E" secondAttribute="bottom" constant="8" id="atM-FT-MqA"/>
                                             <constraint firstItem="kKS-Ct-R3E" firstAttribute="top" secondItem="xnc-in-L5a" secondAttribute="top" constant="8" id="ifl-ED-at7"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qp7-uF-zv6" secondAttribute="bottom" constant="8" id="j26-4i-SBq"/>
@@ -1609,7 +1640,9 @@
                     <connections>
                         <outlet property="fixedView" destination="blh-6v-sjb" id="Ejd-Z7-8H7"/>
                         <outlet property="nameLabel" destination="9xh-pm-Hp1" id="5DW-F1-KkK"/>
+                        <outlet property="priceComparisonView" destination="bcc-ZK-hcL" id="h5A-Qd-UXs"/>
                         <outlet property="priceLabel" destination="MUo-MC-lsA" id="ZrP-kf-FDh"/>
+                        <outlet property="pricePlaceHolder" destination="zSp-hw-5w1" id="auA-2p-z1u"/>
                         <outlet property="productScrollView" destination="kKS-Ct-R3E" id="Bzi-97-lZ2"/>
                         <outlet property="ratingsLabel" destination="c9P-Qw-QQF" id="ne9-oG-Sre"/>
                         <outlet property="reviewsImageView" destination="S4s-eT-BBX" id="RNd-K6-yvU"/>

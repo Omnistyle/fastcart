@@ -154,7 +154,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func onScanButton(_ sender: Any) {
-        tabBarController?.switchTo(tab: .payment)
+        tabBarController?.switchTo(tab: .scanner)
     }
     
     // checkout button
