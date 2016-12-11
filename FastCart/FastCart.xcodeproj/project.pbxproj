@@ -146,6 +146,8 @@
 		102257F81DFBD7F500D8690C /* ShopView */ = {
 			isa = PBXGroup;
 			children = (
+				7F828CE61DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift */,
+				7F828CE81DFB8B190026F8C8 /* ColorFilterTableViewCell.swift */,
 				7F828CE41DFB5BC80026F8C8 /* FilterTableViewCell.swift */,
 				7F828CE21DFB586E0026F8C8 /* FiltersTableViewCell.swift */,
 				7F828CE01DFB581B0026F8C8 /* FiltersSectionHeader.xib */,
