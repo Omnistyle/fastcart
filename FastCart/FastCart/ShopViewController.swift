@@ -384,6 +384,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             
         }, failure: {(error: Error) -> () in
+            self.activityIndicator.stopAnimating()
             print(error.localizedDescription)
         })
     }

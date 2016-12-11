@@ -159,11 +159,9 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         // handle transition
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-            self.tabBarController?.switchToList(at: 1)
-            self.tabBarController?.selectedIndex = 2
+                self.tabBarController.switch(to: .receipt)
             } else {
-                self.tabBarController?.switchToList(at: 0)
-                self.tabBarController?.selectedIndex = 2
+                self.tabBarController.switch(to: .history)
             }
         } else {
             // contact

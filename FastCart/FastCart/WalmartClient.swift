@@ -13,21 +13,18 @@ class WalmartClient {
     let alternateApikey = ""
     let EAN_LENGTH = 13
     static let sharedInstance : WalmartClient = WalmartClient.init()
+    // Configure session so that completion handler is executed on main UI thread
+    private let session = URLSession(
+        configuration: URLSessionConfiguration.default,
+        delegate:nil,
+        delegateQueue:OperationQueue.main
+    )
     
     func getTrendingSearches(success: @escaping ([String]) -> (), failure: @escaping (Error) -> ()) {
         
         // request
         guard let url = URL(string:"http://api.walmartlabs.com/v1/trends?format=json&apiKey=\(self.apiKey)") else {return}
-        
         let request = URLRequest(url: url)
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
             // ... Remainder of response handling code ...
             if let data = data {
@@ -54,19 +51,10 @@ class WalmartClient {
         
         
         // request
-        guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else {return}
+        guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else { return }
         
         let request = URLRequest(url: url)
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(
-        configuration: URLSessionConfiguration.default,
-        delegate:nil,
-        delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-        // ... Remainder of response handling code ...
         if let data = data {
         if let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
         
@@ -80,7 +68,7 @@ class WalmartClient {
         
         }
         else if error != nil {
-        failure(error!)
+            failure(error!)
         }
         
         });
@@ -92,21 +80,9 @@ class WalmartClient {
         var images = [URL]()
         let shortenedIds = ids.prefix(upTo: 2)
         for id in shortenedIds {
-            
-            // request
             guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else {return}
-            
             let request = URLRequest(url: url)
-            
-            // Configure session so that completion handler is executed on main UI thread
-            let session = URLSession(
-                configuration: URLSessionConfiguration.default,
-                delegate:nil,
-                delegateQueue:OperationQueue.main
-            )
-            
             let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-                // ... Remainder of response handling code ...
                 if let data = data {
                     if let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                         
@@ -131,22 +107,9 @@ class WalmartClient {
         success(images)
     }
     func getVariantsByItemId(id: String, success: @escaping ([String]) -> (), failure: @escaping (Error) -> ()) {
-        //http://api.walmartlabs.com/v1/search?query=dress&format=json&apiKey=69sak8n5jctvbapcs8wp88tt
-        
-        // request
         guard let url = URL(string:"http://api.walmartlabs.com/v1/items/\(id)?format=json&apiKey=\(self.apiKey)") else {return}
-        
         let request = URLRequest(url: url)
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     if let variants = responseDictionary["variants"] as? [Int] {
@@ -168,14 +131,10 @@ class WalmartClient {
     }
     
     func getProductsWithSearchTerm(term: String, startIndex: String, price: String? = nil, facets: String? = nil, color: [String]? = [String](), shipping: [String?] = [String](), success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()) {
-        //http://api.walmartlabs.com/v1/search?query=dress&format=json&apiKey=69sak8n5jctvbapcs8wp88tt
-        
         var maxPrice = "500"
         if price != nil {
             maxPrice = price!
         }
-        
-
         
         // request
         var urlString = "http://api.walmartlabs.com/v1/search?query=\(term)&start=\(startIndex)&format=json&apiKey=\(self.apiKey)&facet=on&facet.range=price:[0%20TO%20\(maxPrice)]"
@@ -189,18 +148,8 @@ class WalmartClient {
         }
         
         guard let url = URL(string: urlString) else {return }
-        
         let request = URLRequest(url: url)
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     guard let productsDictionary = responseDictionary["items"] as? [NSDictionary] else {return}
@@ -225,20 +174,9 @@ class WalmartClient {
             // take out the country code (the first character)
             upc.remove(at: upc.startIndex)
         }
-        
-        // request
         guard let url = URL(string:"http://api.walmartlabs.com/v1/items?apiKey=\(self.apiKey)&upc=\(upc)") else {return}
         let request = URLRequest(url: url)
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     guard let productsDictionary = responseDictionary["items"] as? [NSDictionary] else {return}
@@ -255,16 +193,8 @@ class WalmartClient {
     
     func getReviewsFromProduct(itemId: String, success: @escaping ([Review]) -> (), failure: @escaping (Error) -> ()){
         guard let url = URL(string:"http://api.walmartlabs.com/v1/reviews/\(itemId)?apiKey=\(self.apiKey)") else {return}
-        
         let request = URLRequest(url: url)
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     
@@ -272,6 +202,24 @@ class WalmartClient {
                     let reviews = Review.reviewWithArray(dictionaries: reviewsDictionary)
                     success(reviews)
 
+                }
+            }
+            else if error != nil {
+                failure(error!)
+            }
+        });
+        task.resume()
+    }
+    
+    func getNearbyStores(lat: Double, lon: Double, success: @escaping ([Store]) -> (), failure: @escaping (Error) -> ()){
+        guard let url = URL(string: "http://api.walmartlabs.com/v1/stores?apiKey=\(self.apiKey)&lon=\(lon)&lat=\(lat)&format=json") else { return }
+        let request = URLRequest(url: url)
+        let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            if let data = data {
+                if let storesDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary] {
+                    let stores = Store.stores(from: storesDictionary)
+                    success(stores)
+                    
                 }
             }
             else if error != nil {

@@ -79,7 +79,7 @@ class User: EVObject {
     static func getUserDictionary(user: PFObject) -> NSDictionary {
         let userDictionary : NSDictionary = [
             "id": user.objectId ?? "0123456789",
-            "unsername" : user["unsername"] as? String ?? "def username",
+            "username" : user["username"] as? String ?? "def username",
             "email" : user["email"] as? String ?? "defaul@email",
             "facebookId" : user["facebookId"] as? String ?? "0123456789",
             ]
@@ -117,7 +117,7 @@ class User: EVObject {
     init(dictionary: NSDictionary){
         super.init()
         id = dictionary["id"] as? String
-        username = dictionary["unsername"] as? String
+        username = dictionary["username"] as? String
         email = dictionary["email"] as? String
         facebookId = dictionary["facebookId"] as? String
         if let id = facebookId {
@@ -163,7 +163,7 @@ class User: EVObject {
     }
     
     /** Complete the user checkout process by saving all our data to Parse */
-    func completeCheckout() -> Void {
+    open func completeCheckout() -> Void {
         self.history.insert(self.current, at: 0)
         self.current.parseSave()
         
@@ -173,6 +173,17 @@ class User: EVObject {
         
         // Persist the user and the receipt so we keep the history around.
         Utilities.persist(self, withKey: Persistece.user.rawValue)
+    }
+    /**
+     Returns true if the given store is a favorite for this user.
+     */
+    open func isFavorite(store: Store) -> Bool {
+        for favoriteStore in favoriteStores {
+            if favoriteStore == store {
+                return true
+            }
+        }
+        return false
     }
 
     /**

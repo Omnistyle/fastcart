@@ -189,7 +189,10 @@ class Utilities {
             return "\(minutes) m"
         }
         let seconds = ti % 60
-        return "\(seconds) s"
+        if seconds > 0 {
+            return "\(seconds) s"
+        }
+        return "Now"
     }
     
 

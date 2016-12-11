@@ -154,7 +154,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func onScanButton(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 1
+        tabBarController?.switchTo(tab: .scanner)
     }
     
     // checkout button
@@ -172,7 +172,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        tabBarController?.selectedIndex = 3
+        tabBarController?.switchTo(tab: .payment)
     }
     
 }

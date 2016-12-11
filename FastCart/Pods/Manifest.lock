@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - ASHorizontalScrollView (1.4)
   - BarcodeScanner (2.0.0)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -67,6 +68,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - ASHorizontalScrollView
   - BarcodeScanner
   - Braintree
   - Braintree/Apple-Pay
@@ -98,6 +100,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  ASHorizontalScrollView: de6f765f0fa5c9677af7d0211e55bcecf8df44b1
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Braintree: 3eee856da5d30357a55439283b4bb3dbaddcaa7c
@@ -115,6 +118,6 @@ SPEC CHECKSUMS:
   SideMenu: 90be7a14e9f54eb528f96f2033aa54f2992c5667
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 72ef7a67786f2c0cd0ff020c8bd4cfc05f179a24
+PODFILE CHECKSUM: 5dcb14a8ba8ed2ac1ffe5dc753ff2ec286cd8ed1
 
 COCOAPODS: 1.1.1

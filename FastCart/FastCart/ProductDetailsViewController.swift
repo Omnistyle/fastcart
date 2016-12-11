@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ASHorizontalScrollView
+import MisterFusion
 
 class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
     @IBOutlet weak var nameLabel: UILabel!
@@ -21,8 +23,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBOutlet weak var reviewsImageView: UIImageView!
     
     private var wasNavHidden: Bool!
+    private let kOfferSize = CGSize(width: 80, height: 80)
     
     @IBOutlet weak var fixedView: UIView!
+    @IBOutlet weak var pricePlaceHolder: UIView!
     
     override func viewDidLoad() {        
         super.viewDidLoad()
@@ -33,7 +37,6 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         self.productScrollView.show()
     
         display(product: product)
-        
         
         // Add reviews.
         fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
@@ -47,6 +50,9 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
+        
+        // Setup other stores price comparions
+        self.setUpOtherStores(in: pricePlaceHolder)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -67,6 +73,39 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         reviewsViewController.itemId = (product.idFromStore)!
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
+    }
+    
+    // Set-up horizontal scroll in view for other stores.
+    private func noStoresAvailable() {
+        let label = UILabel()
+        label.text = "Not Available"
+        label.textAlignment = .center
+        pricePlaceHolder.addLayoutSubview(label, andConstraints:
+            label.top |+| 8,
+            label.left |+| 8,
+            label.right |+| 8
+        )
+    }
+    private func setUpOtherStores(in view: UIView) {
+        guard let upc = product.upc else { return noStoresAvailable() }
+        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
+        horizontalScrollView.uniformItemSize = kOfferSize
+        horizontalScrollView.setItemsMarginOnce()
+        let activityIndicator = Utilities.addActivityIndicator(to: view)
+        activityIndicator.startAnimating()
+        UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
+            for offer in offers {
+                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
+                let view = OfferView(frame: frame)
+                view.offer = offer
+                horizontalScrollView.addItem(view)
+            }
+            view.addSubview(horizontalScrollView)
+            activityIndicator.stopAnimating()
+        }, failure: {(error: Error) -> () in
+            self.noStoresAvailable()
+            activityIndicator.stopAnimating()
+        })
     }
     
     /** set the information for this controller */
@@ -90,8 +129,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBAction func onAddButton(_ sender: UIButton) {
         User.currentUser?.current.products.insert(product, at: 0)
         
-        self.tabBarController?.switchToList(at: 1)
-        self.tabBarController?.selectedIndex = 2
+        self.tabBarController?.switchTo(listTab: .receipt)
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func onCancelButton(_ sender: UIButton) {
