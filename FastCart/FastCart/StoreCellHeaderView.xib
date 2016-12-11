@@ -28,7 +28,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="88F-4q-gPd">
                             <rect key="frame" x="8" y="8" width="42" height="34"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="88F-4q-gPd" secondAttribute="height" multiplier="21:17" id="U67-nc-ojZ"/>
+                                <constraint firstAttribute="width" secondItem="88F-4q-gPd" secondAttribute="height" multiplier="21:17" id="Lnh-Tx-H7I"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walmart Supercenter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCB-X8-jGI">

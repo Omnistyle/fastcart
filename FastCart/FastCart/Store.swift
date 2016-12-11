@@ -35,6 +35,13 @@ class Store: EVObject {
         }
     }
     
+    /**
+     TODO
+     */
+    class func stores(from dictionaries: [NSDictionary]) -> [Store] {
+        return []
+    }
+    
     /** The unique id of the Store in our Parse databse */
     var id: String?
     /** The store name */

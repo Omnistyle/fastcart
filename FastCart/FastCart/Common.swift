@@ -21,6 +21,7 @@ public enum Persistece: String {
 
 public class Constants {
     static let themeColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
+    static let kBannerHeight = CGFloat(40.0)
 }
 
 extension URL {

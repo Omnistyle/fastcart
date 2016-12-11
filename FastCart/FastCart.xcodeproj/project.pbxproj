@@ -11,6 +11,7 @@
 		102257F01DFABE5800D8690C /* StickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102257EF1DFABE5800D8690C /* StickyHeaderFlowLayout.swift */; };
 		102257F31DFBD77F00D8690C /* StoreCellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102257F11DFBD77F00D8690C /* StoreCellHeaderView.swift */; };
 		102257F41DFBD77F00D8690C /* StoreCellHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 102257F21DFBD77F00D8690C /* StoreCellHeaderView.xib */; };
+		102257FE1DFD07C400D8690C /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102257FD1DFD07C400D8690C /* Offer.swift */; };
 		102D9C111DE147BF00E8232A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D9C101DE147BF00E8232A /* Utilities.swift */; };
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
@@ -32,7 +33,7 @@
 		22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */; };
 		7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F12DF871DDB9F09003C78C6 /* Reviews.xib */; };
 		7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF891DDB9F5D003C78C6 /* Reviews.swift */; };
-		7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */; };
+		7F12DF8D1DDBA98A003C78C6 /* UPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12DF8C1DDBA98A003C78C6 /* UPCClient.swift */; };
 		7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */; };
 		7F28EF021DD10EDE0084410B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF001DD10EDE0084410B /* Main.storyboard */; };
 		7F28EF071DD10EDE0084410B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F28EF051DD10EDE0084410B /* LaunchScreen.storyboard */; };
@@ -60,6 +61,7 @@
 		102257EF1DFABE5800D8690C /* StickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
 		102257F11DFBD77F00D8690C /* StoreCellHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCellHeaderView.swift; sourceTree = "<group>"; };
 		102257F21DFBD77F00D8690C /* StoreCellHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreCellHeaderView.xib; sourceTree = "<group>"; };
+		102257FD1DFD07C400D8690C /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
 		102D9C101DE147BF00E8232A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +85,7 @@
 		22C6B5FA1DF529AB00B37024 /* ReceiptHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptHistoryViewController.swift; sourceTree = "<group>"; };
 		7F12DF871DDB9F09003C78C6 /* Reviews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Reviews.xib; sourceTree = "<group>"; };
 		7F12DF891DDB9F5D003C78C6 /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
-		7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUpcClient.swift; sourceTree = "<group>"; };
+		7F12DF8C1DDBA98A003C78C6 /* UPCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPCClient.swift; sourceTree = "<group>"; };
 		7F28EEF91DD10EDE0084410B /* FastCart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastCart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F28EEFC1DD10EDE0084410B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F28EF011DD10EDE0084410B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -273,7 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				7F28EF101DD1155A0084410B /* WalmartClient.swift */,
-				7F12DF8C1DDBA98A003C78C6 /* SearchUpcClient.swift */,
+				7F12DF8C1DDBA98A003C78C6 /* UPCClient.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -286,6 +288,7 @@
 				103215921DD2DBDA00186704 /* User.swift */,
 				103215961DD2E0FA00186704 /* Review.swift */,
 				7FF055FB1DD2DD1200434F2A /* Store.swift */,
+				102257FD1DFD07C400D8690C /* Offer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -447,12 +450,13 @@
 				7F28EF111DD1155A0084410B /* WalmartClient.swift in Sources */,
 				223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */,
 				7F9515891DE4D88F001EC1D5 /* ThemeManager.swift in Sources */,
+				102257FE1DFD07C400D8690C /* Offer.swift in Sources */,
 				7FF055F61DD126BD00434F2A /* Product.swift in Sources */,
 				222FD6831DF6B25A00B75B80 /* HistoryProductCell.swift in Sources */,
 				7F28EEFD1DD10EDE0084410B /* AppDelegate.swift in Sources */,
 				103215991DD2F2DE00186704 /* HistoryViewController.swift in Sources */,
 				1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */,
-				7F12DF8D1DDBA98A003C78C6 /* SearchUpcClient.swift in Sources */,
+				7F12DF8D1DDBA98A003C78C6 /* UPCClient.swift in Sources */,
 				7F828CE51DFB5BC80026F8C8 /* FilterTableViewCell.swift in Sources */,
 				7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */,
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
