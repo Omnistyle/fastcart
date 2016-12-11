@@ -275,7 +275,7 @@ class Utilities {
         let strings = array.map { (url: URL) -> String in
             return url.toJson()
         }
-        return strings.joined(separator: "!**/**")
+        return strings.joined(separator: "!**/**!")
     }
     
     static func ArrayFromJson(json: String?) -> [URL]? {
