@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
     let titles = [["Current order", "Past orders"],
-                  ["Contact us", "Rate the app", "Invite friends"],
+                  ["Contact us", "Rate the app", "Invite friends", "How it works"],
                   ["Account"]]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,8 +175,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 self.rateApp()
             }
             // share
-            else {
+            else if indexPath.row == 2 {
                 self.shareApp(self, message: "Hi, checkout this awesome app!")
+            } else {
+                self.playVideo()
             }
         }
     }
@@ -202,6 +204,13 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         let appId = "1182855639"
         let url_string = "itms-apps://itunes.apple.com/app/id\(appId)"
         if let url = URL(string: url_string) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func playVideo() {
+        // TODO test this
+        if let url = URL(string: "https://www.youtube.com/watch?v=yP0jBXVKh5Q") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }

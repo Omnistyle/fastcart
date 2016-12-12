@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
         tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
-        tabBarItem3.selectedImage = #imageLiteral(resourceName: "list_filled")
+        tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
         tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
         tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
         
