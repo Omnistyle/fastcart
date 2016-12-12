@@ -95,6 +95,8 @@ class User: EVObject {
     var email: String!
     /** The facebook id as returned by the Facebook API */
     var facebookId: String!
+    
+    var loginMethod: String!
     /** Lists the receipts. Currently only maintains the last 20 */
     var facebookProfilePictureUrlString: String! = "default"
     var history: [Receipt] = []
@@ -142,6 +144,7 @@ class User: EVObject {
         email = ""
         facebookId = ""
         facebookProfilePictureUrlString = ""
+        loginMethod = ""
         // Load current from stored.
         if let local = Utilities.load(fromKey: Persistece.receipt.rawValue, into: Receipt.self) as? Receipt {
             current = local

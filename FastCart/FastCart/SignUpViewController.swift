@@ -85,8 +85,9 @@ class SignUpViewController: UIViewController {
                     alertController.addAction(OKAction)
 
                     let userDictionary = User.getUserDictionary(user: newUser)
-                    let storedUser = User(dictionary: userDictionary)
-                    User.currentUser = storedUser
+                    let newUser = User(dictionary: userDictionary)
+                    newUser.loginMethod = "parse"
+                    User.currentUser = newUser
 
                     self.performSegue(withIdentifier: "successsignupsegue", sender: nil)
                     
