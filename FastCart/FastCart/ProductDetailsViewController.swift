@@ -49,9 +49,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         display(product: product)
         
         // Add reviews.
-        fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
+        fixedView.frame.origin.y = self.view.frame.origin.y + self.view.frame.height
+//        fixedView.center.y = self.view.frame.size.height + fixedView.frame.size.height
         UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
-            self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
+            self.fixedView.frame.origin.y = self.fixedView.frame.origin.y - self.fixedView.frame.size.height
         
         }, completion: nil)
         

@@ -283,7 +283,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         receipt.paid = true
         receipt.completed = Date()
         user.completeCheckout()
-        Utilities.presentSuccessAlert(title: "Nice\n", message: "\nYou're done with checkout.\n", button: "My History", action: {
+        Utilities.presentSuccessAlert(title: "Nice\n", message: "\nWe've finished saving your receipt but did NOT charge your credit card -- please head to the front of the store to checkout. \n", button: "My History", action: {
             self.tabBarController?.switchTo(listTab: .history)
         })
     }

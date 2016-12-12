@@ -170,17 +170,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yY-Mf-z4y">
-                                <rect key="frame" x="89" y="225" width="142" height="30"/>
-                                <state key="normal" title="Scan A Fake Product"/>
+                                <rect key="frame" x="79" y="150" width="162" height="118"/>
+                                <state key="normal" title="Scan A Sample Product"/>
                                 <connections>
                                     <action selector="onFakeScanButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="69K-Yp-MKZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="On a phone with a camera, shows the barcode scanner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI3-DX-lzR">
+                                <rect key="frame" x="37" y="232" width="247" height="85"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="mI3-DX-lzR" firstAttribute="top" secondItem="3yY-Mf-z4y" secondAttribute="bottom" constant="8" id="9hT-Tk-Je0"/>
                             <constraint firstItem="3yY-Mf-z4y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bbn-cI-4Ag"/>
-                            <constraint firstItem="3yY-Mf-z4y" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xaG-nO-dJV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mI3-DX-lzR" secondAttribute="bottom" constant="114" id="Byn-5e-eZ1"/>
+                            <constraint firstItem="mI3-DX-lzR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="21" id="Rzc-Xw-4aF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mI3-DX-lzR" secondAttribute="trailing" constant="20" id="evP-cR-CA3"/>
+                            <constraint firstItem="3yY-Mf-z4y" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-31" id="xaG-nO-dJV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scan" id="BRU-Xy-aeu"/>
@@ -1810,8 +1820,8 @@
                             <constraint firstItem="blh-6v-sjb" firstAttribute="leading" secondItem="89X-oo-Bl4" secondAttribute="leading" id="0XC-r0-bb5"/>
                             <constraint firstAttribute="bottom" secondItem="y7w-VP-2fw" secondAttribute="bottom" id="UIG-JO-Mmx"/>
                             <constraint firstAttribute="trailing" secondItem="blh-6v-sjb" secondAttribute="trailing" id="cg4-2F-tuA"/>
+                            <constraint firstAttribute="bottom" secondItem="blh-6v-sjb" secondAttribute="bottom" id="fmD-Ae-tBO"/>
                             <constraint firstItem="y7w-VP-2fw" firstAttribute="leading" secondItem="89X-oo-Bl4" secondAttribute="leading" id="gch-ar-ZUJ"/>
-                            <constraint firstItem="XJv-xw-yvm" firstAttribute="top" secondItem="blh-6v-sjb" secondAttribute="bottom" id="hBx-GZ-50w"/>
                             <constraint firstAttribute="trailing" secondItem="y7w-VP-2fw" secondAttribute="trailing" id="mSf-St-a15"/>
                             <constraint firstItem="y7w-VP-2fw" firstAttribute="top" secondItem="89X-oo-Bl4" secondAttribute="top" id="n2Q-IG-UAg"/>
                         </constraints>
