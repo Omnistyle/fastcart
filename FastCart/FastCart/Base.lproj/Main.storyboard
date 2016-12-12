@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xLc-yF-UVp">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xLc-yF-UVp">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -1058,7 +1058,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low-fat milk" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiy-W1-geq">
-                                                    <rect key="frame" x="70" y="6" width="73" height="16"/>
+                                                    <rect key="frame" x="70" y="6" width="73" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1076,6 +1076,7 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yiy-W1-geq" secondAttribute="bottom" constant="8" id="2xC-K5-rsK"/>
                                                 <constraint firstItem="yiy-W1-geq" firstAttribute="leading" secondItem="UYn-hk-mb8" secondAttribute="trailing" constant="12" id="D92-OW-wNA"/>
                                                 <constraint firstItem="6ui-5i-dIY" firstAttribute="top" secondItem="yiy-W1-geq" secondAttribute="top" id="DeJ-Oe-Jsl"/>
+                                                <constraint firstItem="yiy-W1-geq" firstAttribute="centerY" secondItem="UYn-hk-mb8" secondAttribute="centerY" id="HQB-M1-dah"/>
                                                 <constraint firstItem="UYn-hk-mb8" firstAttribute="leading" secondItem="qTQ-sO-Ol5" secondAttribute="leading" constant="17" id="Ixd-Ak-CGs"/>
                                                 <constraint firstAttribute="trailing" secondItem="6ui-5i-dIY" secondAttribute="trailing" constant="18" id="MUX-dx-Xlx"/>
                                                 <constraint firstItem="yiy-W1-geq" firstAttribute="top" secondItem="UYn-hk-mb8" secondAttribute="top" constant="-1" id="PNn-sQ-xlN"/>
@@ -1263,9 +1264,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4.99" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2N-gM-fxO">
-                                                    <rect key="frame" x="263" y="33" width="38" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <rect key="frame" x="270" y="36" width="31" height="13.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Walmart" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a45-ts-ZFl">
@@ -1275,8 +1276,8 @@
                                                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aug 26" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brj-B3-sY1">
-                                                    <rect key="frame" x="255" y="8" width="46" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                                    <rect key="frame" x="264" y="9" width="37" height="13.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -1289,13 +1290,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="D2N-gM-fxO" firstAttribute="trailing" secondItem="brj-B3-sY1" secondAttribute="trailing" id="48I-4f-0xy"/>
-                                                <constraint firstItem="D2N-gM-fxO" firstAttribute="top" secondItem="brj-B3-sY1" secondAttribute="bottom" constant="8" id="4ep-q3-F9t"/>
+                                                <constraint firstItem="D2N-gM-fxO" firstAttribute="top" secondItem="brj-B3-sY1" secondAttribute="bottom" constant="13.5" id="4ep-q3-F9t"/>
                                                 <constraint firstItem="a45-ts-ZFl" firstAttribute="top" secondItem="obM-Iq-m3i" secondAttribute="top" id="7nO-kD-Jqa"/>
                                                 <constraint firstItem="brj-B3-sY1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="a45-ts-ZFl" secondAttribute="trailing" constant="12" id="AT2-qp-Ugw"/>
                                                 <constraint firstItem="obM-Iq-m3i" firstAttribute="top" secondItem="sfN-Ux-pn9" secondAttribute="top" constant="7" id="IF7-8i-iu9"/>
                                                 <constraint firstAttribute="trailing" secondItem="D2N-gM-fxO" secondAttribute="trailing" constant="19" id="Jix-U8-Lpr"/>
                                                 <constraint firstItem="q2U-us-TRU" firstAttribute="top" secondItem="a45-ts-ZFl" secondAttribute="bottom" constant="10" id="MCc-Lo-gXI"/>
-                                                <constraint firstItem="brj-B3-sY1" firstAttribute="top" secondItem="sfN-Ux-pn9" secondAttribute="topMargin" id="a35-Ot-HUq"/>
+                                                <constraint firstItem="brj-B3-sY1" firstAttribute="top" secondItem="sfN-Ux-pn9" secondAttribute="topMargin" constant="1" id="a35-Ot-HUq"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="obM-Iq-m3i" secondAttribute="bottom" constant="6" id="a9A-Da-PQi"/>
                                                 <constraint firstItem="a45-ts-ZFl" firstAttribute="leading" secondItem="obM-Iq-m3i" secondAttribute="trailing" constant="12" id="aaL-S6-BR4"/>
                                                 <constraint firstItem="obM-Iq-m3i" firstAttribute="leading" secondItem="sfN-Ux-pn9" secondAttribute="leading" constant="17" id="all-0Q-7iL"/>
@@ -1343,7 +1344,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxz-ex-h9N" userLabel="PaymentsView">
-                                <rect key="frame" x="0.0" y="206" width="320" height="161"/>
+                                <rect key="frame" x="0.0" y="206" width="320" height="210"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50h-Jc-Kb8">
