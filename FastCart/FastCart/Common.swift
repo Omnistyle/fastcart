@@ -76,10 +76,35 @@ extension UITabBarController {
     func switchTo(tab: Tab) {
         self.selectedIndex = tab.rawValue
     }
+    
+    /** 
+     Initializes the
+     */
+    func customInitialize() {
+        let tabBar = self.tabBar as UITabBar
+        let tabBarItem1 = tabBar.items![0] as UITabBarItem
+        let tabBarItem2 = tabBar.items![1] as UITabBarItem
+        let tabBarItem3 = tabBar.items![2] as UITabBarItem
+        let tabBarItem4 = tabBar.items![3] as UITabBarItem
+    
+        tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
+        tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
+        tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
+        tabBarItem4.selectedImage = #imageLiteral(resourceName: "profile_filled")
+        
+        // nonselected color to black
+        for tabItem in tabBar.items! {
+            let item = tabItem
+            item.image = item.image?.withRenderingMode(.alwaysOriginal)
+            item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
+            // change the iimage insets to only have the image
+            item.imageInsets = UIEdgeInsets(top: 7, left: 0, bottom: -7, right: 0)
+        }
+    }
 }
 
 /**
- The direction the recognizer detects. Note that the direction is defined according to the 
+ The direction the recognizer detects. Note that the direction is defined according to the
  velocity of the initial swipe.
  */
 enum PanDirection {
