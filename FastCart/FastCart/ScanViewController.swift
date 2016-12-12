@@ -78,10 +78,10 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             productDetailsViewController.hidesBottomBarWhenPushed = true
             productDetailsViewController.product = products[0]
             self.navigationController?.pushViewController(productDetailsViewController, animated: true)
-            controller?.reset()
         }, failure: {(error: Error) -> () in
-            controller?.resetWithError(message: "UPC: \(code) not found or network error!")
+            Utilities.presentErrorAlert(title: "Not Found", message: "UPC: \(code) not found or network error!")
         })
+        controller?.reset()
     }
     
     private func moveScannerIn() {
