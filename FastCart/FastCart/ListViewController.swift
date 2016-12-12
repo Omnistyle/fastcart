@@ -16,6 +16,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var subtotalTitleLabel: UILabel!
     @IBOutlet weak var checkoutButton: UIButton!
     
+    @IBOutlet weak var topDividerView: UIView!
+    @IBOutlet weak var bottomDividerView: UIView!
+    
     @IBOutlet weak var addItemTextView: UITextView!
     var cartViews = [UIView]()
     var emptyViews = [UIView]()
@@ -71,6 +74,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.rowHeight = UITableViewAutomaticDimension
         // for the scrollbar
         tableView.estimatedRowHeight = 120
+        // separator insets
+        tableView.tableFooterView = UIView()
+        
         
         addItemTextView.delegate = self
         
@@ -78,15 +84,18 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         checkoutButton.layer.cornerRadius = 5
         
         // make appropriate things hidden
-        cartViews = [subtotalLabel, subtotalTitleLabel, checkoutButton]
+        cartViews = [subtotalLabel, subtotalTitleLabel, checkoutButton, topDividerView, bottomDividerView]
         emptyViews = [readyLabel]
+        
+        
+        
     }
 
     func addProduct() {
         let product = Product(dictionary: ["name": addItemTextView.text], api: apiType.manual)
         products = products + [product]
         tableView.reloadData()
-        addItemTextView.text = "Type or tap the camera to scan an item"
+        addItemTextView.text = "Tap the camera to scan"
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -123,6 +132,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell") as! ProductCell
         cell.product = products[indexPath.row]
+        if indexPath.row < products.count {
+            cell.preservesSuperviewLayoutMargins = false
+            let inset = cell.productImage.frame.origin.x + cell.productImage.frame.size.width + CGFloat(10)
+            cell.separatorInset = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
+            cell.layoutMargins = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
+        }
         return cell
     }
     
@@ -133,6 +148,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // prepare for segue
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+       
+        // check if user inputted
+        if product.upc == nil {
+            tabBarController?.switchTo(tab: .scanner)
+        }
+        
         
         let productDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
         productDetailsViewController.product = product
@@ -154,7 +175,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func onScanButton(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 1
+        tabBarController?.switchTo(tab: .scanner)
     }
     
     // checkout button
@@ -172,7 +193,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        tabBarController?.selectedIndex = 3
+        tabBarController?.switchTo(tab: .payment)
     }
     
 }

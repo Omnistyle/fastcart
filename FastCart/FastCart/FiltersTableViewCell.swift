@@ -17,7 +17,9 @@ final class MyExpandableTableViewSectionHeader: LUExpandableTableViewSectionHead
     override var isExpanded: Bool {
         didSet {
             // Change the title of the button when section header expand/collapse
-            expandCollapseButton.setTitle(isExpanded ? "Collapse" : "Expand", for: .normal)
+            expandCollapseButton.setImage(isExpanded ? #imageLiteral(resourceName: "chevron_up") : #imageLiteral(resourceName: "chevron_down"), for: .normal)
+            
+            expandCollapseButton.setTitle(isExpanded ? "" : "", for: .normal)
         }
     }
     

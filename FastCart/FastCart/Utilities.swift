@@ -189,7 +189,10 @@ class Utilities {
             return "\(minutes) m"
         }
         let seconds = ti % 60
-        return "\(seconds) s"
+        if seconds > 0 {
+            return "\(seconds) s"
+        }
+        return "Now"
     }
     
 
@@ -261,7 +264,7 @@ class Utilities {
     static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = Constants.themeColor
-        activityIndicator.center = view.center;
+        activityIndicator.center = view.superview?.convert(view.center, to: view) ?? view.center
         view.addSubview(activityIndicator)
         
         return activityIndicator
@@ -272,7 +275,7 @@ class Utilities {
         let strings = array.map { (url: URL) -> String in
             return url.toJson()
         }
-        return strings.joined(separator: "!**/**")
+        return strings.joined(separator: "!**/**!")
     }
     
     static func ArrayFromJson(json: String?) -> [URL]? {

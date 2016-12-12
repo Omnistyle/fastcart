@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
         tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
-        tabBarItem3.selectedImage = #imageLiteral(resourceName: "list_filled")
+        tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
         tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
         tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
         
@@ -63,6 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
             
         }
+        window?.tintColor = UIColor.black
+        
+        // hide the navigation bar
+        UIApplication.shared.isStatusBarHidden = true
+//        UIApplication.shared.statusBarStyle = .default
+//        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+//        
+//        statusBar.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247.255, alpha: 1)
+        
         
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.

@@ -11,6 +11,7 @@ import UIKit
 class FilterTableViewCell: UITableViewCell {
 
     var label = UILabel()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,7 +28,8 @@ class FilterTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
         contentView.addSubview(label)
     }
     
@@ -40,7 +42,13 @@ class FilterTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        formatLabelForSideMenu(label: label)
         label.frame = contentView.bounds
         label.frame.origin.x += 12
+    }
+    
+    func formatLabelForSideMenu(label: UILabel) {
+        label.textColor = UIColor(red: 145/255, green: 148/255, blue: 153/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
     }
 }

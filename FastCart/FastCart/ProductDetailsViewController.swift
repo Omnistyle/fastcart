@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import ASHorizontalScrollView
+import MisterFusion
 
 class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    @IBOutlet weak var rootView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var fixedView: UIView!
     @IBOutlet weak var productScrollView: ImageScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     var product: Product!
     
@@ -21,8 +27,16 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBOutlet weak var reviewsImageView: UIImageView!
     
     private var wasNavHidden: Bool!
+    private let kOfferSize = CGSize(width: 100, height: 100)
+
+    @IBOutlet weak var pricePlaceHolder: UIView!
+    @IBOutlet weak var similarItemsPlaceHolder: UIView!
     
-    @IBOutlet weak var fixedView: UIView!
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Add fixed view at the bottom and set content size.
+        self.scrollView.contentInset.bottom = fixedView.frame.height + 10
+    }
     
     override func viewDidLoad() {        
         super.viewDidLoad()
@@ -33,7 +47,6 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         self.productScrollView.show()
     
         display(product: product)
-        
         
         // Add reviews.
         fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
@@ -47,6 +60,11 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ProductDetailsViewController.onTapReviews))
         reviewsImageView.addGestureRecognizer(tapGestureRecognizer)
         reviewsImageView.isUserInteractionEnabled = true
+        
+        // Setup other stores price comparions
+        self.setUpOtherStores(in: pricePlaceHolder)
+        
+        self.setUpOtherItems(in: similarItemsPlaceHolder)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -67,6 +85,69 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         reviewsViewController.itemId = (product.idFromStore)!
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
+    }
+    
+    // Set-up horizontal scroll in view for other stores.
+    private func notAvailable(_ placeHolder: UIView) {
+        let label = UILabel()
+        label.text = "Not Available"
+        label.textAlignment = .center
+        placeHolder.addLayoutSubview(label, andConstraints:
+            label.centerY,
+            label.left,
+            label.right
+        )
+    }
+    private func getStandardScrollView(for view: UIView) -> ASHorizontalScrollView {
+        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
+        horizontalScrollView.uniformItemSize = kOfferSize
+        horizontalScrollView.setItemsMarginOnce()
+        horizontalScrollView.isUserInteractionEnabled = true
+        horizontalScrollView.frame = view.bounds
+        return horizontalScrollView
+    }
+    private func setUpOtherItems(in view: UIView) {
+        guard let itemId = product.idFromStore else { return notAvailable(view) }
+        view.isUserInteractionEnabled = true
+        let horizontalScrollView = getStandardScrollView(for: view)
+        // Override size
+        horizontalScrollView.uniformItemSize = CGSize(width: kOfferSize.width, height: 2 * kOfferSize.height)
+        let activityIndicator = Utilities.addActivityIndicator(to: view)
+        activityIndicator.startAnimating()
+        WalmartClient.sharedInstance.getSimilarProducts(itemId: itemId, success: {(products: [Product]) -> () in
+            for product in products {
+                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: 2 * self.kOfferSize.height)
+                let view = SimilarProductView(frame: frame)
+                view.product = product
+                view.isUserInteractionEnabled = true
+                horizontalScrollView.addItem(view)
+            }
+            view.addSubview(horizontalScrollView)
+            activityIndicator.stopAnimating()
+        }, failure: {(error: Error) -> () in
+            self.notAvailable(view)
+            activityIndicator.stopAnimating()
+        })
+    }
+    private func setUpOtherStores(in view: UIView) {
+        guard let upc
+            = product.upc else { return notAvailable(view) }
+        let horizontalScrollView = getStandardScrollView(for: view)
+        let activityIndicator = Utilities.addActivityIndicator(to: view)
+        activityIndicator.startAnimating()
+        UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
+            for offer in offers {
+                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
+                let view = OfferView(frame: frame)
+                view.offer = offer
+                horizontalScrollView.addItem(view)
+            }
+            view.addSubview(horizontalScrollView)
+            activityIndicator.stopAnimating()
+        }, failure: {(error: Error) -> () in
+            self.notAvailable(view)
+            activityIndicator.stopAnimating()
+        })
     }
     
     /** set the information for this controller */
@@ -90,8 +171,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBAction func onAddButton(_ sender: UIButton) {
         User.currentUser?.current.products.insert(product, at: 0)
         
-        self.tabBarController?.switchToList(at: 1)
-        self.tabBarController?.selectedIndex = 2
+        self.tabBarController?.switchTo(listTab: .receipt)
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func onCancelButton(_ sender: UIButton) {

@@ -17,8 +17,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
 //    var table1: UITableView!
-    let titles = [["Current order"],
-                  ["Contact us", "Rate the app", "Invite friends"],
+    let titles = [["Current order", "Past orders"],
+                  ["Contact us", "Rate the app", "Invite friends", "How it works"],
                   ["Account"]]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         }
    
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
-        scrollView.parallaxHeader.height = 250
+        scrollView.parallaxHeader.height = 150
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
@@ -183,8 +183,11 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         tableView.deselectRow(at: indexPath, animated: true)
         // handle transition
         if indexPath.section == 0 {
-            self.tabBarController?.switchToList(at: 1)
-            self.tabBarController?.selectedIndex = 2
+            if indexPath.row == 0 {
+                self.tabBarController?.switchTo(listTab: .receipt)
+            } else {
+                self.tabBarController?.switchTo(listTab: .history)
+            }
         } else {
             // contact
             if indexPath.row == 0 {
@@ -197,8 +200,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 self.rateApp()
             }
             // share
-            else {
+            else if indexPath.row == 2 {
                 self.shareApp(self, message: "Hi, checkout this awesome app!")
+            } else {
+                self.playVideo()
             }
         }
     }
@@ -230,6 +235,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     
     func onParseLogout (){
         NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
+
+    func playVideo() {
+        // TODO test this
+        if let url = URL(string: "https://www.youtube.com/watch?v=yP0jBXVKh5Q") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {

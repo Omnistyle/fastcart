@@ -86,33 +86,6 @@ class Product: EVObject {
     var specialBuy: Bool?
     var originalPrice: Double?
     var variantImages = [URL]()
-        
-    func formatTimeToString(date: NSDate) -> String {
-        let interval = date.timeIntervalSinceNow
-        let intervalInt = Int(interval) * -1
-        let days = (intervalInt / 3600) / 24
-        if days != 0 {
-            let daysStr = String(days) + "d"
-            return daysStr
-        }
-        let hours = (intervalInt / 3600)
-        if hours != 0 {
-            return String(hours) + "h"
-        }
-        
-        let minutes = (intervalInt / 60) % 60
-        if minutes != 0 {
-            return String(minutes) + "m"
-        }
-        
-        let seconds = intervalInt % 60
-        if seconds != 0 {
-            return String(seconds) + "s"
-        }
-        else  {
-            return "Now"
-        }
-    }
     
     /**
      Initialize `User` from a dictionary object.
@@ -144,27 +117,8 @@ class Product: EVObject {
             )
         }
     }
-    
-//        let shortenedIds = ids.suffix(2)
-//        for id in shortenedIds {
-//            let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
-//            DispatchQueue.main.asyncAfter(deadline: when) {
-//                // Your code with delay
-//                WalmartClient.sharedInstance.getVariantImage(id: id, success: {(image: URL) -> () in
-//                        self.variantImages.append(image)
-//                        
-//                    }, failure: {(error: Error) -> () in
-//                        print(error)
-//                    }
-//                    )
-//            }
-//
-//            
-//        }
-//    }
 
     init(dictionary: NSDictionary, api: apiType) {
-
         super.init()
         switch api {
         case .walmart:
@@ -179,8 +133,6 @@ class Product: EVObject {
                 
             }
             
-//            store = Store(id: "Walmart")
-            // round to two decimals
             if let salePriceDouble = dictionary["salePrice"] as? Double {
                 salePrice = round(salePriceDouble * 100)/100
             }
@@ -202,38 +154,22 @@ class Product: EVObject {
             category = dictionary["categoryPath"] as? String
             size = dictionary["size"] as? String
             freeShipToStore =  dictionary["freeShipToStore"] as? Bool
-            
-            
-//            if let walmartId = dictionary["itemId"] as? Int {
-//                // make call to get variants
-//                WalmartClient.sharedInstance.getVariantsByItemId(id: String(walmartId), success: { (variants: [String]) -> () in
-//                    self.variants = variants
-//                    // now set variant images
-//                    self.getVariantImages(ids: variants)
-//                }, failure: { (error) -> () in
-//                })
-//            }
-        
+        if let image = self.image {
+            self.variantImages.append(image)
+        }
         if let imageEntities = dictionary["imageEntities"] as? [NSDictionary] {
             for image in imageEntities {
                 if let imageString = image["largeImage"] as? String {
                     print(imageString)
                     if let imageUrl = URL(string: imageString) {
                         print(imageUrl)
-                        self.variantImages.append(imageUrl)
+                        if !variantImages.contains(imageUrl) {
+                            self.variantImages.append(imageUrl)
+                        }
                     }
                 }
             }
         }
-
-//            for image in imageEntities {
-//                if let imageString = image["largeImage"] as? String {
-//                    if let imageUrl = URL(string: imageString) {
-//                    self.variantImages.append(imageUrl)
-//                    }
-//                }
-//            }
-            
             
         clearance = dictionary["clearance"] as? Bool
         specialBuy = dictionary["specialBuy"] as? Bool

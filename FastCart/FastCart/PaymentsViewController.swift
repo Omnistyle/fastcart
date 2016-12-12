@@ -77,8 +77,7 @@ class PaymentsViewController: UIViewController, BTDropInViewControllerDelegate {
     }
 
     func showReceipt() {
-        self.tabBarController?.switchToList(at: 0)
-        self.tabBarController?.selectedIndex = 2
+        self.tabBarController?.switchTo(listTab: .receipt)
     }
     
     /* MARK - BTDropInViewControllerDelegate Methods */

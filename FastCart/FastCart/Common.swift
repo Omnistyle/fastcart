@@ -21,6 +21,7 @@ public enum Persistece: String {
 
 public class Constants {
     static let themeColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
+    static let kBannerHeight = CGFloat(40.0)
 }
 
 extension URL {
@@ -35,15 +36,45 @@ extension URL {
     }
 }
 
+enum Tab:Int{
+    // Main tabs.
+    case home = 0
+    case scanner = 1
+    case shopList = 2
+    case payment = 3
+    case profile = 4
+}
+enum ListTab: Int {
+    case history = 0
+    case receipt = 1
+}
+
 extension UITabBarController {
-    func switchToList(at index: Int) {
-        let nvc = self.viewControllers![2] as! UINavigationController
+    /**
+     Switches to the specified listTab. Note that if the current view controller 
+     is not Tab.shopList, then this operation switches it to Tab.shopList in order
+     to set the tab.
+     */
+    func switchTo(listTab: ListTab) {
+        self.switchTo(tab: .shopList)
+        
+        let nvc = self.selectedViewController as! UINavigationController
         let tvc = nvc.viewControllers[0] as! TabViewController
-        // Force load it, just in case.
+        
+        // Force load the view in case it's not loaded.
         let _ = tvc.view
         
-        tvc.selectedIndex = index
-        nvc.popToRootViewController(animated: false)
+        tvc.selectedIndex = listTab.rawValue
+        nvc.popToRootViewController(animated: true)
+    }
+    
+    /**
+     Switches to the specified top level tab. Note that this does to do any additional work on
+     the selected tab element. Therefore, whatever was previously in that tab navigation is
+     still there.
+     */
+    func switchTo(tab: Tab) {
+        self.selectedIndex = tab.rawValue
     }
 }
 
@@ -84,4 +115,16 @@ class PanDirectionGestureRecognizer: UIPanGestureRecognizer {
             }
         }
     }
+}
+
+/** Errors for FastCart */
+struct FastCartError: Error {
+    enum ErrorKind {
+        case clientError
+        case invalidUrl
+        case generic
+    }
+    
+    let message: String
+    let kind: ErrorKind
 }
