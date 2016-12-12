@@ -98,6 +98,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             User.currentUser?.fetchClientToken(completion: nil)
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        activityIndicator.isHidden = true
+    }
 
     func addProduct() {
         let product = Product(dictionary: ["name": addItemTextView.text], api: apiType.manual)
