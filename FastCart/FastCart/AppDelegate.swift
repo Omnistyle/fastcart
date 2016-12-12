@@ -31,31 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // handle tab bar setup 
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-        let tabBar = vc.tabBar as UITabBar
-        let tabBarItem1 = tabBar.items![0] as UITabBarItem
-        let tabBarItem2 = tabBar.items![1] as UITabBarItem
-        let tabBarItem3 = tabBar.items![2] as UITabBarItem
-        let tabBarItem4 = tabBar.items![3] as UITabBarItem
-        let tabBarItem5 = tabBar.items![4] as UITabBarItem
-        
-        
-        print("App delegate running!")
-        tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
-        tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
-        tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
-        tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
-        tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
-        
-        // nonselected color to black
-        for tabItem in tabBar.items! {
-            let item = tabItem
-            item.image = item.image?.withRenderingMode(.alwaysOriginal)
-            item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
-            // change the iimage insets to only have the image
-            item.imageInsets = UIEdgeInsets(top: 7, left: 0, bottom: -7, right: 0)
-        }
+        vc.customInitialize()
         
         // change tint color to black
         UITabBar.appearance().tintColor = UIColor.black
@@ -68,11 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // hide the navigation bar
         UIApplication.shared.isStatusBarHidden = true
-//        UIApplication.shared.statusBarStyle = .default
-//        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
-//        
-//        statusBar.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247.255, alpha: 1)
-        
         
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.

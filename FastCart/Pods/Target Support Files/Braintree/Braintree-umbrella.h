@@ -67,6 +67,10 @@
 #import "BTUIVectorArtView.h"
 #import "BTUIVenmoButton.h"
 #import "UIColor+BTUI.h"
+#import "BraintreeUnionPay.h"
+#import "BTCardCapabilities.h"
+#import "BTCardClient+UnionPay.h"
+#import "BTConfiguration+UnionPay.h"
 
 FOUNDATION_EXPORT double BraintreeVersionNumber;
 FOUNDATION_EXPORT const unsigned char BraintreeVersionString[];

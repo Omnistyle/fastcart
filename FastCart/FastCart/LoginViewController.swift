@@ -180,6 +180,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
             
             self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+            // try to segue 
+
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? UITabBarController else { return }
+        vc.customInitialize()
     }
 }
