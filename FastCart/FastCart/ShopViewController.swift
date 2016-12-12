@@ -51,7 +51,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(ShopViewController.buttonMethod))
         navigationItem.rightBarButtonItem = refreshButton
         
-        self.title = "Shop"
+        self.navigationItem.title = "Shop"
         
         
         // search bar functions
