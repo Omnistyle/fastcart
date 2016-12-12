@@ -10,12 +10,12 @@ import UIKit
 import FBSDKLoginKit
 import MXParallaxHeader
 
-class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITableViewDelegate, UITableViewDataSource  {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
+    var user : User = User()
     var scrollView: MXScrollView!
     
     @IBOutlet weak var tableView: UITableView!
-//    var table1: UITableView!
     let titles = [["Current order", "Past orders"],
                   ["Contact us", "Rate the app", "Invite friends", "How it works"],
                   ["Account"]]
@@ -30,39 +30,15 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         header?.backgroundImageUrl = URL(string: "http://www.designbolts.com/wp-content/uploads/2013/02/Noise-Light-Grey-Tileable-Pattern-For-Website-Background.jpg")
         
         if let user = User.currentUser {
-            if let strg = user.facebookProfilePictureUrlString {
-            
-                header?.foregroundImageUrl = URL(string: strg)
-                print(strg)
-            }
-            if let username = user.username {
-                header?.name = username
-                print(username)
-            }
+            self.user = user
+            displayUserInfo(user: self.user, header: header!)
         }
-     
-        
-//        if ((User.currentUser?.facebookProfilePictureUrlString = User.currentUser?.facebookProfilePictureUrlString) != nil) {
-//            
-//            if let gotUserProfileUrlPic = User.currentUser?.facebookProfilePictureUrlString {
-//                header?.foregroundImageUrl = URL(string: "http://graph.facebook.com/10157675891475375/picture?type=large")
-//                
-//                print(gotUserProfileUrlPic)
-//            }
-//            
-//            
-//        }
-        
-//        header?.foregroundImageUrl = URL(string: "https://pbs.twimg.com/profile_images/575763771932573696/4UoYccGP.jpeg")
+   
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
         scrollView.parallaxHeader.height = 150
         scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         scrollView.parallaxHeader.minimumHeight = 20
         view.addSubview(scrollView)
-        
-//        table1 = UITableView()
-        
-        // tableview 
         
         tableView.dataSource = self;
         tableView.delegate = self
@@ -73,6 +49,25 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         // get rid of empty cells
         
     }
+    
+    func displayUserInfo(user: User, header: CustomHeader){
+        if user.loginMethod == "facebook" {
+            if let strg = user.facebookProfilePictureUrlString {
+                header.foregroundImageUrl = URL(string: strg)
+                print(strg)
+            }
+        
+        }
+        else if user.loginMethod == "parse" {
+            
+        }
+        
+        if let username = user.username {
+            header.name = username
+            print(username)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -129,12 +124,15 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         cell.optionLabel.text = titles[indexPath.section][indexPath.row]
         // Add logout button.
         if indexPath.section == 2 {
-            let loginButton = FBSDKLoginButton()
-            
-            loginButton.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: cell.contentView.frame.height)
-            loginButton.delegate = self
-            
-            cell.contentView.addSubview(loginButton)
+                print("adding parse log out")
+                let parseLogoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width - 55, height: cell.contentView.frame.size.height ))
+                parseLogoutButton.backgroundColor = UIColor(red: 0.45, green: 0.75, blue: 0.72, alpha: 1.0)  //.blue
+                parseLogoutButton.setTitle("Log Out", for: .normal)
+                //parseLogoutButton.titleLabel?.textAlignment = NSTextAlignment.center
+                parseLogoutButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+                parseLogoutButton.addTarget(self, action: #selector(onParseLogout), for: .touchUpInside)
+                
+                cell.contentView.addSubview(parseLogoutButton)
         }
 
         cell.backgroundColor = UIColor.white
@@ -145,6 +143,12 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         cell.layoutMargins = UIEdgeInsets.zero
         
         return cell
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        print("calling viewwillappear")
     }
     
     // scroll view delegate
@@ -184,6 +188,14 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     // relevant functions
+    func playVideo(_ view: UIViewController, message: String) {
+        if let url = URL(string: "https://www.youtube.com/watch?v=yP0jBXVKh5Q") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    
+    // relevant functions
     func shareApp(_ view: UIViewController, message: String) {
         var objectsToShare = [Any]()
         let appId = "1182855639"
@@ -208,32 +220,15 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         }
     }
     
+    func onParseLogout (){
+            NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
+    }
+
     func playVideo() {
         // TODO test this
         if let url = URL(string: "https://www.youtube.com/watch?v=yP0jBXVKh5Q") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
-    }
-
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
-        
-        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start { (connecion, result, error) in
-            if error != nil {
-                print("failed to start graph")
-                print(error?.localizedDescription ?? "undefined error")
-                return
-            }
-        }
-        
-    }
-    
 
 }

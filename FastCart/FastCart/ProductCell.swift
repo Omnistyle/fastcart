@@ -32,7 +32,7 @@ class ProductCell: UITableViewCell {
                 manual = true
                 productName.text = product.name
                 priceLabel.text = "NA"
-                priceImage.image = #imageLiteral(resourceName: "camera_outline")
+//                priceImage.image = #imageLiteral(resourceName: "camera_outline")
                 return
             }
             productName.text = product.name

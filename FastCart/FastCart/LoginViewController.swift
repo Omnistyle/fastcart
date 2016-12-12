@@ -12,11 +12,12 @@ import Parse
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     struct Constants {
-        static let facebookButtonLeftRightMargin: CGFloat = 16
+        static let facebookButtonLeftRightMargin: CGFloat = 30
         static let facebookButtonHeight: CGFloat = 50
-        static let facebookButtonBottomMargin: CGFloat = 100
+        static let facebookButtonBottomMargin: CGFloat = 160
     }
 
+    @IBOutlet weak var loginView: UIImageView!
     @IBOutlet weak var usernameLabel: UITextField!
     
     @IBOutlet weak var passwordLabel: UITextField!
@@ -35,7 +36,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loginButton.layer.cornerRadius = 5
+        self.loginButton.layer.cornerRadius = 3
         self.loginButton.layer.shadowColor = UIColor.gray.cgColor
         self.loginButton.layer.shadowOpacity = 1
         self.loginButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -50,11 +51,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.signupButton.layer.shadowRadius = 4.0
         self.signupButton.layer.masksToBounds = false
         
+        activityIndicator.hidesWhenStopped = true;
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         let loginButton = FBSDKLoginButton()
         
-        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+//        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+        let y = Constants.facebookButtonBottomMargin
         loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
                                    width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
                                    height: Constants.facebookButtonHeight)
@@ -62,6 +65,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["email", "public_profile"]
         
         view.addSubview(loginButton)
+        
+        // add blur effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = loginView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        loginView.addSubview(blurEffectView)
     }
 
     
@@ -69,9 +79,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBAction func onFastcartLogin(_ sender: Any) {
         let username = self.usernameLabel.text
         let password = self.passwordLabel.text
-
         activityIndicator.startAnimating()
-        
         PFUser.logInWithUsername (inBackground: username!, password: password!, block: {(user, error) in
             self.activityIndicator.stopAnimating()
             if user != nil {
@@ -79,7 +87,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print(user ?? "default message of user logged in")
                 let userDictionary = User.getUserDictionary(user: user!)
                 let storedUser = User(dictionary: userDictionary)
+                storedUser.loginMethod = "parse"
                 User.currentUser = storedUser
+                
                 self.performSegue(withIdentifier: "successloginsegue", sender: nil)
 
             }
@@ -118,19 +128,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
     
-    func onLogin(username: String, password: String){
-        PFUser.logInWithUsername(inBackground: username, password: password) { (currentUser:PFUser?, error:Error?) in
-            if currentUser != nil {
-                print("successfully logged in")
-                
-            } else {
-                print("failed to log in")
-                print(error?.localizedDescription ?? "")
-            }
-            
-        }
-    }
-    
     func onSignUp(username: String, email: String, password: String, id: String) {
         
         let query = PFQuery(className: "AppUsers")
@@ -141,13 +138,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             if error == nil {
                 if users != nil{
                     if (users?.count)! > 0 {
-                        //sing in create app user
+                        //login
                         //var storeUser = User.getParseUser(email: email)
                       
                         let rawUser = users?[0]
-                        
+                        print(rawUser ?? "printing default rawuser")
                         let userDictionary = User.getUserDictionary(user: rawUser!)
                         let storedUser = User(dictionary: userDictionary)
+                        storedUser.loginMethod = "facebook"
                         User.currentUser = storedUser
                         print("user login")
                     
@@ -166,6 +164,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 
                                 let userDic = User.getUserDictionary(user: user)
                                 let user = User(dictionary: userDic)
+                                user.loginMethod = "facebook"
                                 User.currentUser = user
                                 
                             } else {
@@ -181,6 +180,42 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
             
             self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+            // try to segue 
+
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        guard let vc = segue.destination as? UITabBarController else {return }
+        let tabBar = vc.tabBar as UITabBar
+        let tabBarItem1 = tabBar.items![0] as UITabBarItem
+        let tabBarItem2 = tabBar.items![1] as UITabBarItem
+        let tabBarItem3 = tabBar.items![2] as UITabBarItem
+        let tabBarItem4 = tabBar.items![3] as UITabBarItem
+        let tabBarItem5 = tabBar.items![4] as UITabBarItem
+        
+        
+        print("App delegate running!")
+        tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
+        tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
+        tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
+        tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
+        tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
+        
+        // nonselected color to black
+        for tabItem in tabBar.items! {
+            let item = tabItem
+            item.image = item.image?.withRenderingMode(.alwaysOriginal)
+            item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
+            // change the iimage insets to only have the image
+            item.imageInsets = UIEdgeInsets(top: 7, left: 0, bottom: -7, right: 0)
+        }
+        
+        // change tint color to black
+        UITabBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().tintColor = UIColor.black
+
     }
 }

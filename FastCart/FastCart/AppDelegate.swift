@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // handle tab bar setup 
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
         let tabBar = vc.tabBar as UITabBar
@@ -40,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarItem4 = tabBar.items![3] as UITabBarItem
         
         
+        print("App delegate running!")
         tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
         tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
         tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")

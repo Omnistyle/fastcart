@@ -18,9 +18,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var subtotalTitleLabel: UILabel!
     @IBOutlet weak var checkoutButton: UIButton!
     
-    @IBOutlet weak var topDividerView: UIView!
-    @IBOutlet weak var bottomDividerView: UIView!
-    
+    @IBOutlet weak var dividerView: UIView!
     @IBOutlet weak var addItemTextView: UITextView!
     private var cartViews = [UIView]()
     private var emptyViews = [UIView]()
@@ -82,15 +80,16 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.estimatedRowHeight = 120
         // separator insets
         tableView.tableFooterView = UIView()
-        
-        
+//        tableView.separatorStyle = .none
+//        tableView.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 251/255, alpha: 1)
         addItemTextView.delegate = self
+        tableView.separatorColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         
         // format checkout button
         checkoutButton.layer.cornerRadius = 5
         
         // make appropriate things hidden
-        cartViews = [subtotalLabel, subtotalTitleLabel, checkoutButton, topDividerView, bottomDividerView]
+        cartViews = [subtotalLabel, subtotalTitleLabel, checkoutButton, dividerView]
         emptyViews = [readyLabel]
         
         // Add the activity indicator for payments
@@ -146,8 +145,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.row < products.count {
             cell.preservesSuperviewLayoutMargins = false
             let inset = cell.productImage.frame.origin.x + cell.productImage.frame.size.width + CGFloat(10)
-            cell.separatorInset = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
-            cell.layoutMargins = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+//            cell.separatorInset = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
+//            cell.layoutMargins = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
         }
         return cell
     }

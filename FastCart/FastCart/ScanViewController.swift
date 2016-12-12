@@ -32,6 +32,7 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             moveScannerIn()
         }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fakeScanButton.isEnabled = true
@@ -46,13 +47,17 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
     func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
         self.processCode(controller, didCaptureCode: code, type: type)
     }
+    
+    
    
     // Creates the controller for scanning purposes.
     private func createScanner() -> BarcodeScannerController {
         let controller = BarcodeScannerController()
+    
         controller.codeDelegate = self
         controller.errorDelegate = self
         controller.dismissalDelegate = self
+        
         
         return controller
     }

@@ -74,6 +74,11 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     func getProducts(){
         activityIndicator.startAnimating()
         Product.getProducts(receiptId: receiptId, completion: {(products:[Product]) in
+            
+            if(self.activityIndicator.isAnimating){
+                self.activityIndicator.stopAnimating()
+            }
+            
             self.activityIndicator.stopAnimating()
             self.products = products
             self.receiptTable.reloadData()
