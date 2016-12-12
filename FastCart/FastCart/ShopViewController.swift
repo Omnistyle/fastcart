@@ -244,6 +244,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func handleTap(sender: UITapGestureRecognizer) {
         if let image = sender.view as? UIImageView {
             let cell = image.superview!.superview?.superview as! ProductOverviewCell
+            // make sure it's above the image
+            cell.heartImage.layer.zPosition = cell.productScrollView.layer.zPosition + 100
             if cell.heartImage.image == #imageLiteral(resourceName: "heart") {
                 cell.heartImage.image = #imageLiteral(resourceName: "heart_filled")
             } else {
@@ -310,10 +312,12 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         return cell
     }
+    
+    let cellHeight = CGFloat(290)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // Sets to 4 per screen.
-        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: collectionView.frame.size.height / 2 - 0.5)
+        // Sets to equal width and about 1 1/2 cells vertically on iphone 5s
+        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: cellHeight)
        
     }
     

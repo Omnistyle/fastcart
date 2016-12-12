@@ -36,30 +36,22 @@
                                 <rect key="frame" x="0.0" y="107" width="320" height="324"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="c9w-gM-iB3">
-                                    <size key="itemSize" width="155" height="206"/>
+                                    <size key="itemSize" width="155" height="290"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductOverviewCell" id="AsE-YW-vIl" customClass="ProductOverviewCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="155" height="206"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="290"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="155" height="206"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="290"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alk-3S-FTn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="155" height="206"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="155" height="290"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJT-p7-eTC" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
-                                                            <rect key="frame" x="20.5" y="32" width="114" height="111"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <gestureRecognizers/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="gJT-p7-eTC" secondAttribute="height" multiplier="38:37" id="Igj-zb-Z17"/>
-                                                            </constraints>
-                                                        </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="6lz-T7-XMk">
                                                             <rect key="frame" x="121" y="7" width="27" height="27"/>
                                                             <constraints>
@@ -68,13 +60,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Dress Shirt Testnig How Long This Will Go" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZ7-xE-15W">
-                                                            <rect key="frame" x="8" y="151" width="139" height="26.5"/>
+                                                            <rect key="frame" x="8" y="227.5" width="139" height="26.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbg-ud-YgW">
-                                                            <rect key="frame" x="63.5" y="184" width="28.5" height="14"/>
+                                                            <rect key="frame" x="63" y="263" width="29" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="T6d-Cl-aJr"/>
                                                             </constraints>
@@ -82,18 +74,26 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJT-p7-eTC" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="32" width="142" height="180"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <gestureRecognizers/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="gJT-p7-eTC" secondAttribute="height" multiplier="38:37" constant="-32.864864864864842" id="Igj-zb-Z17"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="6lz-T7-XMk" secondAttribute="trailing" constant="7" id="1N2-rA-YxY"/>
                                                         <constraint firstAttribute="trailing" secondItem="eZ7-xE-15W" secondAttribute="trailing" constant="8" id="27o-Za-iIY"/>
-                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="32" id="2Av-Z0-KVa"/>
+                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="34" id="2Av-Z0-KVa"/>
                                                         <constraint firstItem="eZ7-xE-15W" firstAttribute="leading" secondItem="alk-3S-FTn" secondAttribute="leading" constant="8" id="B9S-xn-m3j"/>
-                                                        <constraint firstItem="eZ7-xE-15W" firstAttribute="top" secondItem="gJT-p7-eTC" secondAttribute="bottom" constant="8" id="Fp5-pe-NKB"/>
-                                                        <constraint firstItem="Pbg-ud-YgW" firstAttribute="top" secondItem="eZ7-xE-15W" secondAttribute="bottom" constant="6.5" id="HVq-dS-IMi"/>
+                                                        <constraint firstItem="eZ7-xE-15W" firstAttribute="top" secondItem="gJT-p7-eTC" secondAttribute="bottom" constant="15.5" id="Fp5-pe-NKB"/>
+                                                        <constraint firstItem="Pbg-ud-YgW" firstAttribute="top" secondItem="eZ7-xE-15W" secondAttribute="bottom" constant="9" id="HVq-dS-IMi"/>
                                                         <constraint firstItem="6lz-T7-XMk" firstAttribute="top" secondItem="alk-3S-FTn" secondAttribute="top" constant="7" id="Kfl-Hq-YMk"/>
-                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" id="iBH-y7-ebE"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Pbg-ud-YgW" secondAttribute="bottom" constant="8" id="qS8-ea-sjm"/>
+                                                        <constraint firstItem="gJT-p7-eTC" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" constant="-1.5" id="iBH-y7-ebE"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Pbg-ud-YgW" secondAttribute="bottom" constant="13" id="qS8-ea-sjm"/>
                                                         <constraint firstItem="Pbg-ud-YgW" firstAttribute="centerX" secondItem="alk-3S-FTn" secondAttribute="centerX" id="yHI-CN-vVd"/>
                                                     </constraints>
                                                 </view>
