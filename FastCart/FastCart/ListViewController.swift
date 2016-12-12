@@ -229,8 +229,15 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             Utilities.presentErrorAlert(title: "Payment Error", message: msg)
         })
     }
+    private func customizeDropIn() {
+        BTUIKAppearance.sharedInstance().tintColor = UIColor.black
+        BTUIKAppearance.sharedInstance().activityIndicatorViewStyle = .whiteLarge
+        BTUIKAppearance.sharedInstance().fontFamily = "Helvetica-Light"
+        BTUIKAppearance.sharedInstance().boldFontFamily = "Helvetica-Bold"
+    }
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request =  BTDropInRequest()
+        self.customizeDropIn()
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             guard error == nil else { return self.paymentFailure(controller: controller, msg: error.debugDescription)}
@@ -248,7 +255,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         guard let view = dropIn else { return Utilities.presentErrorAlert(title: "Failure", message: "Could not present payment options") }
         
-        self.present(view, animated: true, completion: nil)
+        self.tabBarController?.present(view, animated: true, completion: nil)
     }
 
     private func postNonceToServer(paymentMethodNonce: String) {

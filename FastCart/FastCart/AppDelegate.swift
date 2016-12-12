@@ -12,7 +12,7 @@ import Parse
 import Braintree
 
 enum AppURLSchemes: String {
-    case payments = "lemonbunny.FastCart.payments"
+    case payments = "com.lemonbunny.fastcart.payments"
 }
 
 @UIApplicationMain
