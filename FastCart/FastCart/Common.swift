@@ -116,3 +116,15 @@ class PanDirectionGestureRecognizer: UIPanGestureRecognizer {
         }
     }
 }
+
+/** Errors for FastCart */
+struct FastCartError: Error {
+    enum ErrorKind {
+        case clientError
+        case invalidUrl
+        case generic
+    }
+    
+    let message: String
+    let kind: ErrorKind
+}

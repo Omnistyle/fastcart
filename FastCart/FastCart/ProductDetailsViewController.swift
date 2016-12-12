@@ -27,13 +27,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     @IBOutlet weak var reviewsImageView: UIImageView!
     
     private var wasNavHidden: Bool!
-    private let kOfferSize = CGSize(width: 80, height: 80)
+    private let kOfferSize = CGSize(width: 100, height: 100)
 
     @IBOutlet weak var pricePlaceHolder: UIView!
     @IBOutlet weak var similarItemsPlaceHolder: UIView!
-    
-    private var similarScrollView: ASHorizontalScrollView?
-    private var otherStoresScrollView: ASHorizontalScrollView?
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -96,61 +93,56 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         label.text = "Not Available"
         label.textAlignment = .center
         placeHolder.addLayoutSubview(label, andConstraints:
-            label.top |+| 8,
-            label.left |+| 8,
-            label.right |+| 8
+            label.centerY,
+            label.left,
+            label.right
         )
     }
-    private func setUpOtherStores(in view: UIView) {
-        guard let upc = product.upc else { return notAvailable(view) }
-        view.isUserInteractionEnabled = true
+    private func getStandardScrollView(for view: UIView) -> ASHorizontalScrollView {
         let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
         horizontalScrollView.uniformItemSize = kOfferSize
         horizontalScrollView.setItemsMarginOnce()
         horizontalScrollView.isUserInteractionEnabled = true
+        horizontalScrollView.frame = view.bounds
+        return horizontalScrollView
+    }
+    private func setUpOtherItems(in view: UIView) {
+        guard let itemId = product.idFromStore else { return notAvailable(view) }
+        view.isUserInteractionEnabled = true
+        let horizontalScrollView = getStandardScrollView(for: view)
+        // Override size
+        horizontalScrollView.uniformItemSize = CGSize(width: kOfferSize.width, height: 2 * kOfferSize.height)
         let activityIndicator = Utilities.addActivityIndicator(to: view)
         activityIndicator.startAnimating()
-        /*UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
-            for offer in offers {
-                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
-                let view = OfferView(frame: frame)
-                view.offer = offer
+        WalmartClient.sharedInstance.getSimilarProducts(itemId: itemId, success: {(products: [Product]) -> () in
+            for product in products {
+                let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: 2 * self.kOfferSize.height)
+                let view = SimilarProductView(frame: frame)
+                view.product = product
                 view.isUserInteractionEnabled = true
                 horizontalScrollView.addItem(view)
             }
-            horizontalScrollView.frame = view.bounds
             view.addSubview(horizontalScrollView)
-            horizontalScrollView.refreshSubView()
             activityIndicator.stopAnimating()
         }, failure: {(error: Error) -> () in
             self.notAvailable(view)
             activityIndicator.stopAnimating()
         })
-        */
     }
-    private func setUpOtherItems(in view: UIView) {
+    private func setUpOtherStores(in view: UIView) {
         guard let upc
             = product.upc else { return notAvailable(view) }
-        view.isUserInteractionEnabled = true
-        let horizontalScrollView = ASHorizontalScrollView(frame: view.bounds)
-        horizontalScrollView.uniformItemSize = kOfferSize
-        horizontalScrollView.setItemsMarginOnce()
-        horizontalScrollView.isUserInteractionEnabled = true
+        let horizontalScrollView = getStandardScrollView(for: view)
         let activityIndicator = Utilities.addActivityIndicator(to: view)
         activityIndicator.startAnimating()
         UPCClient.sharedInstance.getOffers(upc: upc, success: {(offers: [Offer]) -> () in
-            horizontalScrollView.frame = view.bounds
-            horizontalScrollView.backgroundColor = UIColor.red
             for offer in offers {
                 let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: self.kOfferSize.height)
                 let view = OfferView(frame: frame)
                 view.offer = offer
-                view.backgroundColor = UIColor.white
-                view.isUserInteractionEnabled = true
                 horizontalScrollView.addItem(view)
             }
             view.addSubview(horizontalScrollView)
-            horizontalScrollView.refreshSubView()
             activityIndicator.stopAnimating()
         }, failure: {(error: Error) -> () in
             self.notAvailable(view)

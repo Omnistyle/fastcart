@@ -264,7 +264,7 @@ class Utilities {
     static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = Constants.themeColor
-        activityIndicator.center = view.center;
+        activityIndicator.center = view.superview?.convert(view.center, to: view) ?? view.center
         view.addSubview(activityIndicator)
         
         return activityIndicator
