@@ -103,6 +103,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ReceiptHistoryViewController") as! ReceiptHistoryViewController
         // What if no current receipt?
+        controller.hidesBottomBarWhenPushed = true
         controller.receiept = receipts[indexPath.row] as Receipt
         self.navigationController?.pushViewController(controller, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
