@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$99.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-V0-dJl">
-                    <rect key="frame" x="24" y="150" width="51" height="15"/>
+                    <rect key="frame" x="24" y="157.5" width="51" height="15"/>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -35,7 +35,7 @@
                         <constraint firstAttribute="width" secondItem="3H4-Nr-wGn" secondAttribute="height" multiplier="25:31" id="20H-cb-mry"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-yX-6QJ">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-yX-6QJ">
                     <rect key="frame" x="7" y="132" width="85" height="17.5"/>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
                     <nil key="textColor"/>
@@ -50,7 +50,7 @@
                 <constraint firstAttribute="trailing" secondItem="Fpe-V0-dJl" secondAttribute="trailing" constant="25" id="PBj-Kp-zgC"/>
                 <constraint firstAttribute="trailing" secondItem="IhM-yX-6QJ" secondAttribute="trailing" constant="8" id="RLK-lP-iPD"/>
                 <constraint firstItem="3H4-Nr-wGn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UBr-7g-NfA"/>
-                <constraint firstAttribute="bottom" secondItem="Fpe-V0-dJl" secondAttribute="bottom" constant="10" id="oQP-Mj-hcb"/>
+                <constraint firstItem="Fpe-V0-dJl" firstAttribute="top" secondItem="IhM-yX-6QJ" secondAttribute="bottom" constant="8" id="dnP-Zx-OOl"/>
                 <constraint firstItem="IhM-yX-6QJ" firstAttribute="top" secondItem="3H4-Nr-wGn" secondAttribute="bottom" constant="8" id="txi-PV-n2H"/>
                 <constraint firstAttribute="trailing" secondItem="3H4-Nr-wGn" secondAttribute="trailing" id="zFB-xi-r9l"/>
             </constraints>
