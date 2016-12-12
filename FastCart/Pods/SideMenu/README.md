@@ -4,17 +4,17 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-### If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.
+### If you like SideMenu, give it a ★ at the top right of this page.
 
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
-* **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
-* Four standard animation styles to choose from (even parallax if you want to get weird).
-* Highly customizable without needing to write tons of custom code.
-* Supports continuous swiping between side menus on boths sides in a single gesture.
-* Global menu configuration. Set-up once and be done for all screens.
-* Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+- [x] Four standard animation styles to choose from (even parallax if you want to get weird).
+- [x] Highly customizable without needing to write tons of custom code.
+- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
+- [x] Global menu configuration. Set-up once and be done for all screens.
+- [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
 Check out the example project to see it in action!
 
@@ -24,7 +24,7 @@ Check out the example project to see it in action!
 ![](etc/InOut.gif)
 
 ## Requirements
-* iOS 8 or higher
+- [x] iOS 8 or higher
 
 ## Installation
 ### CocoaPods
@@ -68,7 +68,7 @@ $ brew install carthage
 To integrate SideMenu into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "jonkykong/SideMenu"
+github "jonkykong/SideMenu" "master"
 ```
 
 ## Usage
@@ -108,7 +108,10 @@ SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationCon
 ```
 Then from a button, do something like this:
 ``` swift
-presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+
+// For Swift 2.3, use:
+// presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
 ```
 That's it.
 ### Customization
@@ -178,6 +181,9 @@ open static var menuFadeStatusBar = true
 
 /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
 open static var menuAllowSubmenus: Bool = false
+
+/// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
+open static var menuReplaceOnPush: Bool = false
 
 /**
  The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.

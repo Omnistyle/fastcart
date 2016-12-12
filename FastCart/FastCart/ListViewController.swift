@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BraintreeDropIn
+import Braintree
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
 
@@ -20,8 +22,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var bottomDividerView: UIView!
     
     @IBOutlet weak var addItemTextView: UITextView!
-    var cartViews = [UIView]()
-    var emptyViews = [UIView]()
+    private var cartViews = [UIView]()
+    private var emptyViews = [UIView]()
+    
+    // Braintree Integration Constants
+    private var activityIndicator: UIActivityIndicatorView!
+    private let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
 
     let PLACEHOLDER_TEXT = "Type or tap the camera to scan an item"
     
@@ -87,8 +93,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cartViews = [subtotalLabel, subtotalTitleLabel, checkoutButton, topDividerView, bottomDividerView]
         emptyViews = [readyLabel]
         
+        // Add the activity indicator for payments
+        activityIndicator = Utilities.addActivityIndicator(to: view)
         
-        
+        // Start fetching the client token if none is set. This is done in the background.
+        if User.currentUser?.braintreeToken == nil {
+            User.currentUser?.fetchClientToken(completion: nil)
+        }
     }
 
     func addProduct() {
@@ -193,7 +204,76 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        tabBarController?.switchTo(tab: .payment)
+        if let token = User.currentUser!.braintreeToken {
+            showDropIn(clientTokenOrTokenizationKey: token)
+        } else {
+            activityIndicator.startAnimating()
+            User.currentUser!.fetchClientToken(completion: { (token: String?) in
+                self.activityIndicator.stopAnimating()
+                guard let token = token else {
+                    Utilities.presentErrorAlert(title: "Payment Error", message: "Unable to retrieve payment token!")
+                    return
+                }
+                self.showDropIn(clientTokenOrTokenizationKey: token)
+            })
+        }
     }
     
+    /** MARK - Braintree Payments */
+    private func paymentFailure(controller: UIViewController, msg: String) {
+        controller.dismiss(animated: true, completion: {
+            Utilities.presentErrorAlert(title: "Payment Error", message: msg)
+        })
+    }
+    func showDropIn(clientTokenOrTokenizationKey: String) {
+        let request =  BTDropInRequest()
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
+        { (controller, result, error) in
+            guard error == nil else { return self.paymentFailure(controller: controller, msg: error.debugDescription)}
+            guard result?.isCancelled != true else {
+                // User cancelled, do nothing but dismiss.
+                controller.dismiss(animated: true, completion: nil)
+                return
+            }
+            guard let result = result else { return self.paymentFailure(controller: controller, msg: "Invalid Inputs")}
+            guard let nonce = result.paymentMethod?.nonce else { return self.paymentFailure(controller: controller, msg: "Nonce value invalid") }
+            
+            // Success!
+            self.postNonceToServer(paymentMethodNonce: nonce)
+            controller.dismiss(animated: true, completion: nil)
+        }
+        guard let view = dropIn else { return Utilities.presentErrorAlert(title: "Failure", message: "Could not present payment options") }
+        
+        self.present(view, animated: true, completion: nil)
+    }
+
+    private func postNonceToServer(paymentMethodNonce: String) {
+        let fakePaymentMethodNonce = "fake-valid-nonce"
+        guard let paymentAmount = User.currentUser?.current.total else { return }
+        print("$\(paymentAmount)")
+        print("posting to server")
+        let paymentURL = URL(string: "\(Constants.paymentServerURL)/checkout")!
+        var request: URLRequest = URLRequest(url: paymentURL)
+        let data = "payment_method_nonce=\(fakePaymentMethodNonce)&amount=\(paymentAmount)"
+        request.httpBody = data.data(using: String.Encoding.utf8)
+        request.httpMethod = "POST"
+        
+        activityIndicator.startAnimating()
+        URLSession.shared.dataTask(with: request, completionHandler: {[unowned self] (data, response, error) -> Void in
+            // if (error != nil) {
+            self.activityIndicator.stopAnimating()
+            if let user = User.currentUser {
+                self.completePayment(user: user)
+            }
+        }).resume()
+    }
+    private func completePayment(user: User) {
+        let receipt = user.current
+        receipt.paid = true
+        receipt.completed = Date()
+        user.completeCheckout()
+        Utilities.presentSuccessAlert(title: "Nice\n", message: "\nYou're done with checkout.\n", button: "My History", action: {
+            self.tabBarController?.switchTo(listTab: .history)
+        })
+    }
 }

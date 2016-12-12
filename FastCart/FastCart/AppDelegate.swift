@@ -38,14 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarItem2 = tabBar.items![1] as UITabBarItem
         let tabBarItem3 = tabBar.items![2] as UITabBarItem
         let tabBarItem4 = tabBar.items![3] as UITabBarItem
-        let tabBarItem5 = tabBar.items![4] as UITabBarItem
         
         
         tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
         tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
         tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
-        tabBarItem4.selectedImage = #imageLiteral(resourceName: "credit_card_filled_final")
-        tabBarItem5.selectedImage = #imageLiteral(resourceName: "profile_filled")
+        tabBarItem4.selectedImage = #imageLiteral(resourceName: "profile_filled")
         
         // nonselected color to black
         for tabItem in tabBar.items! {

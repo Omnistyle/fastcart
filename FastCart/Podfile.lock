@@ -22,30 +22,22 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Braintree (4.7.3):
-    - Braintree/Card (= 4.7.3)
-    - Braintree/Core (= 4.7.3)
-    - Braintree/PayPal (= 4.7.3)
-    - Braintree/UI (= 4.7.3)
   - Braintree/Apple-Pay (4.7.3):
     - Braintree/Core
   - Braintree/Card (4.7.3):
     - Braintree/Core
   - Braintree/Core (4.7.3)
-  - Braintree/PayPal (4.7.3):
-    - Braintree/Core
-    - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.7.3):
-    - Braintree/Core
-    - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.7.3):
-    - Braintree/Core
-    - Braintree/PayPalDataCollector
-    - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.7.3)
-  - Braintree/UI (4.7.3):
+  - Braintree/UnionPay (4.7.3):
     - Braintree/Card
     - Braintree/Core
+  - BraintreeDropIn (5.0.1):
+    - BraintreeDropIn/DropIn (= 5.0.1)
+  - BraintreeDropIn/DropIn (5.0.1):
+    - Braintree/Card (~> 4.0)
+    - Braintree/Core (~> 4.0)
+    - Braintree/UnionPay (~> 4.0)
+    - BraintreeDropIn/UIKit
+  - BraintreeDropIn/UIKit (5.0.1)
   - EVReflection (3.4.3)
   - FBSDKCoreKit (4.18.0):
     - Bolts (~> 1.7)
@@ -63,15 +55,15 @@ PODS:
     - MisterFusion
     - SABlurImageView
   - SCLAlertView (0.7.0)
-  - SideMenu (2.0.6)
+  - SideMenu (2.0.7)
   - TLYShyNavBar (1.1.1)
 
 DEPENDENCIES:
   - AFNetworking
   - ASHorizontalScrollView
   - BarcodeScanner
-  - Braintree
   - Braintree/Apple-Pay
+  - BraintreeDropIn
   - EVReflection (from `https://github.com/Omnistyle/EVReflection.git`)
   - FBSDKCoreKit
   - FBSDKLoginKit
@@ -104,6 +96,7 @@ SPEC CHECKSUMS:
   BarcodeScanner: 266ab4b479d407b74bc4b473fa5020b4523ad9e3
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Braintree: 3eee856da5d30357a55439283b4bb3dbaddcaa7c
+  BraintreeDropIn: c271f42485e5a62232fe471f854bbf1003ad95d1
   EVReflection: 6f48599f3156e64bc473d469bf8d728dd79ed3ed
   FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
   FBSDKLoginKit: 6773073e970b2b15fb12e451ce7f11da0532b880
@@ -115,9 +108,9 @@ SPEC CHECKSUMS:
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
   SAParallaxViewControllerSwift: 04939b077ef0a563be74fed16cfc0688900a3c09
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
-  SideMenu: 90be7a14e9f54eb528f96f2033aa54f2992c5667
+  SideMenu: c5d3c3bc855b96bc2059e0b1ec346ecb54e80447
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 5dcb14a8ba8ed2ac1ffe5dc753ff2ec286cd8ed1
+PODFILE CHECKSUM: f5ccbab551eb5ce27df7dcaa474e8e4212b290be
 
 COCOAPODS: 1.1.1

@@ -89,6 +89,9 @@ class User: EVObject {
     
     /** Unique id for each user, as saved in Parse */
     var id: String!
+    /** Client token storage for interactions with payment. Should check here
+     before making a call to the client for a new token. */
+    var braintreeToken: String?
     /** The username to be used for the user */
     var username: String!
     /** The email associated with this user */
@@ -155,6 +158,9 @@ class User: EVObject {
     override func skipPropertyValue(_ value: Any, key: String) -> Bool {
         // Skip current, as this is set seperately when the class is initialized.
         switch key {
+        // We don't want to persist a client token.
+        case "braintreeToken":
+            return true
         case "current":
             return true
         default:
@@ -225,6 +231,29 @@ class User: EVObject {
                 print(error?.localizedDescription ?? "default: error saving user to parse")
             }
         }
+    }
+    
+    /** Fetches a new client token from the Braintree server. Sets the results. Sets User.clientToken to the given value unless a completion is given. In the latter case, calls the completion with the token rather than saving it in the user.
+     */
+    func fetchClientToken(completion: ((String?) -> Void)?) {
+        let clientTokenURL = URL(string: "\(Constants.paymentServerURL)/client_token/\(self.id!)")!
+        var clientTokenRequest = URLRequest(url: clientTokenURL)
+        clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
+        URLSession.shared.dataTask(with: clientTokenRequest, completionHandler: {[unowned self] (data, response, error) -> Void in
+            guard let data = data else {
+                completion?(nil)
+                return
+            }
+            guard let clientToken = String(data: data, encoding: String.Encoding.utf8) else {
+                completion?(nil)
+                return
+            }
+            self.braintreeToken = clientToken
+            if let code = completion {
+                return code(clientToken)
+            }
+            self.braintreeToken = clientToken
+        }).resume()
     }
     
     /**

@@ -22,6 +22,7 @@ public enum Persistece: String {
 public class Constants {
     static let themeColor = UIColor(red: 114.0/255, green: 190.0/255, blue: 183.0/255, alpha: 1)
     static let kBannerHeight = CGFloat(40.0)
+    static let paymentServerURL: String = "https://fastcart-braintree.herokuapp.com"
 }
 
 extension URL {
@@ -41,8 +42,7 @@ enum Tab:Int{
     case home = 0
     case scanner = 1
     case shopList = 2
-    case payment = 3
-    case profile = 4
+    case profile = 3
 }
 enum ListTab: Int {
     case history = 0
