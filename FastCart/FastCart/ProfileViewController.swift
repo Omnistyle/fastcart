@@ -10,13 +10,12 @@ import UIKit
 import FBSDKLoginKit
 import MXParallaxHeader
 
-class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITableViewDelegate, UITableViewDataSource  {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     var user : User = User()
     var scrollView: MXScrollView!
     
     @IBOutlet weak var tableView: UITableView!
-//    var table1: UITableView!
     let titles = [["Current order", "Past orders"],
                   ["Contact us", "Rate the app", "Invite friends", "How it works"],
                   ["Account"]]
@@ -33,16 +32,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         if let user = User.currentUser {
             self.user = user
             displayUserInfo(user: self.user, header: header!)
-            
-//            if let strg = user.facebookProfilePictureUrlString {
-//            
-//                header?.foregroundImageUrl = URL(string: strg)
-//                print(strg)
-//            }
-//            if let username = user.username {
-//                header?.name = username
-//                print(username)
-//            }
         }
    
         scrollView.parallaxHeader.view = header// You can set the parallax header view from a nib.
@@ -135,15 +124,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         cell.optionLabel.text = titles[indexPath.section][indexPath.row]
         // Add logout button.
         if indexPath.section == 2 {
-            // adding facebook logout
-//            if self.user.loginMethod == "facebook" {
-//                print("adding facebook log out")
-//                let loginButton = FBSDKLoginButton()
-//                loginButton.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: cell.contentView.frame.height)
-//                loginButton.delegate = self
-//                cell.contentView.addSubview(loginButton)
-//            }
-//            else if self.user.loginMethod == "parse" {
                 print("adding parse log out")
                 let parseLogoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width - 55, height: cell.contentView.frame.size.height ))
                 parseLogoutButton.backgroundColor = UIColor(red: 0.45, green: 0.75, blue: 0.72, alpha: 1.0)  //.blue
@@ -153,7 +133,6 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 parseLogoutButton.addTarget(self, action: #selector(onParseLogout), for: .touchUpInside)
                 
                 cell.contentView.addSubview(parseLogoutButton)
-//            }
         }
 
         cell.backgroundColor = UIColor.white
@@ -251,24 +230,5 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
-    }
 
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
-        
-        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields" : "id, name, email"]).start { (connecion, result, error) in
-            if error != nil {
-                print("failed to start graph")
-                print(error?.localizedDescription ?? "undefined error")
-                return
-            }
-        }
-    }
-        
 }
