@@ -209,6 +209,14 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     // relevant functions
+    func playVideo(_ view: UIViewController, message: String) {
+        if let url = URL(string: "https://www.youtube.com/watch?v=yP0jBXVKh5Q") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    
+    // relevant functions
     func shareApp(_ view: UIViewController, message: String) {
         var objectsToShare = [Any]()
         let appId = "1182855639"
@@ -234,7 +242,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func onParseLogout (){
-        NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
+            NotificationCenter.default.post(name: User.userDidLogoutNotification, object: self)
+    }
 
     func playVideo() {
         // TODO test this
@@ -261,4 +270,5 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             }
         }
     }
+        
 }
