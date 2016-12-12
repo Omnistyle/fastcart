@@ -22,11 +22,9 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Braintree (4.7.3):
-    - Braintree/Card (= 4.7.3)
-    - Braintree/Core (= 4.7.3)
-    - Braintree/PayPal (= 4.7.3)
-    - Braintree/UI (= 4.7.3)
+  - Braintree/3D-Secure (4.7.3):
+    - Braintree/Card
+    - Braintree/Core
   - Braintree/Apple-Pay (4.7.3):
     - Braintree/Core
   - Braintree/Card (4.7.3):
@@ -43,12 +41,12 @@ PODS:
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
   - Braintree/PayPalUtils (4.7.3)
-  - Braintree/UI (4.7.3):
-    - Braintree/Card
-    - Braintree/Core
   - Braintree/UnionPay (4.7.3):
     - Braintree/Card
     - Braintree/Core
+  - Braintree/Venmo (4.7.3):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
   - BraintreeDropIn (5.0.1):
     - BraintreeDropIn/DropIn (= 5.0.1)
   - BraintreeDropIn/DropIn (5.0.1):
@@ -81,8 +79,10 @@ DEPENDENCIES:
   - AFNetworking
   - ASHorizontalScrollView
   - BarcodeScanner
-  - Braintree
+  - Braintree/3D-Secure
   - Braintree/Apple-Pay
+  - Braintree/PayPal
+  - Braintree/Venmo
   - BraintreeDropIn
   - EVReflection (from `https://github.com/Omnistyle/EVReflection.git`)
   - FBSDKCoreKit
@@ -131,6 +131,6 @@ SPEC CHECKSUMS:
   SideMenu: c5d3c3bc855b96bc2059e0b1ec346ecb54e80447
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 2a26a3a7d6db95fd600c37d6412540801cdbdf44
+PODFILE CHECKSUM: 4813e2553ec21f84b2a0c78ab645a72b6e58b36f
 
 COCOAPODS: 1.1.1

@@ -35,7 +35,7 @@
 			<string>Braintree Payments</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>lemonbunny.FastCart.payments</string>
+				<string>com.lemonbunny.fastcart.payments</string>
 			</array>
 		</dict>
 	</array>
@@ -63,9 +63,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We&apos;d like to use the camera so you can scan barcodes for products and check out!</string>
+	<string>We'd like to use the camera so you can scan barcodes for products and check out!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We&apos;d like to use the your location so we can find stores and products near you.</string>
+	<string>We'd like to use the your location so we can find stores and products near you.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
