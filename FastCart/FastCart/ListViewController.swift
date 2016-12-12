@@ -80,8 +80,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.estimatedRowHeight = 120
         // separator insets
         tableView.tableFooterView = UIView()
-//        tableView.separatorStyle = .none
-//        tableView.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 251/255, alpha: 1)
         addItemTextView.delegate = self
         tableView.separatorColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         
@@ -99,6 +97,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if User.currentUser?.braintreeToken == nil {
             User.currentUser?.fetchClientToken(completion: nil)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        activityIndicator.isHidden = true
     }
 
     func addProduct() {
@@ -144,7 +147,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.product = products[indexPath.row]
         if indexPath.row < products.count {
             cell.preservesSuperviewLayoutMargins = false
-            let inset = cell.productImage.frame.origin.x + cell.productImage.frame.size.width + CGFloat(10)
+            // let inset = cell.productImage.frame.origin.x + cell.productImage.frame.size.width + CGFloat(10)
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
 //            cell.separatorInset = UIEdgeInsets.init(top: 0.0, left: inset, bottom: 0.0, right: 0.0)
@@ -226,8 +229,15 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             Utilities.presentErrorAlert(title: "Payment Error", message: msg)
         })
     }
+    private func customizeDropIn() {
+        BTUIKAppearance.sharedInstance().tintColor = UIColor.black
+        BTUIKAppearance.sharedInstance().activityIndicatorViewStyle = .whiteLarge
+        BTUIKAppearance.sharedInstance().fontFamily = "Helvetica-Light"
+        BTUIKAppearance.sharedInstance().boldFontFamily = "Helvetica-Bold"
+    }
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request =  BTDropInRequest()
+        self.customizeDropIn()
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             guard error == nil else { return self.paymentFailure(controller: controller, msg: error.debugDescription)}
@@ -245,7 +255,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         guard let view = dropIn else { return Utilities.presentErrorAlert(title: "Failure", message: "Could not present payment options") }
         
-        self.present(view, animated: true, completion: nil)
+        self.tabBarController?.present(view, animated: true, completion: nil)
     }
 
     private func postNonceToServer(paymentMethodNonce: String) {

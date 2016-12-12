@@ -15,7 +15,6 @@
 		102D9C111DE147BF00E8232A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D9C101DE147BF00E8232A /* Utilities.swift */; };
 		103215871DD2D6D100186704 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215861DD2D6D100186704 /* StoresViewController.swift */; };
 		103215891DD2D8AD00186704 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215881DD2D8AD00186704 /* ListViewController.swift */; };
-		1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158A1DD2D8C100186704 /* PaymentsViewController.swift */; };
 		1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032158C1DD2D99200186704 /* ProfileViewController.swift */; };
 		103215911DD2DB9600186704 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215901DD2DB9600186704 /* Receipt.swift */; };
 		103215931DD2DBDA00186704 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103215921DD2DBDA00186704 /* User.swift */; };
@@ -72,7 +71,6 @@
 		102D9C101DE147BF00E8232A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		103215861DD2D6D100186704 /* StoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		103215881DD2D8AD00186704 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		1032158A1DD2D8C100186704 /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		1032158C1DD2D99200186704 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		103215901DD2DB9600186704 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		103215921DD2DBDA00186704 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 				7FF055F91DD13A4F00434F2A /* ScanViewController.swift */,
 				103215861DD2D6D100186704 /* StoresViewController.swift */,
 				103215881DD2D8AD00186704 /* ListViewController.swift */,
-				1032158A1DD2D8C100186704 /* PaymentsViewController.swift */,
 				1032158C1DD2D99200186704 /* ProfileViewController.swift */,
 				103215981DD2F2DE00186704 /* HistoryViewController.swift */,
 				1032159A1DD2F7B200186704 /* TabViewController.swift */,
@@ -508,7 +505,6 @@
 				7F828CE91DFB8B190026F8C8 /* ColorFilterTableViewCell.swift in Sources */,
 				7F828CE71DFB8AFE0026F8C8 /* PriceFilterTableViewCell.swift in Sources */,
 				7F828CDF1DFB523F0026F8C8 /* FiltersViewController.swift in Sources */,
-				1032158B1DD2D8C100186704 /* PaymentsViewController.swift in Sources */,
 				10B4001F1DFD2E5B005F9186 /* OfferView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

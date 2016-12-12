@@ -12,14 +12,13 @@ import Parse
 import Braintree
 
 enum AppURLSchemes: String {
-    case payments = "lemonbunny.FastCart.payments"
+    case payments = "com.lemonbunny.fastcart.payments"
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // change navigation bar tint 
