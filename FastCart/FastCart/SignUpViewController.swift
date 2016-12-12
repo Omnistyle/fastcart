@@ -21,13 +21,46 @@ class SignUpViewController: UIViewController {
 
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBOutlet weak var loginView: UIImageView!
+    
+    // navigation bar - get rid of the shadow image
+    private var shadowImageView: UIImageView?
+    
+    private func findShadowImage(under view: UIView) -> UIImageView? {
+        if view is UIImageView && view.bounds.size.height <= 1 {
+            return (view as! UIImageView)
+        }
+        
+        for subview in view.subviews {
+            if let imageView = findShadowImage(under: subview) {
+                return imageView
+            }
+        }
+        return nil
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if shadowImageView == nil {
+            shadowImageView = findShadowImage(under: navigationController!.navigationBar)
+        }
+        shadowImageView?.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        shadowImageView?.isHidden = false
+    }
+
+    
     override func viewDidLoad() {
         
         activityIndicator.hidesWhenStopped = true;
         activityIndicator.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.gray;
         //activityIndicator.center = view.center;
         
-        self.signupButton.layer.cornerRadius = 5
+        self.signupButton.layer.cornerRadius = 3
         self.signupButton.layer.shadowColor = UIColor.gray.cgColor
         self.signupButton.layer.shadowOpacity = 1
         self.signupButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -37,6 +70,16 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // add blur effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = loginView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        loginView.addSubview(blurEffectView)
+        
+        // format navigation bar
+        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
 
     override func didReceiveMemoryWarning() {
