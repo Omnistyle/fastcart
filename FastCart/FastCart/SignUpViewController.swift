@@ -26,6 +26,9 @@ class SignUpViewController: UIViewController {
     // navigation bar - get rid of the shadow image
     private var shadowImageView: UIImageView?
     
+    
+   
+    
     private func findShadowImage(under view: UIView) -> UIImageView? {
         if view is UIImageView && view.bounds.size.height <= 1 {
             return (view as! UIImageView)
