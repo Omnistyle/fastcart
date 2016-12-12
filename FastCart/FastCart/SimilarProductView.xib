@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimilarProductView" customModule="FastCart" customModuleProvider="target">
+            <connections>
+                <outlet property="brandName" destination="IhM-yX-6QJ" id="iDT-pn-OC8"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="tYY-qn-3im"/>
+                <outlet property="priceLabel" destination="Fpe-V0-dJl" id="nxF-Sp-RLO"/>
+                <outlet property="productImage" destination="3H4-Nr-wGn" id="83D-aG-PoB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="175"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$99.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-V0-dJl">
+                    <rect key="frame" x="24" y="157.5" width="51" height="15"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3H4-Nr-wGn">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="124"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="3H4-Nr-wGn" secondAttribute="height" multiplier="25:31" id="20H-cb-mry"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-yX-6QJ">
+                    <rect key="frame" x="7" y="132" width="85" height="17.5"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3H4-Nr-wGn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0Wg-db-Ivl"/>
+                <constraint firstItem="IhM-yX-6QJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="9ga-ID-oPu"/>
+                <constraint firstItem="Fpe-V0-dJl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="F86-uL-m43"/>
+                <constraint firstAttribute="trailing" secondItem="Fpe-V0-dJl" secondAttribute="trailing" constant="25" id="PBj-Kp-zgC"/>
+                <constraint firstAttribute="trailing" secondItem="IhM-yX-6QJ" secondAttribute="trailing" constant="8" id="RLK-lP-iPD"/>
+                <constraint firstItem="3H4-Nr-wGn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UBr-7g-NfA"/>
+                <constraint firstItem="Fpe-V0-dJl" firstAttribute="top" secondItem="IhM-yX-6QJ" secondAttribute="bottom" constant="8" id="dnP-Zx-OOl"/>
+                <constraint firstItem="IhM-yX-6QJ" firstAttribute="top" secondItem="3H4-Nr-wGn" secondAttribute="bottom" constant="8" id="txi-PV-n2H"/>
+                <constraint firstAttribute="trailing" secondItem="3H4-Nr-wGn" secondAttribute="trailing" id="zFB-xi-r9l"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="67" y="53"/>
+        </view>
+    </objects>
+</document>

@@ -78,9 +78,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBAction func onFastcartLogin(_ sender: Any) {
         let username = self.usernameLabel.text
         let password = self.passwordLabel.text
-
         activityIndicator.startAnimating()
-        
         PFUser.logInWithUsername (inBackground: username!, password: password!, block: {(user, error) in
             self.activityIndicator.stopAnimating()
             if user != nil {
@@ -88,7 +86,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print(user ?? "default message of user logged in")
                 let userDictionary = User.getUserDictionary(user: user!)
                 let storedUser = User(dictionary: userDictionary)
+                storedUser.loginMethod = "parse"
                 User.currentUser = storedUser
+                
                 self.performSegue(withIdentifier: "successloginsegue", sender: nil)
 
             }
@@ -127,19 +127,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
     
-    func onLogin(username: String, password: String){
-        PFUser.logInWithUsername(inBackground: username, password: password) { (currentUser:PFUser?, error:Error?) in
-            if currentUser != nil {
-                print("successfully logged in")
-                
-            } else {
-                print("failed to log in")
-                print(error?.localizedDescription ?? "")
-            }
-            
-        }
-    }
-    
     func onSignUp(username: String, email: String, password: String, id: String) {
         
         let query = PFQuery(className: "AppUsers")
@@ -150,13 +137,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             if error == nil {
                 if users != nil{
                     if (users?.count)! > 0 {
-                        //sing in create app user
+                        //login
                         //var storeUser = User.getParseUser(email: email)
                       
                         let rawUser = users?[0]
-                        
+                        print(rawUser ?? "printing default rawuser")
                         let userDictionary = User.getUserDictionary(user: rawUser!)
                         let storedUser = User(dictionary: userDictionary)
+                        storedUser.loginMethod = "facebook"
                         User.currentUser = storedUser
                         print("user login")
                     
@@ -175,6 +163,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 
                                 let userDic = User.getUserDictionary(user: user)
                                 let user = User(dictionary: userDic)
+                                user.loginMethod = "facebook"
                                 User.currentUser = user
                                 
                             } else {

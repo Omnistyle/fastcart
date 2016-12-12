@@ -23,10 +23,10 @@ class WalmartClient {
     func getTrendingSearches(success: @escaping ([String]) -> (), failure: @escaping (Error) -> ()) {
         
         // request
-        guard let url = URL(string:"http://api.walmartlabs.com/v1/trends?format=json&apiKey=\(self.apiKey)") else {return}
+        let urlString = "http://api.walmartlabs.com/v1/trends?format=json&apiKey=\(self.apiKey)"
+        guard let url = URL(string: urlString) else { return failure(FastCartError(message: "Not parsable: \(urlString)", kind: .invalidUrl)) }
         let request = URLRequest(url: url)
         let task : URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            // ... Remainder of response handling code ...
             if let data = data {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     guard let productsDictionary = responseDictionary["items"] as? [NSDictionary] else {return}
@@ -211,6 +211,20 @@ class WalmartClient {
         task.resume()
     }
     
+    func getSimilarProducts(itemId: String, success: @escaping ([Product]) -> (), failure: @escaping (Error) -> ()){
+        let urlString = "http://api.walmartlabs.com/v1/nbp?apiKey=\(self.apiKey)&itemId=\(itemId)"
+        guard let url = URL(string: urlString) else { return failure(FastCartError(message: "Invalid url: \(urlString).", kind: .invalidUrl) )}
+        let request = URLRequest(url: url)
+        let task: URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard error == nil else { return failure(error!) }
+            guard let data = data else { return failure(FastCartError(message: "Failed to parse data", kind: .generic)) }
+            guard let productsDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary] else { return failure(FastCartError(message: "Failed to parse similar products ", kind: .generic))}
+            let products = Product.productsWithArray(dictionaries: productsDictionary, api: .walmart)
+            return success(products)
+        })
+        task.resume()
+    }
+    
     func getNearbyStores(lat: Double, lon: Double, success: @escaping ([Store]) -> (), failure: @escaping (Error) -> ()){
         guard let url = URL(string: "http://api.walmartlabs.com/v1/stores?apiKey=\(self.apiKey)&lon=\(lon)&lat=\(lat)&format=json") else { return }
         let request = URLRequest(url: url)
@@ -225,7 +239,7 @@ class WalmartClient {
             else if error != nil {
                 failure(error!)
             }
-        });
+        })
         task.resume()
     }
 }

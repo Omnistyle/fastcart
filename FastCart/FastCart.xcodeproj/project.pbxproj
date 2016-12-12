@@ -26,6 +26,8 @@
 		106C3F501DE8329E00CE9E7C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106C3F4F1DE8329E00CE9E7C /* Common.swift */; };
 		10B4001D1DFD2E46005F9186 /* OfferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10B4001C1DFD2E46005F9186 /* OfferView.xib */; };
 		10B4001F1DFD2E5B005F9186 /* OfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4001E1DFD2E5B005F9186 /* OfferView.swift */; };
+		10B400211DFE1827005F9186 /* SimilarProductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10B400201DFE1827005F9186 /* SimilarProductView.xib */; };
+		10B400231DFE1875005F9186 /* SimilarProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B400221DFE1875005F9186 /* SimilarProductView.swift */; };
 		10C4F29D1DF4D183006E51FD /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C4F29C1DF4D183006E51FD /* ProductDetailsViewController.swift */; };
 		222FD6831DF6B25A00B75B80 /* HistoryProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222FD6821DF6B25A00B75B80 /* HistoryProductCell.swift */; };
 		223A663D1DDA6C330075DBB5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A663C1DDA6C330075DBB5 /* LoginViewController.swift */; };
@@ -81,6 +83,8 @@
 		106C3F4F1DE8329E00CE9E7C /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		10B4001C1DFD2E46005F9186 /* OfferView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferView.xib; sourceTree = "<group>"; };
 		10B4001E1DFD2E5B005F9186 /* OfferView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferView.swift; sourceTree = "<group>"; };
+		10B400201DFE1827005F9186 /* SimilarProductView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimilarProductView.xib; sourceTree = "<group>"; };
+		10B400221DFE1875005F9186 /* SimilarProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarProductView.swift; sourceTree = "<group>"; };
 		10C4F29C1DF4D183006E51FD /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		1761A94582A6D1D68D3F8141 /* Pods-FastCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCart.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastCart/Pods-FastCart.release.xcconfig"; sourceTree = "<group>"; };
 		222FD6821DF6B25A00B75B80 /* HistoryProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProductCell.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		10B4001B1DFD2D7C005F9186 /* ProductDetailsView */ = {
 			isa = PBXGroup;
 			children = (
+				10B400201DFE1827005F9186 /* SimilarProductView.xib */,
+				10B400221DFE1875005F9186 /* SimilarProductView.swift */,
 				101DD3231DF684760075F2E1 /* ImageScrollView.swift */,
 				10B4001C1DFD2E46005F9186 /* OfferView.xib */,
 				10B4001E1DFD2E5B005F9186 /* OfferView.swift */,
@@ -398,6 +404,7 @@
 				7F12DF881DDB9F09003C78C6 /* Reviews.xib in Resources */,
 				10B4001D1DFD2E46005F9186 /* OfferView.xib in Resources */,
 				7F828CE11DFB581B0026F8C8 /* FiltersSectionHeader.xib in Resources */,
+				10B400211DFE1827005F9186 /* SimilarProductView.xib in Resources */,
 				7F9515831DE41417001EC1D5 /* StarshipHeader.xib in Resources */,
 				7F28EF021DD10EDE0084410B /* Main.storyboard in Resources */,
 				7F9515851DE414CD001EC1D5 /* Assets.xcassets in Resources */,
@@ -483,6 +490,7 @@
 				1032158D1DD2D99200186704 /* ProfileViewController.swift in Sources */,
 				7F12DF8D1DDBA98A003C78C6 /* UPCClient.swift in Sources */,
 				7F828CE51DFB5BC80026F8C8 /* FilterTableViewCell.swift in Sources */,
+				10B400231DFE1875005F9186 /* SimilarProductView.swift in Sources */,
 				7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */,
 				103215911DD2DB9600186704 /* Receipt.swift in Sources */,
 				106C3F501DE8329E00CE9E7C /* Common.swift in Sources */,
