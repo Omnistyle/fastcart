@@ -12,11 +12,12 @@ import Parse
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     struct Constants {
-        static let facebookButtonLeftRightMargin: CGFloat = 16
+        static let facebookButtonLeftRightMargin: CGFloat = 30
         static let facebookButtonHeight: CGFloat = 50
-        static let facebookButtonBottomMargin: CGFloat = 100
+        static let facebookButtonBottomMargin: CGFloat = 160
     }
 
+    @IBOutlet weak var loginView: UIImageView!
     @IBOutlet weak var usernameLabel: UITextField!
     
     @IBOutlet weak var passwordLabel: UITextField!
@@ -35,7 +36,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loginButton.layer.cornerRadius = 5
+        self.loginButton.layer.cornerRadius = 3
         self.loginButton.layer.shadowColor = UIColor.gray.cgColor
         self.loginButton.layer.shadowOpacity = 1
         self.loginButton.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -55,7 +56,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         let loginButton = FBSDKLoginButton()
         
-        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+//        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+        let y = Constants.facebookButtonBottomMargin
         loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
                                    width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
                                    height: Constants.facebookButtonHeight)
@@ -63,6 +65,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["email", "public_profile"]
         
         view.addSubview(loginButton)
+        
+        // add blur effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = loginView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        loginView.addSubview(blurEffectView)
     }
 
     

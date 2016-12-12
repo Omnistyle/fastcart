@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarItem5 = tabBar.items![4] as UITabBarItem
         
         
+        print("App delegate running!")
         tabBarItem1.selectedImage = #imageLiteral(resourceName: "store_filled")
         tabBarItem2.selectedImage = #imageLiteral(resourceName: "camera_filled")
         tabBarItem3.selectedImage = #imageLiteral(resourceName: "bag_filled")
