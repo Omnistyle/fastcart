@@ -118,10 +118,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         WalmartClient.sharedInstance.getSimilarProducts(itemId: itemId, success: {(products: [Product]) -> () in
             for product in products {
                 let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: 2 * self.kOfferSize.height)
-                let view = SimilarProductView(frame: frame)
-                view.product = product
-                view.isUserInteractionEnabled = true
-                horizontalScrollView.addItem(view)
+                let productCell = SimilarProductView(frame: frame)
+                productCell.product = product
+                productCell.isUserInteractionEnabled = true
+                horizontalScrollView.addItem(productCell)
             }
             view.addSubview(horizontalScrollView)
             activityIndicator.stopAnimating()
