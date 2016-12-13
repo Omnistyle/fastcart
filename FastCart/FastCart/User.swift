@@ -111,7 +111,17 @@ class User: EVObject {
         }
     }
     /** The user's favorite stores */
-    var favoriteStores: [Store] = []
+    var favoriteStores: [Store] = [] {
+        didSet {
+            Utilities.persist(self, withKey: Persistece.user.rawValue)
+        }
+    }
+    /** TEMP! - Favorite products... lolol */
+    var favoriteProducts: [Product] = [] {
+        didSet {
+            Utilities.persist(self, withKey: Persistece.user.rawValue)
+        }
+    }
     
     /**
      Used exclusively by Parse.
@@ -183,18 +193,6 @@ class User: EVObject {
         // Persist the user and the receipt so we keep the history around.
         Utilities.persist(self, withKey: Persistece.user.rawValue)
     }
-    /**
-     Returns true if the given store is a favorite for this user.
-     */
-    open func isFavorite(store: Store) -> Bool {
-        for favoriteStore in favoriteStores {
-            if favoriteStore == store {
-                return true
-            }
-        }
-        return false
-    }
-
     /**
      Persists the current user receipt only. Used to avoid persisting the entire user on a new product addition.
      Note that we need to clear this key once the user logs out so the next user does not see the products this

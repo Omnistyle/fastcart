@@ -238,25 +238,8 @@ class FiltersViewController: UIViewController, ColorFilterTableViewCellDelegate,
     }
     func didSelectColors(cell: ColorFilterTableViewCell, selectedViews: [UIColor]) {
         selectedColor = selectedViews
-        print(selectedViews)
     }
     func didSelectPrice(cell: PriceFilterTableViewCell, selectedPrice: Double) {
         selectedMaxPrice = selectedPrice
-        print(selectedMaxPrice)
-        
-        
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
-
 }

@@ -36,6 +36,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var selectedPrice = Constants.defaultPrice
     var selectedShipping = [String]()
     var selectedColor = [String]()
+    
+    var filterSideMenu: FiltersViewController!
+    
     @IBOutlet weak var searchBarPlaceHolder: UIView!
     
     override func viewDidLoad() {
@@ -71,17 +74,12 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         searchController.searchBar.sizeToFit()
         searchController.searchBar.delegate = self
-//        searchBarPlaceHolder.addSubview(searchController.searchBar)
         self.shyNavBarManager.extensionView = searchController.searchBar
         automaticallyAdjustsScrollViewInsets = false
         definesPresentationContext = true
         
         // Sets this view controller as presenting view controller for the search interface
         definesPresentationContext = true
-        
-        
-//        // shynav properties
-//        self.shyNavBarManager.expansionResistance = 400
         
         
         // flow layout stuff
@@ -91,16 +89,12 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // perform network request
         loadMoreData()
+        getTrending()
         
         setUpSideMenu()
-        
-        getTrending()
     }
     
     func buttonMethod() {
-        if let vc = SideMenuManager.menuRightNavigationController!.topViewController as? FiltersViewController {
-            vc.delegate = self
-        }
         present(SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
     }
     func setUpSideMenu() {
@@ -110,12 +104,14 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
         SideMenuManager.menuRightNavigationController = menuRightNavigationController
         
-        
-        
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        
+        // Add this class as delegate!
+        let vc = SideMenuManager.menuRightNavigationController!.topViewController as! FiltersViewController
+        vc.delegate = self
     }
     
     /** Search bar functionality */
@@ -219,16 +215,20 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func handleTap(sender: UITapGestureRecognizer) {
+        guard let user = User.currentUser else { return }
         if let image = sender.view as? UIImageView {
             let cell = image.superview!.superview?.superview as! ProductOverviewCell
-            // make sure it's above the image
             cell.heartImage.layer.zPosition = cell.productScrollView.layer.zPosition + 100
+            // Dislike -> Like
             if cell.heartImage.image == #imageLiteral(resourceName: "heart") {
                 cell.heartImage.image = #imageLiteral(resourceName: "heart_filled")
+                user.favoriteProducts.append(cell.product)
             } else {
               cell.heartImage.image = #imageLiteral(resourceName: "heart")
+                user.favoriteProducts = user.favoriteProducts.filter({ (product: Product) -> Bool in
+                    return product != cell.product
+                })
             }
-
             
             let pulseAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
             pulseAnimation.duration = 0.5
@@ -249,6 +249,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductOverviewCell", for: indexPath) as! ProductOverviewCell
+        
         cell.product = products[indexPath.row]
         
         // add tap target
@@ -290,11 +291,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     
-    let cellHeight = CGFloat(290)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         // Sets to equal width and about 1 1/2 cells vertically on iphone 5s
-        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: cellHeight)
+        return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: 2 * CGFloat(self.view.frame.height) / 3.0)
        
     }
     
@@ -314,17 +313,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             variantIndexFor[item] = index
         }
     }
-
-    /*
-     MARK: - Navigation
-
-     In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         Get the new view controller using segue.destinationViewController.
-         Pass the selected object to the new view controller.
-    }
-    */
     
+    // MARK: FilterDelegate
     func didFilter(view: FiltersViewController, selectedPrice: Int, selectedColor: [String], selectedShipping: [String]) {
         self.selectedPrice = String(describing: selectedPrice)
         self.selectedShipping = selectedShipping

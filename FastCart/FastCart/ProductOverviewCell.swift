@@ -34,9 +34,7 @@ class ProductOverviewCell: UICollectionViewCell, ImageScrollViewDataSource{
         didSet {
             nameLabel.text = product.name
             priceLabel.text = product.salePriceAsString
-            
-            // Add a tap recognizer
-            
+            heartImage.image = (User.currentUser?.favoriteProducts.contains(product) ?? false) ? #imageLiteral(resourceName: "heart_filled") : #imageLiteral(resourceName: "heart")
             productScrollView.datasource = self
             productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
             productScrollView.show()

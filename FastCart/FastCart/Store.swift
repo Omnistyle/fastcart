@@ -56,6 +56,8 @@ class Store: EVObject {
     var overview: String?
     /** The URL for the image to be used for the store */
     var image: URL?
+    /** If the current user favorites this store */
+    var favorite: Bool = false
     /** Used for test stores to set their image... */
     var _image: UIImage?
     

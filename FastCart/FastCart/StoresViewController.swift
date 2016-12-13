@@ -177,13 +177,14 @@ class StoresViewController: SAParallaxViewController, CLLocationManagerDelegate 
             // Like
             if cell.favoriteImage.image == #imageLiteral(resourceName: "heart") {
                 cell.favoriteImage.image = #imageLiteral(resourceName: "heart_filled")
+                // Inefficient for now.
                 user.favoriteStores.append(cell.store)
             }
             // Dislike
             else {
                 cell.favoriteImage.image = #imageLiteral(resourceName: "heart")
                 user.favoriteStores = user.favoriteStores.filter({ (store: Store) -> Bool in
-                    store.id != cell.store.id
+                    store != cell.store
                 })
             }
             //
