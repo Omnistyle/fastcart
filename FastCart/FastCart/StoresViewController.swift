@@ -10,11 +10,9 @@ import UIKit
 import SAParallaxViewControllerSwift
 import MisterFusion
 import CoreLocation
-import TLYShyNavBar
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
-    private let kItemSectionHeaderViewID = "StoreCellHeaderViewID"
-    private let kNumStores = 5
+    private let kItemSectionHeaderViewID = "StoreCellHeaderView"
     private let kBannerText = "Free shipping! Use code: SHIP."
     private let kCollectionViewTopContraintID = "collectionViewTopContraint"
     
@@ -26,10 +24,10 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     // Override the collection view initialization to use our own
     // StickyHeaderFlowLayout()
     private var _collectionView: UICollectionView?
-    override var collectionView: UICollectionView {
+    /* override var collectionView: UICollectionView {
         get {
             if _collectionView == nil {
-                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: StickyHeaderFlowLayout())
+                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: SAParallaxViewLayout())
             }
             return _collectionView!
         }
@@ -37,13 +35,14 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             _collectionView = value
         }
     }
+    */
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Navbar navigation!
-        self.shyNavBarManager.scrollView = collectionView
-        self.shyNavBarManager.expansionResistance = 20
+        // self.shyNavBarManager.scrollView = collectionView
+        // self.shyNavBarManager.expansionResistance = 20
         
         // Get the user's location, since this is needed for nearby stores.
         // TODO(need to implement).
@@ -61,7 +60,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         }
         
         // Register the .xib for the custom header view and footerview.
-        self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
+        // self.collectionView.register(StoreCellHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     }
     
     private func createBannerView() -> UIView{
@@ -155,7 +154,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return kNumStores
+        return stores.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let rawCell = super.collectionView(collectionView, cellForItemAt: indexPath)
@@ -177,6 +176,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         switch kind {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kItemSectionHeaderViewID, for: indexPath) as! StoreCellHeaderView
+            /*
             headerView.storeName.text = stores[indexPath.section]
             headerView.storeImage.image = storesIcon[indexPath.section]
             // add tap target
@@ -184,6 +184,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             headerView.favoriteImage.addGestureRecognizer(tap)
             // add scroll target
             headerView.favoriteImage.isUserInteractionEnabled = true
+            */
             
             return headerView
         case UICollectionElementKindSectionFooter:
