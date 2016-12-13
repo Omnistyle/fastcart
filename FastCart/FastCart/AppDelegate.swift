@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import Parse
 import Braintree
+import Mixpanel
 
 enum AppURLSchemes: String {
     case payments = "com.lemonbunny.fastcart.payments"
@@ -66,7 +67,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = vc
         }
-  
+        
+        // track with Mixpanel
+        let token = "6ebcb509f2eb2685eb69c073fcefcddd"
+        let mixpanel = Mixpanel.sharedInstance(withToken: token)
+        
+        let properties = ["Launch": "Completed"]
+        mixpanel.track("Launch", properties: properties)
+        
         return true
     }
     

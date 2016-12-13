@@ -9,6 +9,7 @@
 import UIKit
 import BraintreeDropIn
 import Braintree
+import Mixpanel
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
 
@@ -28,6 +29,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private let CLIENT_AUTHORIZATION = "sandbox_9tgty665_ys8wr2wffmztcdqn"
 
     let PLACEHOLDER_TEXT = "Type or tap the camera to scan an item"
+    let mixpanel = Mixpanel.sharedInstance()
     
     var products = [Product]() {
         didSet(oldValue) {
@@ -36,6 +38,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let receipt = user.current
                 if products.count > 0 {
                     hideAndShowViewsWithAnimation(show: self.cartViews, hide: self.emptyViews)
+                    if products.count == 1 {
+                        
+                        let properties = ["Cart": "PaymentStarted"]
+                        mixpanel.track("Cart", properties: properties)
+                    }
                 } else {
                     hideAndShowViewsWithAnimation(show: self.emptyViews, hide: self.cartViews)
                 }
@@ -255,6 +262,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         guard let view = dropIn else { return Utilities.presentErrorAlert(title: "Failure", message: "Could not present payment options") }
         
+        let properties = ["Cart": "PaymentStarted"]
+        mixpanel.track("Cart", properties: properties)
+        
         self.tabBarController?.present(view, animated: true, completion: nil)
     }
 
@@ -286,5 +296,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         Utilities.presentSuccessAlert(title: "Nice\n", message: "\nWe've finished saving your receipt but did NOT charge your credit card -- please head to the front of the store to checkout. \n", button: "My History", action: {
             self.tabBarController?.switchTo(listTab: .history)
         })
+        
+        // track this with mixpanel
+        
+        let properties = ["Cart": "Completed"]
+        mixpanel.track("Cart", properties: properties)
     }
 }
