@@ -36,7 +36,9 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fakeScanButton.isEnabled = true
-        scanController.reset()
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            scanController.reset()
+        }
     }
     
     @IBAction func onFakeScanButtonPress(_ sender: UIButton) {
