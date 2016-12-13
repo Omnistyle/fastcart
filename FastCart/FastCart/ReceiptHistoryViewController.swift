@@ -33,6 +33,7 @@ class ReceiptHistoryViewController: UIViewController, UITableViewDataSource, UIT
     private var activityIndicator: UIActivityIndicatorView!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Activity indicator.
