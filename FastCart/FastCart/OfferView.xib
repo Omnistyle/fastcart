@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="$99.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-ax-FhV">
-                    <rect key="frame" x="26.5" y="67.5" width="28" height="10.5"/>
+                    <rect key="frame" x="26" y="67" width="28" height="11"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" notEnabled="YES"/>
                         <bool key="isElement" value="YES"/>
@@ -34,23 +34,23 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walmart Super Center" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGu-oB-gyj">
-                    <rect key="frame" x="3" y="49" width="74" height="15"/>
+                    <rect key="frame" x="3" y="51" width="74" height="13"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" notEnabled="YES"/>
                         <bool key="isElement" value="NO"/>
                     </accessibility>
-                    <fontDescription key="fontDescription" name="Helvetica-LightOblique" family="Helvetica" pointSize="9"/>
+                    <fontDescription key="fontDescription" name="Helvetica-LightOblique" family="Helvetica" pointSize="11"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-R3-FZA">
-                    <rect key="frame" x="16" y="0.0" width="49" height="42"/>
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-R3-FZA">
+                    <rect key="frame" x="28" y="14" width="25" height="25"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" notEnabled="YES"/>
                         <bool key="isElement" value="NO"/>
                     </accessibility>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="YqI-R3-FZA" secondAttribute="height" multiplier="7:6" id="mx2-Sp-st3"/>
+                        <constraint firstAttribute="width" secondItem="YqI-R3-FZA" secondAttribute="height" multiplier="1:1" id="xOq-Sb-eLl"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -59,15 +59,15 @@
             </accessibility>
             <constraints>
                 <constraint firstItem="EGu-oB-gyj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="3" id="9AP-qs-3bF"/>
-                <constraint firstItem="YqI-R3-FZA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BJQ-p0-fu7"/>
+                <constraint firstItem="YqI-R3-FZA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="BJQ-p0-fu7"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3KZ-ax-FhV" secondAttribute="trailing" constant="4" id="EkC-hg-Jed"/>
                 <constraint firstAttribute="bottom" secondItem="3KZ-ax-FhV" secondAttribute="bottom" constant="2" id="HMe-uh-3za"/>
-                <constraint firstItem="YqI-R3-FZA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="OaQ-6X-HxL"/>
+                <constraint firstItem="YqI-R3-FZA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="28" id="OaQ-6X-HxL"/>
                 <constraint firstItem="3KZ-ax-FhV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WnX-qp-YPv"/>
                 <constraint firstAttribute="trailing" secondItem="EGu-oB-gyj" secondAttribute="trailing" constant="3" id="aHZ-we-OZZ"/>
-                <constraint firstAttribute="trailing" secondItem="YqI-R3-FZA" secondAttribute="trailing" constant="15" id="avs-MS-OQP"/>
+                <constraint firstAttribute="trailing" secondItem="YqI-R3-FZA" secondAttribute="trailing" constant="27" id="avs-MS-OQP"/>
                 <constraint firstItem="3KZ-ax-FhV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="hDO-ZY-54C"/>
-                <constraint firstItem="EGu-oB-gyj" firstAttribute="top" secondItem="YqI-R3-FZA" secondAttribute="bottom" constant="7" id="r7t-8r-Xqs"/>
+                <constraint firstItem="EGu-oB-gyj" firstAttribute="top" secondItem="YqI-R3-FZA" secondAttribute="bottom" constant="12" id="r7t-8r-Xqs"/>
                 <constraint firstItem="3KZ-ax-FhV" firstAttribute="top" secondItem="EGu-oB-gyj" secondAttribute="bottom" constant="3.5" id="wOg-dR-4ty"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
