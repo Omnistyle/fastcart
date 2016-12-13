@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHT-Du-PDO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHT-Du-PDO">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -505,18 +505,12 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                        <connections>
-                                            <action selector="onTappingOntextFields:" destination="xLc-yF-UVp" eventType="touchDown" id="Tua-TI-fVO"/>
-                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owo-5m-5na">
                                         <rect key="frame" x="14" y="8" width="258" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="onTapingOntextFields:" destination="xLc-yF-UVp" eventType="touchDown" id="duT-hf-i0e"/>
-                                        </connections>
                                     </textField>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEQ-bC-lM5">
                                         <rect key="frame" x="15" y="84" width="258" height="30"/>
@@ -640,7 +634,7 @@
                             <constraint firstItem="moA-Ue-DXc" firstAttribute="top" secondItem="eeX-c2-M50" secondAttribute="bottom" constant="20" id="BRk-Ta-bng"/>
                             <constraint firstItem="eeX-c2-M50" firstAttribute="leading" secondItem="Wct-hB-7qW" secondAttribute="leading" constant="30" id="HYv-Un-UZj"/>
                             <constraint firstItem="Q8o-wd-wyj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="R3g-hX-ojY" secondAttribute="bottom" constant="111" id="JJz-ld-Ytt"/>
-                            <constraint firstItem="eeX-c2-M50" firstAttribute="top" secondItem="nU0-wS-J6K" secondAttribute="bottom" constant="111" id="KC2-Io-MNn"/>
+                            <constraint firstItem="eeX-c2-M50" firstAttribute="top" secondItem="nU0-wS-J6K" secondAttribute="bottom" constant="75" id="KC2-Io-MNn"/>
                             <constraint firstItem="AQA-HZ-HzQ" firstAttribute="leading" secondItem="Wct-hB-7qW" secondAttribute="leading" id="M78-kL-TV7"/>
                             <constraint firstAttribute="trailing" secondItem="moA-Ue-DXc" secondAttribute="trailing" constant="30" id="NdS-Ha-sUA"/>
                             <constraint firstAttribute="trailing" secondItem="AQA-HZ-HzQ" secondAttribute="trailing" id="Q0C-az-XK5"/>
@@ -1040,7 +1034,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Receipt" id="oKB-uh-lKK">
-                        <barButtonItem key="rightBarButtonItem" title="Print" id="Yid-ZO-wNB"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Yid-ZO-wNB"/>
                     </navigationItem>
                     <connections>
                         <outlet property="receiptTable" destination="ug3-4G-Qho" id="KTp-tI-8NL"/>
@@ -2189,7 +2183,7 @@
         <image name="store_outline" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xWh-kd-I5K"/>
         <segue reference="2Ci-vH-H1l"/>
+        <segue reference="4Ae-Ok-kr8"/>
     </inferredMetricsTieBreakers>
 </document>
