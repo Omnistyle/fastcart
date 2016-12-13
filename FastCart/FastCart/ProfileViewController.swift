@@ -11,6 +11,11 @@ import FBSDKLoginKit
 import MXParallaxHeader
 
 class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITableViewDelegate, UITableViewDataSource  {
+    struct Constants {
+        static let buttonLeftRightMargin: CGFloat = 30
+        static let buttonHeight: CGFloat = 50
+        static let buttonBottomMargin: CGFloat = 160
+    }
     
     var user : User = User()
     var scrollView: MXScrollView!
@@ -19,7 +24,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
 //    var table1: UITableView!
     let titles = [["Current order", "Past orders"],
                   ["Contact us", "Rate the app", "Invite friends", "How it works"],
-                  ["Account"]]
+                  [""]]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -128,11 +133,28 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         return titles[section].count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 {
+            return Constants.buttonHeight
+        }
+        return 44.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell") as! OptionCell
         
         cell.optionLabel.text = titles[indexPath.section][indexPath.row]
+        
+        cell.backgroundColor = UIColor.white
+        
+        // separator insets
+        if indexPath.section != 2 {
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            print("gets here")
+        }
         // Add logout button.
         if indexPath.section == 2 {
              //adding facebook logout
@@ -145,7 +167,28 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
 //            }
 //            else if self.user.loginMethod == "parse" {
                 print("adding parse log out")
-                let parseLogoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width - 55, height: cell.contentView.frame.size.height ))
+            
+                // correctly format cell for button display
+                cell.layoutMargins = UIEdgeInsets.zero
+                cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 9999)
+                print("getting to the logout button")
+                print(cell.separatorInset)
+                cell.optionLabel.text = ""
+                cell.chevronImage.isHidden = true
+                cell.backgroundColor = UIColor(colorLiteralRed: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
+            
+                // format button
+                let y = Constants.buttonBottomMargin
+                let frame = CGRect(x: Constants.buttonLeftRightMargin, y: 0,
+                               width: view.frame.width - 2 * Constants.buttonLeftRightMargin,
+                               height: Constants.buttonHeight)
+                let parseLogoutButton = UIButton(frame: frame)
+//                let parseLogoutButton = UIButton(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width - 55, height: cell.contentView.frame.size.height ))
+            
+                // format button correctly
+                parseLogoutButton.layer.cornerRadius = 3
+                parseLogoutButton.layer.masksToBounds = false
+
                 parseLogoutButton.backgroundColor = UIColor(red: 0.45, green: 0.75, blue: 0.72, alpha: 1.0)  //.blue
                 parseLogoutButton.setTitle("Log Out", for: .normal)
                 //parseLogoutButton.titleLabel?.textAlignment = NSTextAlignment.center
@@ -156,12 +199,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             //}
         }
 
-        cell.backgroundColor = UIColor.white
-        
-        // separator insets
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets.zero
-        cell.layoutMargins = UIEdgeInsets.zero
+       
         
         return cell
     }
