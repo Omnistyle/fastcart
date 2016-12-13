@@ -30,7 +30,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var searchController: UISearchController!
     
-    var selectedPrice = "500"
+    var selectedPrice = Constants.defaultPrice
     var selectedShipping = [String]()
     var selectedColor = [String]()
     @IBOutlet weak var searchBarPlaceHolder: UIView!
@@ -46,6 +46,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         
         self.shyNavBarManager.scrollView = self.collectionView
+        self.shyNavBarManager.expansionResistance = 20
         
         // add right bar button item
         let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(ShopViewController.buttonMethod))
@@ -86,24 +87,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // perform network request
-        self.activityIndicator.startAnimating()
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", price: self.selectedPrice, color: self.selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
-            // get additional information
-            for _ in products {
-                // get product related info images
-            }
-            
-            self.products = products
-            self.activityIndicator.stopAnimating()
-            self.collectionView.reloadData()
-            
-        }, failure: {(error: Error) -> () in
-            self.activityIndicator.stopAnimating()
-            Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
-        })
+        loadMoreData()
         
         setUpSideMenu()
-        
         
         getTrending()
     }
@@ -132,7 +118,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var titleLabel: UILabel?
     var label: UILabel?
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("first started")
         blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView!.frame = view.bounds
@@ -163,27 +148,19 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         label?.textColor = UIColor.black
         label!.frame = CGRect(x: CGFloat(20), y: CGFloat(150), width: view.frame.width - 40, height: 200)
         view.addSubview(label!)
-        
-        
     }
     var trending: [String]?
-    
     func getTrending() {
         trendingView = UIView(frame: CGRect(x: CGFloat(0.0), y: CGFloat(30.0), width: view.frame.width, height: view.frame.height))
-        
         WalmartClient.sharedInstance.getTrendingSearches(success: { (trending: [String]) in
             // get additional information
             self.trending = trending
-            
         }, failure: {(error: Error) -> () in
             Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
-        
-        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("clicked cancel")
         if let titleLabel = titleLabel {
             titleLabel.removeFromSuperview()
         }
@@ -198,24 +175,15 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var blurEffect: UIBlurEffect?
     var blurEffectView: UIVisualEffectView?
     func updateSearchResults(for searchController: UISearchController) {
-        
+        // Reset products and reload.
         if let searchText = searchController.searchBar.text {
-            // perform network request
-            WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchText, startIndex: "1", success: { (products: [Product]) in
-                // get additional information
-                for _ in products {
-                    // get product related info images
-                }
-                
-                self.products = products
-                self.collectionView.reloadData()
-                
-            }, failure: {(error: Error) -> () in
-                self.activityIndicator.stopAnimating()
-                Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
-            })
+            self.products = []
+            self.selectedPrice = Constants.defaultPrice
+            self.selectedColor = []
+            self.selectedShipping = []
+            self.searchTerm = searchText
+            self.loadMoreData()
         }
-        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -231,9 +199,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let blurEffectView = blurEffectView {
             blurEffectView.removeFromSuperview()
         }
-        
-        
-        
     }
     
     // collection view
@@ -352,44 +317,28 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.selectedPrice = String(describing: selectedPrice)
         self.selectedShipping = selectedShipping
         self.selectedColor = selectedColor
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: "1", price: self.selectedPrice, color: self.selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
-            // get additional information
-            for _ in products {
-                // get product related info images
-            }
-            
-            self.products = products
-            self.activityIndicator.stopAnimating()
-            self.collectionView.reloadData()
+        self.loadMoreData()
+    }
+    
+    // MARK: - UIScrollView
+    func loadMoreData() {
+        self.activityIndicator.startAnimating()
+        let count = products.count
+        let startIndex = String(count + 1)
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: self.searchTerm, startIndex: startIndex, price: self.selectedPrice, color: selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
+                // Insert the new products!
+                let originalCount = self.products.count
+                self.products = self.products + products
+                let indexPaths = products.enumerated().map({ (offset: Int, element: Product) -> IndexPath in
+                    return IndexPath(item: originalCount + offset , section: 0)
+                })
+                self.collectionView.insertItems(at: indexPaths)
+                self.isMoreDataLoading = false
+                self.activityIndicator.stopAnimating()
             
         }, failure: {(error: Error) -> () in
             self.activityIndicator.stopAnimating()
             Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
-        })
-    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        
-//    }
-    
-    // MARK: - UIScrollView
-    func loadMoreData() {
-        let count = products.count
-        let startIndex = String(count + 1)
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: searchTerm, startIndex: startIndex, success: {
-             (products: [Product]) in
-                // populate tableview with tweets
-                self.products = self.products + products
-                self.collectionView.reloadData()
-                self.isMoreDataLoading = false
-                //Stop the loading indicator
-                self.activityIndicator.stopAnimating()
-            
-            
-            
-        }, failure: {(error: Error) -> () in
-            self.activityIndicator.stopAnimating()
-            print(error.localizedDescription)
         })
     }
     
@@ -402,13 +351,9 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // When the user has scrolled past the threshold, start requesting
             if(scrollView.contentOffset.y > scrollOffsetThreshold && collectionView.isDragging) {
                 isMoreDataLoading = true
-                
-                self.activityIndicator.startAnimating()
-                
                 // Code to load more results
                 loadMoreData()
             }
         }
     }
-
 }

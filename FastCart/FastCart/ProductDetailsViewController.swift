@@ -23,7 +23,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     var product: Product!
     
     @IBOutlet weak var ratingsLabel: UILabel!
-    
+    @IBOutlet weak var similarItemsContentView: UIView!
     @IBOutlet weak var reviewsImageView: UIImageView!
     
     private var wasNavHidden: Bool!
@@ -31,6 +31,9 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
 
     @IBOutlet weak var pricePlaceHolder: UIView!
     @IBOutlet weak var similarItemsPlaceHolder: UIView!
+    
+    @IBOutlet weak var heightConstraintForReviewsImage: NSLayoutConstraint!
+    @IBOutlet weak var topConstraintForTopHiddenView: NSLayoutConstraint!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -41,6 +44,9 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     override func viewDidLoad() {        
         super.viewDidLoad()
         
+        // Change the top contraint constant to match the screen size.
+        topConstraintForTopHiddenView.constant = rootView.frame.height - rootView.frame.origin.y - fixedView.frame.height - (self.navigationController?.navigationBar.frame.height ?? 0)
+        
         // Set-up the scrollable image.
         self.productScrollView.datasource = self
         self.productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
@@ -48,13 +54,14 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
     
         display(product: product)
         
-        // Add reviews.
+        // Animate upwards
         fixedView.frame.origin.y = self.view.frame.origin.y + self.view.frame.height
-//        fixedView.center.y = self.view.frame.size.height + fixedView.frame.size.height
         UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
             self.fixedView.frame.origin.y = self.fixedView.frame.origin.y - self.fixedView.frame.size.height
         
-        }, completion: nil)
+        }, completion: { (success: Bool) -> Void in
+            self.similarItemsContentView.isHidden = false
+        })
         
         
         // Reviews image.
@@ -118,10 +125,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         WalmartClient.sharedInstance.getSimilarProducts(itemId: itemId, success: {(products: [Product]) -> () in
             for product in products {
                 let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: 2 * self.kOfferSize.height)
-                let view = SimilarProductView(frame: frame)
-                view.product = product
-                view.isUserInteractionEnabled = true
-                horizontalScrollView.addItem(view)
+                let productCell = SimilarProductView(frame: frame)
+                productCell.product = product
+                productCell.isUserInteractionEnabled = true
+                horizontalScrollView.addItem(productCell)
             }
             view.addSubview(horizontalScrollView)
             activityIndicator.stopAnimating()
@@ -158,6 +165,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         ratingsLabel.text = product.averageRating
         if let ratingUrl = product.ratingImage {
             reviewsImageView.setImageWith(ratingUrl)
+        } else {
+            // Hide the rating URL view by shrinking it.
+            heightConstraintForReviewsImage.constant = 0
+            
         }
     }
     

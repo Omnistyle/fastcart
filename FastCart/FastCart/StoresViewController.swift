@@ -20,6 +20,8 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     private var isAdShown: Bool = false
     private var locationManager : CLLocationManager!
     
+    let stores = ["Shop Redemption", "Trader Joes", "Walmart", "Whole Foods", "Macys"]
+    let storesIcon = [#imageLiteral(resourceName: "StoreImageIcon1"), #imageLiteral(resourceName: "StoreImageIcon2"), #imageLiteral(resourceName: "StoreImageIcon3"),#imageLiteral(resourceName: "StoreImageIcon4"), #imageLiteral(resourceName: "StoreImageIcon5")]
     // Override the collection view initialization to use our own
     // StickyHeaderFlowLayout()
     private var _collectionView: UICollectionView?
@@ -76,6 +78,15 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         label.left |+| 10,
         label.bottom)
         
+//        let view = UIView(frame: bannerView.frame)
+//                view.backgroundColor = UIColor.red
+//        bannerView.addLayoutSubview(view, andConstraints:
+//            view.bottom,
+//            view.left,
+//            view.right,
+//            view.height |==| 1
+//        )
+        
         bannerView.isUserInteractionEnabled = true
         // add touch target
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
@@ -89,6 +100,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let bannerView = createBannerView()
         
         // Add banner view.
+        
         self.view.addLayoutSubview(bannerView, andConstraints:
             bannerView.top |+| origin.y,
             bannerView.left,
@@ -168,7 +180,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         }
         
         let index = indexPath.section
-        let imageName = String(format: "image%d", rankStore(at: index) + 1)
+        let imageName = String(format: "StoreImage%d", rankStore(at: index) + 1)
         if let image = UIImage(named: imageName) {
             cell.setImage(image)
         }
@@ -179,7 +191,13 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         switch kind {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreCellHeaderView", for: indexPath) as! StoreCellHeaderView
-            headerView.storeName.text = "Text"
+            headerView.storeName.text = stores[indexPath.section]
+            headerView.storeImage.image = storesIcon[indexPath.section]
+            // add tap target
+            let tap = UITapGestureRecognizer(target: self, action: #selector(StoresViewController.handleTap))
+            headerView.favoriteImage.addGestureRecognizer(tap)
+            // add scroll target
+            headerView.favoriteImage.isUserInteractionEnabled = true
             
             return headerView
         case UICollectionElementKindSectionFooter:
@@ -192,6 +210,28 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
     private func rankStore(at index: Int) -> Int {
         return index
+    }
+    
+    func handleTap(sender: UITapGestureRecognizer) {
+        if let image = sender.view as? UIImageView {
+            let cell = image.superview!.superview as! StoreCellHeaderView
+            // change the image
+            if cell.favoriteImage.image == #imageLiteral(resourceName: "heart") {
+                cell.favoriteImage.image = #imageLiteral(resourceName: "heart_filled")
+            } else {
+                cell.favoriteImage.image = #imageLiteral(resourceName: "heart")
+            }
+            //
+            let pulseAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
+            pulseAnimation.duration = 0.5
+            pulseAnimation.toValue = NSNumber(value: 1.2)
+            pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            pulseAnimation.autoreverses = true
+            pulseAnimation.repeatCount = 1
+            cell.favoriteImage.layer.add(pulseAnimation, forKey: nil)
+            
+        }
+        
     }
     
     //MARK: - UICollectionViewDelegate
