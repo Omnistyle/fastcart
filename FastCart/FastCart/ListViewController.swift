@@ -237,6 +237,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request =  BTDropInRequest()
+        // 3D Verification.
+        request.threeDSecureVerification = true
+        request.amount = User.currentUser!.current.totalAsString
         self.customizeDropIn()
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
