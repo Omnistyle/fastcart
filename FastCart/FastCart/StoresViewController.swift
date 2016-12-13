@@ -104,12 +104,13 @@ class StoresViewController: SAParallaxViewController, CLLocationManagerDelegate 
     // Hides the banner. Public so selector can access it.
     func hideBanner(sender: UITapGestureRecognizer? = nil) {
         guard sender != nil  else { return }
-        
         UIView.animate(withDuration: 1.0, animations: {
             guard let bannerView = self.shyNavBarManager.extensionView else { return }
             bannerView.frame = CGRect(x: 0, y: 0, width: bannerView.frame.width, height: 0)
+        }, completion: { if $0 {
             self.shyNavBarManager.extensionView = nil
-        })
+        }})
+        
     }
     private func getStores() -> [Store]{
         let stores = ["Shop Redemption", "Trader Joes", "Walmart", "Whole Foods", "Macys"]
