@@ -40,8 +40,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     hideAndShowViewsWithAnimation(show: self.cartViews, hide: self.emptyViews)
                     if products.count == 1 {
                         
-                        let properties = ["Cart": "PaymentStarted"]
+                        // track when first product added
+                        let properties = ["Cart": "FirstProductAdded"]
                         mixpanel.track("Cart", properties: properties)
+                        mixpanel.timeEvent("CartTiming")
                     }
                 } else {
                     hideAndShowViewsWithAnimation(show: self.emptyViews, hide: self.cartViews)
@@ -276,6 +278,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let paymentAmount = User.currentUser?.current.total else { return }
         print("$\(paymentAmount)")
         print("posting to server")
+        
+        // track this
+        let amount = NSNumber(value: paymentAmount)
+        mixpanel.people.trackCharge(amount, withProperties: ["Receipt": "Total"])
+        
+        
         let paymentURL = URL(string: "\(Constants.paymentServerURL)/checkout")!
         var request: URLRequest = URLRequest(url: paymentURL)
         let data = "payment_method_nonce=\(fakePaymentMethodNonce)&amount=\(paymentAmount)"
@@ -304,5 +312,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let properties = ["Cart": "Completed"]
         mixpanel.track("Cart", properties: properties)
+        mixpanel.track("CartTiming")
+        
+        let amount = NSNumber(value: receipt.products.count)
+        mixpanel.people.trackCharge(amount, withProperties: ["Receipt": "NumProducts"])
+        
     }
 }
