@@ -45,7 +45,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var shifitngValue : Int = 100//130
     
-
+    var keyboardPrecense: Bool = false
+    
     // navigation bar formatting
     private var shadowImageView: UIImageView?
 
@@ -68,17 +69,28 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             shadowImageView = findShadowImage(under: navigationController!.navigationBar)
         }
         shadowImageView?.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         shadowImageView?.isHidden = false
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
         
         self.loginButton.layer.cornerRadius = 3
         self.loginButton.layer.shadowColor = UIColor.gray.cgColor
@@ -87,7 +99,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.loginButton.layer.shadowRadius = 4.0
         self.loginButton.layer.masksToBounds = false
 
-        
         self.signupButton.layer.cornerRadius = 5
         self.signupButton.layer.shadowColor = UIColor.gray.cgColor
         self.signupButton.layer.shadowOpacity = 1
@@ -99,9 +110,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
-        loginView.addGestureRecognizer(tapGestureRecognizer)
-        loginView.isUserInteractionEnabled = true
+                        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
+                        self.view.addGestureRecognizer(tapGestureRecognizer)
+                        self.view.isUserInteractionEnabled = true
+        
+//        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
+//        loginView.addGestureRecognizer(tapGestureRecognizer)
+//        loginView.isUserInteractionEnabled = true
         
 //        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
         
@@ -127,6 +142,76 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
     
+    func keyboardWillShow(sender: NSNotification) {
+        if(!keyboardPrecense){
+            self.view.frame.origin.y -= 180
+            keyboardPrecense = true
+        }
+
+    }
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y += 180
+        keyboardPrecense = false
+    }
+    
+//    func keyboardWillHide(sender: NSNotification) {
+//        let userInfo: [NSObject : AnyObject] = sender.userInfo! as [NSObject : AnyObject]
+//        let keyboardSize: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
+//        self.view.frame.origin.y += keyboardSize.height
+//    }
+//    
+//    func keyboardWillShow(sender: NSNotification) {
+//        let userInfo: [NSObject : AnyObject] = sender.userInfo! as [NSObject : AnyObject]
+//        let keyboardSize: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
+//        let offset: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
+//        
+//        if keyboardSize.height == offset.height {
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.view.frame.origin.y -= keyboardSize.height
+//            })
+//        } else {
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.view.frame.origin.y += keyboardSize.height - offset.height
+//            })
+//        }
+//    }
+    
+//    func keyboardWillShow(notification: NSNotification) {
+//        
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//        
+//    }
+//    
+//    func keyboardWillHide(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += keyboardSize.height
+//            }
+//        }
+//    }
+    
+    
+//    func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= (keyboardSize.height)
+//            }
+//        }
+//        
+//    }
+//    
+//    func keyboardWillHide(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += (keyboardSize.height)
+//            }
+//        }
+//    }
+    
     func showOptionalLogin(show: Bool){
         if show {
             self.ordividerView.isHidden = false
@@ -140,46 +225,46 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func onTapingOutTextfields(){
         print("~~~~~~~~~~~ tapping out text fields ~~~~~~~~~~~~")
         self.view.endEditing(true)
-        if(shiftedUp){
-            animateViewMoving(up: false, moveValue: CGFloat(shifitngValue))
-            shiftedUp = false
-            showOptionalLogin(show: true)
-        }
+        //if(self.shiftedUp){
+            //animateViewMoving(up: false, moveValue: CGFloat(shifitngValue))
+            //shiftedUp = false
+            //showOptionalLogin(show: true)
+        //}
     }
-    
-    @IBAction func onTappingOntextFields(_ sender: Any) {
-        if !shiftedUp {
-            shiftedUp = true
-            print("+++++++++++++++++++++++++shifiting up")
-            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
-            showOptionalLogin(show: false)
-        } else {
-            print("===================is already shifted up")
-        }
-    }
-    
-    @IBAction func onTapingOntextFields(_ sender: Any) {
-        if !shiftedUp {
-            shiftedUp = true
-            print("+++++++++++++++++++++++++shifiting up")
-            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
-            showOptionalLogin(show: false)
-        } else {
-            print("===================is already shifted up")
-        }
-    }
-
-    func animateViewMoving (up:Bool, moveValue :CGFloat){
-        let movementDuration:TimeInterval = 0.4
-        let movement:CGFloat = ( up ? -moveValue : moveValue)
-        
-        UIView.beginAnimations("animateView", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(movementDuration)
-        
-        self.userpassloginView.frame = self.userpassloginView.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
-    }
+//
+//    @IBAction func onTappingOntextFields(_ sender: Any) {
+//        if (!self.shiftedUp) {
+//            shiftedUp = true
+//            print("^^^^^^^^^^^^^^^^^^^^^^^shifiting up^^^^^^^^^^^Password field")
+//            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
+//            showOptionalLogin(show: false)
+//        } else {
+//            print("===================is already shifted up=============Password field")
+//        }
+//    }
+//    
+//    @IBAction func onTapingOntextFields(_ sender: Any) {
+//        if (!self.shiftedUp) {
+//            shiftedUp = true
+//            print("^^^^^^^^^^^^^^^^^^^^^^^shifiting up^^^^^^^^^^^User field")
+//            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
+//            showOptionalLogin(show: false)
+//        } else {
+//            print("===================is already shifted up========User field")
+//        }
+//    }
+//
+//    func animateViewMoving (up:Bool, moveValue :CGFloat){
+//        let movementDuration:TimeInterval = 0.4
+//        let movement:CGFloat = ( up ? -moveValue : moveValue)
+//        
+//        UIView.beginAnimations("animateView", context: nil)
+//        UIView.setAnimationBeginsFromCurrentState(true)
+//        UIView.setAnimationDuration(movementDuration)
+//        
+//        self.userpassloginView.frame = self.userpassloginView.frame.offsetBy(dx: 0, dy: movement)
+//        UIView.commitAnimations()
+//    }
     
     
     @IBAction func onFastcartLogin(_ sender: Any) {
@@ -299,16 +384,4 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         guard let vc = segue.destination as? UITabBarController else { return }
         vc.customInitialize()
     }
-    
-    //                self.usernameLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 110,
-    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                          height: 30)
-    //
-    //        self.passwordLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 155,
-    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                          height: 30)
-    //
-    //        self.loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 200,
-    //                                        width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                        height: Constants.facebookButtonHeight)
 }

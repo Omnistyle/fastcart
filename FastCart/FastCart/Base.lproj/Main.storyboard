@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHT-Du-PDO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHT-Du-PDO">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -222,7 +222,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fVi-YX-N9c" id="QuX-fN-GzA">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="142.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u7I-lB-Scd">
@@ -505,18 +505,12 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                        <connections>
-                                            <action selector="onTappingOntextFields:" destination="xLc-yF-UVp" eventType="touchDown" id="Tua-TI-fVO"/>
-                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owo-5m-5na">
                                         <rect key="frame" x="14.5" y="8" width="258" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="onTapingOntextFields:" destination="xLc-yF-UVp" eventType="touchDown" id="duT-hf-i0e"/>
-                                        </connections>
                                     </textField>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEQ-bC-lM5">
                                         <rect key="frame" x="15" y="84" width="258" height="30"/>
@@ -640,7 +634,7 @@
                             <constraint firstItem="moA-Ue-DXc" firstAttribute="top" secondItem="eeX-c2-M50" secondAttribute="bottom" constant="20" id="BRk-Ta-bng"/>
                             <constraint firstItem="eeX-c2-M50" firstAttribute="leading" secondItem="Wct-hB-7qW" secondAttribute="leading" constant="30" id="HYv-Un-UZj"/>
                             <constraint firstItem="Q8o-wd-wyj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="R3g-hX-ojY" secondAttribute="bottom" constant="111" id="JJz-ld-Ytt"/>
-                            <constraint firstItem="eeX-c2-M50" firstAttribute="top" secondItem="nU0-wS-J6K" secondAttribute="bottom" constant="111" id="KC2-Io-MNn"/>
+                            <constraint firstItem="eeX-c2-M50" firstAttribute="top" secondItem="nU0-wS-J6K" secondAttribute="bottom" constant="75" id="KC2-Io-MNn"/>
                             <constraint firstItem="AQA-HZ-HzQ" firstAttribute="leading" secondItem="Wct-hB-7qW" secondAttribute="leading" id="M78-kL-TV7"/>
                             <constraint firstAttribute="trailing" secondItem="moA-Ue-DXc" secondAttribute="trailing" constant="30" id="NdS-Ha-sUA"/>
                             <constraint firstAttribute="trailing" secondItem="AQA-HZ-HzQ" secondAttribute="trailing" id="Q0C-az-XK5"/>
@@ -843,7 +837,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6je-3P-TDF" id="0Eh-2l-3np">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Iboprofen 100ml" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATB-X7-5NT">
@@ -1040,7 +1034,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Receipt" id="oKB-uh-lKK">
-                        <barButtonItem key="rightBarButtonItem" title="Print" id="Yid-ZO-wNB"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Yid-ZO-wNB"/>
                     </navigationItem>
                     <connections>
                         <outlet property="receiptTable" destination="ug3-4G-Qho" id="KTp-tI-8NL"/>
@@ -1074,19 +1068,19 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FilterCell" id="uOz-0r-gg2" customClass="FilterTableViewCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOz-0r-gg2" id="knd-ST-wB0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceFilterCell" rowHeight="53" id="g6s-aS-jEG" customClass="PriceFilterTableViewCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="99.5" width="320" height="53"/>
+                                        <rect key="frame" x="0.0" y="100" width="320" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g6s-aS-jEG" id="bhD-67-p6E">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XDg-ht-j1X">
@@ -1112,10 +1106,10 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ColorFilterCell" rowHeight="265" id="8hw-ah-Xjn" customClass="ColorFilterTableViewCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="152.5" width="320" height="265"/>
+                                        <rect key="frame" x="0.0" y="153" width="320" height="265"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8hw-ah-Xjn" id="S0o-LZ-Mg9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="264.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="264"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRp-Bu-QHI">
@@ -1231,7 +1225,7 @@
                                         <rect key="frame" x="0.0" y="29" width="320" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c3e-BU-bv8" id="qTQ-sO-Ol5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-hk-mb8">
@@ -1438,7 +1432,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XY5-fQ-dxv" id="sfN-Ux-pn9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="obM-Iq-m3i">
@@ -1692,10 +1686,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OptionCell" id="LEs-x4-Y3m" customClass="OptionCell" customModule="FastCart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LEs-x4-Y3m" id="1oO-Ec-lti">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron" translatesAutoresizingMaskIntoConstraints="NO" id="B6S-1T-TZn">
@@ -2130,7 +2124,7 @@
         <image name="store_outline" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xWh-kd-I5K"/>
         <segue reference="2Ci-vH-H1l"/>
+        <segue reference="4Ae-Ok-kr8"/>
     </inferredMetricsTieBreakers>
 </document>
