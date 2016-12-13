@@ -71,6 +71,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             if let strg = user.facebookProfilePictureUrlString {
                 header.foregroundImageUrl = URL(string: strg)
                 print(strg)
+                
             }
         
         }
@@ -82,6 +83,8 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             header.name = username
             print(username)
         }
+        
+        print("@@@@@@@@@@@@@@@@@  login method used: \(user.loginMethod)")
     }
     
     override func viewDidLayoutSubviews() {

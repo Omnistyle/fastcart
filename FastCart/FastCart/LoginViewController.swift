@@ -212,6 +212,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         
             self.dict = result as! NSDictionary
+            print(result)
+            
             DispatchQueue.main.async {
                 self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
             }
