@@ -207,11 +207,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         for product in products {
             // check to see if there are unscanned products
             if product.upc == nil {
-                let alert = UIAlertController(title: "Oops!", message: "Looks like there are unscanned items in your cart. You'll have to either remove these items or scan to proceed.", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                Utilities.presentErrorAlert(title: "Oops!", message: "Looks like there are unscanned items in your cart. You'll have to either remove these items or scan to proceed.")
                 return
-                
             }
         }
         

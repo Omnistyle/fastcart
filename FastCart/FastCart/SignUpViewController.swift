@@ -16,8 +16,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UITextField!
     
     @IBOutlet weak var passwordLabel: UITextField!
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var signupButton: UIButton!
     
@@ -25,6 +23,7 @@ class SignUpViewController: UIViewController {
     
     // navigation bar - get rid of the shadow image
     private var shadowImageView: UIImageView?
+    private var activityIndicator: UIActivityIndicatorView!
     
     
    
@@ -58,10 +57,9 @@ class SignUpViewController: UIViewController {
 
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        activityIndicator.hidesWhenStopped = true;
-        activityIndicator.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.gray;
-        //activityIndicator.center = view.center;
+        activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         self.signupButton.layer.cornerRadius = 3
         self.signupButton.layer.shadowColor = UIColor.gray.cgColor
@@ -73,8 +71,7 @@ class SignUpViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(SignUpViewController.onTapingOutTextfields))
         loginView.addGestureRecognizer(tapGestureRecognizer)
         loginView.isUserInteractionEnabled = true
-        
-        super.viewDidLoad()
+    
 
         // Do any additional setup after loading the view.
         // add blur effect
@@ -128,27 +125,15 @@ class SignUpViewController: UIViewController {
             newUser.signUpInBackground { (succeeded : Bool, error : Error?) in
                 self.activityIndicator.stopAnimating()
                 if(succeeded){
-                    let alertController = UIAlertController(title: "Succedded", message: "Hooray! Ready to use FastCart.", preferredStyle: .alert)
-                    let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                        // handle response here.
-                    }
-                    
-                    alertController.addAction(OKAction)
-
+                    Utilities.presentSuccessAlert(title: "Succeeded!", message: "Hooray! Ready to use FastCard?", button: nil, action: nil)
                     let userDictionary = User.getUserDictionary(user: newUser)
                     let newUser = User(dictionary: userDictionary)
                     newUser.loginMethod = "parse"
                     User.currentUser = newUser
-
                     self.performSegue(withIdentifier: "successsignupsegue", sender: nil)
-                    
                 }
                 else{
-                    let alertController = UIAlertController(title: "Failed", message: "failed to sign up", preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                        // handle cancel response here. Doing nothing will dismiss the view.
-                    }
-                    alertController.addAction(cancelAction)
+                    Utilities.presentErrorAlert(title: "Failed!", message: "Failed to sign-up :(")
                 }
             }
         }

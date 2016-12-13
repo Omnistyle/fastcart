@@ -278,9 +278,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
             }
             else {
-                let alertController = UIAlertController(title: "Login Failed", message: "Incorrect password or username", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.cancel, handler: nil))
-                self.present(alertController, animated: true, completion: nil)
+                Utilities.presentErrorAlert(title: "Login Failed", message: "Incorrect password or username")
             }
         })
     }

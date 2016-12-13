@@ -457,10 +457,6 @@
                                     <segue destination="wva-XD-mg1" kind="presentation" id="2Ci-vH-H1l"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qfm-D7-9tI">
-                                <rect key="frame" x="150" y="162" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHH-JD-t6B" userLabel="ordividerView">
                                 <rect key="frame" x="15" y="215" width="290" height="48"/>
                                 <subviews>
@@ -565,7 +561,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="qfm-D7-9tI" id="zqm-QF-1Ga"/>
                         <outlet property="loginButton" destination="dEQ-bC-lM5" id="2ov-XP-osG"/>
                         <outlet property="loginView" destination="fDl-uP-hJx" id="w0P-sS-fRE"/>
                         <outlet property="ordividerView" destination="vHH-JD-t6B" id="7OI-Zg-abB"/>
@@ -611,10 +606,6 @@
                                     <action selector="onSignUp:" destination="8oP-cV-mcv" eventType="touchUpInside" id="VQ4-IZ-6L1"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lfp-fk-FXh">
-                                <rect key="frame" x="150" y="175" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eeX-c2-M50">
                                 <rect key="frame" x="30" y="139" width="260" height="30"/>
                                 <nil key="textColor"/>
@@ -657,7 +648,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="lfp-fk-FXh" id="VNO-aJ-ZaO"/>
                         <outlet property="emailLabel" destination="eeX-c2-M50" id="L4B-g0-lI3"/>
                         <outlet property="loginView" destination="AQA-HZ-HzQ" id="TVH-ch-4N8"/>
                         <outlet property="passwordLabel" destination="H5C-ql-k5h" id="Eom-sk-yok"/>
