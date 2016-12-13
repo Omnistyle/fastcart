@@ -242,7 +242,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
     }
     
     func onLogout (){
-        var token = FBSDKAccessToken.current()
+        let token = FBSDKAccessToken.current()
         if token != nil {
             //print(token ?? "default token printing")
             let loginManager = FBSDKLoginManager()
