@@ -94,6 +94,12 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
+    func onProductTap(sender: UITapGestureRecognizer) {
+        guard let cell = sender.view as? SimilarProductView else { return }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
+        vc.product = cell.product
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     // Set-up horizontal scroll in view for other stores.
     private func notAvailable(_ placeHolder: UIView) {
@@ -128,6 +134,12 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
                 let productCell = SimilarProductView(frame: frame)
                 productCell.product = product
                 productCell.isUserInteractionEnabled = true
+                
+                // We add a tap gesture recognizer so we can tap on similar items!
+                let tap = UITapGestureRecognizer(target: self, action: #selector(ProductDetailsViewController.onProductTap(sender:)))
+                productCell.addGestureRecognizer(tap)
+                productCell.isUserInteractionEnabled = true
+                
                 horizontalScrollView.addItem(productCell)
             }
             view.addSubview(horizontalScrollView)
@@ -187,6 +199,11 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func onCancelButton(_ sender: UIButton) {
-        let _ = self.navigationController?.popViewController(animated: true)
+        guard let nvc = self.navigationController else { return }
+        if nvc.viewControllers.count > 1 {
+            let _ = nvc.popToViewController(self.navigationController!.viewControllers[1], animated: true)
+        } else {
+            let _ = nvc.popViewController(animated: true)
+        }
     }
 }

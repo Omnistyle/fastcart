@@ -36,6 +36,7 @@ class ProductOverviewCell: UICollectionViewCell, ImageScrollViewDataSource{
             priceLabel.text = product.salePriceAsString
             heartImage.image = (User.currentUser?.favoriteProducts.contains(product) ?? false) ? #imageLiteral(resourceName: "heart_filled") : #imageLiteral(resourceName: "heart")
             productScrollView.datasource = self
+            productScrollView.showPageControl = false
             productScrollView.placeholderImage = #imageLiteral(resourceName: "noimagefound")
             productScrollView.show()
         }

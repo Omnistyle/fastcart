@@ -106,7 +106,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.signupButton.layer.shadowRadius = 4.0
         self.signupButton.layer.masksToBounds = false
         
-        activityIndicator.hidesWhenStopped = true;
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         

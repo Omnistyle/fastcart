@@ -7,16 +7,7 @@
 //
 
 import UIKit
-
-//
-//  DTImageScrollView.swift
-//  DTImageScrollView
-//
-//  Created by Daron Tancharoen on 8/1/16.
-//
-//
-
-import UIKit
+import MisterFusion
 
 public protocol ImageScrollViewDataSource: class {
     //func imageForIndex(index:Int) -> UIImage
@@ -33,6 +24,7 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
     open weak var datasource: ImageScrollViewDataSource!
     
     open var initialPage: Int = 0
+    open var showPageControl: Bool = true
     
     open func show() {
         setup()
@@ -51,13 +43,14 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view":self.scrollView]))
         
         // add page control only if more than one image!
-        if self.datasource.numberOfImages() > 1 {
+        if self.datasource.numberOfImages() > 1 && self.showPageControl {
             self.pageControl.translatesAutoresizingMaskIntoConstraints = false
             self.pageControl.currentPageIndicatorTintColor = UIColor.darkGray
             self.pageControl.pageIndicatorTintColor = UIColor.lightGray
-            self.addSubview(self.pageControl)
-            self.addConstraint(NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: self.pageControl, attribute: .left, multiplier: 1, constant: 0))
-            self.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: self.pageControl, attribute: .bottom, multiplier: 1, constant: 0))
+            self.addLayoutSubview(self.pageControl, andConstraints:
+                pageControl.centerX |==| scrollView.centerX,
+                pageControl.bottom |==| scrollView.bottom
+            )
         }
         
         // add photos
@@ -82,13 +75,12 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
             
             // add constraints
             // height
-            self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .height, multiplier: 1, constant: 0))
-            // width
-            self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .width, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: 1, constant: 0))
-            // top
-            self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .top, relatedBy: .equal, toItem: imageView, attribute: .top, multiplier: 1, constant: 0))
-            // bottom
-            self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .bottom, relatedBy: .equal, toItem: imageView, attribute: .bottom, multiplier: 1, constant: 0))
+            self.scrollView.addLayoutSubview(imageView, andConstraints:
+                imageView.height,
+                imageView.width,
+                imageView.top,
+                imageView.bottom
+            )
             if index == 0 {
                 // left to scrollview
                 self.scrollView.addConstraint(NSLayoutConstraint(item: self.scrollView, attribute: .left, relatedBy: .equal, toItem: imageView, attribute: .left, multiplier: 1, constant: 0))
