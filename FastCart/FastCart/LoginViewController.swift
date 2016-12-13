@@ -102,9 +102,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
         loginView.addGestureRecognizer(tapGestureRecognizer)
         loginView.isUserInteractionEnabled = true
-        
-//        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
-        
+               
         self.fbloginButton = FBSDKLoginButton()
         let y = Constants.facebookButtonBottomMargin
         fbloginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
@@ -290,8 +288,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
             
             self.performSegue(withIdentifier: "successloginsegue", sender: nil)
-            // try to segue 
-
         }
     }
     
@@ -299,16 +295,4 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         guard let vc = segue.destination as? UITabBarController else { return }
         vc.customInitialize()
     }
-    
-    //                self.usernameLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 110,
-    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                          height: 30)
-    //
-    //        self.passwordLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 155,
-    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                          height: 30)
-    //
-    //        self.loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 200,
-    //                                        width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
-    //                                        height: Constants.facebookButtonHeight)
 }
