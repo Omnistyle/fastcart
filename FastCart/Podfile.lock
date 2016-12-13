@@ -64,6 +64,9 @@ PODS:
     - FBSDKCoreKit
   - LUExpandableTableView (1.0.1)
   - MisterFusion (2.0.1)
+  - Mixpanel (3.0.7):
+    - Mixpanel/Mixpanel (= 3.0.7)
+  - Mixpanel/Mixpanel (3.0.7)
   - MXParallaxHeader (0.6.0)
   - Parse (1.14.2):
     - Bolts/Tasks (~> 1.8)
@@ -89,6 +92,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - LUExpandableTableView
+  - Mixpanel
   - MXParallaxHeader
   - Parse
   - SAParallaxViewControllerSwift (from `https://github.com/Omnistyle/SAParallaxViewControllerSwift.git`)
@@ -123,6 +127,7 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 0b8d6cc3f103c75297eb3c62caec284a2ccf1b9e
   LUExpandableTableView: 9eeac602db932ed1bc38788126cce9a3f3896738
   MisterFusion: d42cac7afe8318c282bcda93396eba0aef45d30e
+  Mixpanel: 73941a60218aaf82aa0faec9c663e67404fdcb03
   MXParallaxHeader: 2997592b8349baf8557ae0e4346f6b17e141de39
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   SABlurImageView: 7003ca28ded502c984846374a117f88a287d9faf
@@ -131,6 +136,6 @@ SPEC CHECKSUMS:
   SideMenu: c5d3c3bc855b96bc2059e0b1ec346ecb54e80447
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
 
-PODFILE CHECKSUM: 4813e2553ec21f84b2a0c78ab645a72b6e58b36f
+PODFILE CHECKSUM: c47fa845c0d38a665eb07b3a23b447db9e5e6245
 
 COCOAPODS: 1.1.1
