@@ -10,6 +10,7 @@ import UIKit
 import SAParallaxViewControllerSwift
 import MisterFusion
 import CoreLocation
+import TLYShyNavBar
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     private let kItemSectionHeaderViewID = "StoreCellHeaderView"
@@ -37,6 +38,10 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Navbar navigation!
+        self.shyNavBarManager.scrollView = collectionView
+        self.shyNavBarManager.expansionResistance = 20
         
         // Get the user's location, since this is needed for nearby stores.
         // TODO(need to implement).
@@ -75,15 +80,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         label.right |+| 10,
         label.left |+| 10,
         label.bottom)
-        
-//        let view = UIView(frame: bannerView.frame)
-//                view.backgroundColor = UIColor.red
-//        bannerView.addLayoutSubview(view, andConstraints:
-//            view.bottom,
-//            view.left,
-//            view.right,
-//            view.height |==| 1
-//        )
         
         bannerView.isUserInteractionEnabled = true
         // add touch target
