@@ -76,8 +76,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         definesPresentationContext = true
         
         
-        // shynav properties
-        self.shyNavBarManager.expansionResistance = 400
+//        // shynav properties
+//        self.shyNavBarManager.expansionResistance = 400
         
         
         // flow layout stuff
