@@ -317,6 +317,8 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // MARK: FilterDelegate
     func didFilter(view: FiltersViewController, selectedPrice: Int, selectedColor: [String], selectedShipping: [String]) {
+        // Reset products and apply new query.
+        self.products = []
         self.selectedPrice = String(describing: selectedPrice)
         self.selectedShipping = selectedShipping
         self.selectedColor = selectedColor
