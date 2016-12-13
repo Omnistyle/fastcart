@@ -24,8 +24,9 @@ class StickyHeaderFlowLayout: SAParallaxViewLayout {
     
     private func initialize() {
         let width = UIScreen.main.bounds.size.width
-        let height = Constants.kBannerHeight
+        let height = Constants.storeBannerHeight
         headerReferenceSize = CGSize(width: width, height: height)
+        
         // footerReferenceSize = CGSize(width: width, height: height)
     }
 

@@ -101,6 +101,7 @@ class Receipt: EVObject {
         receipt["subtotal"] = self.subTotal
         receipt["tax"] = self.tax
         receipt["paid"] = self.paid
+        receipt["productCount"] = self.products.count
         
         receipt.saveInBackground { (succeeded:Bool, error:Error?) in
             if(succeeded){

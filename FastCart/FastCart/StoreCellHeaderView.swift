@@ -16,7 +16,7 @@ class StoreCellHeaderView: UICollectionReusableView {
     
     var store: Store! {
         didSet {
-            storeName.text = store.name
+//            storeName.text = store.name
             favoriteImage.image = User.currentUser!.isFavorite(store: store) ? #imageLiteral(resourceName: "heart_filled") : #imageLiteral(resourceName: "heart")
             store.setStoreImage(view: storeImage)
         }
@@ -25,11 +25,13 @@ class StoreCellHeaderView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        storeImage.frame.size.height = storeImage.frame.width
         // Store image rounded corner.
         storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
         storeImage.layer.masksToBounds = true
-        storeImage.layer.borderColor = UIColor.lightGray.cgColor
-        storeImage.layer.borderWidth = 1
+        
+        favoriteImage.image = #imageLiteral(resourceName: "heart")
+    
     }
     
 }
