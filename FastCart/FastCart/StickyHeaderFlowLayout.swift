@@ -94,7 +94,7 @@ class StickyHeaderFlowLayout: SAParallaxViewLayout {
         if elementKind == UICollectionElementKindSectionHeader {
             if let fullSectionFrame = frameForSection(section: indexPath.section) {
                 let minimumY = max(collectionView!.contentOffset.y + collectionView!.contentInset.top, fullSectionFrame.origin.y)
-                let maximumY = fullSectionFrame.maxY - headerReferenceSize.height - collectionView!.contentInset.bottom
+                let maximumY = fullSectionFrame.maxY - headerReferenceSize.height
                 
                 attributes?.frame = CGRect(x: 0, y: min(minimumY, maximumY), width: collectionView!.bounds.size.width, height: headerReferenceSize.height)
                 attributes?.zIndex = 1

@@ -56,6 +56,8 @@ class Store: EVObject {
     var overview: String?
     /** The URL for the image to be used for the store */
     var image: URL?
+    /** Used for test stores to set their image... */
+    var _image: UIImage?
     
     /** 
      Initializer the Store object specified by `id`.
@@ -65,6 +67,13 @@ class Store: EVObject {
      - parameters:
         - id: The `id` for the store, in `String` format.
     */
+    init(id: String, name: String, overview: String, image: String) {
+        super.init()
+        self.id = id
+        self.overview = overview
+        self.name = name
+        self.image = URL(string: image)
+    }
     init(id: String) {
         super.init()
         name = "Walmart"
@@ -81,6 +90,14 @@ class Store: EVObject {
             ("image", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" }),
             ("addToCartUrl", { self.image = URL.fromJson(json: $0 as? String) }, { return self.image?.toJson() ?? "nil" })
         ]
+    }
+    override func skipPropertyValue(_ value: Any, key: String) -> Bool {
+        switch key {
+        case "_image":
+            return true
+        default:
+            return false
+        }
     }
     
     /**

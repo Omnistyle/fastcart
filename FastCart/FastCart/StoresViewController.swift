@@ -11,16 +11,13 @@ import SAParallaxViewControllerSwift
 import MisterFusion
 import CoreLocation
 
-class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
+class StoresViewController: SAParallaxViewController, CLLocationManagerDelegate {
     private let kItemSectionHeaderViewID = "StoreCellHeaderView"
     private let kBannerText = "Free shipping! Use code: SHIP."
-    private let kCollectionViewTopContraintID = "collectionViewTopContraint"
     
-    private var isAdShown: Bool = false
     private var locationManager : CLLocationManager!
     
-    let stores = ["Shop Redemption", "Trader Joes", "Walmart", "Whole Foods", "Macys"]
-    let storesIcon = [#imageLiteral(resourceName: "StoreImageIcon1"), #imageLiteral(resourceName: "StoreImageIcon2"), #imageLiteral(resourceName: "StoreImageIcon3"),#imageLiteral(resourceName: "StoreImageIcon4"), #imageLiteral(resourceName: "StoreImageIcon5")]
+    var fakeStores = [Store]()
     // Override the collection view initialization to use our own
     // StickyHeaderFlowLayout()
     private var _collectionView: UICollectionView?
@@ -40,8 +37,8 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         super.viewDidLoad()
         
         // Navbar navigation!
-        // self.shyNavBarManager.scrollView = collectionView
-        // self.shyNavBarManager.expansionResistance = 20
+        self.shyNavBarManager.scrollView = collectionView
+        self.shyNavBarManager.expansionResistance = 20
         
         // Get the user's location, since this is needed for nearby stores.
         // TODO(need to implement).
@@ -51,18 +48,27 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
         
-        if let y = self.navigationController?.navigationBar.frame.height {
-            let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
-            self.addBanner(at: origin);
-        }
+        // We pre-populate fake stores, though eventually we will use location to get these!
+        fakeStores = getStores()
+        
+        self.addBannerAsExtension()
+        
+        self.view.addLayoutSubview(collectionView, andConstraints:
+            collectionView.top,
+            collectionView.left,
+            collectionView.right,
+            collectionView.bottom)
+        self.collectionView.contentInset.bottom = self.tabBarController!.tabBar.frame.height
         
         // Register the .xib for the custom header view and footerview.
         self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
+        self.collectionView.bounces = false
     }
     
     private func createBannerView() -> UIView{
         let bannerView = UIView()
         bannerView.backgroundColor = Constants.themeColor
+        bannerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: Constants.kBannerHeight)
         
         // add label
         let label = UILabel()
@@ -84,63 +90,34 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         bannerView.isUserInteractionEnabled = true
         // add touch target
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
-        tap.delegate = self
         bannerView.addGestureRecognizer(tap)
     
         return bannerView
     }
     
-    private func addBanner(at origin: CGPoint) {
+    private func addBannerAsExtension() {
+        // Add banner as an extension view.
         let bannerView = createBannerView()
-        
-        // Add banner view.
-        
-        self.view.addLayoutSubview(bannerView, andConstraints:
-            bannerView.top |+| origin.y,
-            bannerView.left,
-            bannerView.right,
-            bannerView.height |==| Constants.kBannerHeight
-        )
-        isAdShown = true
-
-        // Add collection view and manually adjust for the banner.
-        let bannerBottom = origin.y + Constants.kBannerHeight
-        self.view.addLayoutSubview(collectionView, andConstraints:
-            // Add enough space for the banner to show.
-            collectionView.top |+| bannerBottom -=- kCollectionViewTopContraintID,
-            collectionView.left,
-            collectionView.right,
-            collectionView.bottom)
+        self.shyNavBarManager.extensionView = bannerView
     }
     
     // Hides the banner. Public so selector can access it.
     func hideBanner(sender: UITapGestureRecognizer? = nil) {
-        guard let notificationView = sender?.view  else { return }
-        guard let topConstraint = self.view.constraints.first(where: { (el: NSLayoutConstraint) -> Bool in
-            if let id = el.identifier {
-                return id == kCollectionViewTopContraintID
-            }
-            return false
-        }) else { return }
+        guard sender != nil  else { return }
         
-        self.view.layoutIfNeeded()
-        
-        // Set-up new contraints on the collection view.
-        UIView.animate(withDuration: 0.7, delay: 0.0, options: [], animations: {
-            let navBarFrame = self.navigationController!.navigationBar.frame
-            
-            // Move up and inset the content correctly.
-            topConstraint.constant = 0
-            self.collectionView.contentInset.top = navBarFrame.origin.y + navBarFrame.height
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        // Delay a few seconds before removing, so no awkward whitespace and remove.
-        UIView.animate(withDuration: 1.0, delay: 0.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-            notificationView.frame = CGRect(x: 0.0, y: 0.0, width: notificationView.frame.width, height: 0.0)
-            
-        }, completion: { (success: Bool) -> Void in
-            self.isAdShown = false
-            notificationView.removeFromSuperview()
+        UIView.animate(withDuration: 1.0, animations: {
+            guard let bannerView = self.shyNavBarManager.extensionView else { return }
+            bannerView.frame = CGRect(x: 0, y: 0, width: bannerView.frame.width, height: 0)
+            self.shyNavBarManager.extensionView = nil
+        })
+    }
+    private func getStores() -> [Store]{
+        let stores = ["Shop Redemption", "Trader Joes", "Walmart", "Whole Foods", "Macys"]
+        let storesIcon = [#imageLiteral(resourceName: "StoreImageIcon1"), #imageLiteral(resourceName: "StoreImageIcon2"), #imageLiteral(resourceName: "StoreImageIcon3"),#imageLiteral(resourceName: "StoreImageIcon4"), #imageLiteral(resourceName: "StoreImageIcon5")]
+        return zip(stores, storesIcon).enumerated().map( { (offset: Int, data: (name: String, icon: UIImage)) -> Store in
+            let store = Store(id: "\(offset)", name: data.name, overview: "Test Store \(offset)!", image: "")
+            store._image = data.icon
+            return store
         })
     }
     
@@ -151,7 +128,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return stores.count
+        return fakeStores.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let rawCell = super.collectionView(collectionView, cellForItemAt: indexPath)
@@ -173,12 +150,11 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         switch kind {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kItemSectionHeaderViewID, for: indexPath) as! StoreCellHeaderView
-            headerView.storeName.text = stores[indexPath.section]
-            headerView.storeImage.image = storesIcon[indexPath.section]
-            // add tap target
+            headerView.store = fakeStores[indexPath.section]
+            
+            // Add tap target!
             let tap = UITapGestureRecognizer(target: self, action: #selector(StoresViewController.handleTap))
             headerView.favoriteImage.addGestureRecognizer(tap)
-            // add scroll target
             headerView.favoriteImage.isUserInteractionEnabled = true
             
             return headerView
@@ -195,13 +171,20 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     }
     
     func handleTap(sender: UITapGestureRecognizer) {
+        guard let user = User.currentUser else { return }
         if let image = sender.view as? UIImageView {
             let cell = image.superview!.superview as! StoreCellHeaderView
-            // change the image
+            // Like
             if cell.favoriteImage.image == #imageLiteral(resourceName: "heart") {
                 cell.favoriteImage.image = #imageLiteral(resourceName: "heart_filled")
-            } else {
+                user.favoriteStores.append(cell.store)
+            }
+            // Dislike
+            else {
                 cell.favoriteImage.image = #imageLiteral(resourceName: "heart")
+                user.favoriteStores = user.favoriteStores.filter({ (store: Store) -> Bool in
+                    store.id != cell.store.id
+                })
             }
             //
             let pulseAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -228,20 +211,5 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let vc = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as! ShopViewController
         vc.store = Store.init(id: "1")
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    // Limit scrolling to height for beauty purposes.
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let top: CGFloat = 0.0
-        let topBounce = (isAdShown) ? 0 : (self.navigationController?.navigationBar.frame.height ?? 0)
-        if (scrollView.contentOffset.y < top - topBounce) {
-            scrollView.contentOffset = CGPoint(x: 0, y: top - topBounce);
-        }
-        let bottom = scrollView.contentSize.height - scrollView.frame.size.height
-        let bottomBounce: CGFloat = self.tabBarController?.tabBar.frame.height ?? 0
-        if scrollView.contentOffset.y > bottom + bottomBounce {
-            scrollView.contentOffset = CGPoint(x: 0, y: bottom + bottomBounce);
-        }
-        
-        super.scrollViewDidScroll(scrollView)
     }
 }
