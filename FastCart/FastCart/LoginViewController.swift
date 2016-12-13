@@ -16,6 +16,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         static let facebookButtonHeight: CGFloat = 50
         static let facebookButtonBottomMargin: CGFloat = 160
     }
+    
+    @IBOutlet weak var ordividerView: UIView!
+    
+    @IBOutlet weak var userpassloginView: UIView!
+    
 
     @IBOutlet weak var loginView: UIImageView!
     @IBOutlet weak var usernameLabel: UITextField!
@@ -28,17 +33,22 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var signupButton: UIButton!
     
+    var shiftedUp : Bool = false
+    
     var dict : NSDictionary!
     //self.dict = result as NSDictionary
     
     var currentUser : User!
     
+
+    var fbloginButton : FBSDKLoginButton!
+    
+    var shifitngValue : Int = 100//130
+    
+
     // navigation bar formatting
     private var shadowImageView: UIImageView?
-    
-    
-    
-    
+
     private func findShadowImage(under view: UIView) -> UIImageView? {
         if view is UIImageView && view.bounds.size.height <= 1 {
             return (view as! UIImageView)
@@ -66,10 +76,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         shadowImageView?.isHidden = false
     }
 
-    
-    //
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.loginButton.layer.cornerRadius = 3
         self.loginButton.layer.shadowColor = UIColor.gray.cgColor
@@ -89,17 +98,22 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator.hidesWhenStopped = true;
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
-        let loginButton = FBSDKLoginButton()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
+        loginView.addGestureRecognizer(tapGestureRecognizer)
+        loginView.isUserInteractionEnabled = true
         
 //        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+        
+        self.fbloginButton = FBSDKLoginButton()
         let y = Constants.facebookButtonBottomMargin
-        loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
+        fbloginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y,
                                    width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
                                    height: Constants.facebookButtonHeight)
-        loginButton.delegate = self
-        loginButton.readPermissions = ["email", "public_profile"]
+        fbloginButton.delegate = self
+        fbloginButton.readPermissions = ["email", "public_profile"]
         
-        view.addSubview(loginButton)
+        view.addSubview(fbloginButton)
         
         // add blur effect
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
@@ -112,7 +126,60 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
+    
+    func showOptionalLogin(show: Bool){
+        if show {
+            self.ordividerView.isHidden = false
+            self.fbloginButton.isHidden = false
+        } else {
+            self.ordividerView.isHidden = true
+            self.fbloginButton.isHidden = true
+        }
+    }
+    
+    func onTapingOutTextfields(){
+        print("~~~~~~~~~~~ tapping out text fields ~~~~~~~~~~~~")
+        self.view.endEditing(true)
+        if(shiftedUp){
+            animateViewMoving(up: false, moveValue: CGFloat(shifitngValue))
+            shiftedUp = false
+            showOptionalLogin(show: true)
+        }
+    }
+    
+    @IBAction func onTappingOntextFields(_ sender: Any) {
+        if !shiftedUp {
+            shiftedUp = true
+            print("+++++++++++++++++++++++++shifiting up")
+            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
+            showOptionalLogin(show: false)
+        } else {
+            print("===================is already shifted up")
+        }
+    }
+    
+    @IBAction func onTapingOntextFields(_ sender: Any) {
+        if !shiftedUp {
+            shiftedUp = true
+            print("+++++++++++++++++++++++++shifiting up")
+            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
+            showOptionalLogin(show: false)
+        } else {
+            print("===================is already shifted up")
+        }
+    }
 
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.4
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        
+        UIView.beginAnimations("animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        
+        self.userpassloginView.frame = self.userpassloginView.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
     
     
     @IBAction func onFastcartLogin(_ sender: Any) {
@@ -232,4 +299,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         guard let vc = segue.destination as? UITabBarController else { return }
         vc.customInitialize()
     }
+    
+    //                self.usernameLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 110,
+    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
+    //                                          height: 30)
+    //
+    //        self.passwordLabel.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 155,
+    //                                          width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
+    //                                          height: 30)
+    //
+    //        self.loginButton.frame = CGRect(x: Constants.facebookButtonLeftRightMargin, y: y + 200,
+    //                                        width: view.frame.width - 2 * Constants.facebookButtonLeftRightMargin,
+    //                                        height: Constants.facebookButtonHeight)
 }
