@@ -24,10 +24,10 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     // Override the collection view initialization to use our own
     // StickyHeaderFlowLayout()
     private var _collectionView: UICollectionView?
-    /* override var collectionView: UICollectionView {
+    override var collectionView: UICollectionView {
         get {
             if _collectionView == nil {
-                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: SAParallaxViewLayout())
+                _collectionView = UICollectionView(frame: .zero, collectionViewLayout: StickyHeaderFlowLayout())
             }
             return _collectionView!
         }
@@ -35,7 +35,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             _collectionView = value
         }
     }
-    */
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +45,11 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         
         // Get the user's location, since this is needed for nearby stores.
         // TODO(need to implement).
-        /*
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
-        */
         
         if let y = self.navigationController?.navigationBar.frame.height {
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
@@ -60,7 +57,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         }
         
         // Register the .xib for the custom header view and footerview.
-        // self.collectionView.register(StoreCellHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
+        self.collectionView.register(UINib(nibName: "StoreCellHeaderView", bundle:nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: kItemSectionHeaderViewID)
     }
     
     private func createBannerView() -> UIView{
@@ -176,7 +173,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         switch kind {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kItemSectionHeaderViewID, for: indexPath) as! StoreCellHeaderView
-            /*
             headerView.storeName.text = stores[indexPath.section]
             headerView.storeImage.image = storesIcon[indexPath.section]
             // add tap target
@@ -184,7 +180,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             headerView.favoriteImage.addGestureRecognizer(tap)
             // add scroll target
             headerView.favoriteImage.isUserInteractionEnabled = true
-            */
             
             return headerView
         case UICollectionElementKindSectionFooter:
