@@ -23,7 +23,7 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         arrPageTitle = ["Welcome to Fastcart", "Scan the products you love", "See reviews, price comparisons, more!"]
         arrPagePhoto = [#imageLiteral(resourceName: "firstWalkthrough"), #imageLiteral(resourceName: "secondWalkthrough"), #imageLiteral(resourceName: "thirdWalkthrough")]
         
-        self.pageViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageViewController") as! UIPageViewController
+        self.pageViewController = UIPageViewController()
         self.pageViewController.view.frame = CGRect(x: CGFloat(0.0), y: CGFloat(0), width: self.view.frame.width, height: self.view.frame.size.height - loginButton.frame.size.height)
         self.pageViewController.dataSource = self
         self.pageViewController.setViewControllers([getViewControllerAtIndex(index: 0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
@@ -32,22 +32,17 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         self.addChildViewController(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
         self.pageViewController.didMove(toParentViewController: self)
-        
-        // configure page control
-//        configurePageControl()
-        
     }
-    var pageControl : UIPageControl = UIPageControl(frame: CGRect(x: 50, y: 300, width: 200, height: 50))
 
     
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
-        self.pageControl.numberOfPages = arrPagePhoto.count
+        // self.pageControl.numberOfPages = arrPagePhoto.count
        
 //        self.pageControl.tintColor = UIColor.red
 //        self.pageControl.pageIndicatorTintColor = UIColor.black
 //        self.pageControl.currentPageIndicatorTintColor = UIColor.green
-        self.view.addSubview(pageControl)
+       // self.view.addSubview(pageControl)
         
     }
 
@@ -99,22 +94,5 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         pageContentViewController.pageIndex = index
         return pageContentViewController
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

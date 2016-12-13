@@ -349,7 +349,6 @@
                                 <rect key="frame" x="0.0" y="436" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.92941176469999998" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="II2-W9-r85"/>
                                     <constraint firstAttribute="height" constant="44" id="WIF-Rf-yUR"/>
                                 </constraints>
                                 <state key="normal" title="Get Started">
@@ -2174,7 +2173,7 @@
         <image name="store_outline" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2Ci-vH-H1l"/>
+        <segue reference="veu-ER-3fk"/>
         <segue reference="4Ae-Ok-kr8"/>
     </inferredMetricsTieBreakers>
 </document>
