@@ -18,7 +18,7 @@ class StoreCellHeaderView: UICollectionReusableView {
         didSet {
             storeName.text = store.name
             favoriteImage.image = User.currentUser!.favoriteStores.contains(store) ? #imageLiteral(resourceName: "heart_filled") : #imageLiteral(resourceName: "heart")
-            storeImage = store._image
+            storeImage.image = store._image
         }
     }
     
