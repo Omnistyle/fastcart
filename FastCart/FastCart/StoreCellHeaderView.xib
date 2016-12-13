@@ -40,7 +40,7 @@
                         </imageView>
                         <view contentMode="scaleToFill" restorationIdentifier="BottomViewOutline" translatesAutoresizingMaskIntoConstraints="NO" id="MWW-yx-ybN">
                             <rect key="frame" x="0.0" y="61" width="320" height="1"/>
-                            <color key="backgroundColor" red="0.71448243891797558" green="0.71448243891797558" blue="0.71448243891797558" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.71372549019607845" green="0.71372549019607845" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="vwC-Bo-XqW"/>
                             </constraints>

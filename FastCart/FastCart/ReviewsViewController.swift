@@ -21,6 +21,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let navigationFrame = self.navigationController!.navigationBar.frame
+        self.title = "Reviews"
         reviewsTable.contentInset = UIEdgeInsetsMake(navigationFrame.origin.y + navigationFrame.height, reviewsTable.contentInset.left, 0, reviewsTable.contentInset.right);
     }
     override func viewDidLoad() {
@@ -76,6 +77,12 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         
         cell.review = reviews[indexPath.row]
+        
+        // separator insets
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        
         return cell
     }
     

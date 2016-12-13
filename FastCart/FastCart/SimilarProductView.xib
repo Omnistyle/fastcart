@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$99.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-V0-dJl">
-                    <rect key="frame" x="24" y="157.5" width="51" height="15"/>
+                    <rect key="frame" x="24" y="175" width="51" height="15"/>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -36,7 +36,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-yX-6QJ">
-                    <rect key="frame" x="7" y="132" width="85" height="17.5"/>
+                    <rect key="frame" x="7" y="132" width="85" height="35"/>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
