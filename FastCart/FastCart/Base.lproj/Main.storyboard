@@ -74,8 +74,8 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJT-p7-eTC" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="32" width="142" height="180"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJT-p7-eTC" customClass="ImageScrollView" customModule="FastCart" customModuleProvider="target">
+                                                            <rect key="frame" x="1" y="34" width="150" height="178"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <gestureRecognizers/>
                                                             <constraints>
@@ -128,7 +128,7 @@
                             <constraint firstAttribute="trailing" secondItem="nqD-OB-XCK" secondAttribute="trailing" id="elw-yl-ujF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Xih-FS-zg5"/>
+                    <navigationItem key="navigationItem" id="LBa-SC-Yhs"/>
                     <connections>
                         <outlet property="collectionView" destination="TLy-zY-JFE" id="3A9-Zh-Jjt"/>
                         <outlet property="flowLayout" destination="c9w-gM-iB3" id="n4n-kd-Njc"/>
@@ -158,8 +158,8 @@
                                     <action selector="onFakeScanButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="69K-Yp-MKZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="On a phone with a camera, shows the barcode scanner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI3-DX-lzR">
-                                <rect key="frame" x="37" y="252" width="247" height="85"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On a phone with a camera, shows the barcode scanner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI3-DX-lzR">
+                                <rect key="frame" x="37" y="276" width="247" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -576,14 +576,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginpage" translatesAutoresizingMaskIntoConstraints="NO" id="AQA-HZ-HzQ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="491"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="moA-Ue-DXc">
-                                <rect key="frame" x="31" y="225" width="255" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="moA-Ue-DXc">
+                                <rect key="frame" x="30" y="225" width="260" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3g-hX-ojY">
-                                <rect key="frame" x="31" y="327" width="255" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3g-hX-ojY">
+                                <rect key="frame" x="30" y="327" width="260" height="30"/>
                                 <color key="backgroundColor" red="0.44705882349999998" green="0.74509803919999995" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -596,14 +596,14 @@
                                 <rect key="frame" x="150" y="175" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eeX-c2-M50">
-                                <rect key="frame" x="31" y="175" width="255" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eeX-c2-M50">
+                                <rect key="frame" x="30" y="175" width="260" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H5C-ql-k5h">
-                                <rect key="frame" x="31" y="273" width="255" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H5C-ql-k5h">
+                                <rect key="frame" x="30" y="273" width="260" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>

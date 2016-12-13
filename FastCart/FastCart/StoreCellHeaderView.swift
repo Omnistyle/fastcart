@@ -9,14 +9,14 @@
 import UIKit
 
 class StoreCellHeaderView: UICollectionReusableView {
-    
     @IBOutlet weak var storeName: UILabel!
-    @IBOutlet weak var favoriteImage: UIImageView!
     @IBOutlet weak var storeImage: UIImageView!
+    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var favoriteImage: UIImageView!
     
     var store: Store! {
         didSet {
-//            storeName.text = store.name
+            storeName.text = store.name
             favoriteImage.image = User.currentUser!.isFavorite(store: store) ? #imageLiteral(resourceName: "heart_filled") : #imageLiteral(resourceName: "heart")
             store.setStoreImage(view: storeImage)
         }
@@ -24,14 +24,11 @@ class StoreCellHeaderView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         storeImage.frame.size.height = storeImage.frame.width
         // Store image rounded corner.
         storeImage.layer.cornerRadius = storeImage.frame.size.width / 2
         storeImage.layer.masksToBounds = true
-        
         favoriteImage.image = #imageLiteral(resourceName: "heart")
-    
     }
     
 }

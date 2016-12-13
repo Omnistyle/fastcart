@@ -10,9 +10,10 @@ import UIKit
 import SAParallaxViewControllerSwift
 import MisterFusion
 import CoreLocation
+import TLYShyNavBar
 
 class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
-    private let kItemSectionHeaderViewID = "StoreCellHeaderView"
+    private let kItemSectionHeaderViewID = "StoreCellHeaderViewID"
     private let kNumStores = 5
     private let kBannerText = "Free shipping! Use code: SHIP."
     private let kCollectionViewTopContraintID = "collectionViewTopContraint"
@@ -40,13 +41,19 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Navbar navigation!
+        self.shyNavBarManager.scrollView = collectionView
+        self.shyNavBarManager.expansionResistance = 20
+        
         // Get the user's location, since this is needed for nearby stores.
         // TODO(need to implement).
+        /*
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
+        */
         
         if let y = self.navigationController?.navigationBar.frame.height {
             let origin = CGPoint(x: 0, y: y + UIApplication.shared.statusBarFrame.size.height)
@@ -77,15 +84,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         label.right |+| 10,
         label.left |+| 10,
         label.bottom)
-        
-//        let view = UIView(frame: bannerView.frame)
-//                view.backgroundColor = UIColor.red
-//        bannerView.addLayoutSubview(view, andConstraints:
-//            view.bottom,
-//            view.left,
-//            view.right,
-//            view.height |==| 1
-//        )
         
         bannerView.isUserInteractionEnabled = true
         // add touch target
@@ -150,18 +148,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         })
     }
     
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Each "item" will be in a seperate section.
@@ -190,7 +176,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoreCellHeaderView", for: indexPath) as! StoreCellHeaderView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kItemSectionHeaderViewID, for: indexPath) as! StoreCellHeaderView
             headerView.storeName.text = stores[indexPath.section]
             headerView.storeImage.image = storesIcon[indexPath.section]
             // add tap target
@@ -231,7 +217,6 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
             cell.favoriteImage.layer.add(pulseAnimation, forKey: nil)
             
         }
-        
     }
     
     //MARK: - UICollectionViewDelegate

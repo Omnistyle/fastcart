@@ -26,7 +26,10 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private var variantIndexFor: [Int: Int] = [:]
     
     var products = [Product]()
+    // Search term is the saved searchTerm for the user.
     var searchTerm = "dress"
+    // When set, this is used instead of the search term.
+    var temporarySearchTerm: String?
     
     var searchController: UISearchController!
     
@@ -114,41 +117,13 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
+    
+    /** Search bar functionality */
+    var blurEffect: UIBlurEffect?
+    var blurEffectView: UIVisualEffectView?
     var trendingView: UIView?
     var titleLabel: UILabel?
     var label: UILabel?
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView!.frame = view.bounds
-        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(blurEffectView!)
-        
-        guard let trendingSearches = trending?.prefix(10) else {return}
-       
-        // title label
-        titleLabel = UILabel()
-        titleLabel!.text = "Trending"
-        titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightLight)
-        titleLabel!.frame = CGRect(x: CGFloat(20), y: CGFloat(75), width: view.frame.width, height: 50)
-        view.addSubview(titleLabel!)
-        
-        // trending labels
-        label = UILabel()
-        
-        var currentText = ""
-    
-        for trend in trendingSearches {
-            currentText = currentText + trend + "\r\n\r\n"
-        }
-        
-        label!.text = currentText
-        label!.numberOfLines = 0
-        label!.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
-        label?.textColor = UIColor.black
-        label!.frame = CGRect(x: CGFloat(20), y: CGFloat(150), width: view.frame.width - 40, height: 200)
-        view.addSubview(label!)
-    }
     var trending: [String]?
     func getTrending() {
         trendingView = UIView(frame: CGRect(x: CGFloat(0.0), y: CGFloat(30.0), width: view.frame.width, height: view.frame.height))
@@ -159,8 +134,14 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             Utilities.presentErrorAlert(title: "Network Failure", message: error.localizedDescription)
         })
     }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func reload() {
+        self.products = []
+        self.selectedPrice = Constants.defaultPrice
+        self.selectedColor = []
+        self.selectedShipping = []
+        self.loadMoreData()
+    }
+    private func clearTrending() {
         if let titleLabel = titleLabel {
             titleLabel.removeFromSuperview()
         }
@@ -171,21 +152,47 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             blurEffectView.removeFromSuperview()
         }
     }
-    
-    var blurEffect: UIBlurEffect?
-    var blurEffectView: UIVisualEffectView?
-    func updateSearchResults(for searchController: UISearchController) {
-        // Reset products and reload.
-        if let searchText = searchController.searchBar.text {
-            self.products = []
-            self.selectedPrice = Constants.defaultPrice
-            self.selectedColor = []
-            self.selectedShipping = []
-            self.searchTerm = searchText
-            self.loadMoreData()
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView!.frame = view.bounds
+        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView!)
+        
+        guard let trendingSearches = trending?.prefix(10) else { return }
+       
+        // title label
+        titleLabel = UILabel()
+        titleLabel!.text = "Trending"
+        titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightLight)
+        titleLabel!.frame = CGRect(x: CGFloat(20), y: CGFloat(75), width: view.frame.width, height: 50)
+        view.addSubview(titleLabel!)
+        
+        // trending labels
+        label = UILabel()
+        var currentText = ""
+        for trend in trendingSearches {
+            currentText = currentText + trend + "\r\n\r\n"
         }
+        label!.text = currentText
+        label!.numberOfLines = 0
+        label!.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
+        label!.textColor = UIColor.black
+        label!.frame = CGRect(x: CGFloat(20), y: CGFloat(150), width: view.frame.width - 40, height: 200)
+        view.addSubview(label!)
     }
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        clearTrending()
+        // User did not reset the search term.
+        temporarySearchTerm = nil
+        reload()
+    }
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        guard searchText.characters.count > 2 else { return }
+        temporarySearchTerm = searchText
+        reload()
+    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchController.isActive = false
         searchBar.resignFirstResponder()
@@ -199,6 +206,11 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let blurEffectView = blurEffectView {
             blurEffectView.removeFromSuperview()
         }
+        if let selectedTerm = temporarySearchTerm {
+            searchTerm = selectedTerm
+        }
+        clearTrending()
+        reload()
     }
     
     // collection view
@@ -325,16 +337,25 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.activityIndicator.startAnimating()
         let count = products.count
         let startIndex = String(count + 1)
-        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: self.searchTerm, startIndex: startIndex, price: self.selectedPrice, color: selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
-                // Insert the new products!
-                let originalCount = self.products.count
-                self.products = self.products + products
-                let indexPaths = products.enumerated().map({ (offset: Int, element: Product) -> IndexPath in
-                    return IndexPath(item: originalCount + offset , section: 0)
-                })
-                self.collectionView.insertItems(at: indexPaths)
-                self.isMoreDataLoading = false
-                self.activityIndicator.stopAnimating()
+        WalmartClient.sharedInstance.getProductsWithSearchTerm(term: self.temporarySearchTerm ?? self.searchTerm, startIndex: startIndex, price: self.selectedPrice, color: selectedColor, shipping: self.selectedShipping, success: { (products: [Product]) in
+            // Insert the new products!
+            self.products = self.products + products
+            // Inserting new products.
+            if count > 0 {
+                // Actually received a response!
+                if products.count > 0 {
+                    let indexPaths = products.enumerated().map({ (offset: Int, element: Product) -> IndexPath in
+                        return IndexPath(item: count + offset , section: 0)
+                    })
+                    self.collectionView.insertItems(at: indexPaths)
+                }
+            }
+            // We assume that if we had no previous products, we just want to reload all the data.
+            else {
+                self.collectionView.reloadData()
+            }
+            self.isMoreDataLoading = false
+            self.activityIndicator.stopAnimating()
             
         }, failure: {(error: Error) -> () in
             self.activityIndicator.stopAnimating()

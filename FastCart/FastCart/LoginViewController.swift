@@ -109,15 +109,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator = Utilities.addActivityIndicator(to: self.view)
         
         
-                        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
-                        self.view.addGestureRecognizer(tapGestureRecognizer)
-                        self.view.isUserInteractionEnabled = true
-        
-//        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
-//        loginView.addGestureRecognizer(tapGestureRecognizer)
-//        loginView.isUserInteractionEnabled = true
-        
-//        let y = self.view.frame.size.height - Constants.facebookButtonBottomMargin
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LoginViewController.onTapingOutTextfields))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+        self.view.isUserInteractionEnabled = true
         
         self.fbloginButton = FBSDKLoginButton()
         let y = Constants.facebookButtonBottomMargin
@@ -314,8 +308,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 self.onSignUp(username: self.dict["name"] as! String, email: self.dict["email"] as! String, password: "password", id: self.dict["id"] as! String)
             }
         }
-        
-        self.performSegue(withIdentifier: "successloginsegue", sender: nil)
     }
     
     @IBAction func onBackSignUp(_ sender: Any) {
@@ -374,8 +366,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
             
             self.performSegue(withIdentifier: "successloginsegue", sender: nil)
-            // try to segue 
-
         }
     }
     
