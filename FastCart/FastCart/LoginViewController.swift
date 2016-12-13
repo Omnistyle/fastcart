@@ -40,10 +40,42 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var currentUser : User!
     
+
     var fbloginButton : FBSDKLoginButton!
     
     var shifitngValue : Int = 100//130
     
+
+    // navigation bar formatting
+    private var shadowImageView: UIImageView?
+
+    private func findShadowImage(under view: UIView) -> UIImageView? {
+        if view is UIImageView && view.bounds.size.height <= 1 {
+            return (view as! UIImageView)
+        }
+        
+        for subview in view.subviews {
+            if let imageView = findShadowImage(under: subview) {
+                return imageView
+            }
+        }
+        return nil
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if shadowImageView == nil {
+            shadowImageView = findShadowImage(under: navigationController!.navigationBar)
+        }
+        shadowImageView?.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        shadowImageView?.isHidden = false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,6 +121,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         blurEffectView.frame = loginView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         loginView.addSubview(blurEffectView)
+        
+        // format navigation bar
+        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
     
     func showOptionalLogin(show: Bool){
@@ -196,6 +232,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
         
         self.performSegue(withIdentifier: "successloginsegue", sender: nil)
+    }
+    
+    @IBAction func onBackSignUp(_ sender: Any) {
+        self.dismiss(animated: true, completion: ({}))
     }
     
     func onSignUp(username: String, email: String, password: String, id: String) {

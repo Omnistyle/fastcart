@@ -36,6 +36,9 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fakeScanButton.isEnabled = true
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            scanController.reset()
+        }
     }
     
     @IBAction func onFakeScanButtonPress(_ sender: UIButton) {
@@ -58,7 +61,6 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
         controller.errorDelegate = self
         controller.dismissalDelegate = self
         
-        
         return controller
     }
     // Process the captured code. Abstracted out so we can re-use even when testing.
@@ -68,7 +70,6 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
         WalmartClient.sharedInstance.getProductWithUPC(upc: code, success: { (products: [Product]) in
             guard products.count > 0 else {
                 Utilities.presentErrorAlert(title: "No Products", message: "Could not find product for code \(code).")
-                controller?.resetWithError(message: "No products for UPC: \(code)!")
                 return
             }
             
@@ -78,10 +79,11 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             productDetailsViewController.hidesBottomBarWhenPushed = true
             productDetailsViewController.product = products[0]
             self.navigationController?.pushViewController(productDetailsViewController, animated: true)
-            controller?.reset()
         }, failure: {(error: Error) -> () in
-            controller?.resetWithError(message: "UPC: \(code) not found or network error!")
+            Utilities.presentErrorAlert(title: "Not Found", message: "UPC: \(code) not found or network error!")
         })
+        // Always dismiss.
+//        controller?.dismiss(animated: true, completion: nil)
     }
     
     private func moveScannerIn() {
@@ -98,7 +100,7 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
 extension ScanViewController: BarcodeScannerErrorDelegate {
     
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        controller.resetWithError(message: error.localizedDescription)
+        // controller.resetWithError(message: error.localizedDescription)
     }
 }
 

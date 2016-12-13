@@ -76,6 +76,15 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         label.left |+| 10,
         label.bottom)
         
+//        let view = UIView(frame: bannerView.frame)
+//                view.backgroundColor = UIColor.red
+//        bannerView.addLayoutSubview(view, andConstraints:
+//            view.bottom,
+//            view.left,
+//            view.right,
+//            view.height |==| 1
+//        )
+        
         bannerView.isUserInteractionEnabled = true
         // add touch target
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideBanner(sender:)))
@@ -89,6 +98,7 @@ class StoresViewController: SAParallaxViewController, UIGestureRecognizerDelegat
         let bannerView = createBannerView()
         
         // Add banner view.
+        
         self.view.addLayoutSubview(bannerView, andConstraints:
             bannerView.top |+| origin.y,
             bannerView.left,

@@ -49,9 +49,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         display(product: product)
         
         // Add reviews.
-        fixedView.center.y = fixedView.center.y + fixedView.frame.size.height
+        fixedView.frame.origin.y = self.view.frame.origin.y + self.view.frame.height
+//        fixedView.center.y = self.view.frame.size.height + fixedView.frame.size.height
         UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
-            self.fixedView.center.y = self.fixedView.center.y - self.fixedView.frame.size.height
+            self.fixedView.frame.origin.y = self.fixedView.frame.origin.y - self.fixedView.frame.size.height
         
         }, completion: nil)
         
@@ -117,10 +118,10 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         WalmartClient.sharedInstance.getSimilarProducts(itemId: itemId, success: {(products: [Product]) -> () in
             for product in products {
                 let frame = CGRect(x: 0, y:0, width: self.kOfferSize.width, height: 2 * self.kOfferSize.height)
-                let view = SimilarProductView(frame: frame)
-                view.product = product
-                view.isUserInteractionEnabled = true
-                horizontalScrollView.addItem(view)
+                let productCell = SimilarProductView(frame: frame)
+                productCell.product = product
+                productCell.isUserInteractionEnabled = true
+                horizontalScrollView.addItem(productCell)
             }
             view.addSubview(horizontalScrollView)
             activityIndicator.stopAnimating()
