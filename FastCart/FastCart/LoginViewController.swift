@@ -137,73 +137,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func keyboardWillShow(sender: NSNotification) {
         if(!keyboardPrecense){
+            showOptionalLogin(show: false)
             self.view.frame.origin.y -= 180
             keyboardPrecense = true
         }
 
     }
     func keyboardWillHide(sender: NSNotification) {
+        showOptionalLogin(show: true)
         self.view.frame.origin.y += 180
         keyboardPrecense = false
     }
-    
-//    func keyboardWillHide(sender: NSNotification) {
-//        let userInfo: [NSObject : AnyObject] = sender.userInfo! as [NSObject : AnyObject]
-//        let keyboardSize: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
-//        self.view.frame.origin.y += keyboardSize.height
-//    }
-//    
-//    func keyboardWillShow(sender: NSNotification) {
-//        let userInfo: [NSObject : AnyObject] = sender.userInfo! as [NSObject : AnyObject]
-//        let keyboardSize: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
-//        let offset: CGSize = ((sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size)!
-//        
-//        if keyboardSize.height == offset.height {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                self.view.frame.origin.y -= keyboardSize.height
-//            })
-//        } else {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                self.view.frame.origin.y += keyboardSize.height - offset.height
-//            })
-//        }
-//    }
-    
-//    func keyboardWillShow(notification: NSNotification) {
-//        
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//        
-//    }
-//    
-//    func keyboardWillHide(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y != 0{
-//                self.view.frame.origin.y += keyboardSize.height
-//            }
-//        }
-//    }
-    
-    
-//    func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= (keyboardSize.height)
-//            }
-//        }
-//        
-//    }
-//    
-//    func keyboardWillHide(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y != 0{
-//                self.view.frame.origin.y += (keyboardSize.height)
-//            }
-//        }
-//    }
     
     func showOptionalLogin(show: Bool){
         if show {
@@ -224,40 +168,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             //showOptionalLogin(show: true)
         //}
     }
-//
-//    @IBAction func onTappingOntextFields(_ sender: Any) {
-//        if (!self.shiftedUp) {
-//            shiftedUp = true
-//            print("^^^^^^^^^^^^^^^^^^^^^^^shifiting up^^^^^^^^^^^Password field")
-//            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
-//            showOptionalLogin(show: false)
-//        } else {
-//            print("===================is already shifted up=============Password field")
-//        }
-//    }
-//    
-//    @IBAction func onTapingOntextFields(_ sender: Any) {
-//        if (!self.shiftedUp) {
-//            shiftedUp = true
-//            print("^^^^^^^^^^^^^^^^^^^^^^^shifiting up^^^^^^^^^^^User field")
-//            animateViewMoving(up: true, moveValue: CGFloat(shifitngValue))
-//            showOptionalLogin(show: false)
-//        } else {
-//            print("===================is already shifted up========User field")
-//        }
-//    }
-//
-//    func animateViewMoving (up:Bool, moveValue :CGFloat){
-//        let movementDuration:TimeInterval = 0.4
-//        let movement:CGFloat = ( up ? -moveValue : moveValue)
-//        
-//        UIView.beginAnimations("animateView", context: nil)
-//        UIView.setAnimationBeginsFromCurrentState(true)
-//        UIView.setAnimationDuration(movementDuration)
-//        
-//        self.userpassloginView.frame = self.userpassloginView.frame.offsetBy(dx: 0, dy: movement)
-//        UIView.commitAnimations()
-//    }
     
     
     @IBAction func onFastcartLogin(_ sender: Any) {
