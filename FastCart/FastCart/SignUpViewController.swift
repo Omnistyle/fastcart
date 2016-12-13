@@ -70,6 +70,10 @@ class SignUpViewController: UIViewController {
         self.signupButton.layer.shadowRadius = 4.0
         self.signupButton.layer.masksToBounds = false
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(SignUpViewController.onTapingOutTextfields))
+        loginView.addGestureRecognizer(tapGestureRecognizer)
+        loginView.isUserInteractionEnabled = true
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -85,6 +89,10 @@ class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
 
+    func onTapingOutTextfields(){
+        self.view.endEditing(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

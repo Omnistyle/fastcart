@@ -83,7 +83,7 @@ class ScanViewController: UIViewController, BarcodeScannerCodeDelegate {
             Utilities.presentErrorAlert(title: "Not Found", message: "UPC: \(code) not found or network error!")
         })
         // Always dismiss.
-        controller?.dismiss(animated: true, completion: nil)
+//        controller?.dismiss(animated: true, completion: nil)
     }
     
     private func moveScannerIn() {
