@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import MisterFusion
 
 class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var arrPageTitle = [String]()
     var arrPagePhoto = [UIImage]()
     
+    private var pageControl = UIPageControl()
     
     
     override func viewDidLoad() {
@@ -25,6 +27,14 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
         
         self.dataSource = self
         self.setViewControllers([getViewControllerAtIndex(index: 0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
+        
+        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.pageControl.currentPageIndicatorTintColor = UIColor.darkGray
+        self.pageControl.pageIndicatorTintColor = UIColor.lightGray
+        self.view.addLayoutSubview(self.pageControl, andConstraints:
+            pageControl.centerX |==| view.centerX,
+            pageControl.bottom |==| view.bottom |+| 10
+        )
         
     }
     
@@ -39,7 +49,7 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
         index = index - 1
         return getViewControllerAtIndex(index: index)
     }
-//
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
     {
         let pageContent: PageContentViewController = viewController as! PageContentViewController
@@ -66,21 +76,5 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
         pageContentViewController.pageIndex = index
         return pageContentViewController
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-      /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
