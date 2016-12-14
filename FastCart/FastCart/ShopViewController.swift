@@ -292,7 +292,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     let cellHeight = CGFloat(290)
-    func collectionView(s_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // Sets to equal width and about 1 1/2 cells vertically on iphone 5s
         return CGSize(width: CGFloat(collectionView.frame.size.width / 2 - 0.5), height: cellHeight)
        

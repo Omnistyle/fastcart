@@ -1836,7 +1836,7 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstItem="c9P-Qw-QQF" firstAttribute="centerY" secondItem="S4s-eT-BBX" secondAttribute="centerY" id="0FG-ur-jKk"/>
-                                                            <constraint firstAttribute="bottom" secondItem="S4s-eT-BBX" secondAttribute="bottom" constant="8" id="2XY-Qu-Ycw"/>
+                                                            <constraint firstAttribute="bottom" secondItem="S4s-eT-BBX" secondAttribute="bottom" priority="999" constant="8" id="2XY-Qu-Ycw"/>
                                                             <constraint firstItem="S4s-eT-BBX" firstAttribute="leading" secondItem="cqM-ll-dVf" secondAttribute="leading" constant="8" id="38A-dg-nvm"/>
                                                             <constraint firstAttribute="width" secondItem="cqM-ll-dVf" secondAttribute="height" multiplier="36:7" id="DcY-R8-sfj"/>
                                                             <constraint firstItem="S4s-eT-BBX" firstAttribute="top" secondItem="cqM-ll-dVf" secondAttribute="top" constant="12" id="Dcb-wa-qpI"/>
@@ -1876,7 +1876,6 @@
                                                         <color key="backgroundColor" red="0.71372549019607845" green="0.71372549019607845" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="0.5" id="I15-Sq-fXK"/>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="KeI-Is-43K"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rca-60-0Bz">
@@ -1934,7 +1933,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                                                         <color key="backgroundColor" red="0.71372549019607845" green="0.71372549019607845" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="DfS-eW-Q3x"/>
                                                             <constraint firstAttribute="height" constant="0.5" id="wuy-xp-Vqn"/>
                                                         </constraints>
                                                     </view>

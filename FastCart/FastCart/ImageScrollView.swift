@@ -31,6 +31,10 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
     }
     
     func setup() {
+        // Don't clip to bounds. 
+        self.clipsToBounds = false
+        self.scrollView.clipsToBounds = false
+
         // add scrollview
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.isPagingEnabled = true
@@ -49,7 +53,8 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
             self.pageControl.pageIndicatorTintColor = UIColor.lightGray
             self.addLayoutSubview(self.pageControl, andConstraints:
                 pageControl.centerX |==| scrollView.centerX,
-                pageControl.bottom |==| scrollView.bottom
+                pageControl.height |==| Constants.kBannerHeight,
+                pageControl.bottom |==| self.bottom |+| 24
             )
         }
         
@@ -99,7 +104,6 @@ open class ImageScrollView: UIView, UIScrollViewDelegate {
         // update page control
         self.pageControl.numberOfPages = self.datasource.numberOfImages()
         self.pageControl.currentPage = self.initialPage
-        
     }
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

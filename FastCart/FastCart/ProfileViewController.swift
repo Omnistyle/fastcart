@@ -181,7 +181,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 cell.backgroundColor = UIColor(colorLiteralRed: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
             
                 // format button
-                let y = Constants.buttonBottomMargin
+                // let y = Constants.buttonBottomMargin
                 let frame = CGRect(x: Constants.buttonLeftRightMargin, y: 0,
                                width: view.frame.width - 2 * Constants.buttonLeftRightMargin,
                                height: Constants.buttonHeight)
