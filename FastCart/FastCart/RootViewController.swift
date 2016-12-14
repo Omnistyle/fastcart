@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MisterFusion
 
 class RootViewController:  UIViewController, UIPageViewControllerDataSource {
     
@@ -15,6 +16,8 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
     var pageViewController: UIPageViewController!
     
     @IBOutlet weak var loginButton: UIButton!
+    
+    private var pageControl : UIPageControl = UIPageControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +37,24 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         self.pageViewController.didMove(toParentViewController: self)
         
         // configure page control
-//        configurePageControl()
+        configurePageControl()
         
     }
-    var pageControl : UIPageControl = UIPageControl(frame: CGRect(x: 50, y: 300, width: 200, height: 50))
-
     
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
+    
+        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.pageControl.currentPageIndicatorTintColor = UIColor.darkGray
+        self.pageControl.pageIndicatorTintColor = UIColor.lightGray
+        self.view.addLayoutSubview(self.pageControl, andConstraints:
+            pageControl.centerX |==| view.centerX,
+            pageControl.bottom |==| loginButton.top |+| 32,
+            pageControl.width |==| 100,
+            pageControl.height |==| 50
+        )
         self.pageControl.numberOfPages = arrPagePhoto.count
-       
-//        self.pageControl.tintColor = UIColor.red
-//        self.pageControl.pageIndicatorTintColor = UIColor.black
-//        self.pageControl.currentPageIndicatorTintColor = UIColor.green
-        self.view.addSubview(pageControl)
+        self.pageControl.currentPage = 0
         
     }
 
@@ -97,6 +104,7 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         // if it's the initial page, text should be larger
         
         pageContentViewController.pageIndex = index
+        pageControl.currentPage = index
         return pageContentViewController
     }
     
@@ -104,17 +112,4 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
