@@ -9,7 +9,7 @@
 import UIKit
 import MisterFusion
 
-class RootViewController:  UIViewController, UIPageViewControllerDataSource {
+class RootViewController:  UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var arrPageTitle = [String]()
     var arrPagePhoto = [UIImage]()
@@ -29,6 +29,7 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         self.pageViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageViewController") as! UIPageViewController
         self.pageViewController.view.frame = CGRect(x: CGFloat(0.0), y: CGFloat(0), width: self.view.frame.width, height: self.view.frame.size.height - loginButton.frame.size.height)
         self.pageViewController.dataSource = self
+        self.pageViewController.delegate = self
         self.pageViewController.setViewControllers([getViewControllerAtIndex(index: 0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         
         // get page view controller to show
@@ -40,7 +41,6 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         configurePageControl()
         
     }
-    
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
     
@@ -49,7 +49,7 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.view.addLayoutSubview(self.pageControl, andConstraints:
             pageControl.centerX |==| view.centerX,
-            pageControl.bottom |==| loginButton.top |+| 32,
+            pageControl.bottom |==| loginButton.top |-| 16,
             pageControl.width |==| 100,
             pageControl.height |==| 50
         )
@@ -57,13 +57,11 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         self.pageControl.currentPage = 0
         
     }
-
-    
-
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
     {
         let pageContent: PageContentViewController = viewController as! PageContentViewController
         var index = pageContent.pageIndex
+        pageControl.currentPage = index
         if ((index == 0) || (index == NSNotFound))
         {
             return nil
@@ -78,33 +76,40 @@ class RootViewController:  UIViewController, UIPageViewControllerDataSource {
         
         let pageContent: PageContentViewController = viewController as! PageContentViewController
         var index = pageContent.pageIndex
+        pageControl.currentPage = index
         if (index == NSNotFound)
         {
             return nil;
         }
-        
         index = index + 1
         if (index == arrPageTitle.count)
         {
             return nil;
         }
-        
-        
-        
+    
         return getViewControllerAtIndex(index: index)
     }
     
-    func getViewControllerAtIndex(index: Int) -> PageContentViewController
+    // Update the index on the page control!
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool)
     {
+        guard completed else { return }
+        guard let page = pageViewController.viewControllers?.first as? PageContentViewController else { return }
+        self.pageControl.currentPage = page.pageIndex
+    }
+    func getViewControllerAtIndex(index: Int) -> PageContentViewController {
+        pageControl.currentPage = index
+        
         // Create a new view controller and pass suitable data.
         let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageContentViewController") as! PageContentViewController
         pageContentViewController.labelTitle = "\(arrPageTitle[index])"
         pageContentViewController.photo = arrPagePhoto[index]
         
         // if it's the initial page, text should be larger
-        
         pageContentViewController.pageIndex = index
-        pageControl.currentPage = index
         return pageContentViewController
     }
     
