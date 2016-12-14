@@ -58,7 +58,6 @@
 		7FB7D1A31DE1A196005E35F5 /* ReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */; };
 		7FE6DE221DFF434100DB0006 /* PageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE6DE211DFF434100DB0006 /* PageContentViewController.swift */; };
 		7FE6DE241DFF43A100DB0006 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE6DE231DFF43A100DB0006 /* RootViewController.swift */; };
-		7FE6DE261DFF44C800DB0006 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE6DE251DFF44C800DB0006 /* OnboardingPageViewController.swift */; };
 		7FF055F61DD126BD00434F2A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F51DD126BD00434F2A /* Product.swift */; };
 		7FF055FA1DD13A4F00434F2A /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055F91DD13A4F00434F2A /* ScanViewController.swift */; };
 		7FF055FC1DD2DD1300434F2A /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF055FB1DD2DD1200434F2A /* Store.swift */; };
@@ -121,7 +120,6 @@
 		7FB7D1A21DE1A196005E35F5 /* ReceiptCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptCell.swift; sourceTree = "<group>"; };
 		7FE6DE211DFF434100DB0006 /* PageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentViewController.swift; sourceTree = "<group>"; };
 		7FE6DE231DFF43A100DB0006 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		7FE6DE251DFF44C800DB0006 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		7FF055F51DD126BD00434F2A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		7FF055F91DD13A4F00434F2A /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		7FF055FB1DD2DD1200434F2A /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 				7F828CEA1DFB91850026F8C8 /* TrendingSearchesViewController.swift */,
 				7FE6DE211DFF434100DB0006 /* PageContentViewController.swift */,
 				7FE6DE231DFF43A100DB0006 /* RootViewController.swift */,
-				7FE6DE251DFF44C800DB0006 /* OnboardingPageViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -478,7 +475,6 @@
 				22C6B5FB1DF529AB00B37024 /* ReceiptHistoryViewController.swift in Sources */,
 				7F828CE31DFB586E0026F8C8 /* FiltersTableViewCell.swift in Sources */,
 				7FE6DE221DFF434100DB0006 /* PageContentViewController.swift in Sources */,
-				7FE6DE261DFF44C800DB0006 /* OnboardingPageViewController.swift in Sources */,
 				103215891DD2D8AD00186704 /* ListViewController.swift in Sources */,
 				7F12DF8A1DDB9F5D003C78C6 /* Reviews.swift in Sources */,
 				102D9C111DE147BF00E8232A /* Utilities.swift in Sources */,
