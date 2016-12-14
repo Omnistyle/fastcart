@@ -33,7 +33,7 @@ class ColorFilterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    // MARK: - Init
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,9 +42,10 @@ class ColorFilterTableViewCell: UITableViewCell {
         contentView.backgroundColor = UIColor.clear
         
         var count = 0
-        let width = CGFloat(40)
-        let padding = CGFloat(15)
-        //        let padding = (self.contentView.frame.width - CGFloat(4)*width) / CGFloat(6)
+        // MARK: - Init
+        let width : CGFloat = CGFloat(40.0)
+        let padding : CGFloat = CGFloat(15.0)
+        //  let padding = (self.contentView.frame.width - CGFloat(4)*width) / CGFloat(6)
         for labelColor in colorLabels {
             let column = CGFloat(Int(count % 4))
             let row = CGFloat(Int(count / 4))
@@ -62,10 +63,10 @@ class ColorFilterTableViewCell: UITableViewCell {
             view.addGestureRecognizer(tap)
             
             
-            if labelColor == UIColor.white {
-                view.layer.borderWidth = 1
-                view.layer.borderColor = UIColor.lightGray.cgColor
-            }
+//            if labelColor == UIColor.white {
+//                view.layer.borderWidth = 1
+//                view.layer.borderColor = UIColor.lightGray.cgColor
+//            }
             colors.append(view)
             count = count + 1
         }
@@ -85,14 +86,23 @@ class ColorFilterTableViewCell: UITableViewCell {
         guard let color = sender.view?.backgroundColor else {return }
         if selectedViews.contains(color) {
             sender.view?.layer.borderWidth = 0
+//            // add an overlay
+//            guard let height = sender.view?.frame.size.height else {return }
+//            let view = UIView(frame: CGRect(x: 0, y: 0, width: height - 5.0, height: height - 5.0))
+//            view.backgroundColor = UIColor.white
+//            view.layer.cornerRadius = width / 2
+//            view.layer.masksToBounds = true
+//            
+//            sender.view?.addSubview(view)
+            
             if let index = selectedViews.index(of: color) {
                 selectedViews.remove(at: index)
             }
             
         } else {
+            sender.view?.layer.borderWidth = 2
+            sender.view?.layer.borderColor = UIColor.lightGray.cgColor
             
-            sender.view?.layer.borderWidth = 1
-            sender.view?.layer.borderColor = UIColor.black.cgColor
             selectedViews.append(color)
         }
     }

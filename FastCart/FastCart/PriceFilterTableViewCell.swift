@@ -23,6 +23,7 @@ class PriceFilterTableViewCell: UITableViewCell {
     var minPriceLabel = UILabel()
     var slider = UISlider()
     var maxPriceLabel = UILabel()
+    var currentPriceLabel = UILabel()
     var selectedPrice = Double(500.0) {
         didSet {
             delegate.didSelectPrice(cell: self, selectedPrice: selectedPrice)
@@ -55,6 +56,7 @@ class PriceFilterTableViewCell: UITableViewCell {
         contentView.addSubview(minPriceLabel)
         contentView.addSubview(maxPriceLabel)
         contentView.addSubview(slider)
+        contentView.addSubview(currentPriceLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,6 +73,12 @@ class PriceFilterTableViewCell: UITableViewCell {
         let widthSecond = CGFloat(60)
         formatLabelForSideMenu(label: minPriceLabel)
         formatLabelForSideMenu(label: maxPriceLabel)
+        formatLabelForSideMenu(label: currentPriceLabel)
+        
+        currentPriceLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFontWeightLight)
+        currentPriceLabel.frame = CGRect(x: contentView.frame.width/2.0 - 20.0, y: -15.0, width: widthFirst + 40.0, height: contentView.frame.height)
+        currentPriceLabel.text = "$500"
+
         
         minPriceLabel.frame = CGRect(x: padding, y: padding, width: widthFirst, height: contentView.frame.height)
         minPriceLabel.text = "$0"
@@ -87,6 +95,8 @@ class PriceFilterTableViewCell: UITableViewCell {
     
     func valueChanged(sender: UISlider) {
        selectedPrice = Double(sender.value)*Double(500.0)
+       let selectedPriceRounded = Double(round(100*selectedPrice)/100)
+       currentPriceLabel.text = "$" + String(describing: selectedPriceRounded)
         
     }
         
