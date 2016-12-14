@@ -175,6 +175,24 @@ class Receipt: EVObject {
             }
         }
     }
+    
+    static func getAllReceipts(completion: @escaping (_ result: [Receipt]) -> Void) {
+        let query = PFQuery(className: "Receipt")
+        query.addDescendingOrder("createdAt")
+        _ = query.findObjectsInBackground{
+            (recieptPFPbjects: [PFObject]?, error: Error?) -> Void in
+            if error == nil {
+                if recieptPFPbjects != nil{
+                    let receipts = self.ReceiptsDeserialization(rawReceipts: recieptPFPbjects!)
+                    
+                    completion(receipts)
+                }
+                
+            } else {
+                print("some went wrong")
+            }
+        }
+    }
 }
 
 

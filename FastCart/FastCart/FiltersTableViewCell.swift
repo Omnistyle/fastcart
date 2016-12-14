@@ -28,8 +28,10 @@ final class MyExpandableTableViewSectionHeader: LUExpandableTableViewSectionHead
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnLabel)))
-        label.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnLabel)))
+        self.isUserInteractionEnabled = true
+//        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnLabel)))
+//        label.isUserInteractionEnabled = true
     }
     
     // MARK: - IBActions
@@ -44,5 +46,6 @@ final class MyExpandableTableViewSectionHeader: LUExpandableTableViewSectionHead
     @objc private func didTapOnLabel(_ sender: UIGestureRecognizer) {
         // Send the message to his delegate that was selected
         delegate?.expandableSectionHeader(self, wasSelectedAtSection: section)
+        delegate?.expandableSectionHeader(self, shouldExpandOrCollapseAtSection: section)
     }
 }

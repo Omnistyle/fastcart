@@ -30,7 +30,7 @@ class ReceiptCell: UITableViewCell {
                 
                 priceLabel.text = receipt.totalAsString
                 storeLabel.text = receipt.store.name
-                dateLabel.text = receipt.startedAsString
+                dateLabel.text = receipt.completedAsString//receipt.startedAsString
                 locationLabel.text = receipt.store.locationAsString
             }
         }
