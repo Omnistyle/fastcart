@@ -261,19 +261,10 @@ class Utilities {
      
      - returns: The activity indicator reference, after it's been added to the view.
      */
-    @objc
-    static func removeIndicator(sender: UITapGestureRecognizer) {
-        guard let view = sender.view as? UIActivityIndicatorView else { return }
-        view.stopAnimating()
-    }
     static func addActivityIndicator(to view: UIView) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = Constants.themeColor
         activityIndicator.center = view.superview?.convert(view.center, to: view) ?? view.center
-        // Add a tap gesture recognizer that lets us dismiss it in case it gets stuck!
-        let tap = UITapGestureRecognizer(target: Utilities.self, action: #selector(Utilities.removeIndicator))
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
         view.addSubview(activityIndicator)
         
         return activityIndicator
