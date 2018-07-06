@@ -86,7 +86,7 @@ class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
 
-    func onTapingOutTextfields(){
+    @objc func onTapingOutTextfields(){
         self.view.endEditing(true)
     }
     

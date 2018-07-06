@@ -68,14 +68,14 @@ func imageNamed(_ name: String) -> UIImage {
  `AVCaptureMetadataOutput` metadata object types.
  */
 public var metadata = [
-  AVMetadataObjectTypeUPCECode,
-  AVMetadataObjectTypeCode39Code,
-  AVMetadataObjectTypeCode39Mod43Code,
-  AVMetadataObjectTypeEAN13Code,
-  AVMetadataObjectTypeEAN8Code,
-  AVMetadataObjectTypeCode93Code,
-  AVMetadataObjectTypeCode128Code,
-  AVMetadataObjectTypePDF417Code,
-  AVMetadataObjectTypeQRCode,
-  AVMetadataObjectTypeAztecCode
+  AVMetadataObject.ObjectType.upce,
+  AVMetadataObject.ObjectType.code39,
+  AVMetadataObject.ObjectType.code39Mod43,
+  AVMetadataObject.ObjectType.ean13,
+  AVMetadataObject.ObjectType.ean8,
+  AVMetadataObject.ObjectType.code93,
+  AVMetadataObject.ObjectType.code128,
+  AVMetadataObject.ObjectType.pdf417,
+  AVMetadataObject.ObjectType.qr,
+  AVMetadataObject.ObjectType.aztec
 ]

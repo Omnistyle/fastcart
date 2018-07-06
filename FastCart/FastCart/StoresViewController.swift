@@ -102,7 +102,7 @@ class StoresViewController: SAParallaxViewController, CLLocationManagerDelegate 
     }
     
     // Hides the banner. Public so selector can access it.
-    func hideBanner(sender: UITapGestureRecognizer? = nil) {
+    @objc func hideBanner(sender: UITapGestureRecognizer? = nil) {
         guard sender != nil  else { return }
         UIView.animate(withDuration: 1.0, animations: {
             guard let bannerView = self.shyNavBarManager.extensionView else { return }
@@ -171,7 +171,7 @@ class StoresViewController: SAParallaxViewController, CLLocationManagerDelegate 
         return index
     }
     
-    func handleTap(sender: UITapGestureRecognizer) {
+    @objc func handleTap(sender: UITapGestureRecognizer) {
         guard let user = User.currentUser else { return }
         if let image = sender.view as? UIImageView {
             let cell = image.superview!.superview as! StoreCellHeaderView

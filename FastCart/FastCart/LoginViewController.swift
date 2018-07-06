@@ -135,7 +135,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
     }
     
-    func keyboardWillShow(sender: NSNotification) {
+    @objc func keyboardWillShow(sender: NSNotification) {
         if(!keyboardPrecense){
             showOptionalLogin(show: false)
             self.view.frame.origin.y -= 180
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
 
     }
-    func keyboardWillHide(sender: NSNotification) {
+    @objc func keyboardWillHide(sender: NSNotification) {
         showOptionalLogin(show: true)
         self.view.frame.origin.y += 180
         keyboardPrecense = false
@@ -159,7 +159,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
-    func onTapingOutTextfields(){
+    @objc func onTapingOutTextfields(){
         print("~~~~~~~~~~~ tapping out text fields ~~~~~~~~~~~~")
         self.view.endEditing(true)
         //if(self.shiftedUp){

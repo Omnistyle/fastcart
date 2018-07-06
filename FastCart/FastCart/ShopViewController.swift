@@ -94,7 +94,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setUpSideMenu()
     }
     
-    func buttonMethod() {
+    @objc func buttonMethod() {
         present(SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
     }
     func setUpSideMenu() {
@@ -160,7 +160,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // title label
         titleLabel = UILabel()
         titleLabel!.text = "Trending"
-        titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: UIFontWeightLight)
+        titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.light)
         titleLabel!.frame = CGRect(x: CGFloat(20), y: CGFloat(75), width: view.frame.width, height: 50)
         view.addSubview(titleLabel!)
         
@@ -172,7 +172,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         label!.text = currentText
         label!.numberOfLines = 0
-        label!.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightLight)
+        label!.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
         label!.textColor = UIColor.black
         label!.frame = CGRect(x: CGFloat(20), y: CGFloat(150), width: view.frame.width - 40, height: 200)
         view.addSubview(label!)
@@ -214,7 +214,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return products.count
     }
     
-    func handleTap(sender: UITapGestureRecognizer) {
+    @objc func handleTap(sender: UITapGestureRecognizer) {
         guard let user = User.currentUser else { return }
         if let image = sender.view as? UIImageView {
             let cell = image.superview!.superview?.superview as! ProductOverviewCell
@@ -241,7 +241,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
 
     }
-    func handleCellTap(sender: UITapGestureRecognizer) {
+    @objc func handleCellTap(sender: UITapGestureRecognizer) {
         let cell = sender.view?.superview?.superview?.superview as! ProductOverviewCell
         let indexPath = collectionView.indexPath(for: cell)!
         collectionView(collectionView, didSelectItemAt: indexPath)

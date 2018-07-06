@@ -80,7 +80,7 @@ class HeaderView: UIView {
   /**
    Close button action handler.
    */
-  func buttonDidPress() {
+  @objc func buttonDidPress() {
     delegate?.headerViewDidPressClose(self)
   }
 }

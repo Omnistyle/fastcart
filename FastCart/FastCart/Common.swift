@@ -98,7 +98,7 @@ extension UITabBarController {
         for tabItem in tabBar.items! {
             let item = tabItem
             item.image = item.image?.withRenderingMode(.alwaysOriginal)
-            item.setTitleTextAttributes(["NSForegroundColorAttributeName":UIColor.black], for: .normal)
+            item.setTitleTextAttributes([NSAttributedStringKey(rawValue: "NSForegroundColorAttributeName"):UIColor.black], for: .normal)
             // change the iimage insets to only have the image
             item.imageInsets = UIEdgeInsets(top: 7, left: 0, bottom: -7, right: 0)
         }

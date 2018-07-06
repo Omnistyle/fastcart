@@ -124,7 +124,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         }
     }
     
-    internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+    @objc internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
         if !SideMenuManager.menuEnableSwipeGestures {
             return
         }
@@ -155,7 +155,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         }
     }
     
-    internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
+    @objc internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
         viewControllerForPresentedMenu?.dismiss(animated: true, completion: nil)
     }
     
@@ -449,7 +449,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         return interactive ? SideMenuTransition.singleton : nil
     }
     
-    internal func applicationDidEnterBackgroundNotification() {
+    @objc internal func applicationDidEnterBackgroundNotification() {
         if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
             menuViewController.presentedViewController == nil {
             SideMenuTransition.hideMenuStart()

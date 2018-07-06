@@ -56,7 +56,7 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         
         // Animate upwards
         fixedView.frame.origin.y = self.view.frame.origin.y + self.view.frame.height
-        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
+        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { () -> () in
             self.fixedView.frame.origin.y = self.fixedView.frame.origin.y - self.fixedView.frame.size.height
         
         }, completion: { (success: Bool) -> Void in
@@ -87,14 +87,14 @@ class ProductDetailsViewController: UIViewController, ImageScrollViewDataSource 
         navigationController?.setNavigationBarHidden(self.wasNavHidden, animated: false)
     }
 
-    func onTapReviews(){
+    @objc func onTapReviews(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let reviewsViewController = storyboard.instantiateViewController(withIdentifier: "ReviewsViewController") as! ReviewsViewController
         reviewsViewController.itemId = (product.idFromStore)!
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.pushViewController(reviewsViewController, animated: true)
     }
-    func onProductTap(sender: UITapGestureRecognizer) {
+    @objc func onProductTap(sender: UITapGestureRecognizer) {
         guard let cell = sender.view as? SimilarProductView else { return }
         let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
         vc.product = cell.product

@@ -75,7 +75,7 @@ class PriceFilterTableViewCell: UITableViewCell {
         formatLabelForSideMenu(label: maxPriceLabel)
         formatLabelForSideMenu(label: currentPriceLabel)
         
-        currentPriceLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFontWeightLight)
+        currentPriceLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.light)
         currentPriceLabel.frame = CGRect(x: contentView.frame.width/2.0 - 20.0, y: -15.0, width: widthFirst + 40.0, height: contentView.frame.height)
         currentPriceLabel.text = "$500"
 
@@ -93,7 +93,7 @@ class PriceFilterTableViewCell: UITableViewCell {
         label.frame.origin.x += 12
     }
     
-    func valueChanged(sender: UISlider) {
+    @objc func valueChanged(sender: UISlider) {
        selectedPrice = Double(sender.value)*Double(500.0)
        let selectedPriceRounded = Double(round(100*selectedPrice)/100)
        currentPriceLabel.text = "$" + String(describing: selectedPriceRounded)
@@ -102,6 +102,6 @@ class PriceFilterTableViewCell: UITableViewCell {
         
     func formatLabelForSideMenu(label: UILabel) {
         label.textColor = UIColor(red: 145/255, green: 148/255, blue: 153/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
     }
 }

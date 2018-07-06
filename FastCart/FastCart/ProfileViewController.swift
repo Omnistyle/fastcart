@@ -120,10 +120,10 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
             lblHeader.text = "About Shoply"
         }
         lblHeader.font = UIFont (name: "Helvetica", size: 14)
-        lblHeader.textColor = UIColor(colorLiteralRed: 179.0/255.0, green: 179.0/255.0, blue: 179.0/255.0, alpha: 1.0)
+        lblHeader.textColor = UIColor(red: 179.0/255.0, green: 179.0/255.0, blue: 179.0/255.0, alpha: 1.0)
 
         headerView.addSubview(lblHeader)
-        headerView.backgroundColor = UIColor(colorLiteralRed: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
+        headerView.backgroundColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
         return headerView
     }
     
@@ -178,7 +178,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
                 print(cell.separatorInset)
                 cell.optionLabel.text = ""
                 cell.chevronImage.isHidden = true
-                cell.backgroundColor = UIColor(colorLiteralRed: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
+                cell.backgroundColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
             
                 // format button
                 // let y = Constants.buttonBottomMargin
@@ -282,7 +282,7 @@ class ProfileViewController: UIViewController, FBSDKLoginButtonDelegate, UITable
         }
     }
     
-    func onLogout (){
+    @objc func onLogout (){
         let token = FBSDKAccessToken.current()
         if token != nil {
             //print(token ?? "default token printing")

@@ -40,7 +40,7 @@ class PageContentViewController: UIViewController {
         descriptionLabel.frame.origin.y = CGFloat(0) - descriptionLabel.frame.height
         descriptionLabel.center.x = self.view.frame.width / 2
         
-        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { (success) -> () in
+        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [], animations: { () -> () in
             self.descriptionLabel.frame.origin.y = CGFloat(25)
             
         }, completion: nil)

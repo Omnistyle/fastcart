@@ -49,6 +49,6 @@ class FilterTableViewCell: UITableViewCell {
     
     func formatLabelForSideMenu(label: UILabel) {
         label.textColor = UIColor(red: 145/255, green: 148/255, blue: 153/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
     }
 }

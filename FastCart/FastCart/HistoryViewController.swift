@@ -56,7 +56,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("calling view will appear")
     }
     
-    func refresh(){
+    @objc func refresh(){
         self.receipts = []
         getReceipts()
         print("refreshing table view")

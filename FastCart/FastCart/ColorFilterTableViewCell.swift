@@ -82,7 +82,7 @@ class ColorFilterTableViewCell: UITableViewCell {
         }
     }
     
-    func colorSelected (sender: UITapGestureRecognizer) {
+    @objc func colorSelected (sender: UITapGestureRecognizer) {
         guard let color = sender.view?.backgroundColor else {return }
         if selectedViews.contains(color) {
             sender.view?.layer.borderWidth = 0

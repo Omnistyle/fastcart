@@ -167,7 +167,7 @@ class FiltersViewController: UIViewController, ColorFilterTableViewCellDelegate,
     
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 40/255, green: 44/255, blue: 52/255, alpha: 1)
         let attrs = [
-            NSForegroundColorAttributeName: UIColor.white
+            NSAttributedStringKey.foregroundColor: UIColor.white
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attrs
         

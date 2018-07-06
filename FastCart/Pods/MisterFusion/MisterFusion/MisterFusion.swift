@@ -332,7 +332,7 @@ extension UIView {
         let multiplier: CGFloat = misterFusion.multiplier ?? 1
         let constant: CGFloat = misterFusion.constant ?? 0
         let constraint = NSLayoutConstraint(item: item, attribute: attribute, relatedBy: relatedBy, toItem: toItem, attribute: toAttribute, multiplier: multiplier, constant: constant)
-        constraint.priority = misterFusion.priority ?? UILayoutPriorityRequired
+        constraint.priority = misterFusion.priority ?? UILayoutPriority.required
         constraint.identifier = misterFusion.identifier
         addConstraint(constraint)
         return constraint

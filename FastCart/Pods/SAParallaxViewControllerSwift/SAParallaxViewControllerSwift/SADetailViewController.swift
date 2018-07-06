@@ -87,7 +87,7 @@ open class SADetailViewController: UIViewController {
         return true
     }
     
-    open func closeAction(_ button: UIButton) {
+    @objc open func closeAction(_ button: UIButton) {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
             self.headerContainerView?.alpha = 0.0
         }, completion: { _ in
